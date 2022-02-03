@@ -5,10 +5,12 @@
 {% block body %}
 <div id="centertwouploadbuttons">
     <div id="new_portal">
-
+        <form action="{% url 'newportal' %}">
+            <input type="submit" value="New Portal" />
+        </form>
     </div>
     <div id="update_portal">
-
+        <button>Update Portal</button>
     </div>
 </div>
 

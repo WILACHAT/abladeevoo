@@ -8,6 +8,10 @@
         <link href="{% static 'network/styles.css' %}" rel="stylesheet">
         <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>    
+           
+        {% block script %}
+        {% endblock %}
+   
     </head>
     <body>
 
@@ -34,11 +38,14 @@
            
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'portals' %}">Portals</a>
+                    <a class="nav-link" href="{% url 'subscription' %}">Supscription</a>
                   </li>              
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'upload' %}">Uploads</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'newportal' %}">newportal</a>
+                  </li>   
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'banking' %}">Banking</a>
                   </li> 

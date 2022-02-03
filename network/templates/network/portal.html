@@ -1,0 +1,29 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+<div id="theportalpageid">
+    <div id="thebuttonsinportalpageid">
+    </div>
+        <div id="publicfeedid" name="publicfeed">
+        </div>
+
+        <div id="memberfeedid" name="memberfeed">
+        </div>
+
+        <div id="communitypageid" name="communitypage">
+        </div>
+
+        <div id="callspageid" name="callspage">
+        </div>
+
+        <div id="storepageid" name="storepageid">
+        </div>
+</div>
+
+
+{% endblock %}
+{% block script %}
+<script type="module" src="{% static 'network/portal.js' %}"></script>
+{% endblock %}
+
