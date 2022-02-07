@@ -5,10 +5,10 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("gotoportal/<str:portalname>", views.gotoportal, name="gotoportal"),
+    path("gotoportal/<int:id>/<int:pagination>", views.gotoportal, name="gotoportal"),
     ##API##
     path("allportal", views.allportal, name="allportal"),
-    path("portal/<int:id>/<int:paginationid>", views.portal, name="portal"),
+    path("portal/<str:portalname>", views.portal, name="portal"),
 
     path("aboutus", views.aboutus, name="aboutus"),
     path("explore", views.explore, name="explore"),

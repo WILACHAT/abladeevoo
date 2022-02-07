@@ -13,33 +13,65 @@ function getCookie(name) {
     }
     return cookieValue;
   }
+
   class SuggestionTable extends React.Component {
     constructor(props) {
       super(props);
      
     }
     render() {
+      const suggestion_rows = [];
+      for (let i = 0; i < this.props.data.length; i++)
+      {
+        suggestion_rows.push(
+          <SuggestionsRow
+              id={this.props.data[i].id}
+              portalname={this.props.data[i].portalname}
+              websiteurl={this.props.data[i].websiteurl}
+              portaldes={this.props.data[i].portaldes}
+              currenttime={this.props.data[i].currenttime}/>
+        );
+      }
         return (
-            <div id="check">
-                <h1>LETS FUCKING GO</h1>
-            </div>
+        <div id="control-suggestions">
+            <h1>LETS GO?</h1>
+            <table>
+            <tbody> {suggestion_rows} </tbody>
+            </table>
+        </div>
         )
 
     }
   }
-  
+  class SuggestionsRow extends React.Component {
+      constructor(props) {
+      super(props);
+      this.clickHref = this.clickHref.bind(this);
+
+    }
+    clickHref(e)
+    {
+      console.log("yo wassup")
+    }
+    render() {
+      const portal_link = "/portal/"+this.props.portalname
+        return (
+        <div id="suggestion_row_id">
+          <a name="posterr" href={portal_link} class="h4 colorstyle">{this.props.portalname}</a> 
+          <h1 onClick={this.clickHref}>waan</h1>
+          <h5>{this.props.portaldes}</h5>
+          <h5>{this.props.currenttime}</h5>
+        </div>
+        )
+
+      }
+    }
+
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("walouchy check")
-    //let userid_clicked = document.getElementById("hiddenportalid").value
-    //const pagination = document.querySelector('#hidden_pagination').value
-   // console.log("userid_clicked", userid_clicked)
-   // userid_clicked = parseInt(userid_clicked)
       fetch(`/allportal`)
       .then(response => response.json())
 
-      .then(data => {
-        console.log("data", data)
-        
+      .then(data => {        
         ReactDOM.render(<SuggestionTable data={data}/>, document.querySelector('#suggestions_por_react'));
     
       });

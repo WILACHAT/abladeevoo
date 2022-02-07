@@ -1,13 +1,13 @@
 {% extends "network/layout.html" %}
+{% load static %}
 
 {% block body %}
-
-<div id="theportalpageid">
+    <input id="getportalid_id"type="hidden" data-portal-id="{{ portalid }}">
     <div id="thebuttonsinportalpageid">
     </div>
+        <div id="firstfeedid"></div>
         <div id="publicfeedid" name="publicfeed">
         </div>
-
         <div id="memberfeedid" name="memberfeed">
         </div>
 
@@ -19,7 +19,6 @@
 
         <div id="storepageid" name="storepageid">
         </div>
-</div>
 
 
 {% endblock %}

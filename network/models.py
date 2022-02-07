@@ -56,4 +56,14 @@ class Posts(models.Model):
     modify_date = models.DateTimeField(auto_now=True)
     user_id = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='postposts')
 
+    def serialize(self):
+         return {
+            "id": self.id,
+            "portal_id": self.portal_id_posts.id,
+            "post_info": self.post_info,
+            "type_posts": self.type_posts,
+            "timestamp":  self.modify_date.strftime("%b %-d %Y, %-I:%M %p"),
+            "user_id": self.user_id,
+            
+        }   
 

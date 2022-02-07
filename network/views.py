@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from datetime import datetime
 import pytz
 import json
+from json import dumps
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -24,7 +25,7 @@ def index(request):
     created in the allportal in views with the help of serialization in models you then
     pack the api into the format you want then send it back to the js using jsonresponse
     then from that on you use the data and input it into ReactDOM render into a react class
-    SHEESHHHHH LETS FUCKING GO'''
+    '''
     portals = Portal.objects.all()
     print(portals)
     return render(request, "network/index.html", {"portalshown": portals})
@@ -41,20 +42,49 @@ def allportal(request):
     return_request = newdata
     return JsonResponse(return_request, safe=False)
 
-
-
-def gotoportal(request, id):
-    user = User.objects.get(id = id)
-    curuser = request.user.id
-    user = user.username
-    return render(request, "network/portal.html")
-
-def portal(request, id, paginationid):
-    '''Portal HTML page will include the divs of everything in a portal including
-    community, reddit forum, blah2, calls, marketplace, etc'''
+def gotoportal(request, id, pagination):
     return_request = request.user.id
+    print("helloo how are you doing")
+    portalone = Posts.objects.filter(portal_id_posts_id = id)
+    portalname = Portal.objects.values('portal_name').get(id=id)
+    print("portalname", portalname['portal_name'])
+
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        portalid = Portal.objects.values('id').get(portal_name=data['portalname'])
+        portalid = portalid["id"]
+        post =  Posts(portal_id_posts_id=portalid,
+        post_info=data['postvalue'], type_posts=data['posttype'], 
+        id=request.user.id)
+        post.save() 
     
+    newdata = []
+    for posts in portalone:
+        newdata.append(posts.serialize())
+    return_request = {"data":newdata,"portalname":portalname}
+
+
     return JsonResponse(return_request, safe=False)
+
+def portal(request, portalname):
+    print("check for portalname", portalname)
+    portalid = Portal.objects.values('id').get(portal_name=portalname)
+    print("check", portalid["id"])
+    
+
+    '''Portal HTML page will include the divs of everything in a portal including
+    community, reddit forum, blah2, calls, marketplace, etc
+    let me explain to you the (request, portalname ok??? where does it comes from???
+    so basically this is the portal/portalname type shit thats all
+    PAE ALL I COULD EZILY DO IS TO PUT EVERYTHING IN HTML AND PASS BUT YE EXTRA'''
+    #user = User.objects.get(id = id)
+    #curuser = request.user.id
+    #user = user.username
+
+    
+
+    return render(request, "network/portal.html", {'portalid': portalid["id"]})
+
 
 def explore(request):
     return render(request, "network/explore.html")
