@@ -61,7 +61,7 @@ def subscribeornot(request, id):
             subscribetable = Subscribe(user_id_subscriber_id=request.user.id, portal_id_subscribing_id=id, subscriber_ornot=1)
             subscribetable.save()
 
-
+    print("hi")
     subscriber_counts = Subscribe.objects.filter(portal_id_subscribing_id=id, subscriber_ornot = 1).count()
     subscriber_counts = int(subscriber_counts)
 
