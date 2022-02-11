@@ -42,26 +42,110 @@ def allportal(request):
     return_request = newdata
     return JsonResponse(return_request, safe=False)
 
+def subscribeornot(request, id):
+    if request.method == "PUT":     
+        #right now the subscribing function works to a certain level but if you click subscirbe rn it will add a 
+        # new row which you will have to fix someday and the subscribing thing will probably be a popup state as well  
+        data = json.loads(request.body)
+        print("data subscribe or not", data["subscribecheck"])
+        
+        portalone = Posts.objects.filter(portal_id_posts_id = id)
+        portalname = Portal.objects.values('portal_name').get(id=id)
+        
+        if data["subscribecheck"] == "true":
+            Subscribe.objects.filter(user_id_subscriber_id=request.user.id, portal_id_subscribing_id=id).update(subscriber_ornot=0)      
+      
+
+            print("wassup bro this is another one")
+        else:
+            subscribetable = Subscribe(user_id_subscriber_id=request.user.id, portal_id_subscribing_id=id, subscriber_ornot=1)
+            subscribetable.save()
+
+
+    subscriber_counts = Subscribe.objects.filter(portal_id_subscribing_id=id, subscriber_ornot = 1).count()
+    subscriber_counts = int(subscriber_counts)
+
+    subscribeornot = Subscribe.objects.filter(portal_id_subscribing_id=id, user_id_subscriber_id = request.user.id).values('subscriber_ornot')
+    if not subscribeornot:
+        subscribecheck = "false"
+
+    else:
+        for i in subscribeornot:
+            if i["subscriber_ornot"] == True:
+                subscribecheck = "true"
+            else:
+                subscribecheck = "false"
+
+    newdata = []
+    for posts in portalone:
+        newdata.append(posts.serialize())
+        
+    return_request = {"data":newdata,"portalname":portalname, "subscriber_counts": subscriber_counts, "subscribecheck": subscribecheck}
+
+
+    return JsonResponse(return_request, safe=False)
+
 def gotoportal(request, id, pagination):
     return_request = request.user.id
-    print("helloo how are you doing")
+
+    subscriber_counts = Subscribe.objects.filter(portal_id_subscribing_id=id, subscriber_ornot = 1).count()
+    subscribeornot = Subscribe.objects.filter(portal_id_subscribing_id=id, user_id_subscriber_id = request.user.id).values('subscriber_ornot')
+    
+
+    if not subscribeornot:
+        subscribecheck = "false"
+
+    else:
+        for i in subscribeornot:
+            if i["subscriber_ornot"] == True:
+                subscribecheck = "true"
+            else:
+                subscribecheck = "false"
+
+
+    subscriber_counts = int(subscriber_counts)
+    
     portalone = Posts.objects.filter(portal_id_posts_id = id)
     portalname = Portal.objects.values('portal_name').get(id=id)
-    print("portalname", portalname['portal_name'])
+
+    print("in go to portal or not")
 
     if request.method == "PUT":
+        print("ok this is in put soooo")
+        tz = pytz.timezone('US/Eastern')
+        currenttime = datetime.now(tz)
         data = json.loads(request.body)
-        portalid = Portal.objects.values('id').get(portal_name=data['portalname'])
-        portalid = portalid["id"]
-        post =  Posts(portal_id_posts_id=portalid,
-        post_info=data['postvalue'], type_posts=data['posttype'], 
-        id=request.user.id)
-        post.save() 
+        if data['posttype'] == "publicfeedid":
+            posta =  Posts(portal_id_posts_id=data['portalid'],
+            post_info=data['postvalue'], type_posts=data['posttype'], 
+            creationtime = currenttime, user_id_id = request.user.id)
+            print("this is post", posta)
+            posta.save() 
+        elif data['posttype'] == "memberfeedid":
+            print("ok to a certain level this is working")
+            newdata = []
+
+            portalone = Posts.objects.filter(portal_id_posts_id = id, type_posts = "memberfeedid")
+            
+            for posts in portalone:
+                newdata.append(posts.serialize())
+
+            return_request = {"data":newdata,"portalname":portalname, "subscriber_counts": subscriber_counts, "subscribecheck": subscribecheck, "posttype": "memberfeedid"}
+            return JsonResponse(return_request, safe=False)
+
+
+
+ 
+
+
+    portalone = Posts.objects.filter(portal_id_posts_id = id)
+    
     
     newdata = []
     for posts in portalone:
         newdata.append(posts.serialize())
-    return_request = {"data":newdata,"portalname":portalname}
+        
+    return_request = {"data":newdata,"portalname":portalname, "subscriber_counts": subscriber_counts, "subscribecheck": subscribecheck, "posttype": "publicfeedid"}
 
 
     return JsonResponse(return_request, safe=False)

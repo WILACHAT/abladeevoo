@@ -6,6 +6,8 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("gotoportal/<int:id>/<int:pagination>", views.gotoportal, name="gotoportal"),
+    path("subscribeornot/<int:id>", views.subscribeornot, name="subscribeornot"),
+
     ##API##
     path("allportal", views.allportal, name="allportal"),
     path("portal/<str:portalname>", views.portal, name="portal"),

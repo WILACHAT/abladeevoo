@@ -43,17 +43,17 @@ class Portal(models.Model):
 
 
 class Subscribe(models.Model):
-    user_id_subsriber = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='subsriber') 
+    user_id_subscriber = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='subscriber') 
     portal_id_subscribing = models.ForeignKey(Portal, null=True, blank=True, on_delete=models.CASCADE, related_name='subscribing')
-    subsribe_ornot = models.BooleanField(default=True)
+    subscriber_ornot = models.BooleanField(default=True)
 
 
 class Posts(models.Model):
     portal_id_posts = models.ForeignKey(Portal, null=True, blank=True, on_delete=models.CASCADE, related_name='portalidposts')
-    post_info = models.CharField(max_length=256)
-    type_posts = models.CharField(max_length=256)
-    creationtime = models.DateTimeField(auto_now_add=True)
-    modify_date = models.DateTimeField(auto_now=True)
+    post_info = models.CharField(max_length=256, null=True)
+    type_posts = models.CharField(max_length=256, null=True)
+    creationtime = models.DateTimeField(auto_now_add=True, null=True)
+    modify_date = models.DateTimeField(auto_now=True, null=True)
     user_id = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='postposts')
 
     def serialize(self):
@@ -63,7 +63,7 @@ class Posts(models.Model):
             "post_info": self.post_info,
             "type_posts": self.type_posts,
             "timestamp":  self.modify_date.strftime("%b %-d %Y, %-I:%M %p"),
-            "user_id": self.user_id,
+            "user_id": self.user_id_id,
             
         }   
 

@@ -31,8 +31,7 @@ var SearchOverlay = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (SearchOverlay.__proto__ || Object.getPrototypeOf(SearchOverlay)).call(this, props));
 
         _this.forFetching = _this.forFetching.bind(_this);
-        console.log("haha", _this.props.data);
-        console.log("ha name", _this.props.portalname);
+        console.log("WALOUCH NO !");
 
         return _this;
     }
@@ -41,9 +40,9 @@ var SearchOverlay = function (_React$Component) {
         key: 'forFetching',
         value: function forFetching() {
             var csrftoken = getCookie('csrftoken');
-            var portalid = 1;
             var pagination = 1;
             var postvalue = document.querySelector('#textareapostid').value;
+            var portalid = document.querySelector('#getportalid_id').dataset.portalId;
             console.log("forFetching", postvalue);
 
             fetch('/gotoportal/' + portalid + '/' + pagination, {
@@ -51,7 +50,7 @@ var SearchOverlay = function (_React$Component) {
                 headers: { 'X-CSRFToken': csrftoken
                 },
                 body: JSON.stringify({
-                    portalname: this.props.portalname,
+                    portalid: portalid,
                     posttype: this.props.data,
                     postvalue: postvalue
 
@@ -59,7 +58,7 @@ var SearchOverlay = function (_React$Component) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("waan check ");
+                console.log("waan check", data);
                 ReactDOM.render(React.createElement(PortalFeedTable, { data: data }), document.querySelector('#publicfeedid'));
             });
         }
@@ -99,15 +98,14 @@ var PortalFeedRows = function (_React$Component2) {
                 'div',
                 null,
                 React.createElement(
-                    'table',
-                    { className: 'table table-hover table-sm' },
-                    React.createElement(
-                        'tbody',
-                        null,
-                        ' ',
-                        rows,
-                        ' '
-                    )
+                    'h4',
+                    null,
+                    this.props.post_info
+                ),
+                React.createElement(
+                    'h4',
+                    null,
+                    this.props.posttype
                 )
             );
         }
@@ -125,11 +123,10 @@ var PortalFeedTable = function (_React$Component3) {
         var _this3 = _possibleConstructorReturn(this, (PortalFeedTable.__proto__ || Object.getPrototypeOf(PortalFeedTable)).call(this, props));
 
         _this3.postButton = _this3.postButton.bind(_this3);
-        console.log("datadatadata", _this3.props.data);
         //  console.log("posts", this.props.portal_name)
         // console.log("posts1", this.props.data["data"][0].portal_id)
         //console.log("posts2", this.props.data["data"][0].post_info)
-        //console.log("posts3", this.props.data["data"][0].type_posts)
+        console.log("data", _this3.props.data);
 
         return _this3;
     }
@@ -137,32 +134,45 @@ var PortalFeedTable = function (_React$Component3) {
     _createClass(PortalFeedTable, [{
         key: 'postButton',
         value: function postButton() {
-            ReactDOM.render(React.createElement(SearchOverlay, { data: 'publicfeedid', portalname: this.props.data }), document.querySelector('#publicfeedid'));
+            console.log("heldskfnalsdkfnalsy");
+            ReactDOM.render(React.createElement(SearchOverlay, { data: this.props.data }), document.querySelector('#' + this.props.data["posttype"]));
         }
     }, {
         key: 'render',
         value: function render() {
-            //  const rows = [];
-            //  for (let i = 0; i < this.props.data["data"].length; i++)
-            //  {
-            //   rows.push(
-            //     <PortalFeedRows
-            //      />
-            //  );
+            var rows = [];
+            if (this.props.data["data"] == undefined) {
+                console.log("hey");
+            } else {
 
-            //  }
+                for (var i = 0; i < this.props.data["data"].length; i++) {
+                    rows.push(React.createElement(PortalFeedRows, {
+                        id: this.props.data["data"][i].id,
+                        portal_id: this.props.data["data"][i].portal_id,
+                        post_info: this.props.data["data"][i].post_info,
+                        type_posts: this.props.data["data"][i].type_posts,
+                        currenttime: this.props.data["data"][i].timestamp }));
+                }
+            }
+
             return React.createElement(
                 'div',
                 null,
                 React.createElement(
-                    'h1',
-                    null,
-                    'this is public feed'
-                ),
-                React.createElement(
                     'button',
                     { type: 'button', 'class': 'btn btn-primary', id: 'storefeedid', onClick: this.postButton },
                     'Post'
+                ),
+                React.createElement(
+                    'table',
+                    { className: 'table table-hover table-sm' },
+                    React.createElement(
+                        'tbody',
+                        null,
+                        ' ',
+                        rows,
+                        ' '
+                    )
                 )
             );
         }
@@ -180,10 +190,19 @@ var PortalFeedTitle = function (_React$Component4) {
         var _this4 = _possibleConstructorReturn(this, (PortalFeedTitle.__proto__ || Object.getPrototypeOf(PortalFeedTitle)).call(this, props));
 
         _this4.changeFeedPortal = _this4.changeFeedPortal.bind(_this4);
+        _this4.subscribeButton = _this4.subscribeButton.bind(_this4);
+        console.log("SUBSCRIBER COUNT", _this4.props.data["subscriber_counts"]);
+        console.log("SUBSCRIBER CHCEK", _this4.props.data["subscribecheck"]);
+
         document.querySelector('#publicfeedid').hidden = false;
         document.querySelector('#memberfeedid').hidden = true;
         document.querySelector('#communitypageid').hidden = true;
         document.querySelector('#storepageid').hidden = true;
+        _this4.state = {
+            subscriber_counts: _this4.props.data["subscriber_counts"],
+            subscribecheck: _this4.props.data["subscribecheck"]
+        };
+
         return _this4;
     }
 
@@ -195,12 +214,39 @@ var PortalFeedTitle = function (_React$Component4) {
                 document.querySelector('#memberfeedid').hidden = true;
                 document.querySelector('#communitypageid').hidden = true;
                 document.querySelector('#storepageid').hidden = true;
-                ReactDOM.render(React.createElement(PortalFeedTable, { data: this.props.data.portalname["portal_name"] }), document.querySelector('#publicfeedid'));
+                var csrftoken = getCookie('csrftoken');
+                var portalid = document.querySelector('#getportalid_id').dataset.portalId;
+                var pagination = 1;
+                fetch('/gotoportal/' + portalid + '/' + pagination).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    console.log("newdata ugggg", data);
+                    ReactDOM.render(React.createElement(PortalFeedTable, { data: data }), document.querySelector('#publicfeedid'));
+                });
             } else if (e.target.id == "memberfeedbutid") {
+                var _csrftoken = getCookie('csrftoken');
+                var portalid = document.querySelector('#getportalid_id').dataset.portalId;
+                var pagination = 1;
+
                 document.querySelector('#publicfeedid').hidden = true;
                 document.querySelector('#memberfeedid').hidden = false;
                 document.querySelector('#communitypageid').hidden = true;
                 document.querySelector('#storepageid').hidden = true;
+
+                fetch('/gotoportal/' + portalid + '/' + pagination, {
+                    method: 'PUT',
+                    headers: { 'X-CSRFToken': _csrftoken
+                    },
+                    body: JSON.stringify({
+                        portalid: portalid,
+                        posttype: "memberfeedid"
+                    })
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    console.log("memberfeed", data);
+                    ReactDOM.render(React.createElement(PortalFeedTable, { data: data }), document.querySelector('#memberfeedid'));
+                });
             } else if (e.target.id == "communityfeedbutid") {
                 document.querySelector('#publicfeedid').hidden = true;
                 document.querySelector('#memberfeedid').hidden = true;
@@ -214,24 +260,37 @@ var PortalFeedTitle = function (_React$Component4) {
             }
         }
     }, {
+        key: 'subscribeButton',
+        value: function subscribeButton() {
+            var _this5 = this;
+
+            var csrftoken = getCookie('csrftoken');
+            var portalid = document.querySelector('#getportalid_id').dataset.portalId;
+            var pagination = 1;
+            fetch('/subscribeornot/' + portalid, {
+                method: 'PUT',
+                headers: { 'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    portalid: portalid,
+                    posttype: this.props.data,
+                    subscribecheck: this.state.subscribecheck
+                })
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+
+                _this5.setState({
+                    subscriber_counts: data["subscriber_counts"],
+                    subscribecheck: data["subscribecheck"]
+
+                });
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var suggestion_rows = [];
-            /* for (let i = 0; i < this.props.data.length; i++)
-             {
-               suggestion_rows.push(
-                 <PortalFeedRow
-                     id={this.props.data[i].id}
-                     portalname={this.props.data[i].portalname}
-                     websiteurl={this.props.data[i].websiteurl}
-                     portaldes={this.props.data[i].portaldes}
-                     currenttime={this.props.data[i].currenttime}/>
-                       <table>
-                   <tbody> {suggestion_rows} </tbody>
-                   </table>
-               );
-             }
-             */
+
             return React.createElement(
                 'div',
                 { id: 'control-suggestions' },
@@ -262,8 +321,14 @@ var PortalFeedTitle = function (_React$Component4) {
                 ),
                 React.createElement(
                     'button',
-                    { type: 'button', 'class': 'btn btn-primary', id: 'postinfeedid' },
-                    'Post'
+                    { type: 'button', 'class': 'btn btn-success', id: 'subscribebutton', onClick: this.subscribeButton },
+                    this.state.subscribecheck == "true" ? "Subscribed" : "Subscribe"
+                ),
+                React.createElement(
+                    'h6',
+                    null,
+                    'Member: ',
+                    this.state.subscriber_counts
                 )
             );
         }
@@ -279,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('/gotoportal/' + portalid + '/' + pagination).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log("newdata ugggg", data);
         ReactDOM.render(React.createElement(PortalFeedTitle, { data: data }), document.querySelector('#firstfeedid'));
+        ReactDOM.render(React.createElement(PortalFeedTable, { data: data }), document.querySelector('#publicfeedid'));
     });
 });
