@@ -26,148 +26,61 @@ def index(request):
     pack the api into the format you want then send it back to the js using jsonresponse
     then from that on you use the data and input it into ReactDOM render into a react class
     '''
-    portals = Portal.objects.all()
-    print(portals)
-    return render(request, "network/index.html", {"portalshown": portals})
+   # portals = Portal.objects.all()
+    influencers = User.objects.all().filter(influencer_ornot=1)
 
-def allportal(request):
-    portals = Portal.objects.all()
+    #influencers = User.objects.values('username').get(influencer_ornot = 1)
+
+  #  print(portals)
+    return render(request, "network/index.html", {"portalshown": influencers})
+
+def inzwerg4jgnsd9aadif67(request):
+    #influencer essentially a page that uses serialize to display all the influencers
+
+    influencers = User.objects.all().filter(influencer_ornot=1)
+
     newdata = []
-    for portal in portals:
-        newdata.append(portal.serialize())
+    for influencer in influencers:
+        newdata.append(influencer.serialize())
 
-    print("this is fucking newdata" ,newdata)
-    print(portals)
     newdata = newdata
     return_request = newdata
     return JsonResponse(return_request, safe=False)
+def ininfluencer(request, ininfluencer):
+    '''the request, ininfluencer -> ininfluencer came from urls.py
+     and its value behindininfluence/str:ininfluence 
+     *influencer needs to have the same name as the /ininfluencer of url'''
 
-def subscribeornot(request, id):
-    if request.method == "PUT":     
-        #right now the subscribing function works to a certain level but if you click subscirbe rn it will add a 
-        # new row which you will have to fix someday and the subscribing thing will probably be a popup state as well  
-        data = json.loads(request.body)
-        print("data subscribe or not", data["subscribecheck"])
-        
-        portalone = Posts.objects.filter(portal_id_posts_id = id)
-        portalname = Portal.objects.values('portal_name').get(id=id)
-        
-        if data["subscribecheck"] == "true":
-            Subscribe.objects.filter(user_id_subscriber_id=request.user.id, portal_id_subscribing_id=id).update(subscriber_ornot=0)      
-      
-
-            print("wassup bro this is another one")
-        else:
-            subscribetable = Subscribe(user_id_subscriber_id=request.user.id, portal_id_subscribing_id=id, subscriber_ornot=1)
-            subscribetable.save()
-
-    print("hi")
-    subscriber_counts = Subscribe.objects.filter(portal_id_subscribing_id=id, subscriber_ornot = 1).count()
-    subscriber_counts = int(subscriber_counts)
-
-    subscribeornot = Subscribe.objects.filter(portal_id_subscribing_id=id, user_id_subscriber_id = request.user.id).values('subscriber_ornot')
-    if not subscribeornot:
-        subscribecheck = "false"
+    return render(request, "network/ininfluencer.html", {'username': ininfluencer})
+def gotoinfluencer(request, username, feedtype):
+    if feedtype == "main":
+        print("this is main")
+        #do something
+        #query something from the influencer's post and send it back 
 
     else:
-        for i in subscribeornot:
-            if i["subscriber_ornot"] == True:
-                subscribecheck = "true"
-            else:
-                subscribecheck = "false"
-
-    newdata = []
-    for posts in portalone:
-        newdata.append(posts.serialize())
-        
-    return_request = {"data":newdata,"portalname":portalname, "subscriber_counts": subscriber_counts, "subscribecheck": subscribecheck}
+        print("this is review")
+        #do something
+        #query reviews of the influencer post and show it 
 
 
+    return_request = {"username":username}
+    
+
+    
     return JsonResponse(return_request, safe=False)
-
-def gotoportal(request, id, pagination):
-    return_request = request.user.id
-
-    subscriber_counts = Subscribe.objects.filter(portal_id_subscribing_id=id, subscriber_ornot = 1).count()
-    subscribeornot = Subscribe.objects.filter(portal_id_subscribing_id=id, user_id_subscriber_id = request.user.id).values('subscriber_ornot')
-    
-
-    if not subscribeornot:
-        subscribecheck = "false"
-
-    else:
-        for i in subscribeornot:
-            if i["subscriber_ornot"] == True:
-                subscribecheck = "true"
-            else:
-                subscribecheck = "false"
-
-
-    subscriber_counts = int(subscriber_counts)
-    
-    portalone = Posts.objects.filter(portal_id_posts_id = id)
-    portalname = Portal.objects.values('portal_name').get(id=id)
-
-    print("in go to portal or not")
-
-    if request.method == "PUT":
-        print("ok this is in put soooo")
-        tz = pytz.timezone('US/Eastern')
-        currenttime = datetime.now(tz)
-        data = json.loads(request.body)
-        if data['posttype'] == "publicfeedid":
-            posta =  Posts(portal_id_posts_id=data['portalid'],
-            post_info=data['postvalue'], type_posts=data['posttype'], 
-            creationtime = currenttime, user_id_id = request.user.id)
-            print("this is post", posta)
-            posta.save() 
-        elif data['posttype'] == "memberfeedid":
-            print("ok to a certain level this is working")
-            newdata = []
-
-            portalone = Posts.objects.filter(portal_id_posts_id = id, type_posts = "memberfeedid")
-            
-            for posts in portalone:
-                newdata.append(posts.serialize())
-
-            return_request = {"data":newdata,"portalname":portalname, "subscriber_counts": subscriber_counts, "subscribecheck": subscribecheck, "posttype": "memberfeedid"}
-            return JsonResponse(return_request, safe=False)
-
-
-
  
+def book(request, username):
+    print("tell me that the thing came here or not")
+    if request.method == "POST":
+        data = json.loads(request.body)
+        print("lets check if the data is here", data)
 
+    return render(request, "network/book.html", {'username': username})
 
-    portalone = Posts.objects.filter(portal_id_posts_id = id)
-    
-    
-    newdata = []
-    for posts in portalone:
-        newdata.append(posts.serialize())
-        
-    return_request = {"data":newdata,"portalname":portalname, "subscriber_counts": subscriber_counts, "subscribecheck": subscribecheck, "posttype": "publicfeedid"}
-
-
+def gotobook(request, username):
+    return_request = {"username":username}
     return JsonResponse(return_request, safe=False)
-
-def portal(request, portalname):
-    print("check for portalname", portalname)
-    portalid = Portal.objects.values('id').get(portal_name=portalname)
-    print("check", portalid["id"])
-    
-
-    '''Portal HTML page will include the divs of everything in a portal including
-    community, reddit forum, blah2, calls, marketplace, etc
-    let me explain to you the (request, portalname ok??? where does it comes from???
-    so basically this is the portal/portalname type shit thats all
-    PAE ALL I COULD EZILY DO IS TO PUT EVERYTHING IN HTML AND PASS BUT YE EXTRA'''
-    #user = User.objects.get(id = id)
-    #curuser = request.user.id
-    #user = user.username
-
-    
-
-    return render(request, "network/portal.html", {'portalid': portalid["id"]})
 
 
 def explore(request):
@@ -183,24 +96,6 @@ def updateportal(request):
     return render(request, "network/updateportal.html")
 
 @login_required
-def newportal(request):
-    
-    if request.method == "POST":
-
-        '''Post is created in the javascript page when submit after post 
-        the data and stuff will come to this post and then we save it into the 
-        database'''
-
-        print("is this even post")
-        data = json.loads(request.body)
-        print(request.user.id)
-        portal =  Portal(portal_name=data['portal_name']
-        ,portal_des=data['portal_des'], websiteurl=data['portal_url'], owner_id=request.user.id)
-        portal.save()
-
-        return JsonResponse({"message": data}, status=201)  
-    
-    return render(request, "network/newportal.html")
 
 def banking(request):
     return render(request, "network/banking.html")

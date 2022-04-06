@@ -36,12 +36,13 @@ var SuggestionTable = function (_React$Component) {
     value: function render() {
       var suggestion_rows = [];
       for (var i = 0; i < this.props.data.length; i++) {
+        console.log("lol wtf", this.props.data[i]);
         suggestion_rows.push(React.createElement(SuggestionsRow, {
           id: this.props.data[i].id,
-          portalname: this.props.data[i].portalname,
-          websiteurl: this.props.data[i].websiteurl,
-          portaldes: this.props.data[i].portaldes,
-          currenttime: this.props.data[i].currenttime }));
+          username: this.props.data[i].username,
+          email: this.props.data[i].email,
+          influencer_ornot: this.props.data[i].influencer_ornot,
+          freeze_account: this.props.data[i].freeze_account }));
       }
       return React.createElement(
         'div',
@@ -90,29 +91,27 @@ var SuggestionsRow = function (_React$Component2) {
   }, {
     key: 'render',
     value: function render() {
-      var portal_link = "/portal/" + this.props.portalname;
+      // might be of use so yea
+      var ininfluencer_link = "/ininfluencer/" + this.props.username;
+      //<a name="posterr" href={portalname} class="h4 colorstyle">{this.props.portalname}</a> 
+
       return React.createElement(
         'div',
         { id: 'suggestion_row_id' },
         React.createElement(
           'a',
-          { name: 'posterr', href: portal_link, 'class': 'h4 colorstyle' },
-          this.props.portalname
-        ),
-        React.createElement(
-          'h1',
-          { onClick: this.clickHref },
-          'waan'
+          { name: 'posterr', href: ininfluencer_link, 'class': 'h4 colorstyle' },
+          this.props.username
         ),
         React.createElement(
           'h5',
           null,
-          this.props.portaldes
+          this.props.influencer_ornot
         ),
         React.createElement(
           'h5',
           null,
-          this.props.currenttime
+          this.props.freeze_account
         )
       );
     }
@@ -122,7 +121,7 @@ var SuggestionsRow = function (_React$Component2) {
 }(React.Component);
 
 document.addEventListener('DOMContentLoaded', function () {
-  fetch('/allportal').then(function (response) {
+  fetch('/inzwerg4jgnsd9aadif67').then(function (response) {
     return response.json();
   }).then(function (data) {
     ReactDOM.render(React.createElement(SuggestionTable, { data: data }), document.querySelector('#suggestions_por_react'));

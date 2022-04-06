@@ -23,13 +23,14 @@ function getCookie(name) {
       const suggestion_rows = [];
       for (let i = 0; i < this.props.data.length; i++)
       {
+        console.log("lol wtf", this.props.data[i])
         suggestion_rows.push(
           <SuggestionsRow
               id={this.props.data[i].id}
-              portalname={this.props.data[i].portalname}
-              websiteurl={this.props.data[i].websiteurl}
-              portaldes={this.props.data[i].portaldes}
-              currenttime={this.props.data[i].currenttime}/>
+              username={this.props.data[i].username}
+              email={this.props.data[i].email}
+              influencer_ornot={this.props.data[i].influencer_ornot}
+              freeze_account={this.props.data[i].freeze_account}/>
         );
       }
         return (
@@ -54,13 +55,15 @@ function getCookie(name) {
       console.log("yo wassup")
     }
     render() {
-      const portal_link = "/portal/"+this.props.portalname
+      // might be of use so yea
+      const ininfluencer_link = "/ininfluencer/"+this.props.username
+      //<a name="posterr" href={portalname} class="h4 colorstyle">{this.props.portalname}</a> 
+
         return (
         <div id="suggestion_row_id">
-          <a name="posterr" href={portal_link} class="h4 colorstyle">{this.props.portalname}</a> 
-          <h1 onClick={this.clickHref}>waan</h1>
-          <h5>{this.props.portaldes}</h5>
-          <h5>{this.props.currenttime}</h5>
+          <a name="posterr" href={ininfluencer_link} class="h4 colorstyle">{this.props.username}</a> 
+          <h5>{this.props.influencer_ornot}</h5>
+          <h5>{this.props.freeze_account}</h5>
         </div>
         )
 
@@ -68,9 +71,8 @@ function getCookie(name) {
     }
 
 document.addEventListener('DOMContentLoaded', function() {
-      fetch(`/allportal`)
+      fetch(`/inzwerg4jgnsd9aadif67`)
       .then(response => response.json())
-
       .then(data => {        
         ReactDOM.render(<SuggestionTable data={data}/>, document.querySelector('#suggestions_por_react'));
     

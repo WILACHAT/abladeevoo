@@ -5,17 +5,22 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("gotoportal/<int:id>/<int:pagination>", views.gotoportal, name="gotoportal"),
-    path("subscribeornot/<int:id>", views.subscribeornot, name="subscribeornot"),
 
     ##API##
-    path("allportal", views.allportal, name="allportal"),
-    path("portal/<str:portalname>", views.portal, name="portal"),
+    #index main influecer api 
+    path("inzwerg4jgnsd9aadif67", views.inzwerg4jgnsd9aadif67, name="inzwerg4jgnsd9aadif67"),
+    path("ininfluencer/<str:ininfluencer>", views.ininfluencer, name="ininfluencer"),
+    path("gotoinfluencer/<str:username>/<str:feedtype>", views.gotoinfluencer, name="gotoinfluencer"),
+
+
+    path("book/<str:username>", views.book, name="book"),
+    path("gotobook/<str:username>", views.gotobook, name="gotobook"),
+
+
 
     path("aboutus", views.aboutus, name="aboutus"),
     path("explore", views.explore, name="explore"),
     path("subscription", views.subscription, name="subscription"),
-    path("newportal", views.newportal, name="newportal"),
 
     path("upload", views.upload, name="upload"),
     path("banking", views.banking, name="banking"),
