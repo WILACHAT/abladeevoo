@@ -50,15 +50,15 @@ function save_post() {
     var checkeroccasion = document.getElementsByName("occasionname")[0].id;
     typeoccasion = checkeroccasion;
 
-    //still incorrect will have to check about the documents
+    firstinputocca = document.getElementsByName("occa1")[0].value;
+    secondinputocca = document.getElementsByName("occa2")[0].value;
 
-    firstinputocca = document.getElementsByName("occa1").value;
-    secondinputocca = document.getElementsByName("occa2").value;
-    if (document.getElementsByName("occa3") != null) {
-        thirdinputocca = document.getElementsByName("occa3").value;
+    if (document.getElementsByName("occa3").length != 0) {
+        thirdinputocca = document.getElementsByName("occa3")[0].value;
     }
-    if (document.getElementsByName("occa4") != null) {
-        fourthinputocca = document.getElementsByName("occa4").value;
+
+    if (document.getElementsByName("occa4").length != 0) {
+        fourthinputocca = document.getElementsByName("occa4")[0].value;
     }
 
     var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
@@ -117,13 +117,13 @@ var BookPage = function (_React$Component) {
                 React.createElement(
                     'div',
                     null,
-                    React.createElement('input', { placeholder: 'When is their birthday?' }),
+                    React.createElement('input', { name: 'occa1', placeholder: 'When is their birthday?' }),
                     React.createElement('br', null),
-                    React.createElement('input', { placeholder: 'How old are they turning?' }),
+                    React.createElement('input', { name: 'occa2', placeholder: 'How old are they turning?' }),
                     React.createElement('br', null),
-                    React.createElement('input', { placeholder: 'Instructions for' }),
+                    React.createElement('input', { name: 'occa3', placeholder: 'Instructions for' }),
                     React.createElement('br', null),
-                    React.createElement('input', { placeholder: 'Optional' })
+                    React.createElement('input', { name: 'occa4', placeholder: 'Optional' })
                 )
             )
         };
@@ -174,7 +174,8 @@ var BookPage = function (_React$Component) {
                             React.createElement('br', null),
                             React.createElement('input', { name: 'occa3', placeholder: 'Instructions for' }),
                             React.createElement('br', null),
-                            React.createElement('input', { name: 'occa4', placeholder: 'Optional' })
+                            React.createElement('input', { name: 'occa4', placeholder: 'Optional' }),
+                            React.createElement('br', null)
                         )
                     )
                 });
@@ -191,7 +192,8 @@ var BookPage = function (_React$Component) {
                             React.createElement('br', null),
                             React.createElement('input', { name: 'occa2', placeholder: 'How can ... help?' }),
                             React.createElement('br', null),
-                            React.createElement('input', { name: 'occa3', placeholder: 'Optional details' })
+                            React.createElement('input', { name: 'occa3', placeholder: 'Optional details' }),
+                            React.createElement('br', null)
                         )
                     )
                 });
@@ -206,7 +208,8 @@ var BookPage = function (_React$Component) {
                             null,
                             React.createElement('input', { name: 'occa1', placeholder: 'What would you like Kevin McKidd to roast the recipient about?' }),
                             React.createElement('br', null),
-                            React.createElement('input', { name: 'occa2', placeholder: 'Optional' })
+                            React.createElement('input', { name: 'occa2', placeholder: 'Optional' }),
+                            React.createElement('br', null)
                         )
                     )
                 });
@@ -219,11 +222,11 @@ var BookPage = function (_React$Component) {
                         React.createElement(
                             'div',
                             null,
-                            React.createElement('input', { placeholder: 'What\'s the occasion?' }),
+                            React.createElement('input', { name: 'occa1', placeholder: 'What\'s the occasion?' }),
                             React.createElement('br', null),
-                            React.createElement('input', { placeholder: 'Instructions for' }),
+                            React.createElement('input', { name: 'occa2', placeholder: 'Instructions for' }),
                             React.createElement('br', null),
-                            React.createElement('input', { placeholder: 'Optional' })
+                            React.createElement('input', { name: 'occa3', placeholder: 'Optional' })
                         )
                     )
                 });

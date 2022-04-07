@@ -66,6 +66,10 @@ class InfluencerFeedTitle extends React.Component {
 
       //  console.log("please print this out", this.props.username)
         const bookhtmllink = "/book/"+this.props.data["username"]
+        console.log("sameperson", this.props.data["sameperson"])
+
+        //<button onClick={this.subscribeButton}>{this.state.subscribecheck == "true" ? "Subscribed":"Subscribe"}</button>
+
 
        // console.log("arai gor mai roo but yea", username)
         return (
@@ -73,7 +77,7 @@ class InfluencerFeedTitle extends React.Component {
              <h1>{this.props.data['username']}</h1>
             <button type="button" class="btn btn-primary" id="publicfeedbutid" onClick={this.changeFeedPortal}>Public Feed</button>
             <button type="button" class="btn btn-primary" id="reviewfeedbutid" onClick={this.changeFeedPortal}>Reviews</button>
-            <a name="posterr" class="btn btn-primary" href={bookhtmllink}>Reserve</a> 
+            {this.props.data["sameperson"] != 1 ? <a name="posterr" class="btn btn-primary" href={bookhtmllink}>Reserve</a>:null }
          </div>
         )
 

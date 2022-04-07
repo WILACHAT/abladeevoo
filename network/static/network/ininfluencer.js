@@ -71,6 +71,10 @@ var InfluencerFeedTitle = function (_React$Component) {
 
             //  console.log("please print this out", this.props.username)
             var bookhtmllink = "/book/" + this.props.data["username"];
+            console.log("sameperson", this.props.data["sameperson"]);
+
+            //<button onClick={this.subscribeButton}>{this.state.subscribecheck == "true" ? "Subscribed":"Subscribe"}</button>
+
 
             // console.log("arai gor mai roo but yea", username)
             return React.createElement(
@@ -91,11 +95,11 @@ var InfluencerFeedTitle = function (_React$Component) {
                     { type: 'button', 'class': 'btn btn-primary', id: 'reviewfeedbutid', onClick: this.changeFeedPortal },
                     'Reviews'
                 ),
-                React.createElement(
+                this.props.data["sameperson"] != 1 ? React.createElement(
                     'a',
                     { name: 'posterr', 'class': 'btn btn-primary', href: bookhtmllink },
                     'Reserve'
-                )
+                ) : null
             );
         }
     }]);

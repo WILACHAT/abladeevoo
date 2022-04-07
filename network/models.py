@@ -6,7 +6,7 @@ from datetime import timezone, datetime, timedelta
 
 #what is going on here
 class User(AbstractUser):
-    influencer_ornot = models.BooleanField(default=True)
+    influencer_ornot = models.BooleanField(default=False)
     freeze_account = models.BooleanField(default=True)
     pass
     def serialize(self):
@@ -35,66 +35,44 @@ class Reservation(models.Model):
     thirdinputoccasion = models.CharField(max_length=256, null=True)
     fourthinputoccasion = models.CharField(max_length=256, null=True)
     completed = models.BooleanField(default=False)
+    creationtime = models.DateTimeField(auto_now_add=True, null=True)
     user_id_reserver = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reserver') 
-    user_id_influencerreserve = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerreserve') 
+    user_id_influencerreserve = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerreserve')
+    
+    def serialize(self):
+        return {
+            "id":self.id,
+            "typeintro":self.typeintro,
+            "tointro":self.tointro,
+            "fromintro":self.fromintro,
+            "typeoccasion":self.typeoccasion,
+            "firstinputoccasion":self.firstinputoccasion,
+            "secondinputoccasion":self.secondinputoccasion,
+            "thirdinputoccasion":self.thirdinputoccasion,
+            "fourthinputoccasion":self.fourthinputoccasion,
+            "timestamp":  self.creationtime,
+            "completed":self.completed
+        } 
 
+
+class Postandmessage(models.Model):
+    #we need a video for database as well or maybe not entirely sure
+    post_info = models.CharField(max_length=256, null=True)
+    creationtime = models.DateTimeField(auto_now_add=True, null=True)
+    reservation_ofpost = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservationofpost')
+
+    def serialize(self):
+         return {
+            "id": self.id,
+            "post_info": self.post_info,
+            "timestamp":  self.creationtime,
+            "reservation_ofpost": self.reservation_ofpost_id,
+            
+        }   
 
 class Reviews(models.Model):
     review = models.CharField(max_length=256, null=True)
     user_id_reviewer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reviewer') 
     user_id_reviewed = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reviewed') 
 
-
-
-
-class Portal(models.Model):
-    portal_name = models.CharField(max_length=256, null=True)
-    portal_des =  models.CharField(max_length=256, null=True)
-    owner = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='postcreator')
-    portal_price =  models.CharField(max_length=256, null=True)
-    creationtime = models.DateTimeField(auto_now_add=True)
-    websiteurl = models.URLField(max_length=256, null=True)
-    portal_pic = models.URLField(max_length=256, null=True)
-    portalbgcolor = models.CharField(max_length=256, null=True)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-
-
-    def serialize(self):
-        return {
-            "id":self.id,
-            "portalname":self.portal_name,
-            "portaldes":self.portal_des,
-            "portalprice":self.portal_price,
-            "creationtime":self.creationtime,
-            "websiteurl":self.websiteurl,
-            "portal_pic":self.portal_pic,
-            "portalbgcolor":self.portalbgcolor
-            #"subscribers":self.portal_id_subscribing.filter(subscribe_ornot = 1).count()
-        }
-
-
-class Subscribe(models.Model):
-    user_id_subscriber = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='subscriber') 
-    portal_id_subscribing = models.ForeignKey(Portal, null=True, blank=True, on_delete=models.CASCADE, related_name='subscribing')
-    subscriber_ornot = models.BooleanField(default=True)
-
-    
-class Posts(models.Model):
-    portal_id_posts = models.ForeignKey(Portal, null=True, blank=True, on_delete=models.CASCADE, related_name='portalidposts')
-    post_info = models.CharField(max_length=256, null=True)
-    type_posts = models.CharField(max_length=256, null=True)
-    creationtime = models.DateTimeField(auto_now_add=True, null=True)
-    modify_date = models.DateTimeField(auto_now=True, null=True)
-    user_id = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='postposts')
-
-    def serialize(self):
-         return {
-            "id": self.id,
-            "portal_id": self.portal_id_posts.id,
-            "post_info": self.post_info,
-            "type_posts": self.type_posts,
-            "timestamp":  self.modify_date.strftime("%b %-d %Y, %-I:%M %p"),
-            "user_id": self.user_id_id,
-            
-        }   
 

@@ -4,7 +4,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import User, Portal, Subscribe, Posts
+from .models import User, Reservation, Reviews
+from django.db.models import Q
+
 from django.http import JsonResponse
 from datetime import datetime
 import pytz
@@ -51,8 +53,17 @@ def ininfluencer(request, ininfluencer):
      and its value behindininfluence/str:ininfluence 
      *influencer needs to have the same name as the /ininfluencer of url'''
 
+   
     return render(request, "network/ininfluencer.html", {'username': ininfluencer})
 def gotoinfluencer(request, username, feedtype):
+    
+    currentuserid = request.user.id
+    influencerid = User.objects.values('id').get(username=username)
+    influencerid = influencerid["id"]
+
+    sameperson = 0
+    if influencerid == currentuserid:
+        sameperson = 1
     if feedtype == "main":
         print("this is main")
         #do something
@@ -64,7 +75,7 @@ def gotoinfluencer(request, username, feedtype):
         #query reviews of the influencer post and show it 
 
 
-    return_request = {"username":username}
+    return_request = {"username":username, "sameperson": sameperson}
     
 
     
@@ -72,9 +83,26 @@ def gotoinfluencer(request, username, feedtype):
  
 def book(request, username):
     print("tell me that the thing came here or not")
+    currentuserid = request.user.id
+    influencerid = User.objects.values('id').get(username=username)
+    influencerid = influencerid["id"]
+
+ 
     if request.method == "POST":
         data = json.loads(request.body)
-        print("lets check if the data is here", data)
+        print(data)
+  
+        bookrequest =  Reservation(typeintro=data['typeintro'],
+        tointro=data['tointro'], fromintro=data['fromintro'], typeoccasion=data['typeoccasion'],
+        firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
+        thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],
+        user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid)
+        
+        bookrequest.save()
+        
+
+
+
 
     return render(request, "network/book.html", {'username': username})
 
@@ -82,26 +110,49 @@ def gotobook(request, username):
     return_request = {"username":username}
     return JsonResponse(return_request, safe=False)
 
+def inbox(request):
+    currentuser = request.user.id
+    
+    username = User.objects.values('username').get(id = currentuser)
+    username = username["username"]
 
-def explore(request):
-    return render(request, "network/explore.html")
+    return render(request, "network/inbox.html", {"currentuser": currentuser, "username":username})
+def gotozjguen484s9gj302g(request):
+    currentuser = request.user.id
+    checkifinfluencer = User.objects.values('influencer_ornot').get(id = currentuser)
+    
+    checkifinfluencer = checkifinfluencer["influencer_ornot"]
+    
+    reserveinfo = Reservation.objects.filter(user_id_reserver = currentuser)
+    checker = 0
 
-def subscription(request):
-    return render(request, "network/subscription.html")
+    if request.method == "PUT":   
+        data = json.loads(request.body)
+        if data["type"] == "myrequesthtml":
+            reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser)
+            checker = 1
 
-def upload(request):
-    return render(request, "network/upload.html")
+    newdata = []
+    fornamedata = []
+    saver = ""
+    for reserve in reserveinfo:
+        if checker == 1:   
+            saver = str(reserve.user_id_reserver)
+            fornamedata.append(saver)
+        else:
+            saver = str(reserve.user_id_influencerreserve)
+            fornamedata.append(saver)
 
-def updateportal(request):
-    return render(request, "network/updateportal.html")
+        newdata.append(reserve.serialize())
+
+
+    return_request = {"checkifinfluencer": checkifinfluencer, "data": newdata, "fornamedata":fornamedata}
+    return JsonResponse(return_request, safe=False)
+
+
 
 @login_required
 
-def banking(request):
-    return render(request, "network/banking.html")
-
-def settings(request):
-    return render(request, "network/settings.html")
 
 def legal(request):
     return render(request, "network/legal.html")
