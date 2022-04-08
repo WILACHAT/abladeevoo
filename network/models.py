@@ -67,7 +67,6 @@ class Postandmessage(models.Model):
             "post_info": self.post_info,
             "timestamp":  self.creationtime,
             "reservation_ofpost": self.reservation_ofpost_id,
-            
         }   
 
 class Reviews(models.Model):

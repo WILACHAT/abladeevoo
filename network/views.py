@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import User, Reservation, Reviews
+from .models import User, Reservation, Reviews, Postandmessage
 from django.db.models import Q
 
 from django.http import JsonResponse
@@ -40,6 +40,8 @@ def inzwerg4jgnsd9aadif67(request):
     #influencer essentially a page that uses serialize to display all the influencers
 
     influencers = User.objects.all().filter(influencer_ornot=1)
+
+    
 
     newdata = []
     for influencer in influencers:
@@ -125,16 +127,35 @@ def gotozjguen484s9gj302g(request):
     
     reserveinfo = Reservation.objects.filter(user_id_reserver = currentuser)
     checker = 0
-
+    type = "inbox"
+    postandmessageinfo = ""
     if request.method == "PUT":   
         data = json.loads(request.body)
-        if data["type"] == "myrequesthtml":
-            reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser)
-            checker = 1
+        print("data", data)
 
+
+        if data["from"] == "inbox":
+            if data["type"] == "myrequesthtml":
+                type= "request"
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser)
+                checker = 1
+        elif data["from"] == "eachreserve":
+            reserveinfo = Reservation.objects.filter(id = data["reservationid"])
+            postandmessageinfo = Postandmessage.objects.filter(id = data["reservationid"])
+
+    
     newdata = []
     fornamedata = []
+    forpostdata = []
     saver = ""
+
+    print("this is forpostdata before", postandmessageinfo)
+
+    for post in postandmessageinfo:
+        posta = str(post.post_info)
+        forpostdata.append(posta)
+    
+    print("this is forpostdata", forpostdata)
     for reserve in reserveinfo:
         if checker == 1:   
             saver = str(reserve.user_id_reserver)
@@ -143,12 +164,40 @@ def gotozjguen484s9gj302g(request):
             saver = str(reserve.user_id_influencerreserve)
             fornamedata.append(saver)
 
+
         newdata.append(reserve.serialize())
 
-
-    return_request = {"checkifinfluencer": checkifinfluencer, "data": newdata, "fornamedata":fornamedata}
+    return_request = {"checkifinfluencer": checkifinfluencer, "data": newdata, "fornamedata":fornamedata, "type":type, 
+    "forpostdata":forpostdata}
     return JsonResponse(return_request, safe=False)
 
+def eachreserve(request, reservationid):
+    reservationid = ""
+    if request.method == "POST":
+        data = json.loads(request.body)
+        print("this is the id to fetch whatever", data)
+        print("this is the id to fetch whatever")
+
+        reservationid = data["reservationid"]
+    return render(request, "network/eachreserve.html", {"reservationid":reservationid})
+
+    
+def gotoeachreserve(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        print(data["value"])
+        print(data["reserveid"])
+
+        postandmessage = Postandmessage(post_info = data["value"], 
+        reservation_ofpost_id = data["reserveid"])
+        postandmessage.save()
+        Reservation.objects.filter(id=data["reserveid"]).update(completed = True)
+
+
+
+    return_request = {"reservationid":"hi"}
+
+    return JsonResponse(return_request, safe=False)
 
 
 @login_required

@@ -35,9 +35,11 @@ function getCookie(name) {
       }
         return (
         <div id="control-suggestions">
-            <h1>LETS GO?</h1>
-            <table>
-            <tbody> {suggestion_rows} </tbody>
+            <h2 class="d-flex justify-content-center mt-2">Welcome to Ablaze</h2>
+            <h4 class="d-flex justify-content-center">Personalized videos from your favorite stars</h4>
+
+            <table class="d-flex justify-content-center">
+                <tbody> {suggestion_rows} </tbody>
             </table>
         </div>
         )

@@ -16,13 +16,13 @@
     <body>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Rondevoo</a>
+            <a class="navbar-brand" href="{% url 'index' %}">Rondevoo</a>
             <!--https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Fs3.amazonaws.com%2Fappforest_uf%2Ff1620750817817x913030110232724100%2Frondevoo%2520logo%25201.png?w=192&h=&auto=compress&dpr=2&fit=max-->
             <div>
               <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
+                        <a class="nav-link"><strong>{{ user.username }}</strong></a>
                     </li>
                
                 {% endif %}
@@ -31,12 +31,12 @@
                   <a class="nav-link" href="{% url 'index' %}">Home</a>
                 </li>   
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'inbox' %}">Inbox</a>
-                </li>       
-                <li class="nav-item">
                   <a class="nav-link" href="{% url 'aboutus' %}">About Us</a>
                 </li>  
                 {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'inbox' %}">Inbox</a>
+                </li>    
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'legal' %}">Legal</a>
                   </li>

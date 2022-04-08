@@ -48,13 +48,18 @@ var SuggestionTable = function (_React$Component) {
         'div',
         { id: 'control-suggestions' },
         React.createElement(
-          'h1',
-          null,
-          'LETS GO?'
+          'h2',
+          { 'class': 'd-flex justify-content-center mt-2' },
+          'Welcome to Ablaze'
+        ),
+        React.createElement(
+          'h4',
+          { 'class': 'd-flex justify-content-center' },
+          'Personalized videos from your favorite stars'
         ),
         React.createElement(
           'table',
-          null,
+          { 'class': 'd-flex justify-content-center' },
           React.createElement(
             'tbody',
             null,
