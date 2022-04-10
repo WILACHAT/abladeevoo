@@ -35,6 +35,7 @@ class Reservation(models.Model):
     thirdinputoccasion = models.CharField(max_length=256, null=True)
     fourthinputoccasion = models.CharField(max_length=256, null=True)
     completed = models.BooleanField(default=False)
+    reviewcompleted = models.BooleanField(default=False)
     creationtime = models.DateTimeField(auto_now_add=True, null=True)
     user_id_reserver = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reserver') 
     user_id_influencerreserve = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerreserve')
@@ -51,7 +52,9 @@ class Reservation(models.Model):
             "thirdinputoccasion":self.thirdinputoccasion,
             "fourthinputoccasion":self.fourthinputoccasion,
             "timestamp":  self.creationtime,
-            "completed":self.completed
+            "completed":self.completed,
+            "reviewcompleted":self.reviewcompleted
+
         } 
 
 
@@ -60,6 +63,8 @@ class Postandmessage(models.Model):
     post_info = models.CharField(max_length=256, null=True)
     creationtime = models.DateTimeField(auto_now_add=True, null=True)
     reservation_ofpost = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservationofpost')
+    poster = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='posterid')
+
 
     def serialize(self):
          return {
@@ -73,5 +78,7 @@ class Reviews(models.Model):
     review = models.CharField(max_length=256, null=True)
     user_id_reviewer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reviewer') 
     user_id_reviewed = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reviewed') 
+    reservation_foreign = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservation_foreign') 
+
 
 

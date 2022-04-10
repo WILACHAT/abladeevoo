@@ -1,5 +1,7 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -69,6 +71,8 @@ var EachReserve = function (_React$Component) {
 
         _this.goBack = _this.goBack.bind(_this);
         _this.submitSave = _this.submitSave.bind(_this);
+        _this.submitReview = _this.submitReview.bind(_this);
+
         console.log("right in the constructor");
         console.log("this.props.data", _this.props.data);
 
@@ -106,8 +110,29 @@ var EachReserve = function (_React$Component) {
                 headers: { 'X-CSRFToken': getcooked },
                 body: JSON.stringify({
                     value: value,
-                    reserveid: reserveid
+                    reserveid: reserveid,
+                    type: "submitvdo"
                 })
+            }).then(function (result) {
+                window.location.href = "/inbox";
+            });
+        }
+    }, {
+        key: 'submitReview',
+        value: function submitReview(e) {
+            var _JSON$stringify;
+
+            var getcooked = getCookie('csrftoken');
+            var value = document.querySelector('#typeforreview').value;
+            var reserveid = this.props.data["data"][0].id;
+            var influencername = this.props.data["fornamedata"][0];
+            fetch('/gotoeachreserve', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getcooked },
+                body: JSON.stringify((_JSON$stringify = {
+                    value: value,
+                    reserveid: reserveid,
+                    influencername: influencername }, _defineProperty(_JSON$stringify, 'influencername', influencername), _defineProperty(_JSON$stringify, 'type', "submitreview"), _JSON$stringify))
             }).then(function (result) {
                 window.location.href = "/inbox";
             });
@@ -145,6 +170,50 @@ var EachReserve = function (_React$Component) {
                             this.props.data["forpostdata"][0]
                         )
                     );
+                    if (this.props.data["data"][0].reviewcompleted != true) {
+                        postoption = React.createElement(
+                            'div',
+                            null,
+                            React.createElement(
+                                'h1',
+                                null,
+                                'DONE'
+                            ),
+                            React.createElement(
+                                'h1',
+                                null,
+                                'What you wrote: ',
+                                this.props.data["forpostdata"][0]
+                            ),
+                            React.createElement(
+                                'h3',
+                                null,
+                                'No reviews from customer yet'
+                            )
+                        );
+                    } else {
+                        postoption = React.createElement(
+                            'div',
+                            null,
+                            React.createElement(
+                                'h1',
+                                null,
+                                'DONE'
+                            ),
+                            React.createElement(
+                                'h1',
+                                null,
+                                'What you wrote: ',
+                                this.props.data["forpostdata"][0]
+                            ),
+                            React.createElement(
+                                'h3',
+                                null,
+                                'Customer Review: ',
+                                this.props.data["reviewvalue"]
+                            )
+                        );
+                    }
                 }
             } else {
                 if (this.props.data["data"][0].completed != true) {
@@ -158,21 +227,55 @@ var EachReserve = function (_React$Component) {
                         )
                     );
                 } else {
-                    postoption = React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'h1',
+                    if (this.props.data["data"][0].reviewcompleted != true) {
+                        postoption = React.createElement(
+                            'div',
                             null,
-                            'Done'
-                        ),
-                        React.createElement(
-                            'h2',
+                            React.createElement(
+                                'h1',
+                                null,
+                                'Done'
+                            ),
+                            React.createElement(
+                                'h2',
+                                null,
+                                'Message from influencer: ',
+                                this.props.data["forpostdata"][0]
+                            ),
+                            React.createElement('input', { id: 'typeforreview' }),
+                            React.createElement(
+                                'button',
+                                { onClick: this.submitReview, 'class': 'btn btn-primary' },
+                                'Submit'
+                            )
+                        );
+                    } else {
+                        postoption = React.createElement(
+                            'div',
                             null,
-                            'Message from influencer: ',
-                            this.props.data["forpostdata"][0]
-                        )
-                    );
+                            React.createElement(
+                                'h1',
+                                null,
+                                'Done'
+                            ),
+                            React.createElement(
+                                'h2',
+                                null,
+                                'Message from influencer: ',
+                                this.props.data["forpostdata"][0]
+                            ),
+                            React.createElement(
+                                'h1',
+                                null,
+                                'Ur Review'
+                            ),
+                            React.createElement(
+                                'h3',
+                                null,
+                                this.props.data["reviewvalue"]
+                            )
+                        );
+                    }
                 }
             }
             var occasion = checkforoccasiontype(this.props.data["data"][0].typeoccasion);

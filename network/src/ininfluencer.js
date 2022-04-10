@@ -13,6 +13,47 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+class InfluencerFeedRows extends React.Component {
+constructor(props) {
+  super(props);
+}
+render()
+{
+  return(
+    <div>
+      <h4>{this.props.review}</h4>
+    </div>
+  )
+}
+
+}
+class InfluencerFeedTable extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+    render()
+    {
+      const rows = [];
+
+      for (let i = 0; i < this.props.data["alldata"].length; i++)
+      {
+        rows.push( 
+          <InfluencerFeedRows 
+          review={this.props.data["alldata"][i]}/>
+        );
+      }
+    
+      return (
+        <div>
+            <h1>Reviews of Customers</h1>
+            <table className="table table-hover table-sm">
+                <h1>{rows}</h1>
+            </table>
+        </div>
+      )
+    }
+  }
+
 class InfluencerFeedTitle extends React.Component {
     constructor(props) {
       super(props);
@@ -27,37 +68,41 @@ class InfluencerFeedTitle extends React.Component {
 
     changeFeedPortal(e)
     {
+        const getcooked = getCookie('csrftoken');
         if (e.target.id == "publicfeedbutid")
         {
+          console.log("this", this.props.data)
             document.querySelector('#maininfluencer').hidden = false;
             document.querySelector('#reviewsmainfluencer').hidden = true;
             var feedtype = "main"
-            fetch(`/gotoinfluencer/${this.props.data}/${feedtype}`)
-
+            fetch(`/gotoinfluencer/${this.props.data["username"]}/${feedtype}`)
             .then(response => response.json())
             .then(data => {
-              //when the data is returned use reactdom render new table 
-              ReactDOM.render(<PortalFeedTable data={data}/>, document.querySelector('#publicfeedid'));
-        
-            });
+                
+                console.log("gimme data", data)
+              //ReactDOM.render(<InfluencerFeedTitle data={data}/>, document.querySelector('#toppart'));
+            //  ReactDOM.render(<PortalFeedTable data={data}/>, document.querySelector('#publicfeedid'));
 
+
+          });
+         
         }
         else if (e.target.id == "reviewfeedbutid")
         {
             document.querySelector('#maininfluencer').hidden = true;
             document.querySelector('#reviewsmainfluencer').hidden = false;
             var feedtype = "review"
-            fetch(`/gotoinfluencer/${this.props.data}/${feedtype}`)
-
+            console.log("this.props", this.props.data)
+            fetch(`/gotoinfluencer/${this.props.data["username"]}/${feedtype}`)
             .then(response => response.json())
             .then(data => {
-            //when the data is returned use reactdom render new table 
+                console.log("gimme data", data)
+              ReactDOM.render(<InfluencerFeedTable data={data}/>, document.querySelector('#reviewsmainfluencer'));
+            //  ReactDOM.render(<PortalFeedTable data={data}/>, document.querySelector('#publicfeedid'));
 
-              ReactDOM.render(<PortalFeedTable data={data}/>, document.querySelector('#publicfeedid'));
-        
-            });
-            
-           
+
+          });
+                  
         }
     }
    

@@ -63,6 +63,8 @@ class EachReserve extends React.Component{
         super(props);
         this.goBack = this.goBack.bind(this);
         this.submitSave = this.submitSave.bind(this);
+        this.submitReview = this.submitReview.bind(this);
+
         console.log("right in the constructor")
         console.log("this.props.data", this.props.data)
 
@@ -96,13 +98,13 @@ class EachReserve extends React.Component{
         var reserveid = this.props.data["data"][0].id
         const getcooked = getCookie('csrftoken');
 
-        
         fetch(`/gotoeachreserve`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
             body: JSON.stringify({
               value: value,
-              reserveid: reserveid
+              reserveid: reserveid,
+              type:"submitvdo"
             })
           })
         
@@ -110,6 +112,27 @@ class EachReserve extends React.Component{
               window.location.href = "/inbox";
           });
           
+    }
+    submitReview(e)
+    {
+        const getcooked = getCookie('csrftoken');
+        var value = document.querySelector('#typeforreview').value
+        var reserveid = this.props.data["data"][0].id
+        var influencername = this.props.data["fornamedata"][0]
+        fetch(`/gotoeachreserve`, {
+            method: 'POST',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+              value: value,
+              reserveid: reserveid,
+              influencername, influencername,
+              type:"submitreview"
+            })
+          })
+          .then(result => {
+              window.location.href = "/inbox";
+          });
+
     }
     render() {
        
@@ -131,6 +154,24 @@ class EachReserve extends React.Component{
                     <h1>DONE</h1>
                     <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
                 </div>
+                if (this.props.data["data"][0].reviewcompleted != true)
+                {
+                    postoption = 
+                    <div>
+                        <h1>DONE</h1>
+                        <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
+                        <h3>No reviews from customer yet</h3>
+                    </div>
+                }
+                else
+                {
+                    postoption = 
+                    <div>
+                        <h1>DONE</h1>
+                        <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
+                        <h3>Customer Review: {this.props.data["reviewvalue"]}</h3>
+                    </div>
+                }
             }
         }
         else
@@ -144,11 +185,27 @@ class EachReserve extends React.Component{
             }
             else
             {
-                postoption = 
-                <div>
-                    <h1>Done</h1>
-                    <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
-                </div>
+                if (this.props.data["data"][0].reviewcompleted != true)
+                {
+                    postoption = 
+                    <div>
+                        <h1>Done</h1>
+                        <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
+                        <input id="typeforreview"></input>
+                        <button onClick={this.submitReview} class="btn btn-primary">Submit</button>
+                    </div>
+                }
+                else
+                {
+                    postoption = 
+                    <div>
+                        <h1>Done</h1>
+                        <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
+                        <h1>Ur Review</h1>
+                        <h3>{this.props.data["reviewvalue"]}</h3>
+                    </div>
+                }
+                
             }
           
         }

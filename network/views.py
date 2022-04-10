@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from .models import User, Reservation, Reviews, Postandmessage
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 from django.http import JsonResponse
 from datetime import datetime
@@ -58,28 +59,37 @@ def ininfluencer(request, ininfluencer):
    
     return render(request, "network/ininfluencer.html", {'username': ininfluencer})
 def gotoinfluencer(request, username, feedtype):
-    
-    currentuserid = request.user.id
-    influencerid = User.objects.values('id').get(username=username)
+    return_request = {}
+    alldata = []
+    influencerid = User.objects.values('id').get(username=username)  
+    print("influencerid", influencerid)
     influencerid = influencerid["id"]
+    print("influencerid22", influencerid)
 
+    currentuserid = request.user.id
+    print("yoyoyoyyyyo")
     sameperson = 0
     if influencerid == currentuserid:
         sameperson = 1
+
     if feedtype == "main":
-        print("this is main")
-        #do something
-        #query something from the influencer's post and send it back 
+
+            print("this is main")
+            #do something
+            #query something from the influencer's post and send it back 
 
     else:
         print("this is review")
-        #do something
-        #query reviews of the influencer post and show it 
+        reviews = Reviews.objects.filter(user_id_reviewed_id = influencerid)
+        for i in reviews:
+            alldata.append(str(i.review))
+   
 
 
-    return_request = {"username":username, "sameperson": sameperson}
+    print("this is alldata", alldata)
     
-
+    return_request = {"username":username, "sameperson": sameperson, "alldata":alldata}
+        
     
     return JsonResponse(return_request, safe=False)
  
@@ -122,7 +132,7 @@ def inbox(request):
 def gotozjguen484s9gj302g(request):
     currentuser = request.user.id
     checkifinfluencer = User.objects.values('influencer_ornot').get(id = currentuser)
-    
+    reviewvalue = ""
     checkifinfluencer = checkifinfluencer["influencer_ornot"]
     
     reserveinfo = Reservation.objects.filter(user_id_reserver = currentuser)
@@ -142,8 +152,13 @@ def gotozjguen484s9gj302g(request):
         elif data["from"] == "eachreserve":
             reserveinfo = Reservation.objects.filter(id = data["reservationid"])
             postandmessageinfo = Postandmessage.objects.filter(id = data["reservationid"])
+            try:
+                reviewvalue = Reviews.objects.values('review').get(reservation_foreign_id = data["reservationid"])
+                reviewvalue = reviewvalue["review"]
+            except ObjectDoesNotExist:
+                reviewvalue = ""
+        print("this is the reviewvalue", reviewvalue)            
 
-    
     newdata = []
     fornamedata = []
     forpostdata = []
@@ -168,7 +183,7 @@ def gotozjguen484s9gj302g(request):
         newdata.append(reserve.serialize())
 
     return_request = {"checkifinfluencer": checkifinfluencer, "data": newdata, "fornamedata":fornamedata, "type":type, 
-    "forpostdata":forpostdata}
+    "forpostdata":forpostdata, "reviewvalue":reviewvalue}
     return JsonResponse(return_request, safe=False)
 
 def eachreserve(request, reservationid):
@@ -187,12 +202,21 @@ def gotoeachreserve(request):
         data = json.loads(request.body)
         print(data["value"])
         print(data["reserveid"])
+        if data["type"] == "submitvdo":
+            postandmessage = Postandmessage(post_info = data["value"], 
+            reservation_ofpost_id = data["reserveid"])
+            postandmessage.save()
+            Reservation.objects.filter(id=data["reserveid"]).update(completed = True)
 
-        postandmessage = Postandmessage(post_info = data["value"], 
-        reservation_ofpost_id = data["reserveid"])
-        postandmessage.save()
-        Reservation.objects.filter(id=data["reserveid"]).update(completed = True)
+        elif data["type"] == "submitreview":
 
+            userid = User.objects.values('id').get(username = data["influencername"])
+            userid = userid["id"]
+            print("this is userid", userid)
+            Reservation.objects.filter(id=data["reserveid"]).update(reviewcompleted = True)
+            reviews = Reviews(review = data["value"], user_id_reviewer_id = request.user.id,
+            user_id_reviewed_id = userid, reservation_foreign_id = data["reserveid"])
+            reviews.save()
 
 
     return_request = {"reservationid":"hi"}
