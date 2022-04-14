@@ -3,6 +3,8 @@ from django.db import models
 import json
 from django.http import JsonResponse
 from datetime import timezone, datetime, timedelta
+from django.db import models
+from cloudinary.models import CloudinaryField
 
 #what is going on here
 class User(AbstractUser):
@@ -81,4 +83,8 @@ class Reviews(models.Model):
     reservation_foreign = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservation_foreign') 
 
 
-
+class photos(models.Model):
+    # title field
+    title = models.CharField(max_length=100)
+    #image field
+    image = CloudinaryField('image')

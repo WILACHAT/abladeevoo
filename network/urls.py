@@ -27,6 +27,7 @@ urlpatterns = [
     path("helpcenter", views.helpcenter, name="helpcenter"),
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
-    path("register", views.register, name="register")
+    path("register", views.register, name="register"),
+    path("forupload/<str:type>", views.forupload, name="forupload")
 
 ]

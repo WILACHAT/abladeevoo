@@ -7,6 +7,7 @@ from django.urls import reverse
 from .models import User, Reservation, Reviews, Postandmessage
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
+import uuid
 
 from django.http import JsonResponse
 from datetime import datetime
@@ -16,6 +17,14 @@ from json import dumps
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+from cloudinary.api import delete_resources_by_tag, resources_by_tag
+from cloudinary.uploader import upload
+from cloudinary.utils import cloudinary_url
+
 
 def aboutus(request):
     return render(request, "network/aboutus.html")
@@ -37,7 +46,11 @@ def index(request):
   #  print(portals)
     return render(request, "network/index.html", {"portalshown": influencers})
 
+
 def inzwerg4jgnsd9aadif67(request):
+
+
+
     #influencer essentially a page that uses serialize to display all the influencers
 
     influencers = User.objects.all().filter(influencer_ornot=1)
@@ -287,3 +300,50 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
+
+def forupload(request, type):
+    if request.method == "POST":
+        #upload_files("hi")
+        print("is this the type", type)
+        if 'media' in request.FILES.keys():
+
+            print(request.FILES.keys())
+            print("not sure will work", request.FILES)
+            print("part secondto", request.FILES['media'])
+            print("video or not", type)
+            id = uuid.uuid1()
+            uniquepostingid = str(id) + str(request.user.id)
+            print("whawhatwha", uniquepostingid)
+            uploaded_response = upload_files(request.FILES['media'], uniquepostingid)
+       
+
+            return_response = {"url_image": uploaded_response['resources'][0]['url']}
+    return JsonResponse(return_response, safe=False)
+
+def dump_response(response):
+    print("Upload response:")
+    for key in sorted(response.keys()):
+        print("  %s: %s" % (key, response[key]))
+
+def upload_files(file, fileid):
+    print("does this work", file)
+    print("lets go cuz life is good")
+    
+    response = cloudinary.uploader.upload(file, public_id = fileid)
+    dump_response(response)
+    url, options = cloudinary_url(
+        response['public_id'],
+        format=response['format'],
+        width=200,
+        height=150,
+        crop="fill"
+    )
+    print("Fill 200x150 url: " + url)
+    print("options? ", options)
+    print("reponseid", response['public_id'])
+
+    print("")
+    successful = cloudinary.api.resources_by_ids([fileid])
+    print("am i successful?", successful)
+    return successful
+    

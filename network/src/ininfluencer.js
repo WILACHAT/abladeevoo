@@ -58,14 +58,54 @@ class InfluencerFeedTitle extends React.Component {
     constructor(props) {
       super(props);
       this.changeFeedPortal = this.changeFeedPortal.bind(this);
+      this.chooseFile = this.chooseFile.bind(this);
+
+
       
       document.querySelector('#maininfluencer').hidden = false;
       document.querySelector('#reviewsmainfluencer').hidden = true;
       
 
     }
-    
+    chooseFile(e)
+    {
+      console.log('yo')
+      console.log(document.querySelector('#inputGroupFile01').value)
+      let fileinput = document.querySelector('#inputGroupFile01').files[0]
+      console.log("fileinput", fileinput)
+      console.log("fileinput2", fileinput['type'])
+      
+      let type= ""
+      if (fileinput['type'] == "video/quicktime")
+      {
+        type= "video"
+        console.log("is it in here")
+      }
+      else
+      {
+        type= "image"
+      }
 
+      
+      let formData = new FormData();
+      formData.append("media", fileinput);
+      
+      const getcooked = getCookie('csrftoken')
+      fetch(`/forupload/${type}`, {
+        method: 'POST',
+        headers:{'X-CSRFToken': getcooked},
+        body: formData
+
+      })
+      .then(response => response.json())
+        .then(data => {
+          console.log("returned data", data)
+
+          document.querySelector('#testerimage').src = data['url_image']
+        });
+    }
+
+    
     changeFeedPortal(e)
     {
         const getcooked = getCookie('csrftoken');
@@ -123,6 +163,17 @@ class InfluencerFeedTitle extends React.Component {
             <button type="button" class="btn btn-primary" id="publicfeedbutid" onClick={this.changeFeedPortal}>Public Feed</button>
             <button type="button" class="btn btn-primary" id="reviewfeedbutid" onClick={this.changeFeedPortal}>Reviews</button>
             {this.props.data["sameperson"] != 1 ? <a name="posterr" class="btn btn-primary" href={bookhtmllink}>Reserve</a>:null }
+            <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+  </div>
+        <div class="custom-file">
+          <input type="file" onChange={this.chooseFile} class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+        </div>
+        <img id="testerimage" alt="ye" width="800" height="500"></img>
+
          </div>
         )
 

@@ -101,6 +101,7 @@ var InfluencerFeedTitle = function (_React$Component3) {
     var _this3 = _possibleConstructorReturn(this, (InfluencerFeedTitle.__proto__ || Object.getPrototypeOf(InfluencerFeedTitle)).call(this, props));
 
     _this3.changeFeedPortal = _this3.changeFeedPortal.bind(_this3);
+    _this3.chooseFile = _this3.chooseFile.bind(_this3);
 
     document.querySelector('#maininfluencer').hidden = false;
     document.querySelector('#reviewsmainfluencer').hidden = true;
@@ -109,6 +110,40 @@ var InfluencerFeedTitle = function (_React$Component3) {
   }
 
   _createClass(InfluencerFeedTitle, [{
+    key: 'chooseFile',
+    value: function chooseFile(e) {
+      console.log('yo');
+      console.log(document.querySelector('#inputGroupFile01').value);
+      var fileinput = document.querySelector('#inputGroupFile01').files[0];
+      console.log("fileinput", fileinput);
+      console.log("fileinput2", fileinput['type']);
+
+      var type = "";
+      if (fileinput['type'] == "video/quicktime") {
+        type = "video";
+        console.log("is it in here");
+      } else {
+        type = "image";
+      }
+
+      var formData = new FormData();
+      formData.append("media", fileinput);
+
+      var getcooked = getCookie('csrftoken');
+      fetch('/forupload/' + type, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': getcooked },
+        body: formData
+
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log("returned data", data);
+
+        document.querySelector('#testerimage').src = data['url_image'];
+      });
+    }
+  }, {
     key: 'changeFeedPortal',
     value: function changeFeedPortal(e) {
       var getcooked = getCookie('csrftoken');
@@ -176,7 +211,31 @@ var InfluencerFeedTitle = function (_React$Component3) {
           'a',
           { name: 'posterr', 'class': 'btn btn-primary', href: bookhtmllink },
           'Reserve'
-        ) : null
+        ) : null,
+        React.createElement(
+          'div',
+          { 'class': 'input-group' },
+          React.createElement(
+            'div',
+            { 'class': 'input-group-prepend' },
+            React.createElement(
+              'span',
+              { 'class': 'input-group-text', id: 'inputGroupFileAddon01' },
+              'Upload'
+            )
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'custom-file' },
+            React.createElement('input', { type: 'file', onChange: this.chooseFile, 'class': 'custom-file-input', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' }),
+            React.createElement(
+              'label',
+              { 'class': 'custom-file-label', 'for': 'inputGroupFile01' },
+              'Choose file'
+            )
+          )
+        ),
+        React.createElement('img', { id: 'testerimage', alt: 'ye', width: '800', height: '500' })
       );
     }
   }]);
