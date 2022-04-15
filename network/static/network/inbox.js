@@ -72,6 +72,7 @@ var EachReserve = function (_React$Component) {
         _this.goBack = _this.goBack.bind(_this);
         _this.submitSave = _this.submitSave.bind(_this);
         _this.submitReview = _this.submitReview.bind(_this);
+        _this.chooseFile = _this.chooseFile.bind(_this);
 
         console.log("right in the constructor");
         console.log("this.props.data", _this.props.data);
@@ -82,6 +83,39 @@ var EachReserve = function (_React$Component) {
     }
 
     _createClass(EachReserve, [{
+        key: 'chooseFile',
+        value: function chooseFile(e) {
+            var fileinput = document.querySelector('#inputGroupFile01').files[0];
+            var checker = fileinput['type'];
+
+            checker = checker.split('/')[0];
+
+            var type = "";
+            if (checker == "video") {
+                type = "video";
+            } else {
+                type = "image";
+            }
+
+            var formData = new FormData();
+            formData.append("media", fileinput);
+
+            var getcooked = getCookie('csrftoken');
+            fetch('/forupload/' + type, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getcooked },
+                body: formData
+
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                //right now its either you create a new video or unhide the one that you already have
+                document.querySelector('#testervideo').hidden = false;
+                document.querySelector('#sendingvideoidback').name = data['url'];
+                document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4";
+            });
+        }
+    }, {
         key: 'goBack',
         value: function goBack(e) {
             console.log("this one is important", document.querySelector('#typeofpage').value);
@@ -104,6 +138,7 @@ var EachReserve = function (_React$Component) {
             var value = document.querySelector('#sendingbacktorequest').value;
             var reserveid = this.props.data["data"][0].id;
             var getcooked = getCookie('csrftoken');
+            var videoid = document.querySelector('#sendingvideoidback').name;
 
             fetch('/gotoeachreserve', {
                 method: 'POST',
@@ -111,7 +146,8 @@ var EachReserve = function (_React$Component) {
                 body: JSON.stringify({
                     value: value,
                     reserveid: reserveid,
-                    type: "submitvdo"
+                    type: "submitvdo",
+                    videoid: videoid
                 })
             }).then(function (result) {
                 window.location.href = "/inbox";
@@ -126,6 +162,7 @@ var EachReserve = function (_React$Component) {
             var value = document.querySelector('#typeforreview').value;
             var reserveid = this.props.data["data"][0].id;
             var influencername = this.props.data["fornamedata"][0];
+
             fetch('/gotoeachreserve', {
                 method: 'POST',
                 headers: { 'X-CSRFToken': getcooked },
@@ -143,10 +180,41 @@ var EachReserve = function (_React$Component) {
 
             var postoption = "";
             if (document.querySelector('#typeofpage').value == "request") {
+                //this is before influencer posted video
                 if (this.props.data["data"][0].completed != true) {
                     postoption = React.createElement(
                         'div',
                         null,
+                        React.createElement(
+                            'div',
+                            { 'class': 'input-group' },
+                            React.createElement(
+                                'div',
+                                { 'class': 'input-group-prepend' },
+                                React.createElement(
+                                    'span',
+                                    { 'class': 'input-group-text', id: 'inputGroupFileAddon01' },
+                                    'Upload'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'custom-file' },
+                                React.createElement('input', { type: 'file', onChange: this.chooseFile, 'class': 'custom-file-input', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' }),
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'custom-file-label', 'for': 'inputGroupFile01' },
+                                    'Choose file'
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            'video',
+                            { hidden: true, id: 'testervideo', width: '320', height: '240', controls: true },
+                            React.createElement('source', { src: '' }),
+                            'Your browser does not support the video tag.'
+                        ),
+                        React.createElement('input', { name: '', type: 'hidden', id: 'sendingvideoidback' }),
                         React.createElement('input', { id: 'sendingbacktorequest' }),
                         React.createElement(
                             'button',
@@ -155,21 +223,10 @@ var EachReserve = function (_React$Component) {
                         )
                     );
                 } else {
-                    postoption = React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'h1',
-                            null,
-                            'DONE'
-                        ),
-                        React.createElement(
-                            'h1',
-                            null,
-                            'What you wrote: ',
-                            this.props.data["forpostdata"][0]
-                        )
-                    );
+                    //this is after influencer posted video
+                    console.log("wowzaa", this.props.data["forpostdata"]);
+                    console.log("wowzaa", this.props.data);
+
                     if (this.props.data["data"][0].reviewcompleted != true) {
                         postoption = React.createElement(
                             'div',
@@ -178,6 +235,12 @@ var EachReserve = function (_React$Component) {
                                 'h1',
                                 null,
                                 'DONE'
+                            ),
+                            React.createElement(
+                                'video',
+                                { id: 'testervideo', width: '320', height: '240', controls: true },
+                                React.createElement('source', { src: '' }),
+                                'Your browser does not support the video tag.'
                             ),
                             React.createElement(
                                 'h1',
@@ -199,6 +262,12 @@ var EachReserve = function (_React$Component) {
                                 'h1',
                                 null,
                                 'DONE'
+                            ),
+                            React.createElement(
+                                'video',
+                                { id: 'testervideo', width: '320', height: '240', controls: true },
+                                React.createElement('source', { src: '' }),
+                                'Your browser does not support the video tag.'
                             ),
                             React.createElement(
                                 'h1',
@@ -237,6 +306,12 @@ var EachReserve = function (_React$Component) {
                                 'Done'
                             ),
                             React.createElement(
+                                'video',
+                                { id: 'testervideo', width: '320', height: '240', controls: true },
+                                React.createElement('source', { src: '' }),
+                                'Your browser does not support the video tag.'
+                            ),
+                            React.createElement(
                                 'h2',
                                 null,
                                 'Message from influencer: ',
@@ -257,6 +332,12 @@ var EachReserve = function (_React$Component) {
                                 'h1',
                                 null,
                                 'Done'
+                            ),
+                            React.createElement(
+                                'video',
+                                { id: 'testervideo', width: '320', height: '240', controls: true },
+                                React.createElement('source', { src: '' }),
+                                'Your browser does not support the video tag.'
                             ),
                             React.createElement(
                                 'h2',

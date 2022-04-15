@@ -1,3 +1,4 @@
+from enum import unique
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -23,7 +24,12 @@ import cloudinary.api
 
 from cloudinary.api import delete_resources_by_tag, resources_by_tag
 from cloudinary.uploader import upload
+from cloudinary import CloudinaryVideo
+
 from cloudinary.utils import cloudinary_url
+import subprocess
+import os
+
 
 
 def aboutus(request):
@@ -143,6 +149,7 @@ def inbox(request):
 
     return render(request, "network/inbox.html", {"currentuser": currentuser, "username":username})
 def gotozjguen484s9gj302g(request):
+
     currentuser = request.user.id
     checkifinfluencer = User.objects.values('influencer_ornot').get(id = currentuser)
     reviewvalue = ""
@@ -163,8 +170,12 @@ def gotozjguen484s9gj302g(request):
                 reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser)
                 checker = 1
         elif data["from"] == "eachreserve":
+            print("ide", data["reservationid"])
             reserveinfo = Reservation.objects.filter(id = data["reservationid"])
+
+            #YOU ARE RIGHT HERE
             postandmessageinfo = Postandmessage.objects.filter(id = data["reservationid"])
+            print("after ide", postandmessageinfo)
             try:
                 reviewvalue = Reviews.objects.values('review').get(reservation_foreign_id = data["reservationid"])
                 reviewvalue = reviewvalue["review"]
@@ -179,9 +190,15 @@ def gotozjguen484s9gj302g(request):
 
     print("this is forpostdata before", postandmessageinfo)
 
+    # you are currently here right now waan next step is to do this
+
     for post in postandmessageinfo:
         posta = str(post.post_info)
-        forpostdata.append(posta)
+        videoa = str(post.video)
+        dict = {'posta': posta, 'videoa': videoa}
+
+
+        forpostdata.append(dict)
     
     print("this is forpostdata", forpostdata)
     for reserve in reserveinfo:
@@ -215,12 +232,13 @@ def gotoeachreserve(request):
         data = json.loads(request.body)
         print(data["value"])
         print(data["reserveid"])
+        print("pai gee krung", data["videoid"])
+
         if data["type"] == "submitvdo":
             postandmessage = Postandmessage(post_info = data["value"], 
-            reservation_ofpost_id = data["reserveid"])
+            reservation_ofpost_id = data["reserveid"], video = data["videoid"])
             postandmessage.save()
             Reservation.objects.filter(id=data["reserveid"]).update(completed = True)
-
         elif data["type"] == "submitreview":
 
             userid = User.objects.values('id').get(username = data["influencername"])
@@ -303,21 +321,31 @@ def register(request):
 
 def forupload(request, type):
     if request.method == "POST":
-        #upload_files("hi")
+        return_response = {}
         print("is this the type", type)
         if 'media' in request.FILES.keys():
-
-            print(request.FILES.keys())
-            print("not sure will work", request.FILES)
-            print("part secondto", request.FILES['media'])
-            print("video or not", type)
             id = uuid.uuid1()
             uniquepostingid = str(id) + str(request.user.id)
-            print("whawhatwha", uniquepostingid)
-            uploaded_response = upload_files(request.FILES['media'], uniquepostingid)
-       
+            #uniquepostingid = uniquepostingid.split('.')[0]
+           # print("check wtf is going on with id", uniquepostingid)
 
-            return_response = {"url_image": uploaded_response['resources'][0]['url']}
+            if type == "video":
+                print("inside video?")
+                request.FILES['media']
+
+                uploaded_response = upload_files_videos(request.FILES['media'], uniquepostingid)
+               # wtf = CloudinaryVideo(uploaded_response['public_id']).video(fetch_format="mp4")
+               # wtf = cloudinary.api.resource(resource_type = "video", public_id = uploaded_response['public_id'], fetch_format="mp4")
+#http://res.cloudinary.com/ablaze-project/video/upload/f_mp4/054df9c0-bc6b-11ec-a8ce-acde480011221.mp4
+               # print("if this work imma suk my own dik", wtf)
+              #  https://res.cloudinary.com/demo/video/upload/f_mp4/054df9c0-bc6b-11ec-a8ce-acde480011221.mp4
+               # print("this is the uploaded respones", uploaded_response)
+                return_response = {"url": uploaded_response['public_id']}
+
+            else:
+                print("whawhatwha", uniquepostingid)
+                uploaded_response = upload_files(request.FILES['media'], uniquepostingid)
+                return_response = {"url": uploaded_response['resources'][0]['url']}
     return JsonResponse(return_response, safe=False)
 
 def dump_response(response):
@@ -326,9 +354,7 @@ def dump_response(response):
         print("  %s: %s" % (key, response[key]))
 
 def upload_files(file, fileid):
-    print("does this work", file)
-    print("lets go cuz life is good")
-    
+    print("this is fild ID", fileid)
     response = cloudinary.uploader.upload(file, public_id = fileid)
     dump_response(response)
     url, options = cloudinary_url(
@@ -338,6 +364,7 @@ def upload_files(file, fileid):
         height=150,
         crop="fill"
     )
+    print("waan's response in image", response)
     print("Fill 200x150 url: " + url)
     print("options? ", options)
     print("reponseid", response['public_id'])
@@ -345,5 +372,29 @@ def upload_files(file, fileid):
     print("")
     successful = cloudinary.api.resources_by_ids([fileid])
     print("am i successful?", successful)
+    return successful
+
+def upload_files_videos(file, fileid):
+   # print("inside upload files videos", fileid)
+   # print("file", file)
+    response = cloudinary.uploader.upload_large(file, resource_type = "video", public_id = fileid)
+    dump_response(response)
+    url, options = cloudinary_url(
+        response['public_id']
+    )
+   # print("waan's response in video", response)
+   # print("Fill 200x150 url: " + url)
+   # print("options? ", options)
+   # print("id", response['public_id'])
+
+    #print("")
+    #print("fileid last minuete", fileid)
+    #print("wanna celebrate bro?", cloudinary.api.resources(publics_id = fileid))
+
+   # print("resources for vid", cloudinary.api.resources())
+    #print("something inside?", cloudinary.api.resource(resource_type = "video", public_id = fileid))
+    successful = cloudinary.api.resource(resource_type = "video", public_id = fileid)
+    
+  #  print("am i successful?", successful)
     return successful
     

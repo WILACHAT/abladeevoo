@@ -69,24 +69,25 @@ class InfluencerFeedTitle extends React.Component {
     }
     chooseFile(e)
     {
-      console.log('yo')
-      console.log(document.querySelector('#inputGroupFile01').value)
-      let fileinput = document.querySelector('#inputGroupFile01').files[0]
-      console.log("fileinput", fileinput)
-      console.log("fileinput2", fileinput['type'])
       
+      let fileinput = document.querySelector('#inputGroupFile01').files[0]
+
+
+      let checker = fileinput['type']
+
+      checker = checker.split('/')[0]
+     
       let type= ""
-      if (fileinput['type'] == "video/quicktime")
+      if (checker == "video")
       {
         type= "video"
-        console.log("is it in here")
       }
       else
       {
         type= "image"
       }
 
-      
+
       let formData = new FormData();
       formData.append("media", fileinput);
       
@@ -99,9 +100,10 @@ class InfluencerFeedTitle extends React.Component {
       })
       .then(response => response.json())
         .then(data => {
-          console.log("returned data", data)
 
-          document.querySelector('#testerimage').src = data['url_image']
+          //document.querySelector('#testerimage').src = data['url']
+          document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4"
+
         });
     }
 
@@ -173,6 +175,12 @@ class InfluencerFeedTitle extends React.Component {
         </div>
         </div>
         <img id="testerimage" alt="ye" width="800" height="500"></img>
+       
+        <video id="testervideo" width="320" height="240" controls>
+          <source src="">
+          </source>
+            Your browser does not support the video tag.
+        </video>
 
          </div>
         )

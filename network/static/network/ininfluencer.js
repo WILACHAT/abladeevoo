@@ -112,16 +112,16 @@ var InfluencerFeedTitle = function (_React$Component3) {
   _createClass(InfluencerFeedTitle, [{
     key: 'chooseFile',
     value: function chooseFile(e) {
-      console.log('yo');
-      console.log(document.querySelector('#inputGroupFile01').value);
+
       var fileinput = document.querySelector('#inputGroupFile01').files[0];
-      console.log("fileinput", fileinput);
-      console.log("fileinput2", fileinput['type']);
+
+      var checker = fileinput['type'];
+
+      checker = checker.split('/')[0];
 
       var type = "";
-      if (fileinput['type'] == "video/quicktime") {
+      if (checker == "video") {
         type = "video";
-        console.log("is it in here");
       } else {
         type = "image";
       }
@@ -138,9 +138,9 @@ var InfluencerFeedTitle = function (_React$Component3) {
       }).then(function (response) {
         return response.json();
       }).then(function (data) {
-        console.log("returned data", data);
 
-        document.querySelector('#testerimage').src = data['url_image'];
+        //document.querySelector('#testerimage').src = data['url']
+        document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4";
       });
     }
   }, {
@@ -235,7 +235,13 @@ var InfluencerFeedTitle = function (_React$Component3) {
             )
           )
         ),
-        React.createElement('img', { id: 'testerimage', alt: 'ye', width: '800', height: '500' })
+        React.createElement('img', { id: 'testerimage', alt: 'ye', width: '800', height: '500' }),
+        React.createElement(
+          'video',
+          { id: 'testervideo', width: '320', height: '240', controls: true },
+          React.createElement('source', { src: '' }),
+          'Your browser does not support the video tag.'
+        )
       );
     }
   }]);

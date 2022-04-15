@@ -64,6 +64,8 @@ class EachReserve extends React.Component{
         this.goBack = this.goBack.bind(this);
         this.submitSave = this.submitSave.bind(this);
         this.submitReview = this.submitReview.bind(this);
+        this.chooseFile = this.chooseFile.bind(this);
+
 
         console.log("right in the constructor")
         console.log("this.props.data", this.props.data)
@@ -72,6 +74,43 @@ class EachReserve extends React.Component{
         console.log("bruh", this.props.data["type"])
         
     }
+    chooseFile(e)
+    {
+        let fileinput = document.querySelector('#inputGroupFile01').files[0]
+        let checker = fileinput['type']
+  
+        checker = checker.split('/')[0]
+       
+        let type= ""
+        if (checker == "video")
+        {
+          type= "video"
+        }
+        else
+        {
+          type= "image"
+        }
+  
+        let formData = new FormData();
+        formData.append("media", fileinput);
+        
+        const getcooked = getCookie('csrftoken')
+        fetch(`/forupload/${type}`, {
+          method: 'POST',
+          headers:{'X-CSRFToken': getcooked},
+          body: formData
+  
+        })
+        .then(response => response.json())
+          .then(data => {
+              //right now its either you create a new video or unhide the one that you already have
+            document.querySelector('#testervideo').hidden = false
+            document.querySelector('#sendingvideoidback').name = data['url']
+            document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4"
+
+          });
+    }
+
     goBack(e)
     {
         console.log("this one is important", document.querySelector('#typeofpage').value)
@@ -97,6 +136,8 @@ class EachReserve extends React.Component{
         var value = document.querySelector('#sendingbacktorequest').value
         var reserveid = this.props.data["data"][0].id
         const getcooked = getCookie('csrftoken');
+        var videoid = document.querySelector('#sendingvideoidback').name
+
 
         fetch(`/gotoeachreserve`, {
             method: 'POST',
@@ -104,7 +145,8 @@ class EachReserve extends React.Component{
             body: JSON.stringify({
               value: value,
               reserveid: reserveid,
-              type:"submitvdo"
+              type:"submitvdo",
+              videoid: videoid
             })
           })
         
@@ -119,6 +161,7 @@ class EachReserve extends React.Component{
         var value = document.querySelector('#typeforreview').value
         var reserveid = this.props.data["data"][0].id
         var influencername = this.props.data["fornamedata"][0]
+
         fetch(`/gotoeachreserve`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
@@ -139,26 +182,45 @@ class EachReserve extends React.Component{
         var postoption = ""
         if (document.querySelector('#typeofpage').value == "request")
         {
+            //this is before influencer posted video
             if (this.props.data["data"][0].completed != true)
             {
                 postoption = 
                 <div>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" onChange={this.chooseFile} class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                </div>
+                <video hidden id="testervideo" width="320" height="240" controls>
+                    <source src=""></source>
+                    Your browser does not support the video tag.
+                </video>
+                    <input name="" type="hidden" id="sendingvideoidback"></input>
                     <input id="sendingbacktorequest"></input>
                     <button class="btn btn-primary" onClick={this.submitSave} id="submitrequested">Post</button>
                 </div>
             }
             else
             {
-                postoption = 
-                <div>
-                    <h1>DONE</h1>
-                    <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
-                </div>
+                //this is after influencer posted video
+                console.log("wowzaa", this.props.data["forpostdata"])
+                console.log("wowzaa", this.props.data)
+
                 if (this.props.data["data"][0].reviewcompleted != true)
                 {
                     postoption = 
                     <div>
                         <h1>DONE</h1>
+                        <video id="testervideo" width="320" height="240" controls>
+                            <source src=""></source>
+                            Your browser does not support the video tag.
+                        </video>
+
                         <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
                         <h3>No reviews from customer yet</h3>
                     </div>
@@ -168,6 +230,11 @@ class EachReserve extends React.Component{
                     postoption = 
                     <div>
                         <h1>DONE</h1>
+                        <video id="testervideo" width="320" height="240" controls>
+                            <source src=""></source>
+                            Your browser does not support the video tag.
+                        </video>
+
                         <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
                         <h3>Customer Review: {this.props.data["reviewvalue"]}</h3>
                     </div>
@@ -190,6 +257,11 @@ class EachReserve extends React.Component{
                     postoption = 
                     <div>
                         <h1>Done</h1>
+                        <video id="testervideo" width="320" height="240" controls>
+                            <source src=""></source>
+                            Your browser does not support the video tag.
+                        </video>
+
                         <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
                         <input id="typeforreview"></input>
                         <button onClick={this.submitReview} class="btn btn-primary">Submit</button>
@@ -200,6 +272,11 @@ class EachReserve extends React.Component{
                     postoption = 
                     <div>
                         <h1>Done</h1>
+                        <video id="testervideo" width="320" height="240" controls>
+                            <source src=""></source>
+                            Your browser does not support the video tag.
+                        </video>
+
                         <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
                         <h1>Ur Review</h1>
                         <h3>{this.props.data["reviewvalue"]}</h3>

@@ -56,7 +56,6 @@ class Reservation(models.Model):
             "timestamp":  self.creationtime,
             "completed":self.completed,
             "reviewcompleted":self.reviewcompleted
-
         } 
 
 
@@ -66,6 +65,7 @@ class Postandmessage(models.Model):
     creationtime = models.DateTimeField(auto_now_add=True, null=True)
     reservation_ofpost = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservationofpost')
     poster = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='posterid')
+    video = models.CharField(max_length=256, null=True)
 
 
     def serialize(self):
@@ -82,9 +82,3 @@ class Reviews(models.Model):
     user_id_reviewed = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reviewed') 
     reservation_foreign = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservation_foreign') 
 
-
-class photos(models.Model):
-    # title field
-    title = models.CharField(max_length=100)
-    #image field
-    image = CloudinaryField('image')
