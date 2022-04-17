@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import User, Reservation, Reviews, Postandmessage
+from .models import User, Reservation, Reviews, Postandmessage, Userinfo
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 import uuid
@@ -55,8 +55,6 @@ def index(request):
 
 def inzwerg4jgnsd9aadif67(request):
 
-
-
     #influencer essentially a page that uses serialize to display all the influencers
 
     influencers = User.objects.all().filter(influencer_ornot=1)
@@ -80,35 +78,64 @@ def ininfluencer(request, ininfluencer):
 def gotoinfluencer(request, username, feedtype):
     return_request = {}
     alldata = []
+    userinfodata = []
     influencerid = User.objects.values('id').get(username=username)  
-    print("influencerid", influencerid)
     influencerid = influencerid["id"]
-    print("influencerid22", influencerid)
 
+    print("fadf")
+    userinfo = Userinfo.objects.filter(influencer_id = influencerid)
+
+    if userinfo.exists():
+        print("info does exist")
+        for info in userinfo:
+            userinfodata.append(info.serialize())
+    else:
+        print("doesnt fucking exists")
+    
+    print("this is userinfodata", userinfodata)
     currentuserid = request.user.id
-    print("yoyoyoyyyyo")
     sameperson = 0
     if influencerid == currentuserid:
         sameperson = 1
 
     if feedtype == "main":
-
             print("this is main")
+            postandmessage = Postandmessage.objects.filter(poster_id = influencerid)
+            for i in postandmessage:
+                alldata.append(i.video)
             #do something
             #query something from the influencer's post and send it back 
-
     else:
         print("this is review")
         reviews = Reviews.objects.filter(user_id_reviewed_id = influencerid)
         for i in reviews:
             alldata.append(str(i.review))
    
-
-
     print("this is alldata", alldata)
     
-    return_request = {"username":username, "sameperson": sameperson, "alldata":alldata}
+    return_request = {"username":username, "sameperson": sameperson, "alldata":alldata, "feedtype":feedtype, "userinfodata":userinfodata}
         
+    
+    return JsonResponse(return_request, safe=False)
+
+def editprofile(request, type):
+    if request.method == "POST":
+        print(request.user.id)
+
+        data = json.loads(request.body)
+     
+        checker = Userinfo.objects.filter(influencer_id = request.user.id)
+        if checker.exists():
+            userinfo = checker.update(profile_fullname=data['idfullname'],profile_description=data['iddescription'],
+            first_url=data['idurl1'], second_url=data['idurl2'], third_url=data['idurl3'], influencer_id=request.user.id)
+        
+        else: 
+            userinfo = Userinfo(profile_fullname=data['idfullname'],profile_description=data['iddescription'],
+            first_url=data['idurl1'], second_url=data['idurl2'], third_url=data['idurl3'], influencer_id=request.user.id)
+            userinfo.save()
+    
+
+    return_request = {"thebest":"waan"}
     
     return JsonResponse(return_request, safe=False)
  
@@ -118,7 +145,6 @@ def book(request, username):
     influencerid = User.objects.values('id').get(username=username)
     influencerid = influencerid["id"]
 
- 
     if request.method == "POST":
         data = json.loads(request.body)
         print(data)
@@ -130,11 +156,7 @@ def book(request, username):
         user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid)
         
         bookrequest.save()
-        
-
-
-
-
+  
     return render(request, "network/book.html", {'username': username})
 
 def gotobook(request, username):
@@ -163,7 +185,6 @@ def gotozjguen484s9gj302g(request):
         data = json.loads(request.body)
         print("data", data)
 
-
         if data["from"] == "inbox":
             if data["type"] == "myrequesthtml":
                 type= "request"
@@ -174,7 +195,7 @@ def gotozjguen484s9gj302g(request):
             reserveinfo = Reservation.objects.filter(id = data["reservationid"])
 
             #YOU ARE RIGHT HERE
-            postandmessageinfo = Postandmessage.objects.filter(id = data["reservationid"])
+            postandmessageinfo = Postandmessage.objects.filter(reservation_ofpost_id = data["reservationid"])
             print("after ide", postandmessageinfo)
             try:
                 reviewvalue = Reviews.objects.values('review').get(reservation_foreign_id = data["reservationid"])
@@ -194,11 +215,11 @@ def gotozjguen484s9gj302g(request):
 
     for post in postandmessageinfo:
         posta = str(post.post_info)
-        videoa = str(post.video)
-        dict = {'posta': posta, 'videoa': videoa}
+        videoa = post.video
 
+        forpostdata.append(posta)
+        forpostdata.append(videoa)
 
-        forpostdata.append(dict)
     
     print("this is forpostdata", forpostdata)
     for reserve in reserveinfo:
@@ -230,13 +251,13 @@ def eachreserve(request, reservationid):
 def gotoeachreserve(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        print(data["value"])
-        print(data["reserveid"])
-        print("pai gee krung", data["videoid"])
+        #print("data value", data["value"])
+        #print("data reserve id", data["reserveid"])
 
         if data["type"] == "submitvdo":
+            print("inside the submit video")
             postandmessage = Postandmessage(post_info = data["value"], 
-            reservation_ofpost_id = data["reserveid"], video = data["videoid"])
+            reservation_ofpost_id = data["reserveid"], video = data["videoid"], poster_id = request.user.id)
             postandmessage.save()
             Reservation.objects.filter(id=data["reserveid"]).update(completed = True)
         elif data["type"] == "submitreview":
@@ -377,11 +398,11 @@ def upload_files(file, fileid):
 def upload_files_videos(file, fileid):
    # print("inside upload files videos", fileid)
    # print("file", file)
-    response = cloudinary.uploader.upload_large(file, resource_type = "video", public_id = fileid)
-    dump_response(response)
-    url, options = cloudinary_url(
-        response['public_id']
-    )
+    cloudinary.uploader.upload_large(file, resource_type = "video", public_id = fileid, chunk_size = 6000000)
+  #  dump_response(response)
+   # url, options = cloudinary_url(
+   #     response['public_id']
+   # )
    # print("waan's response in video", response)
    # print("Fill 200x150 url: " + url)
    # print("options? ", options)

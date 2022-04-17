@@ -19,6 +19,8 @@ urlpatterns = [
     
     path("eachreserve/<int:reservationid>", views.eachreserve, name="eachreserve"),
     path("gotoeachreserve", views.gotoeachreserve, name="gotoeachreserve"),
+    path("editprofile/<str:type>", views.editprofile, name="editprofile"),
+
 
 
 

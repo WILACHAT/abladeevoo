@@ -19,6 +19,29 @@ class User(AbstractUser):
             "influencer_ornot":self.influencer_ornot,
             "freeze_account":self.freeze_account
         }
+class Userinfo(models.Model):
+    profile_description = models.CharField(max_length=256, null=True)
+    profile_video = models.CharField(max_length=256, null=True)
+    profile_fullname = models.CharField(max_length=256, null=True)
+    profile_picture = models.CharField(max_length=256, null=True)
+    first_url = models.URLField(max_length=256, null=True)
+    second_url = models.URLField(max_length=256, null=True)
+    third_url = models.URLField(max_length=256, null=True)
+    influencer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencer_userinfo') 
+
+    def serialize(self):
+        return {
+            "id":self.id,
+            "profile_description":self.profile_description,
+            "profile_video":self.profile_video,
+            "profile_fullname":self.profile_fullname,
+            "profile_picture":self.profile_picture,
+            "first_url":self.first_url,
+            "second_url":self.second_url,
+            "third_url":self.third_url
+        } 
+
+
 #How do i do the category? EZ, essentially put category name in the database
 #and whenever category is involve just query stuff from your database
 #portal

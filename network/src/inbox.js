@@ -11,6 +11,8 @@ tointro: "Someone"
 typeintro: "someoneelse_html_id"
 typeoccasion: "birthday_html_i
 
+//things you still need to do
+
 */
 function getCookie(name) {
     let cookieValue = null;
@@ -162,6 +164,7 @@ class EachReserve extends React.Component{
         var reserveid = this.props.data["data"][0].id
         var influencername = this.props.data["fornamedata"][0]
 
+        console.log("value of review", value)
         fetch(`/gotoeachreserve`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
@@ -208,16 +211,14 @@ class EachReserve extends React.Component{
             else
             {
                 //this is after influencer posted video
-                console.log("wowzaa", this.props.data["forpostdata"])
-                console.log("wowzaa", this.props.data)
-
+                let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
                 if (this.props.data["data"][0].reviewcompleted != true)
                 {
                     postoption = 
                     <div>
                         <h1>DONE</h1>
                         <video id="testervideo" width="320" height="240" controls>
-                            <source src=""></source>
+                            <source src={link}></source>
                             Your browser does not support the video tag.
                         </video>
 
@@ -227,11 +228,13 @@ class EachReserve extends React.Component{
                 }
                 else
                 {
+                   // <img id="testerimage" alt="ye" width="800" height="500"></img>
+
                     postoption = 
                     <div>
                         <h1>DONE</h1>
                         <video id="testervideo" width="320" height="240" controls>
-                            <source src=""></source>
+                            <source src={link}></source>
                             Your browser does not support the video tag.
                         </video>
 
@@ -252,13 +255,15 @@ class EachReserve extends React.Component{
             }
             else
             {
+                let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
+
                 if (this.props.data["data"][0].reviewcompleted != true)
                 {
                     postoption = 
                     <div>
                         <h1>Done</h1>
                         <video id="testervideo" width="320" height="240" controls>
-                            <source src=""></source>
+                            <source src={link}></source>
                             Your browser does not support the video tag.
                         </video>
 
@@ -273,7 +278,7 @@ class EachReserve extends React.Component{
                     <div>
                         <h1>Done</h1>
                         <video id="testervideo" width="320" height="240" controls>
-                            <source src=""></source>
+                            <source src={link}></source>
                             Your browser does not support the video tag.
                         </video>
 

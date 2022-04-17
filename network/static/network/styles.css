@@ -12,3 +12,14 @@
   
   
   }
+
+  .imgnoedit
+{
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  object-fit: cover;
+
+}

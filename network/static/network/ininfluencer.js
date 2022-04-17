@@ -34,14 +34,27 @@ var InfluencerFeedRows = function (_React$Component) {
   _createClass(InfluencerFeedRows, [{
     key: 'render',
     value: function render() {
+      var thewholereturn = "";
+      if (this.props.feedtype == "main") {
+        var link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4";
+        thewholereturn = React.createElement(
+          'video',
+          { id: 'testervideo', width: '320', height: '240', controls: true },
+          React.createElement('source', { src: link }),
+          'Your browser does not support the video tag.'
+        );
+      } else {
+        thewholereturn = React.createElement(
+          'h4',
+          null,
+          this.props.data
+        );
+      }
+
       return React.createElement(
         'div',
         null,
-        React.createElement(
-          'h4',
-          null,
-          this.props.review
-        )
+        thewholereturn
       );
     }
   }]);
@@ -61,29 +74,34 @@ var InfluencerFeedTable = function (_React$Component2) {
   _createClass(InfluencerFeedTable, [{
     key: 'render',
     value: function render() {
+
+      console.log("finding the feedtype", this.props.data["feedtype"]);
+      console.log("finding the feedtype hehehe", this.props.data["alldata"]);
+
       var rows = [];
 
       for (var i = 0; i < this.props.data["alldata"].length; i++) {
         rows.push(React.createElement(InfluencerFeedRows, {
-          review: this.props.data["alldata"][i] }));
+          data: this.props.data["alldata"][i],
+          feedtype: this.props.data["feedtype"] }));
       }
 
       return React.createElement(
         'div',
         null,
-        React.createElement(
+        this.props.data["feedtype"] == "main" ? React.createElement(
           'h1',
           null,
-          'Reviews of Customers'
+          'Example Posts'
+        ) : React.createElement(
+          'h1',
+          null,
+          'Revies of Customers'
         ),
         React.createElement(
           'table',
           { className: 'table table-hover table-sm' },
-          React.createElement(
-            'h1',
-            null,
-            rows
-          )
+          rows
         )
       );
     }
@@ -92,55 +110,482 @@ var InfluencerFeedTable = function (_React$Component2) {
   return InfluencerFeedTable;
 }(React.Component);
 
-var InfluencerFeedTitle = function (_React$Component3) {
-  _inherits(InfluencerFeedTitle, _React$Component3);
+var EditPost = function (_React$Component3) {
+  _inherits(EditPost, _React$Component3);
+
+  function EditPost(props) {
+    _classCallCheck(this, EditPost);
+
+    var _this3 = _possibleConstructorReturn(this, (EditPost.__proto__ || Object.getPrototypeOf(EditPost)).call(this, props));
+
+    _this3.editPost = _this3.editPost.bind(_this3);
+    _this3.editCancel = _this3.editCancel.bind(_this3);
+    _this3.checkTxtArea = _this3.checkTxtArea.bind(_this3);
+    console.log("this.props.fillname", _this3.props.fullname);
+    console.log("this.props.profilepic", _this3.props.profilepic);
+
+    _this3.state = {
+      fullname: _this3.props.fullname,
+      description: _this3.props.description,
+      first_url: _this3.props.first_url,
+      second_url: _this3.props.second_url,
+      third_url: _this3.props.third_url,
+      profilepic: _this3.props.profilepic,
+      introvideo: _this3.props.introvideo
+    };
+    return _this3;
+  }
+
+  _createClass(EditPost, [{
+    key: 'chooseFile',
+    value: function chooseFile(e) {
+      var getcooked = getCookie('csrftoken');
+      var fileInput = document.querySelector('#choosefile').files[0];
+
+      console.log("this is in choose file");
+
+      console.log("full name", this.state.fullname);
+      console.log("profile pic", this.state.profilepic);
+
+      console.log("i just wantto see the profilepic", this.props.profilepic);
+
+      var formData = new FormData();
+      formData.append("media", fileInput);
+      var type = "image";
+      /* fetch(`/forupload/${type}`, {
+         method: 'POST',
+         headers: {'X-CSRFToken': getcooked
+         },
+         body:formData
+      })
+      .then(response => response.json())
+         .then(result =>{
+             console.log("result", result)
+             console.log(result['url'])
+             let pictureid = result['url'].split("/")[7].split(".")[0]
+             console.log("is this pictureid we will c", pictureid)
+             console.log(pictureid)
+               this.setState({profilepic: pictureid});
+         });
+      */
+    }
+  }, {
+    key: 'editCancel',
+    value: function editCancel(e) {
+      this.props.cancel();
+    }
+  }, {
+    key: 'editPost',
+    value: function editPost(e) {
+      this.props.savePostHandler("confused");
+    }
+  }, {
+    key: 'checkTxtArea',
+    value: function checkTxtArea(e) {
+      if (e.target.id == "idfullname") {
+        if (e.target.value.length > 0) {
+          this.setState({ fullname: e.target.value });
+        } else {
+          this.setState({ fullname: "" });
+        }
+      }
+      if (e.target.id == "iddescription") {
+        if (e.target.value.length > 0) {
+          console.log(e.target.value);
+          this.setState({ description: e.target.value });
+        } else {
+          this.setState({ description: "" });
+        }
+      }
+      if (e.target.id == "idurl1") {
+        if (e.target.value.length > 0) {
+          console.log(e.target.value);
+          this.setState({ first_url: e.target.value });
+        } else {
+          this.setState({ first_url: "" });
+        }
+      }
+      if (e.target.id == "idurl2") {
+        if (e.target.value.length > 0) {
+          console.log(e.target.value);
+          this.setState({ second_url: e.target.value });
+        } else {
+          this.setState({ second_url: "" });
+        }
+      }
+      if (e.target.id == "idurl3") {
+        if (e.target.value.length > 0) {
+          console.log(e.target.value);
+          this.setState({ third_url: e.target.value });
+        } else {
+          this.setState({ third_url: "" });
+        }
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'h1',
+          null,
+          this.state.hi
+        ),
+        React.createElement(
+          'div',
+          { 'class': 'd-flex justify-content-center mt-1 mb-1' },
+          React.createElement(
+            'label',
+            { htmlFor: 'edit_post_txt' },
+            'Click to change profile picture: '
+          )
+        ),
+        React.createElement(
+          'div',
+          { 'class': 'd-flex justify-content-center' },
+          React.createElement(
+            'div',
+            { id: 'coverschoosefile' },
+            React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'form-floating' },
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
+            React.createElement(
+              'label',
+              { htmlFor: 'edit_post_txt' },
+              'Full Name: '
+            ),
+            React.createElement('textarea', { id: 'idfullname', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.fullname })
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
+            React.createElement(
+              'label',
+              { htmlFor: 'edit_post_txt' },
+              'Page Description: '
+            ),
+            React.createElement('textarea', { id: 'iddescription', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.description })
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
+            React.createElement(
+              'label',
+              { htmlFor: 'edit_post_txt' },
+              'Url 1: '
+            ),
+            React.createElement('textarea', { id: 'idurl1', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.first_url })
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
+            React.createElement(
+              'label',
+              { htmlFor: 'edit_post_txt' },
+              'Url 2: '
+            ),
+            React.createElement('textarea', { id: 'idurl2', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.second_url })
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
+            React.createElement(
+              'label',
+              { htmlFor: 'edit_post_txt' },
+              'Url 3: '
+            ),
+            React.createElement('textarea', { id: 'idurl3', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.third_url })
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
+            React.createElement(
+              'label',
+              { htmlFor: 'edit_post_txt' },
+              'Video: '
+            ),
+            React.createElement('textarea', { id: 'profiledes', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.profiledes })
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
+            React.createElement(
+              'button',
+              { type: 'button', name: 'edit_post_button', className: 'loll btn btn-outline-success btn-sm mr-2', onClick: this.editPost },
+              'Save'
+            ),
+            React.createElement(
+              'button',
+              { type: 'button', className: 'loll btn btn-outline-danger btn-sm', name: 'cancel_button', onClick: this.editCancel },
+              'Cancel'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return EditPost;
+}(React.Component);
+
+var InfluencerFeedTitle = function (_React$Component4) {
+  _inherits(InfluencerFeedTitle, _React$Component4);
 
   function InfluencerFeedTitle(props) {
     _classCallCheck(this, InfluencerFeedTitle);
 
-    var _this3 = _possibleConstructorReturn(this, (InfluencerFeedTitle.__proto__ || Object.getPrototypeOf(InfluencerFeedTitle)).call(this, props));
+    var _this4 = _possibleConstructorReturn(this, (InfluencerFeedTitle.__proto__ || Object.getPrototypeOf(InfluencerFeedTitle)).call(this, props));
 
-    _this3.changeFeedPortal = _this3.changeFeedPortal.bind(_this3);
-    _this3.chooseFile = _this3.chooseFile.bind(_this3);
+    _this4.changeFeedPortal = _this4.changeFeedPortal.bind(_this4);
+    _this4.editProfile = _this4.editProfile.bind(_this4);
+    _this4.cancel = _this4.cancel.bind(_this4);
+    //  this.showImg = this.showImg.bind(this);
+    _this4.sendEditPost = _this4.sendEditPost.bind(_this4);
 
     document.querySelector('#maininfluencer').hidden = false;
     document.querySelector('#reviewsmainfluencer').hidden = true;
 
-    return _this3;
+    var fullname = "";
+    var description = "";
+    var profilepic = "";
+    var introvideo = "";
+    var first_url = "";
+    var second_url = "";
+    var third_url = "";
+
+    if (_this4.props.data["userinfodata"][0] != null) {
+      if (_this4.props.data["userinfodata"][0].profile_picture != null) {
+        profilepic = _this4.props.data["userinfodata"][0].profile_picture;
+      }
+      if (_this4.props.data["userinfodata"][0].profile_fullname != null) {
+        fullname = _this4.props.data["userinfodata"][0].profile_fullname;
+      }
+      if (_this4.props.data["userinfodata"][0].profile_description != null) {
+        description = _this4.props.data["userinfodata"][0].profile_description;
+      }
+      if (_this4.props.data["userinfodata"][0].first_url != null) {
+        first_url = _this4.props.data["userinfodata"][0].first_url;
+      }
+      if (_this4.props.data["userinfodata"][0].second_url != null) {
+        second_url = _this4.props.data["userinfodata"][0].second_url;
+      }
+      if (_this4.props.data["userinfodata"][0].third_url != null) {
+        third_url = _this4.props.data["userinfodata"][0].second_url;
+      }
+      if (_this4.props.data["userinfodata"][0].profile_video != null) {
+        introvideo = _this4.props.data["userinfodata"][0].profile_video;
+      }
+    }
+
+    //let link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + profilepic + ".jpg"
+
+    _this4.state = {
+      fullname: fullname,
+      description: description,
+      first_url: first_url,
+      second_url: second_url,
+      third_url: third_url,
+      profilepic: profilepic,
+      introvideo: introvideo,
+
+      edit: React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'div',
+          { onClick: _this4.showImg, 'class': 'd-flex justify-content-center' },
+          React.createElement('img', { 'class': 'imgnoedit', src: '' })
+        ),
+        React.createElement(
+          'h4',
+          null,
+          'Name'
+        ),
+        React.createElement(
+          'h5',
+          null,
+          fullname
+        ),
+        React.createElement(
+          'h5',
+          null,
+          'Description'
+        ),
+        React.createElement(
+          'h6',
+          null,
+          description
+        ),
+        React.createElement(
+          'h5',
+          null,
+          'Links'
+        ),
+        React.createElement(
+          'h6',
+          null,
+          first_url
+        ),
+        React.createElement(
+          'h6',
+          null,
+          second_url
+        ),
+        React.createElement(
+          'h6',
+          null,
+          third_url
+        ),
+        React.createElement(
+          'h6',
+          null,
+          'Introduction Video'
+        ),
+        React.createElement(
+          'h6',
+          null,
+          'Video'
+        )
+      )
+
+    };
+    return _this4;
   }
 
   _createClass(InfluencerFeedTitle, [{
-    key: 'chooseFile',
-    value: function chooseFile(e) {
-
-      var fileinput = document.querySelector('#inputGroupFile01').files[0];
-
-      var checker = fileinput['type'];
-
-      checker = checker.split('/')[0];
-
-      var type = "";
-      if (checker == "video") {
-        type = "video";
-      } else {
-        type = "image";
-      }
-
-      var formData = new FormData();
-      formData.append("media", fileinput);
-
-      var getcooked = getCookie('csrftoken');
-      fetch('/forupload/' + type, {
+    key: 'sendEditPost',
+    value: function sendEditPost(yo) {
+      var idfullname = document.getElementById("idfullname").value;
+      var iddescription = document.getElementById("iddescription").value;
+      var idurl1 = document.getElementById("idurl1").value;
+      var idurl2 = document.getElementById("idurl2").value;
+      var idurl3 = document.getElementById("idurl3").value;
+      console.log("idfullname", idfullname);
+      console.log("iddescription", iddescription);
+      console.log("idurl1", idurl1);
+      console.log("idurl2", idurl2);
+      console.log("idurl3", idurl3);
+      console.log("yoyo", yo);
+      var csrftoken = getCookie('csrftoken');
+      var type = "normal";
+      fetch('/editprofile/' + type, {
         method: 'POST',
-        headers: { 'X-CSRFToken': getcooked },
-        body: formData
-
+        headers: { 'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({
+          idfullname: idfullname,
+          iddescription: iddescription,
+          idurl1: idurl1,
+          idurl2: idurl2,
+          idurl3: idurl3
+        })
       }).then(function (response) {
         return response.json();
-      }).then(function (data) {
+      }).then(function (result) {
+        //this is the place where you set state of your profile
+        //back to the normal page
+        console.log("result", result);
+      });
+    }
+  }, {
+    key: 'cancel',
+    value: function cancel() {
+      this.setState({
 
-        //document.querySelector('#testerimage').src = data['url']
-        document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4";
+        edit: React.createElement(
+          'div',
+          null,
+          React.createElement(
+            'div',
+            { onClick: this.showImg, 'class': 'd-flex justify-content-center' },
+            React.createElement('img', { 'class': 'imgnoedit', src: this.state.profilepic })
+          ),
+          React.createElement(
+            'h4',
+            null,
+            'Name'
+          ),
+          React.createElement(
+            'h5',
+            null,
+            this.state.fullname
+          ),
+          React.createElement(
+            'h5',
+            null,
+            'Description'
+          ),
+          React.createElement(
+            'h6',
+            null,
+            this.state.description
+          ),
+          React.createElement(
+            'h5',
+            null,
+            'Links'
+          ),
+          React.createElement(
+            'h6',
+            null,
+            this.state.first_url
+          ),
+          React.createElement(
+            'h6',
+            null,
+            this.state.second_url
+          ),
+          React.createElement(
+            'h6',
+            null,
+            this.state.third_url
+          ),
+          React.createElement(
+            'h6',
+            null,
+            'Introduction Video'
+          ),
+          React.createElement(
+            'h6',
+            null,
+            'Video'
+          )
+        )
+      });
+    }
+  }, {
+    key: 'editProfile',
+    value: function editProfile(e) {
+      //go to edit thingy ok??
+      //the jon of this state is to essentially send the value to EditPost
+
+
+      console.log("inside editprofile button/ function");
+      console.log("profilepci in editprofile", this.state.profilepic);
+      console.log("profilepci in editprofile", this.state.fullname);
+
+      this.setState({
+        fullname: this.state.fullname,
+        description: this.state.description,
+        first_url: this.state.first_url,
+        second_url: this.state.second_url,
+        third_url: this.state.third_url,
+        profilepic: this.state.profilepic,
+        introvideo: this.state.introvideo,
+
+        edit: React.createElement(EditPost, { savePostHandler: this.sendEditPost, cancel: this.cancel,
+          fullname: this.state.fullname, description: this.state.description, first_url: this.state.first_url,
+          second_url: this.state.second_url, third_url: this.state.third_url, profilepic: this.state.profilepic,
+          introvideo: this.state.introvideo })
+
       });
     }
   }, {
@@ -157,9 +602,7 @@ var InfluencerFeedTitle = function (_React$Component3) {
         }).then(function (data) {
 
           console.log("gimme data", data);
-          //ReactDOM.render(<InfluencerFeedTitle data={data}/>, document.querySelector('#toppart'));
-          //  ReactDOM.render(<PortalFeedTable data={data}/>, document.querySelector('#publicfeedid'));
-
+          ReactDOM.render(React.createElement(InfluencerFeedTable, { data: data }), document.querySelector('#maininfluencer'));
         });
       } else if (e.target.id == "reviewfeedbutid") {
         document.querySelector('#maininfluencer').hidden = true;
@@ -171,24 +614,26 @@ var InfluencerFeedTitle = function (_React$Component3) {
         }).then(function (data) {
           console.log("gimme data", data);
           ReactDOM.render(React.createElement(InfluencerFeedTable, { data: data }), document.querySelector('#reviewsmainfluencer'));
-          //  ReactDOM.render(<PortalFeedTable data={data}/>, document.querySelector('#publicfeedid'));
-
         });
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      // console.log("please print this out first", username)
+      console.log("WILACHAT", this.state.profilepic);
 
-      //  console.log("please print this out", this.props.username)
       var bookhtmllink = "/book/" + this.props.data["username"];
+      if (this.props.data["userinfodata"] == "") {
+        console.log("userinfodata is blank fak u");
+      } else {
+        console.log("userinfodat is not blank fak u bak");
+      }
       console.log("sameperson", this.props.data["sameperson"]);
 
-      //<button onClick={this.subscribeButton}>{this.state.subscribecheck == "true" ? "Subscribed":"Subscribe"}</button>
+      if (this.props.data["sameperson"] == 1) {
+        console.log("ok we start doing the edit from here");
+      }
 
-
-      // console.log("arai gor mai roo but yea", username)
       return React.createElement(
         'div',
         null,
@@ -211,37 +656,12 @@ var InfluencerFeedTitle = function (_React$Component3) {
           'a',
           { name: 'posterr', 'class': 'btn btn-primary', href: bookhtmllink },
           'Reserve'
-        ) : null,
-        React.createElement(
-          'div',
-          { 'class': 'input-group' },
-          React.createElement(
-            'div',
-            { 'class': 'input-group-prepend' },
-            React.createElement(
-              'span',
-              { 'class': 'input-group-text', id: 'inputGroupFileAddon01' },
-              'Upload'
-            )
-          ),
-          React.createElement(
-            'div',
-            { 'class': 'custom-file' },
-            React.createElement('input', { type: 'file', onChange: this.chooseFile, 'class': 'custom-file-input', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' }),
-            React.createElement(
-              'label',
-              { 'class': 'custom-file-label', 'for': 'inputGroupFile01' },
-              'Choose file'
-            )
-          )
+        ) : React.createElement(
+          'button',
+          { type: 'button', 'class': 'btn btn-success', onClick: this.editProfile },
+          'Edit'
         ),
-        React.createElement('img', { id: 'testerimage', alt: 'ye', width: '800', height: '500' }),
-        React.createElement(
-          'video',
-          { id: 'testervideo', width: '320', height: '240', controls: true },
-          React.createElement('source', { src: '' }),
-          'Your browser does not support the video tag.'
-        )
+        this.state.edit
       );
     }
   }]);
@@ -259,7 +679,10 @@ document.addEventListener('DOMContentLoaded', function () {
     return response.json();
   }).then(function (data) {
     console.log("gimme data", data);
+
     ReactDOM.render(React.createElement(InfluencerFeedTitle, { data: data }), document.querySelector('#toppart'));
+    ReactDOM.render(React.createElement(InfluencerFeedTable, { data: data }), document.querySelector('#maininfluencer'));
+
     //  ReactDOM.render(<PortalFeedTable data={data}/>, document.querySelector('#publicfeedid'));
 
   });

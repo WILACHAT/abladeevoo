@@ -20,6 +20,7 @@ timestamp: "2022-04-07T03:42:42.397Z"
 tointro: "Someone"
 typeintro: "someoneelse_html_id"
 typeoccasion: "birthday_html_i
+//things you still need to do
 */
 function getCookie(name) {
     var cookieValue = null;
@@ -163,6 +164,7 @@ var EachReserve = function (_React$Component) {
             var reserveid = this.props.data["data"][0].id;
             var influencername = this.props.data["fornamedata"][0];
 
+            console.log("value of review", value);
             fetch('/gotoeachreserve', {
                 method: 'POST',
                 headers: { 'X-CSRFToken': getcooked },
@@ -224,9 +226,7 @@ var EachReserve = function (_React$Component) {
                     );
                 } else {
                     //this is after influencer posted video
-                    console.log("wowzaa", this.props.data["forpostdata"]);
-                    console.log("wowzaa", this.props.data);
-
+                    var link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4";
                     if (this.props.data["data"][0].reviewcompleted != true) {
                         postoption = React.createElement(
                             'div',
@@ -239,7 +239,7 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'video',
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
-                                React.createElement('source', { src: '' }),
+                                React.createElement('source', { src: link }),
                                 'Your browser does not support the video tag.'
                             ),
                             React.createElement(
@@ -255,6 +255,8 @@ var EachReserve = function (_React$Component) {
                             )
                         );
                     } else {
+                        // <img id="testerimage" alt="ye" width="800" height="500"></img>
+
                         postoption = React.createElement(
                             'div',
                             null,
@@ -266,7 +268,7 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'video',
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
-                                React.createElement('source', { src: '' }),
+                                React.createElement('source', { src: link }),
                                 'Your browser does not support the video tag.'
                             ),
                             React.createElement(
@@ -296,6 +298,8 @@ var EachReserve = function (_React$Component) {
                         )
                     );
                 } else {
+                    var _link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4";
+
                     if (this.props.data["data"][0].reviewcompleted != true) {
                         postoption = React.createElement(
                             'div',
@@ -308,7 +312,7 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'video',
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
-                                React.createElement('source', { src: '' }),
+                                React.createElement('source', { src: _link }),
                                 'Your browser does not support the video tag.'
                             ),
                             React.createElement(
@@ -336,7 +340,7 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'video',
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
-                                React.createElement('source', { src: '' }),
+                                React.createElement('source', { src: _link }),
                                 'Your browser does not support the video tag.'
                             ),
                             React.createElement(
