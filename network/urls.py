@@ -19,7 +19,13 @@ urlpatterns = [
     
     path("eachreserve/<int:reservationid>", views.eachreserve, name="eachreserve"),
     path("gotoeachreserve", views.gotoeachreserve, name="gotoeachreserve"),
-    path("editprofile/<str:type>", views.editprofile, name="editprofile"),
+    path("editprofile", views.editprofile, name="editprofile"),
+    path("hidepost", views.hidepost, name="hidepost"),
+    path("superuser", views.superuser, name="superuser"),
+    path("dara", views.dara, name="dara"),
+
+
+
 
 
 

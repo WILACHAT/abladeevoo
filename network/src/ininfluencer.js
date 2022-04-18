@@ -17,18 +17,73 @@ function getCookie(name) {
 class InfluencerFeedRows extends React.Component {
 constructor(props) {
   super(props);
+  this.hideFunction = this.hideFunction.bind(this);
+  if (this.props.hide == true)
+  {
+    this.state = {
+      hide : "Unhide"
+    }
+  }
+  else
+  {
+    this.state = {
+      hide : "Hide"
+    }
+  }
+ 
+
+}
+hideFunction(e)
+{
+  if (e.target.value == "Hide")
+  {
+    this.setState({hide : "Unhide"})
+  }
+  else
+  {
+    this.setState({hide : "Hide"})
+  }
+  let publicid = e.target.id
+  const getcooked = getCookie('csrftoken');
+  console.log("what is the value", e.target.value)
+
+        fetch(`/hidepost`, {
+            method: 'POST',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+              publicid: publicid,
+              hide: e.target.value
+            })
+          })
+            .then(response => response.json())
+
+          .then(result => {
+            console.log(result)
+            console.log("result", result["hide"])
+
+           this.setState({hide: result["hide"]})
+
+          });
+
+
+
 }
 render()
-{
+{  
+
   let thewholereturn = ""
   if (this.props.feedtype == "main")
   {
     let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4"
     thewholereturn = 
-    <video id="testervideo" width="320" height="240" controls>
-      <source src={link}></source>
-      Your browser does not support the video tag.
-    </video>
+    <div>
+      <video id="testervideo" width="320" height="240" controls>
+        <source src={link}></source>
+        Your browser does not support the video tag.
+      </video>
+      {this.props.sameperson == 1 ?  <button id={this.props.data} value={this.state.hide} class="btn btn-primary" onClick={this.hideFunction}>{this.state.hide}</button>:null}
+    
+    </div>
   }
   else
   {
@@ -49,10 +104,7 @@ class InfluencerFeedTable extends React.Component {
   }
     render()
     {
-
-      console.log("finding the feedtype", this.props.data["feedtype"])
-      console.log("finding the feedtype hehehe", this.props.data["alldata"])
-
+      console.log("datamofo", this.props.data)
       const rows = [];
 
       for (let i = 0; i < this.props.data["alldata"].length; i++)
@@ -60,7 +112,9 @@ class InfluencerFeedTable extends React.Component {
         rows.push( 
           <InfluencerFeedRows 
           data={this.props.data["alldata"][i]}
-          feedtype={this.props.data["feedtype"]}/>
+          feedtype={this.props.data["feedtype"]}
+          sameperson={this.props.data["sameperson"]}
+          hide={this.props.data["hidedata"][i]}/>
         );
       }
     
@@ -82,53 +136,16 @@ class InfluencerFeedTable extends React.Component {
       this.editCancel = this.editCancel.bind(this);
       this.checkTxtArea = this.checkTxtArea.bind(this);
       console.log("this.props.fillname", this.props.fullname)
-      console.log("this.props.profilepic", this.props.profilepic)
+  
 
       this.state = {
         fullname: this.props.fullname,
         description: this.props.description,
         first_url: this.props.first_url,
         second_url: this.props.second_url,
-        third_url: this.props.third_url,
-        profilepic:this.props.profilepic,
-        introvideo:this.props.introvideo
+        third_url: this.props.third_url
+    
       };
-    }
-    chooseFile(e)
-    {
-      const getcooked = getCookie('csrftoken')
-      let fileInput = document.querySelector('#choosefile').files[0]
-
-      console.log("this is in choose file")
-
-
-      console.log("full name", this.state.fullname)
-      console.log("profile pic", this.state.profilepic)
-
-      console.log("i just wantto see the profilepic", this.props.profilepic)
-
-      let formData = new FormData();
-      formData.append("media", fileInput);
-      let type = "image"
-     /* fetch(`/forupload/${type}`, {
-        method: 'POST',
-        headers: {'X-CSRFToken': getcooked
-        },
-        body:formData
-    })
-    .then(response => response.json())
-        .then(result =>{
-            console.log("result", result)
-            console.log(result['url'])
-            let pictureid = result['url'].split("/")[7].split(".")[0]
-            console.log("is this pictureid we will c", pictureid)
-            console.log(pictureid)
-
-
-            this.setState({profilepic: pictureid});
-        });
-*/
-
     }
     editCancel(e)
     {
@@ -194,15 +211,6 @@ class InfluencerFeedTable extends React.Component {
   render(){
     return (
         <div>
-            <h1>{this.state.hi}</h1>
-            <div class="d-flex justify-content-center mt-1 mb-1">
-                    <label htmlFor="edit_post_txt">Click to change profile picture: </label>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <div id="coverschoosefile">
-                        {<input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>}
-                    </div>
-                </div>
                 <div className="form-floating">
                     <div class="d-flex justify-content-center mt-1 mb-1">
                     <label htmlFor="edit_post_txt">Full Name: </label>
@@ -259,6 +267,9 @@ class InfluencerFeedTitle extends React.Component {
       this.cancel = this.cancel.bind(this);
     //  this.showImg = this.showImg.bind(this);
       this.sendEditPost = this.sendEditPost.bind(this);
+      this.chooseFile = this.chooseFile.bind(this);
+      this.chooseFileVideo = this.chooseFileVideo.bind(this);
+
 
   
       document.querySelector('#maininfluencer').hidden = false;
@@ -267,17 +278,13 @@ class InfluencerFeedTitle extends React.Component {
       let fullname = ""
       let description = ""
       let profilepic = ""
-      let introvideo = ""
+      let profilevideo = ""
       let first_url = ""
       let second_url = ""
       let third_url = ""
       
       if (this.props.data["userinfodata"][0] != null)
       {
-          if (this.props.data["userinfodata"][0].profile_picture != null)
-          {
-            profilepic = this.props.data["userinfodata"][0].profile_picture
-          }
           if(this.props.data["userinfodata"][0].profile_fullname != null)
           {
             fullname = this.props.data["userinfodata"][0].profile_fullname
@@ -296,32 +303,29 @@ class InfluencerFeedTitle extends React.Component {
           }
           if(this.props.data["userinfodata"][0].third_url != null)
           {
-            third_url = this.props.data["userinfodata"][0].second_url
+            third_url = this.props.data["userinfodata"][0].third_url
+          }
+          if(this.props.data["userinfodata"][0].profile_picture != null)
+          {
+            profilepic = this.props.data["userinfodata"][0].profile_picture
           }
           if(this.props.data["userinfodata"][0].profile_video != null)
           {
-            introvideo = this.props.data["userinfodata"][0].profile_video
+            profilevideo = this.props.data["userinfodata"][0].profile_video
           }
-      }
-    
-
-      //let link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + profilepic + ".jpg"
-
+          
+         
       this.state = {
         fullname: fullname,
         description: description,
         first_url: first_url,
         second_url: second_url,
         third_url: third_url,
-        profilepic:profilepic,
-        introvideo:introvideo,
-
+        profilepic: profilepic,
+        profilevideo: profilevideo,
 
         edit:
           <div>
-          <div onClick={this.showImg} class="d-flex justify-content-center">
-            <img class="imgnoedit" src=""></img>
-          </div>
              <h4>Name</h4>
               <h5>{fullname}</h5>
             <h5>Description</h5>
@@ -330,28 +334,82 @@ class InfluencerFeedTitle extends React.Component {
               <h6>{first_url}</h6>
               <h6>{second_url}</h6>
              <h6>{third_url}</h6>
-            <h6>Introduction Video</h6>
-            <h6>Video</h6>
           </div>
 
         }
     }
-    sendEditPost(yo)
+  }
+    chooseFile(e)
+    {
+      const getcooked = getCookie('csrftoken')
+      let fileInput = document.querySelector('#choosefile').files[0]
+      console.log("this is fileinput", fileInput)
+
+      console.log("this is in choose file")
+
+      let formData = new FormData();
+      formData.append("media", fileInput);
+      let type = "imageinprofile"
+      console.log("formdata", formData)
+      fetch(`/forupload/${type}`, {
+        method: 'POST',
+        headers: {'X-CSRFToken': getcooked
+        },
+        body:formData
+    })
+    .then(response => response.json())
+        .then(result =>{
+            console.log("result", result)
+            console.log(result['url'])
+            this.setState({
+              profilepic : result['url']
+            })
+        });
+
+
+    }
+    chooseFileVideo(e)
+    {
+      console.log("CHOOSEFILEVIDEOOOOOO")
+      const getcooked = getCookie('csrftoken')
+      let fileInput = document.querySelector('#inputGroupFile01').files[0]
+      console.log("this is fileinput", fileInput)
+
+      console.log("this is in choose file")
+
+      let formData = new FormData();
+      formData.append("media", fileInput);
+      let type = "videoinprofile"
+      console.log("what the fuck is thye type", type)
+      console.log("formdata", formData)
+      fetch(`/forupload/${type}`, {
+        method: 'POST',
+        headers: {'X-CSRFToken': getcooked
+        },
+        body:formData
+    })
+    .then(response => response.json())
+        .then(result =>{
+            console.log("result", result)
+            console.log("waan weesakul", result['url'])
+            document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + result['url'] + ".mp4"
+
+        });
+
+
+    }
+    sendEditPost()
     {
       let idfullname = document.getElementById("idfullname").value
       let iddescription = document.getElementById("iddescription").value
       let idurl1 = document.getElementById("idurl1").value
       let idurl2 = document.getElementById("idurl2").value
       let idurl3 = document.getElementById("idurl3").value
-      console.log("idfullname", idfullname)
-      console.log("iddescription", iddescription)
-      console.log("idurl1", idurl1)
-      console.log("idurl2", idurl2)
-      console.log("idurl3", idurl3)
-      console.log("yoyo", yo)
+      
       const csrftoken = getCookie('csrftoken');
       let type = "normal"
-      fetch(`/editprofile/${type}`, {
+      console.log("what is going on")
+      fetch(`/editprofile`, {
         method: 'POST',
         headers: {'X-CSRFToken': csrftoken
         },
@@ -365,14 +423,32 @@ class InfluencerFeedTitle extends React.Component {
     })
     .then(response => response.json())
         .then(result =>{
-            //this is the place where you set state of your profile
-            //back to the normal page
-            console.log("result", result)
+          console.log("this is result", idfullname)
+          console.log("this is result", iddescription)
+          console.log("this is result", idurl1)
+
+        this.setState({
+        fullname: idfullname,
+        description: iddescription,
+        first_url: idurl1,
+        second_url: idurl2,
+        third_url: idurl3,
+
+        edit:
+          <div>
+             <h4>Name</h4>
+              <h5>{idfullname}</h5>
+            <h5>Description</h5>
+              <h6>{iddescription}</h6>
+            <h5>Links</h5>
+              <h6>{idurl1}</h6>
+              <h6>{idurl2}</h6>
+             <h6>{idurl3}</h6>
+          </div>
+
+        })
+            
         });
-
-
-
-
     }
     cancel()
     {
@@ -380,9 +456,6 @@ class InfluencerFeedTitle extends React.Component {
 
         edit:
           <div>
-            <div onClick={this.showImg} class="d-flex justify-content-center">
-            <img class="imgnoedit" src={this.state.profilepic}></img>
-          </div>
              <h4>Name</h4>
               <h5>{this.state.fullname}</h5>
             <h5>Description</h5>
@@ -391,8 +464,6 @@ class InfluencerFeedTitle extends React.Component {
               <h6>{this.state.first_url}</h6>
               <h6>{this.state.second_url}</h6>
              <h6>{this.state.third_url}</h6>
-            <h6>Introduction Video</h6>
-            <h6>Video</h6>
           </div>
         })
       
@@ -405,7 +476,6 @@ class InfluencerFeedTitle extends React.Component {
 
       
       console.log("inside editprofile button/ function")
-      console.log("profilepci in editprofile", this.state.profilepic)
       console.log("profilepci in editprofile", this.state.fullname)
 
       this.setState({
@@ -414,13 +484,10 @@ class InfluencerFeedTitle extends React.Component {
         first_url: this.state.first_url,
         second_url: this.state.second_url,
         third_url: this.state.third_url,
-        profilepic:this.state.profilepic,
-        introvideo:this.state.introvideo,
 
         edit:<EditPost savePostHandler={this.sendEditPost} cancel={this.cancel}
         fullname={this.state.fullname} description={this.state.description} first_url={this.state.first_url} 
-        second_url={this.state.second_url} third_url={this.state.third_url} profilepic = {this.state.profilepic}
-        introvideo={this.state.introvideo}/>     
+        second_url={this.state.second_url} third_url={this.state.third_url}/>     
       
       })
     }
@@ -453,6 +520,7 @@ class InfluencerFeedTitle extends React.Component {
             .then(response => response.json())
             .then(data => {
                 console.log("gimme data", data)
+             
               ReactDOM.render(<InfluencerFeedTable data={data}/>, document.querySelector('#reviewsmainfluencer'));
 
           });
@@ -463,10 +531,23 @@ class InfluencerFeedTitle extends React.Component {
     
    
     render() {
-        console.log("WILACHAT", this.state.profilepic)
+      let link = ""
+      let videolink = ""
+      console.log("thisstate in render",this.state.profilevideo)
+      if (this.props.data["userinfodata"][0].profile_picture != null)
+      {
+        link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg"
+      }
+      if (this.props.data["userinfodata"][0].profile_video != null)
+      {
+        console.log("you got this?")
+        videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4"
+      }
+      console.log("what is going on2", videolink)
 
-     
-        const bookhtmllink = "/book/"+this.props.data["username"]
+
+      const bookhtmllink = "/book/"+this.props.data["username"]
+      console.log("walowalo", this.props.data["userinfodata"][0].profile_picture)
         if (this.props.data["userinfodata"] == "")
         {
           console.log("userinfodata is blank fak u")
@@ -484,6 +565,41 @@ class InfluencerFeedTitle extends React.Component {
 
         return (
          <div>
+           {this.props.data["sameperson"] == 1 ?  
+                <div>
+                <div class="d-flex justify-content-center mt-1 mb-1">
+                  <label htmlFor="edit_post_txt">Click to change profile picture: </label>
+                </div>  
+                  <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>
+                  <img class="imgnoedit" src={link}></img>
+
+                  <div class="d-flex justify-content-center mt-1 mb-1">
+                      <label htmlFor="edit_post_txt">Click to change Introduction video: </label>
+                  </div> 
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" onChange={this.chooseFileVideo} class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                </div>
+                <video id="testervideo" width="320" height="240" controls>
+                    <source src={videolink}></source>
+                    Your browser does not support the video tag.
+                </video>
+
+
+                </div>:  
+                <div onClick={this.showImg} class="d-flex justify-content-center">
+                    <img class="imgnoedit" src={link}></img>
+                    <video id="testervideo" width="320" height="240" controls>
+                        <source src={videolink}></source>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>}
              <h1>{this.props.data['username']}</h1>
             <button type="button" class="btn btn-primary" id="publicfeedbutid" onClick={this.changeFeedPortal}>Public Feed</button>
             <button type="button" class="btn btn-primary" id="reviewfeedbutid" onClick={this.changeFeedPortal}>Reviews</button>
@@ -492,9 +608,10 @@ class InfluencerFeedTitle extends React.Component {
          </div>
         )
 
+       
     }
+  
   }
-
 document.addEventListener('DOMContentLoaded', function() {
     console.log("walachat")
     var influencerusername = document.getElementById('getinfluencerusername').dataset.username;

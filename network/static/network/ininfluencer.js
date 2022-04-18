@@ -28,20 +28,73 @@ var InfluencerFeedRows = function (_React$Component) {
   function InfluencerFeedRows(props) {
     _classCallCheck(this, InfluencerFeedRows);
 
-    return _possibleConstructorReturn(this, (InfluencerFeedRows.__proto__ || Object.getPrototypeOf(InfluencerFeedRows)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (InfluencerFeedRows.__proto__ || Object.getPrototypeOf(InfluencerFeedRows)).call(this, props));
+
+    _this.hideFunction = _this.hideFunction.bind(_this);
+    if (_this.props.hide == true) {
+      _this.state = {
+        hide: "Unhide"
+      };
+    } else {
+      _this.state = {
+        hide: "Hide"
+      };
+    }
+
+    return _this;
   }
 
   _createClass(InfluencerFeedRows, [{
+    key: 'hideFunction',
+    value: function hideFunction(e) {
+      var _this2 = this;
+
+      if (e.target.value == "Hide") {
+        this.setState({ hide: "Unhide" });
+      } else {
+        this.setState({ hide: "Hide" });
+      }
+      var publicid = e.target.id;
+      var getcooked = getCookie('csrftoken');
+      console.log("what is the value", e.target.value);
+
+      fetch('/hidepost', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': getcooked },
+        body: JSON.stringify({
+          publicid: publicid,
+          hide: e.target.value
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (result) {
+        console.log(result);
+        console.log("result", result["hide"]);
+
+        _this2.setState({ hide: result["hide"] });
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+
       var thewholereturn = "";
       if (this.props.feedtype == "main") {
         var link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4";
         thewholereturn = React.createElement(
-          'video',
-          { id: 'testervideo', width: '320', height: '240', controls: true },
-          React.createElement('source', { src: link }),
-          'Your browser does not support the video tag.'
+          'div',
+          null,
+          React.createElement(
+            'video',
+            { id: 'testervideo', width: '320', height: '240', controls: true },
+            React.createElement('source', { src: link }),
+            'Your browser does not support the video tag.'
+          ),
+          this.props.sameperson == 1 ? React.createElement(
+            'button',
+            { id: this.props.data, value: this.state.hide, 'class': 'btn btn-primary', onClick: this.hideFunction },
+            this.state.hide
+          ) : null
         );
       } else {
         thewholereturn = React.createElement(
@@ -74,16 +127,15 @@ var InfluencerFeedTable = function (_React$Component2) {
   _createClass(InfluencerFeedTable, [{
     key: 'render',
     value: function render() {
-
-      console.log("finding the feedtype", this.props.data["feedtype"]);
-      console.log("finding the feedtype hehehe", this.props.data["alldata"]);
-
+      console.log("datamofo", this.props.data);
       var rows = [];
 
       for (var i = 0; i < this.props.data["alldata"].length; i++) {
         rows.push(React.createElement(InfluencerFeedRows, {
           data: this.props.data["alldata"][i],
-          feedtype: this.props.data["feedtype"] }));
+          feedtype: this.props.data["feedtype"],
+          sameperson: this.props.data["sameperson"],
+          hide: this.props.data["hidedata"][i] }));
       }
 
       return React.createElement(
@@ -116,60 +168,25 @@ var EditPost = function (_React$Component3) {
   function EditPost(props) {
     _classCallCheck(this, EditPost);
 
-    var _this3 = _possibleConstructorReturn(this, (EditPost.__proto__ || Object.getPrototypeOf(EditPost)).call(this, props));
+    var _this4 = _possibleConstructorReturn(this, (EditPost.__proto__ || Object.getPrototypeOf(EditPost)).call(this, props));
 
-    _this3.editPost = _this3.editPost.bind(_this3);
-    _this3.editCancel = _this3.editCancel.bind(_this3);
-    _this3.checkTxtArea = _this3.checkTxtArea.bind(_this3);
-    console.log("this.props.fillname", _this3.props.fullname);
-    console.log("this.props.profilepic", _this3.props.profilepic);
+    _this4.editPost = _this4.editPost.bind(_this4);
+    _this4.editCancel = _this4.editCancel.bind(_this4);
+    _this4.checkTxtArea = _this4.checkTxtArea.bind(_this4);
+    console.log("this.props.fillname", _this4.props.fullname);
 
-    _this3.state = {
-      fullname: _this3.props.fullname,
-      description: _this3.props.description,
-      first_url: _this3.props.first_url,
-      second_url: _this3.props.second_url,
-      third_url: _this3.props.third_url,
-      profilepic: _this3.props.profilepic,
-      introvideo: _this3.props.introvideo
+    _this4.state = {
+      fullname: _this4.props.fullname,
+      description: _this4.props.description,
+      first_url: _this4.props.first_url,
+      second_url: _this4.props.second_url,
+      third_url: _this4.props.third_url
+
     };
-    return _this3;
+    return _this4;
   }
 
   _createClass(EditPost, [{
-    key: 'chooseFile',
-    value: function chooseFile(e) {
-      var getcooked = getCookie('csrftoken');
-      var fileInput = document.querySelector('#choosefile').files[0];
-
-      console.log("this is in choose file");
-
-      console.log("full name", this.state.fullname);
-      console.log("profile pic", this.state.profilepic);
-
-      console.log("i just wantto see the profilepic", this.props.profilepic);
-
-      var formData = new FormData();
-      formData.append("media", fileInput);
-      var type = "image";
-      /* fetch(`/forupload/${type}`, {
-         method: 'POST',
-         headers: {'X-CSRFToken': getcooked
-         },
-         body:formData
-      })
-      .then(response => response.json())
-         .then(result =>{
-             console.log("result", result)
-             console.log(result['url'])
-             let pictureid = result['url'].split("/")[7].split(".")[0]
-             console.log("is this pictureid we will c", pictureid)
-             console.log(pictureid)
-               this.setState({profilepic: pictureid});
-         });
-      */
-    }
-  }, {
     key: 'editCancel',
     value: function editCancel(e) {
       this.props.cancel();
@@ -228,29 +245,6 @@ var EditPost = function (_React$Component3) {
       return React.createElement(
         'div',
         null,
-        React.createElement(
-          'h1',
-          null,
-          this.state.hi
-        ),
-        React.createElement(
-          'div',
-          { 'class': 'd-flex justify-content-center mt-1 mb-1' },
-          React.createElement(
-            'label',
-            { htmlFor: 'edit_post_txt' },
-            'Click to change profile picture: '
-          )
-        ),
-        React.createElement(
-          'div',
-          { 'class': 'd-flex justify-content-center' },
-          React.createElement(
-            'div',
-            { id: 'coverschoosefile' },
-            React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
-          )
-        ),
         React.createElement(
           'div',
           { className: 'form-floating' },
@@ -342,13 +336,15 @@ var InfluencerFeedTitle = function (_React$Component4) {
   function InfluencerFeedTitle(props) {
     _classCallCheck(this, InfluencerFeedTitle);
 
-    var _this4 = _possibleConstructorReturn(this, (InfluencerFeedTitle.__proto__ || Object.getPrototypeOf(InfluencerFeedTitle)).call(this, props));
+    var _this5 = _possibleConstructorReturn(this, (InfluencerFeedTitle.__proto__ || Object.getPrototypeOf(InfluencerFeedTitle)).call(this, props));
 
-    _this4.changeFeedPortal = _this4.changeFeedPortal.bind(_this4);
-    _this4.editProfile = _this4.editProfile.bind(_this4);
-    _this4.cancel = _this4.cancel.bind(_this4);
+    _this5.changeFeedPortal = _this5.changeFeedPortal.bind(_this5);
+    _this5.editProfile = _this5.editProfile.bind(_this5);
+    _this5.cancel = _this5.cancel.bind(_this5);
     //  this.showImg = this.showImg.bind(this);
-    _this4.sendEditPost = _this4.sendEditPost.bind(_this4);
+    _this5.sendEditPost = _this5.sendEditPost.bind(_this5);
+    _this5.chooseFile = _this5.chooseFile.bind(_this5);
+    _this5.chooseFileVideo = _this5.chooseFileVideo.bind(_this5);
 
     document.querySelector('#maininfluencer').hidden = false;
     document.querySelector('#reviewsmainfluencer').hidden = true;
@@ -356,127 +352,166 @@ var InfluencerFeedTitle = function (_React$Component4) {
     var fullname = "";
     var description = "";
     var profilepic = "";
-    var introvideo = "";
+    var profilevideo = "";
     var first_url = "";
     var second_url = "";
     var third_url = "";
 
-    if (_this4.props.data["userinfodata"][0] != null) {
-      if (_this4.props.data["userinfodata"][0].profile_picture != null) {
-        profilepic = _this4.props.data["userinfodata"][0].profile_picture;
+    if (_this5.props.data["userinfodata"][0] != null) {
+      if (_this5.props.data["userinfodata"][0].profile_fullname != null) {
+        fullname = _this5.props.data["userinfodata"][0].profile_fullname;
       }
-      if (_this4.props.data["userinfodata"][0].profile_fullname != null) {
-        fullname = _this4.props.data["userinfodata"][0].profile_fullname;
+      if (_this5.props.data["userinfodata"][0].profile_description != null) {
+        description = _this5.props.data["userinfodata"][0].profile_description;
       }
-      if (_this4.props.data["userinfodata"][0].profile_description != null) {
-        description = _this4.props.data["userinfodata"][0].profile_description;
+      if (_this5.props.data["userinfodata"][0].first_url != null) {
+        first_url = _this5.props.data["userinfodata"][0].first_url;
       }
-      if (_this4.props.data["userinfodata"][0].first_url != null) {
-        first_url = _this4.props.data["userinfodata"][0].first_url;
+      if (_this5.props.data["userinfodata"][0].second_url != null) {
+        second_url = _this5.props.data["userinfodata"][0].second_url;
       }
-      if (_this4.props.data["userinfodata"][0].second_url != null) {
-        second_url = _this4.props.data["userinfodata"][0].second_url;
+      if (_this5.props.data["userinfodata"][0].third_url != null) {
+        third_url = _this5.props.data["userinfodata"][0].third_url;
       }
-      if (_this4.props.data["userinfodata"][0].third_url != null) {
-        third_url = _this4.props.data["userinfodata"][0].second_url;
+      if (_this5.props.data["userinfodata"][0].profile_picture != null) {
+        profilepic = _this5.props.data["userinfodata"][0].profile_picture;
       }
-      if (_this4.props.data["userinfodata"][0].profile_video != null) {
-        introvideo = _this4.props.data["userinfodata"][0].profile_video;
+      if (_this5.props.data["userinfodata"][0].profile_video != null) {
+        profilevideo = _this5.props.data["userinfodata"][0].profile_video;
       }
-    }
 
-    //let link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + profilepic + ".jpg"
+      _this5.state = {
+        fullname: fullname,
+        description: description,
+        first_url: first_url,
+        second_url: second_url,
+        third_url: third_url,
+        profilepic: profilepic,
+        profilevideo: profilevideo,
 
-    _this4.state = {
-      fullname: fullname,
-      description: description,
-      first_url: first_url,
-      second_url: second_url,
-      third_url: third_url,
-      profilepic: profilepic,
-      introvideo: introvideo,
-
-      edit: React.createElement(
-        'div',
-        null,
-        React.createElement(
+        edit: React.createElement(
           'div',
-          { onClick: _this4.showImg, 'class': 'd-flex justify-content-center' },
-          React.createElement('img', { 'class': 'imgnoedit', src: '' })
-        ),
-        React.createElement(
-          'h4',
           null,
-          'Name'
-        ),
-        React.createElement(
-          'h5',
-          null,
-          fullname
-        ),
-        React.createElement(
-          'h5',
-          null,
-          'Description'
-        ),
-        React.createElement(
-          'h6',
-          null,
-          description
-        ),
-        React.createElement(
-          'h5',
-          null,
-          'Links'
-        ),
-        React.createElement(
-          'h6',
-          null,
-          first_url
-        ),
-        React.createElement(
-          'h6',
-          null,
-          second_url
-        ),
-        React.createElement(
-          'h6',
-          null,
-          third_url
-        ),
-        React.createElement(
-          'h6',
-          null,
-          'Introduction Video'
-        ),
-        React.createElement(
-          'h6',
-          null,
-          'Video'
+          React.createElement(
+            'h4',
+            null,
+            'Name'
+          ),
+          React.createElement(
+            'h5',
+            null,
+            fullname
+          ),
+          React.createElement(
+            'h5',
+            null,
+            'Description'
+          ),
+          React.createElement(
+            'h6',
+            null,
+            description
+          ),
+          React.createElement(
+            'h5',
+            null,
+            'Links'
+          ),
+          React.createElement(
+            'h6',
+            null,
+            first_url
+          ),
+          React.createElement(
+            'h6',
+            null,
+            second_url
+          ),
+          React.createElement(
+            'h6',
+            null,
+            third_url
+          )
         )
-      )
 
-    };
-    return _this4;
+      };
+    }
+    return _this5;
   }
 
   _createClass(InfluencerFeedTitle, [{
+    key: 'chooseFile',
+    value: function chooseFile(e) {
+      var _this6 = this;
+
+      var getcooked = getCookie('csrftoken');
+      var fileInput = document.querySelector('#choosefile').files[0];
+      console.log("this is fileinput", fileInput);
+
+      console.log("this is in choose file");
+
+      var formData = new FormData();
+      formData.append("media", fileInput);
+      var type = "imageinprofile";
+      console.log("formdata", formData);
+      fetch('/forupload/' + type, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': getcooked
+        },
+        body: formData
+      }).then(function (response) {
+        return response.json();
+      }).then(function (result) {
+        console.log("result", result);
+        console.log(result['url']);
+        _this6.setState({
+          profilepic: result['url']
+        });
+      });
+    }
+  }, {
+    key: 'chooseFileVideo',
+    value: function chooseFileVideo(e) {
+      console.log("CHOOSEFILEVIDEOOOOOO");
+      var getcooked = getCookie('csrftoken');
+      var fileInput = document.querySelector('#inputGroupFile01').files[0];
+      console.log("this is fileinput", fileInput);
+
+      console.log("this is in choose file");
+
+      var formData = new FormData();
+      formData.append("media", fileInput);
+      var type = "videoinprofile";
+      console.log("what the fuck is thye type", type);
+      console.log("formdata", formData);
+      fetch('/forupload/' + type, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': getcooked
+        },
+        body: formData
+      }).then(function (response) {
+        return response.json();
+      }).then(function (result) {
+        console.log("result", result);
+        console.log("waan weesakul", result['url']);
+        document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + result['url'] + ".mp4";
+      });
+    }
+  }, {
     key: 'sendEditPost',
-    value: function sendEditPost(yo) {
+    value: function sendEditPost() {
+      var _this7 = this;
+
       var idfullname = document.getElementById("idfullname").value;
       var iddescription = document.getElementById("iddescription").value;
       var idurl1 = document.getElementById("idurl1").value;
       var idurl2 = document.getElementById("idurl2").value;
       var idurl3 = document.getElementById("idurl3").value;
-      console.log("idfullname", idfullname);
-      console.log("iddescription", iddescription);
-      console.log("idurl1", idurl1);
-      console.log("idurl2", idurl2);
-      console.log("idurl3", idurl3);
-      console.log("yoyo", yo);
+
       var csrftoken = getCookie('csrftoken');
       var type = "normal";
-      fetch('/editprofile/' + type, {
+      console.log("what is going on");
+      fetch('/editprofile', {
         method: 'POST',
         headers: { 'X-CSRFToken': csrftoken
         },
@@ -490,9 +525,63 @@ var InfluencerFeedTitle = function (_React$Component4) {
       }).then(function (response) {
         return response.json();
       }).then(function (result) {
-        //this is the place where you set state of your profile
-        //back to the normal page
-        console.log("result", result);
+        console.log("this is result", idfullname);
+        console.log("this is result", iddescription);
+        console.log("this is result", idurl1);
+
+        _this7.setState({
+          fullname: idfullname,
+          description: iddescription,
+          first_url: idurl1,
+          second_url: idurl2,
+          third_url: idurl3,
+
+          edit: React.createElement(
+            'div',
+            null,
+            React.createElement(
+              'h4',
+              null,
+              'Name'
+            ),
+            React.createElement(
+              'h5',
+              null,
+              idfullname
+            ),
+            React.createElement(
+              'h5',
+              null,
+              'Description'
+            ),
+            React.createElement(
+              'h6',
+              null,
+              iddescription
+            ),
+            React.createElement(
+              'h5',
+              null,
+              'Links'
+            ),
+            React.createElement(
+              'h6',
+              null,
+              idurl1
+            ),
+            React.createElement(
+              'h6',
+              null,
+              idurl2
+            ),
+            React.createElement(
+              'h6',
+              null,
+              idurl3
+            )
+          )
+
+        });
       });
     }
   }, {
@@ -503,11 +592,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
         edit: React.createElement(
           'div',
           null,
-          React.createElement(
-            'div',
-            { onClick: this.showImg, 'class': 'd-flex justify-content-center' },
-            React.createElement('img', { 'class': 'imgnoedit', src: this.state.profilepic })
-          ),
           React.createElement(
             'h4',
             null,
@@ -547,16 +631,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
             'h6',
             null,
             this.state.third_url
-          ),
-          React.createElement(
-            'h6',
-            null,
-            'Introduction Video'
-          ),
-          React.createElement(
-            'h6',
-            null,
-            'Video'
           )
         )
       });
@@ -569,7 +643,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
 
 
       console.log("inside editprofile button/ function");
-      console.log("profilepci in editprofile", this.state.profilepic);
       console.log("profilepci in editprofile", this.state.fullname);
 
       this.setState({
@@ -578,13 +651,10 @@ var InfluencerFeedTitle = function (_React$Component4) {
         first_url: this.state.first_url,
         second_url: this.state.second_url,
         third_url: this.state.third_url,
-        profilepic: this.state.profilepic,
-        introvideo: this.state.introvideo,
 
         edit: React.createElement(EditPost, { savePostHandler: this.sendEditPost, cancel: this.cancel,
           fullname: this.state.fullname, description: this.state.description, first_url: this.state.first_url,
-          second_url: this.state.second_url, third_url: this.state.third_url, profilepic: this.state.profilepic,
-          introvideo: this.state.introvideo })
+          second_url: this.state.second_url, third_url: this.state.third_url })
 
       });
     }
@@ -613,6 +683,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
           return response.json();
         }).then(function (data) {
           console.log("gimme data", data);
+
           ReactDOM.render(React.createElement(InfluencerFeedTable, { data: data }), document.querySelector('#reviewsmainfluencer'));
         });
       }
@@ -620,9 +691,20 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }, {
     key: 'render',
     value: function render() {
-      console.log("WILACHAT", this.state.profilepic);
+      var link = "";
+      var videolink = "";
+      console.log("thisstate in render", this.state.profilevideo);
+      if (this.props.data["userinfodata"][0].profile_picture != null) {
+        link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
+      }
+      if (this.props.data["userinfodata"][0].profile_video != null) {
+        console.log("you got this?");
+        videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4";
+      }
+      console.log("what is going on2", videolink);
 
       var bookhtmllink = "/book/" + this.props.data["username"];
+      console.log("walowalo", this.props.data["userinfodata"][0].profile_picture);
       if (this.props.data["userinfodata"] == "") {
         console.log("userinfodata is blank fak u");
       } else {
@@ -637,6 +719,69 @@ var InfluencerFeedTitle = function (_React$Component4) {
       return React.createElement(
         'div',
         null,
+        this.props.data["sameperson"] == 1 ? React.createElement(
+          'div',
+          null,
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
+            React.createElement(
+              'label',
+              { htmlFor: 'edit_post_txt' },
+              'Click to change profile picture: '
+            )
+          ),
+          React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' }),
+          React.createElement('img', { 'class': 'imgnoedit', src: link }),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
+            React.createElement(
+              'label',
+              { htmlFor: 'edit_post_txt' },
+              'Click to change Introduction video: '
+            )
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'input-group' },
+            React.createElement(
+              'div',
+              { 'class': 'input-group-prepend' },
+              React.createElement(
+                'span',
+                { 'class': 'input-group-text', id: 'inputGroupFileAddon01' },
+                'Upload'
+              )
+            ),
+            React.createElement(
+              'div',
+              { 'class': 'custom-file' },
+              React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'custom-file-input', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' }),
+              React.createElement(
+                'label',
+                { 'class': 'custom-file-label', 'for': 'inputGroupFile01' },
+                'Choose file'
+              )
+            )
+          ),
+          React.createElement(
+            'video',
+            { id: 'testervideo', width: '320', height: '240', controls: true },
+            React.createElement('source', { src: videolink }),
+            'Your browser does not support the video tag.'
+          )
+        ) : React.createElement(
+          'div',
+          { onClick: this.showImg, 'class': 'd-flex justify-content-center' },
+          React.createElement('img', { 'class': 'imgnoedit', src: link }),
+          React.createElement(
+            'video',
+            { id: 'testervideo', width: '320', height: '240', controls: true },
+            React.createElement('source', { src: videolink }),
+            'Your browser does not support the video tag.'
+          )
+        ),
         React.createElement(
           'h1',
           null,

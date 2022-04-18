@@ -78,6 +78,7 @@ def ininfluencer(request, ininfluencer):
 def gotoinfluencer(request, username, feedtype):
     return_request = {}
     alldata = []
+    hidedata = []
     userinfodata = []
     influencerid = User.objects.values('id').get(username=username)  
     influencerid = influencerid["id"]
@@ -100,9 +101,16 @@ def gotoinfluencer(request, username, feedtype):
 
     if feedtype == "main":
             print("this is main")
-            postandmessage = Postandmessage.objects.filter(poster_id = influencerid)
-            for i in postandmessage:
-                alldata.append(i.video)
+            if sameperson == 1:
+                postandmessage = Postandmessage.objects.filter(poster_id = influencerid)
+                for i in postandmessage:
+                    alldata.append(i.video)
+                    hidedata.append(i.hide)
+            else:
+                postandmessage = Postandmessage.objects.filter(poster_id = influencerid, hide = 0).order_by('-id')[:9]
+                for i in postandmessage:
+                    alldata.append(i.video)
+
             #do something
             #query something from the influencer's post and send it back 
     else:
@@ -113,12 +121,12 @@ def gotoinfluencer(request, username, feedtype):
    
     print("this is alldata", alldata)
     
-    return_request = {"username":username, "sameperson": sameperson, "alldata":alldata, "feedtype":feedtype, "userinfodata":userinfodata}
+    return_request = {"username":username, "sameperson": sameperson, "alldata":alldata, "feedtype":feedtype, "userinfodata":userinfodata, "hidedata":hidedata}
         
     
     return JsonResponse(return_request, safe=False)
 
-def editprofile(request, type):
+def editprofile(request):
     if request.method == "POST":
         print(request.user.id)
 
@@ -137,6 +145,26 @@ def editprofile(request, type):
 
     return_request = {"thebest":"waan"}
     
+    return JsonResponse(return_request, safe=False)
+def hidepost(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        hide = ""
+        checker = Postandmessage.objects.filter(poster_id = request.user.id, video = data["publicid"])
+        print("publicid", data["publicid"])
+        print("hide", data["hide"])
+
+        if (data["hide"] == "Unhide"):
+            checker.update(hide = 0)
+            hide = "Hide"
+
+        else:
+            checker.update(hide = 1)
+            hide = "Unhide"
+
+
+            
+    return_request = {"hide": hide}
     return JsonResponse(return_request, safe=False)
  
 def book(request, username):
@@ -349,24 +377,44 @@ def forupload(request, type):
             uniquepostingid = str(id) + str(request.user.id)
             #uniquepostingid = uniquepostingid.split('.')[0]
            # print("check wtf is going on with id", uniquepostingid)
-
+            print("this is THE TYPE", type)
             if type == "video":
                 print("inside video?")
                 request.FILES['media']
 
                 uploaded_response = upload_files_videos(request.FILES['media'], uniquepostingid)
-               # wtf = CloudinaryVideo(uploaded_response['public_id']).video(fetch_format="mp4")
-               # wtf = cloudinary.api.resource(resource_type = "video", public_id = uploaded_response['public_id'], fetch_format="mp4")
-#http://res.cloudinary.com/ablaze-project/video/upload/f_mp4/054df9c0-bc6b-11ec-a8ce-acde480011221.mp4
-               # print("if this work imma suk my own dik", wtf)
-              #  https://res.cloudinary.com/demo/video/upload/f_mp4/054df9c0-bc6b-11ec-a8ce-acde480011221.mp4
-               # print("this is the uploaded respones", uploaded_response)
+            
                 return_response = {"url": uploaded_response['public_id']}
 
-            else:
+            elif type == "image":
                 print("whawhatwha", uniquepostingid)
                 uploaded_response = upload_files(request.FILES['media'], uniquepostingid)
                 return_response = {"url": uploaded_response['resources'][0]['url']}
+
+            elif type == "imageinprofile":
+                uploaded_response = upload_files(request.FILES['media'], uniquepostingid)
+                checker = Userinfo.objects.filter(influencer_id = request.user.id)
+                if checker.exists():
+                     userinfo = checker.update(profile_picture=uploaded_response['resources'][0]['public_id'])
+    
+                else:
+                    userinfo = Userinfo(profile_picture=uploaded_response['resources'][0]['public_id'], influencer_id=request.user.id)
+                    userinfo.save()
+    
+                return_response = {"url": uploaded_response['resources'][0]['public_id']}
+
+            else:
+                uploaded_response = upload_files_videos(request.FILES['media'], uniquepostingid)
+                checker = Userinfo.objects.filter(influencer_id = request.user.id)
+                if checker.exists():
+                     userinfo = checker.update(profile_video=uploaded_response['public_id'])
+    
+                else:
+                    userinfo = Userinfo(profile_video=uploaded_response['public_id'], influencer_id=request.user.id)
+                    userinfo.save()
+                return_response = {"url": uploaded_response['public_id']}
+
+            
     return JsonResponse(return_response, safe=False)
 
 def dump_response(response):
@@ -375,24 +423,10 @@ def dump_response(response):
         print("  %s: %s" % (key, response[key]))
 
 def upload_files(file, fileid):
-    print("this is fild ID", fileid)
-    response = cloudinary.uploader.upload(file, public_id = fileid)
-    dump_response(response)
-    url, options = cloudinary_url(
-        response['public_id'],
-        format=response['format'],
-        width=200,
-        height=150,
-        crop="fill"
-    )
-    print("waan's response in image", response)
-    print("Fill 200x150 url: " + url)
-    print("options? ", options)
-    print("reponseid", response['public_id'])
-
-    print("")
+    cloudinary.uploader.upload(file, public_id = fileid)
+    
+    
     successful = cloudinary.api.resources_by_ids([fileid])
-    print("am i successful?", successful)
     return successful
 
 def upload_files_videos(file, fileid):
@@ -418,4 +452,11 @@ def upload_files_videos(file, fileid):
     
   #  print("am i successful?", successful)
     return successful
-    
+def superuser(request):
+    print("ok")
+    #User.objects.filter(id = 6).update(is_superuser = 1)
+
+    return render(request, "network/superuser.html")
+
+def dara(request):
+    return render(request, "network/dara.html")

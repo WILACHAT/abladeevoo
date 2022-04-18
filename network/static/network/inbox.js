@@ -138,8 +138,9 @@ var EachReserve = function (_React$Component) {
             //sending vdo and stuff gor ja yhu trong nee (this is just the message)
             var value = document.querySelector('#sendingbacktorequest').value;
             var reserveid = this.props.data["data"][0].id;
-            var getcooked = getCookie('csrftoken');
             var videoid = document.querySelector('#sendingvideoidback').name;
+
+            var getcooked = getCookie('csrftoken');
 
             fetch('/gotoeachreserve', {
                 method: 'POST',

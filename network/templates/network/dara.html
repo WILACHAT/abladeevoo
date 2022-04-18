@@ -1,0 +1,42 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div>
+<h2>Apply to join Cameo as talent!
+If you have fanbase and want to join Cameo as talent, 
+you can apply here and we'll be in touch within 72 hours.</h2>
+
+<form action="{% url 'superuser' %}" method="post">
+    {% csrf_token %}
+
+<label>Name</label>
+<input name="occa1" placeholder="What's the occasion?"></input><br></br>
+<label>Email</label>
+<input name="occa2" placeholder="Instructions for"></input><br></br>
+<label>Phone Number</label>
+
+<input name="occa3" placeholder="Optional"/>
+
+<label>Where can we find you?</label>
+<!--Select type na ja-->
+<input name="occa3" placeholder="Optional"/>
+
+
+<label>Username</label>
+<!--Select type na ja-->
+<input name="occa3" placeholder="Optional"/>
+
+
+<label>How many followers do you have?</label>
+<!--Select type na ja-->
+<input name="occa3" placeholder="Optional"/>
+</form>
+
+<h6>Note: you are not automatically enrolled on Cameo. If you meet the eligibility requirements, a talent representative will contact you within a few days to finish onboarding.</h6>
+
+{% endblock %}
+
+{% block script %}
+<script type="module" src="{% static 'network/tester.js' %}"></script>
+{% endblock %}

@@ -89,6 +89,8 @@ class Postandmessage(models.Model):
     reservation_ofpost = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservationofpost')
     poster = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='posterid')
     video = models.CharField(max_length=256, null=True)
+    hide = models.BooleanField(default=False)
+
 
 
     def serialize(self):
@@ -104,4 +106,18 @@ class Reviews(models.Model):
     user_id_reviewer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reviewer') 
     user_id_reviewed = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reviewed') 
     reservation_foreign = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservation_foreign') 
+
+class Requesteddara(models.Model):
+    name = models.CharField(max_length=256, null=True)
+    email = models.CharField(max_length=256, null=True)
+    phone = models.CharField(max_length=256, null=True)
+    find = models.CharField(max_length=256, null=True)
+    findusername = models.CharField(max_length=256, null=True)
+    followernum = models.CharField(max_length=256, null=True)
+    requested_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='requested_user') 
+
+
+
+
+
 
