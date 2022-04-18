@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import User, Reservation, Reviews, Postandmessage, Userinfo
+from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 import uuid
@@ -453,10 +453,34 @@ def upload_files_videos(file, fileid):
   #  print("am i successful?", successful)
     return successful
 def superuser(request):
-    print("ok")
-    #User.objects.filter(id = 6).update(is_superuser = 1)
+    alltheinfo = Requesteddara.objects.filter(daradone = 0)
+    print("athheinfo", alltheinfo)
+    data = []
+    stu = {
+    "alltheinfo": alltheinfo
+    }
+    if request.method == "POST":
+        Requesteddara.objects.filter(requested_user_id = request.POST["idofuser"]).update(daradone = 1)
+        User.objects.filter(id = request.POST["idofuser"]).update(influencer_ornot = 1)
 
-    return render(request, "network/superuser.html")
+        print("ok it works thanks the christ")
+
+    return render(request, "network/superuser.html", stu)
 
 def dara(request):
+    if request.method == "POST":
+        name = request.POST["name"]
+        email = request.POST["email"]
+        phonenumber = request.POST["phonenumber"]
+        findwhere = request.POST["findwhere"]
+        usernamefindwhere = request.POST["usernamefindwhere"]
+        followerfindwhere = request.POST["followerfindwhere"]
+        requestdara = Requesteddara(name = name,email = email, phone = phonenumber,
+        find = findwhere, findusername = usernamefindwhere, followernum = followerfindwhere, 
+        requested_user_id = request.user.id)
+        requestdara.save()
+
+        return HttpResponseRedirect(reverse("index"))
+
+
     return render(request, "network/dara.html")

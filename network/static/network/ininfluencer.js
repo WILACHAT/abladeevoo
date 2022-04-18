@@ -693,27 +693,31 @@ var InfluencerFeedTitle = function (_React$Component4) {
     value: function render() {
       var link = "";
       var videolink = "";
-      console.log("thisstate in render", this.state.profilevideo);
-      if (this.props.data["userinfodata"][0].profile_picture != null) {
-        link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
-      }
-      if (this.props.data["userinfodata"][0].profile_video != null) {
-        console.log("you got this?");
-        videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4";
-      }
-      console.log("what is going on2", videolink);
+      //THIS IS A NEW PROBLEM TO FIX
+      //the user info data is fucked or essentially its blank and query anything
+      console.log("new problem arises", this.props.data["userinfodata"]);
+      if (this.props.data["userinfodata"] != "") {
+        if (this.props.data["userinfodata"][0].profile_picture != null) {
+          link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
+        }
+        if (this.props.data["userinfodata"][0].profile_video != null) {
+          console.log("you got this?");
+          videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4";
+        }
+        console.log("what is going on2", videolink);
 
-      var bookhtmllink = "/book/" + this.props.data["username"];
-      console.log("walowalo", this.props.data["userinfodata"][0].profile_picture);
-      if (this.props.data["userinfodata"] == "") {
-        console.log("userinfodata is blank fak u");
-      } else {
-        console.log("userinfodat is not blank fak u bak");
-      }
-      console.log("sameperson", this.props.data["sameperson"]);
+        var _bookhtmllink = "/book/" + this.props.data["username"];
+        console.log("walowalo", this.props.data["userinfodata"][0].profile_picture);
+        if (this.props.data["userinfodata"] == "") {
+          console.log("userinfodata is blank fak u");
+        } else {
+          console.log("userinfodat is not blank fak u bak");
+        }
+        console.log("sameperson", this.props.data["sameperson"]);
 
-      if (this.props.data["sameperson"] == 1) {
-        console.log("ok we start doing the edit from here");
+        if (this.props.data["sameperson"] == 1) {
+          console.log("ok we start doing the edit from here");
+        }
       }
 
       return React.createElement(

@@ -114,7 +114,9 @@ class Requesteddara(models.Model):
     find = models.CharField(max_length=256, null=True)
     findusername = models.CharField(max_length=256, null=True)
     followernum = models.CharField(max_length=256, null=True)
-    requested_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='requested_user') 
+    requested_user = models.OneToOneField(User, unique=True, null=True, on_delete=models.CASCADE, related_name='requested_user') 
+    daradone= models.BooleanField(default=False)
+
 
 
 

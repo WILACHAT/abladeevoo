@@ -4,8 +4,23 @@
 {% block body %}
 
 {% if user.is_superuser == 1 %}
-<h1>super user</h1>
-<h1>Mai Davika</h1>
+
+{% for i in alltheinfo %}
+    <form action="{% url 'superuser' %}" method="post">
+        {% csrf_token %}
+    <h6>{{i.name}}</h6>
+    <h6>{{i.email}}</h6>
+    <h6>{{i.phone}}</h6>
+    <h6>{{i.find}}</h6>
+    <h6>{{i.findusername}}</h6>
+    <h6>{{i.follownum}}</h6>
+    <input name="idofuser" type="hidden" value={{i.requested_user_id}}></input>
+    <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+    {% endfor %}
+
+
+
 {% else %}
 <h2>We might look to hire!</h2>
 <h2>waanwaanwilachat@gmail.com</h2>
@@ -16,5 +31,4 @@
 {% endblock %}
 
 {% block script %}
-<script type="module" src="{% static 'network/tester.js' %}"></script>
 {% endblock %}

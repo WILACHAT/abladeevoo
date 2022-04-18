@@ -7,30 +7,32 @@
 If you have fanbase and want to join Cameo as talent, 
 you can apply here and we'll be in touch within 72 hours.</h2>
 
-<form action="{% url 'superuser' %}" method="post">
+<form action="{% url 'dara' %}" method="post">
     {% csrf_token %}
 
 <label>Name</label>
-<input name="occa1" placeholder="What's the occasion?"></input><br></br>
+<input name="name" placeholder="What's the occasion?"></input><br></br>
 <label>Email</label>
-<input name="occa2" placeholder="Instructions for"></input><br></br>
+<input name="email" placeholder="Instructions for"></input><br></br>
 <label>Phone Number</label>
 
-<input name="occa3" placeholder="Optional"/>
+<input name="phonenumber" placeholder="Optional"></input><br></br>
 
 <label>Where can we find you?</label>
 <!--Select type na ja-->
-<input name="occa3" placeholder="Optional"/>
+<input name="findwhere" placeholder="Optional"></input><br></br>
 
 
 <label>Username</label>
 <!--Select type na ja-->
-<input name="occa3" placeholder="Optional"/>
+<input name="usernamefindwhere" placeholder="Optional"></input><br></br>
 
 
 <label>How many followers do you have?</label>
 <!--Select type na ja-->
-<input name="occa3" placeholder="Optional"/>
+<input name="followerfindwhere" placeholder="Optional"></input><br></br>
+<input class="btn btn-primary" type="submit" value="Submit">
+
 </form>
 
 <h6>Note: you are not automatically enrolled on Cameo. If you meet the eligibility requirements, a talent representative will contact you within a few days to finish onboarding.</h6>
@@ -38,5 +40,4 @@ you can apply here and we'll be in touch within 72 hours.</h2>
 {% endblock %}
 
 {% block script %}
-<script type="module" src="{% static 'network/tester.js' %}"></script>
 {% endblock %}
