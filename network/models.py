@@ -38,7 +38,8 @@ class Userinfo(models.Model):
             "profile_picture":self.profile_picture,
             "first_url":self.first_url,
             "second_url":self.second_url,
-            "third_url":self.third_url
+            "third_url":self.third_url,
+            "influencer":str(self.influencer)
         } 
 
 
@@ -65,7 +66,16 @@ class Reservation(models.Model):
     user_id_reserver = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reserver') 
     user_id_influencerreserve = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerreserve')
     
+
     def serialize(self):
+       # print("checking if this is correct", self.user_id_reserver)
+      #  user_username = User.objects.values('username').get(id = self.user_id_reserver)
+      #  user_username["username"]
+       # print(user_username["username"])
+        print(self.user_id_reserver)
+        print(str(self.user_id_reserver))
+
+
         return {
             "id":self.id,
             "typeintro":self.typeintro,
@@ -78,7 +88,10 @@ class Reservation(models.Model):
             "fourthinputoccasion":self.fourthinputoccasion,
             "timestamp":  self.creationtime,
             "completed":self.completed,
-            "reviewcompleted":self.reviewcompleted
+            "reviewcompleted":self.reviewcompleted,
+            "username":str(self.user_id_reserver),
+            "username_influencer":str(self.user_id_influencerreserve)
+
         } 
 
 
@@ -91,8 +104,6 @@ class Postandmessage(models.Model):
     video = models.CharField(max_length=256, null=True)
     hide = models.BooleanField(default=False)
 
-
-
     def serialize(self):
          return {
             "id": self.id,
@@ -103,6 +114,7 @@ class Postandmessage(models.Model):
 
 class Reviews(models.Model):
     review = models.CharField(max_length=256, null=True)
+    review_stars = models.IntegerField(null=True)
     user_id_reviewer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reviewer') 
     user_id_reviewed = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reviewed') 
     reservation_foreign = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservation_foreign') 

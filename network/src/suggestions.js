@@ -30,7 +30,9 @@ function getCookie(name) {
               username={this.props.data[i].username}
               email={this.props.data[i].email}
               influencer_ornot={this.props.data[i].influencer_ornot}
-              freeze_account={this.props.data[i].freeze_account}/>
+              freeze_account={this.props.data[i].freeze_account}
+              fullname={this.props.data[i].fullname}
+              profile_picture={this.props.data[i].profile_picture}/>
         );
       }
         return (
@@ -57,6 +59,17 @@ function getCookie(name) {
       console.log("yo wassup")
     }
     render() {
+      let link
+      if (this.props.profile_picture != null)
+      {
+        link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.profile_picture + ".jpg"
+      }
+      else
+      {
+        link = ""
+      }
+
+      
       // might be of use so yea
       const ininfluencer_link = "/ininfluencer/"+this.props.username
       //<a name="posterr" href={portalname} class="h4 colorstyle">{this.props.portalname}</a> 
@@ -66,6 +79,10 @@ function getCookie(name) {
           <a name="posterr" href={ininfluencer_link} class="h4 colorstyle">{this.props.username}</a> 
           <h5>{this.props.influencer_ornot}</h5>
           <h5>{this.props.freeze_account}</h5>
+          <h5>{this.props.fullname}</h5>
+          <img width="350" height="200" src={link}></img>
+
+
         </div>
         )
 
@@ -76,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fetch(`/inzwerg4jgnsd9aadif67`)
       .then(response => response.json())
       .then(data => {        
+        console.log("this is data", data)
         ReactDOM.render(<SuggestionTable data={data}/>, document.querySelector('#suggestions_por_react'));
     
       });

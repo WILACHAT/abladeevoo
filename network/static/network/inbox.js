@@ -1,7 +1,5 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -158,24 +156,33 @@ var EachReserve = function (_React$Component) {
     }, {
         key: 'submitReview',
         value: function submitReview(e) {
-            var _JSON$stringify;
-
             var getcooked = getCookie('csrftoken');
             var value = document.querySelector('#typeforreview').value;
             var reserveid = this.props.data["data"][0].id;
-            var influencername = this.props.data["fornamedata"][0];
+
+            console.log("before error", this.props.data["data"][0].username_influencer);
+
+            var influencername = this.props.data["data"][0].username_influencer;
+
+            var selectreview = document.querySelector('#selectforreview').value;
+            console.log("selectreview", selectreview);
 
             console.log("value of review", value);
-            fetch('/gotoeachreserve', {
+            /*
+            fetch(`/gotoeachreserve`, {
                 method: 'POST',
-                headers: { 'X-CSRFToken': getcooked },
-                body: JSON.stringify((_JSON$stringify = {
-                    value: value,
-                    reserveid: reserveid,
-                    influencername: influencername }, _defineProperty(_JSON$stringify, 'influencername', influencername), _defineProperty(_JSON$stringify, 'type', "submitreview"), _JSON$stringify))
-            }).then(function (result) {
-                window.location.href = "/inbox";
-            });
+                headers:{'X-CSRFToken': getcooked},
+                body: JSON.stringify({
+                  value: value,
+                  reserveid: reserveid,
+                  influencername, influencername,
+                  type:"submitreview"
+                })
+              })
+              .then(result => {
+                  window.location.href = "/inbox";
+              });
+            */
         }
     }, {
         key: 'render',
@@ -323,6 +330,35 @@ var EachReserve = function (_React$Component) {
                                 this.props.data["forpostdata"][0]
                             ),
                             React.createElement('input', { id: 'typeforreview' }),
+                            React.createElement(
+                                'select',
+                                { id: 'selectforreview' },
+                                React.createElement(
+                                    'option',
+                                    { value: '1' },
+                                    '1'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: '2' },
+                                    '2'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: '3' },
+                                    '3'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: '4' },
+                                    '4'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: '5' },
+                                    '5'
+                                )
+                            ),
                             React.createElement(
                                 'button',
                                 { onClick: this.submitReview, 'class': 'btn btn-primary' },
@@ -570,7 +606,8 @@ var InboxFeedRows = function (_React$Component2) {
 
             console.log("clickedwork");
             var getcooked = getCookie('csrftoken');
-            fetch('/gotozjguen484s9gj302g', {
+            var paginationid = 1;
+            fetch('/gotozjguen484s9gj302g/' + paginationid, {
                 method: 'PUT',
                 headers: { 'X-CSRFToken': getcooked },
                 body: JSON.stringify({
@@ -631,29 +668,127 @@ var InboxFeedInbox = function (_React$Component3) {
     function InboxFeedInbox(props) {
         _classCallCheck(this, InboxFeedInbox);
 
-        return _possibleConstructorReturn(this, (InboxFeedInbox.__proto__ || Object.getPrototypeOf(InboxFeedInbox)).call(this, props));
+        var _this3 = _possibleConstructorReturn(this, (InboxFeedInbox.__proto__ || Object.getPrototypeOf(InboxFeedInbox)).call(this, props));
+
+        _this3.changePage = _this3.changePage.bind(_this3);
+        console.log("propsdata PAGINATION", _this3.props.data["paginationid"]);
+        console.log("propsdata PAGINATION", _this3.props.data);
+
+        _this3.state = {
+            searchtext: "",
+            newdata: _this3.props.data
+
+        };
+        return _this3;
     }
 
     _createClass(InboxFeedInbox, [{
+        key: 'changePage',
+        value: function changePage(e) {
+            var _this4 = this;
+
+            console.log("change page page");
+            var pagination = e.target.id;
+            var innerhtmlpage = e.target.innerHTML;
+
+            console.log("the pagination", pagination);
+
+            if (innerhtmlpage == "Previous") {
+                pagination = parseInt(pagination);
+                pagination = pagination - 1;
+            } else if (innerhtmlpage == "Next") {
+                pagination = parseInt(pagination);
+                pagination = pagination + 1;
+            } else {
+                pagination = parseInt(e.target.innerHTML);
+            }
+            var checkfornull = window.location.pathname.split('/')[2];
+            var clicked = parseInt(window.location.pathname.split('/')[2]);
+            if (checkfornull == null) {
+                clicked = 0;
+            }
+            var type = "";
+            if (this.props.data["type"] == "request") {
+                type = "myrequesthtml";
+            }
+            var getcooked = getCookie('csrftoken');
+
+            console.log("pagination before going", pagination);
+            fetch('/gotozjguen484s9gj302g/' + pagination, {
+                method: 'PUT',
+                headers: { 'X-CSRFToken': getcooked },
+                body: JSON.stringify({
+                    from: "inbox",
+                    type: type
+                })
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log("when returnedasldifasodfbnlasdbnfoasdofuiasodufhosaudhf", _this4.props.data);
+                _this4.setState({
+                    newdata: data
+
+                });
+                _this4.setState({
+                    pagination: _this4.state.newdata["paginationid"]
+                });
+                console.log("newest pagination", _this4.state.newdata);
+                console.log("newest pagination", _this4.state.newdata["data"]);
+            });
+
+            window.scrollTo(0, 0);
+        }
+    }, {
         key: 'render',
         value: function render() {
+
+            console.log("check for fast data", this.state.newdata["data"]);
+            console.log("check for fast data", this.state.newdata["data"][0]);
+
+            var button = [];
             var rows = [];
 
-            console.log(this.props.data);
-            for (var i = 0; i < this.props.data["data"].length; i++) {
-                console.log("we wil lcccc", this.props.data["data"][i]);
-                console.log("we wil lcccc22", this.props.data["fornamedata"][i]);
-                rows.push(React.createElement(InboxFeedRows, {
-                    id: this.props.data["data"][i].id,
-                    name: this.props.data["fornamedata"][i],
-                    giftornot: this.props.data["data"][i].typeintro,
-                    whatoccasion: this.props.data["data"][i].typeoccasion,
-                    completed: this.props.data["data"][i].completed }));
+            var paginationid = this.props.data["paginationid"];
+
+            for (var j = 0; j < this.props.data["num_pages"]; j++) {
+                var thej = j + 1;
+                button.push(React.createElement(
+                    'li',
+                    { 'class': paginationid == thej ? "page-item active" : "page-item", onClick: this.changePage },
+                    React.createElement(
+                        'a',
+                        { 'class': 'page-link' },
+                        thej
+                    )
+                ));
             }
+            console.log(this.props.data);
+            if (this.state.newdata["data"] == null) {
+                console.log("looking to hire");
+            } else {
+                for (var i = 0; i < this.state.newdata["data"].length; i++) {
+                    console.log("we wil lcccc", this.props.data["data"][i]);
+                    rows.push(React.createElement(InboxFeedRows, {
+                        id: this.state.newdata["data"][i].id,
+                        name: this.state.newdata["data"][i].username,
+                        giftornot: this.state.newdata["data"][i].typeintro,
+                        whatoccasion: this.state.newdata["data"][i].typeoccasion,
+                        completed: this.state.newdata["data"][i].completed }));
+                }
+            }
+            console.log("orange 7", paginationid);
+
+            console.log(this.state.paginationid);
+            if (this.state.pagination == null) {
+                this.setState({
+                    pagination: 1
+                });
+            }
+
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
+                this.state.newdata["data"] != null ? React.createElement(
                     'table',
                     { className: 'table table-hover table-sm' },
                     React.createElement(
@@ -661,7 +796,47 @@ var InboxFeedInbox = function (_React$Component3) {
                         null,
                         rows
                     )
-                )
+                ) : React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                        'h6',
+                        null,
+                        'No Requests yet'
+                    ),
+                    React.createElement(
+                        'h6',
+                        null,
+                        'Maybe a page for you to tell influencer to share their page on ig, fb, utube.'
+                    )
+                ),
+                rows != "" ? React.createElement(
+                    'div',
+                    { 'class': 'paginationcss' },
+                    this.props.data["num_pages"] != 0 ? React.createElement(
+                        'ul',
+                        { 'class': 'pagination container justify-content-center mt-3' },
+                        React.createElement(
+                            'li',
+                            { 'class': 'page-item' },
+                            this.state.pagination != 1 ? React.createElement(
+                                'span',
+                                { id: this.state.pagination, 'class': 'page-link pagelink', onClick: this.changePage },
+                                'Previous'
+                            ) : null
+                        ),
+                        button,
+                        React.createElement(
+                            'li',
+                            { 'class': 'page-item' },
+                            this.state.pagination != this.props.data["num_pages"] ? React.createElement(
+                                'span',
+                                { id: this.state.pagination, 'class': 'page-link pagelink', onClick: this.changePage },
+                                'Next'
+                            ) : null
+                        )
+                    ) : null
+                ) : null
             );
         }
     }]);
@@ -675,15 +850,15 @@ var InboxFeedTitle = function (_React$Component4) {
     function InboxFeedTitle(props) {
         _classCallCheck(this, InboxFeedTitle);
 
-        var _this4 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
+        var _this5 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
 
-        _this4.changeFeedInbox = _this4.changeFeedInbox.bind(_this4);
-        console.log("checklolol", _this4.props.data["checkifinfluencer"]);
+        _this5.changeFeedInbox = _this5.changeFeedInbox.bind(_this5);
+        console.log("checklolol", _this5.props.data["checkifinfluencer"]);
 
         //document.querySelector('#maininfluencer').hidden = false;
         //document.querySelector('#reviewsmainfluencer').hidden = true;
 
-        return _this4;
+        return _this5;
     }
 
     _createClass(InboxFeedTitle, [{
@@ -704,7 +879,8 @@ var InboxFeedTitle = function (_React$Component4) {
 
                 type = "myrequesthtml";
             }
-            fetch('/gotozjguen484s9gj302g', {
+            var paginationid = 1;
+            fetch('/gotozjguen484s9gj302g/' + paginationid, {
                 method: 'PUT',
                 headers: { 'X-CSRFToken': csrftoken
                 },
@@ -754,8 +930,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
     var feedtype = "main";
     //console.log("influencer username", influencerusername)
+    var paginationid = 1;
 
-    fetch('/gotozjguen484s9gj302g').then(function (response) {
+    fetch('/gotozjguen484s9gj302g/' + paginationid).then(function (response) {
         return response.json();
     }).then(function (data) {
         console.log("gimme data", data);

@@ -46,6 +46,12 @@ def index(request):
     '''
    # portals = Portal.objects.all()
     influencers = User.objects.all().filter(influencer_ornot=1)
+    
+
+
+
+
+
 
     #influencers = User.objects.values('username').get(influencer_ornot = 1)
 
@@ -58,13 +64,22 @@ def inzwerg4jgnsd9aadif67(request):
     #influencer essentially a page that uses serialize to display all the influencers
 
     influencers = User.objects.all().filter(influencer_ornot=1)
-
-    
+    checker = Userinfo.objects.all().filter()
 
     newdata = []
     for influencer in influencers:
-        newdata.append(influencer.serialize())
+        print("data before serialize", influencer.serialize())
+        puller = influencer.serialize()
+        
+        checker = Userinfo.objects.filter(influencer = puller["id"])
+        for i in checker:
+            puller["profile_picture"] = i.profile_picture
+            puller["fullname"] = i.profile_fullname
 
+
+        newdata.append(puller)
+
+    print("what is going on", newdata)
     newdata = newdata
     return_request = newdata
     return JsonResponse(return_request, safe=False)
@@ -198,7 +213,7 @@ def inbox(request):
     username = username["username"]
 
     return render(request, "network/inbox.html", {"currentuser": currentuser, "username":username})
-def gotozjguen484s9gj302g(request):
+def gotozjguen484s9gj302g(request, paginationid):
 
     currentuser = request.user.id
     checkifinfluencer = User.objects.values('influencer_ornot').get(id = currentuser)
@@ -211,8 +226,8 @@ def gotozjguen484s9gj302g(request):
     postandmessageinfo = ""
     if request.method == "PUT":   
         data = json.loads(request.body)
-        print("data", data)
-
+      
+        #FOUND THE PROBLEM AND IT IS HERE ALRIGHT U GOT THIS NEXT DK WHEN data["from"]/data["type "] is wrong
         if data["from"] == "inbox":
             if data["type"] == "myrequesthtml":
                 type= "request"
@@ -224,7 +239,6 @@ def gotozjguen484s9gj302g(request):
 
             #YOU ARE RIGHT HERE
             postandmessageinfo = Postandmessage.objects.filter(reservation_ofpost_id = data["reservationid"])
-            print("after ide", postandmessageinfo)
             try:
                 reviewvalue = Reviews.objects.values('review').get(reservation_foreign_id = data["reservationid"])
                 reviewvalue = reviewvalue["review"]
@@ -233,11 +247,10 @@ def gotozjguen484s9gj302g(request):
         print("this is the reviewvalue", reviewvalue)            
 
     newdata = []
-    fornamedata = []
     forpostdata = []
-    saver = ""
 
-    print("this is forpostdata before", postandmessageinfo)
+
+    print("this is forpostdata before", reserveinfo)
 
     # you are currently here right now waan next step is to do this
 
@@ -251,18 +264,33 @@ def gotozjguen484s9gj302g(request):
     
     print("this is forpostdata", forpostdata)
     for reserve in reserveinfo:
-        if checker == 1:   
-            saver = str(reserve.user_id_reserver)
-            fornamedata.append(saver)
-        else:
-            saver = str(reserve.user_id_influencerreserve)
-            fornamedata.append(saver)
 
 
         newdata.append(reserve.serialize())
+ 
 
-    return_request = {"checkifinfluencer": checkifinfluencer, "data": newdata, "fornamedata":fornamedata, "type":type, 
-    "forpostdata":forpostdata, "reviewvalue":reviewvalue}
+    pagination = Paginator(newdata, 9)
+    
+
+
+    paginationid = int(paginationid)
+    print("why does this not change", paginationid)
+    num_pages = pagination.num_pages
+    print("number of page: ", num_pages)
+
+
+    data = []
+
+
+
+    return_request = {"checkifinfluencer": checkifinfluencer, "data": newdata, "type":type, 
+    "forpostdata":forpostdata, "reviewvalue":reviewvalue, "num_pages":num_pages, "paginationid":paginationid, "data":data}
+
+    print("paginationid before doing the work", paginationid)
+    for row in pagination.page(paginationid).object_list:  
+        print("this is row", row)
+        return_request["data"].append(row)
+    
     return JsonResponse(return_request, safe=False)
 
 def eachreserve(request, reservationid):

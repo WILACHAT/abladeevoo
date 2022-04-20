@@ -1,3 +1,4 @@
+
  /*
         completed: false
 firstinputoccasion: "birthday"
@@ -162,9 +163,17 @@ class EachReserve extends React.Component{
         const getcooked = getCookie('csrftoken');
         var value = document.querySelector('#typeforreview').value
         var reserveid = this.props.data["data"][0].id
-        var influencername = this.props.data["fornamedata"][0]
+
+        console.log("before error", this.props.data["data"][0].username_influencer)
+
+        var influencername = this.props.data["data"][0].username_influencer
+ 
+        var selectreview = document.querySelector('#selectforreview').value
+        console.log("selectreview", selectreview)
+       
 
         console.log("value of review", value)
+        /*
         fetch(`/gotoeachreserve`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
@@ -179,6 +188,7 @@ class EachReserve extends React.Component{
               window.location.href = "/inbox";
           });
 
+*/
     }
     render() {
        
@@ -269,6 +279,14 @@ class EachReserve extends React.Component{
 
                         <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
                         <input id="typeforreview"></input>
+                        <select id="selectforreview">
+                             <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+
+                        </select>
                         <button onClick={this.submitReview} class="btn btn-primary">Submit</button>
                     </div>
                 }
@@ -373,7 +391,8 @@ class InboxFeedRows extends React.Component {
 
         console.log("clickedwork")
         const getcooked = getCookie('csrftoken');
-        fetch(`/gotozjguen484s9gj302g`, {
+        let paginationid = 1;
+        fetch(`/gotozjguen484s9gj302g/${paginationid}`, {
         method: 'PUT',
         headers:{'X-CSRFToken': getcooked},
         body: JSON.stringify({
@@ -413,30 +432,158 @@ class InboxFeedRows extends React.Component {
 class InboxFeedInbox extends React.Component {
     constructor(props) {
         super(props);
+        this.changePage = this.changePage.bind(this);
+        console.log("propsdata PAGINATION", this.props.data["paginationid"])
+        console.log("propsdata PAGINATION", this.props.data)
+
+        this.state = 
+        {
+          searchtext:"",
+          newdata: this.props.data
+  
+        }
+    }
+    changePage(e)
+    {
+        console.log("change page page")
+        let pagination = e.target.id
+        const innerhtmlpage = e.target.innerHTML
+      
+        console.log("the pagination", pagination)
+      
+        if (innerhtmlpage == "Previous")
+        {
+          pagination = parseInt(pagination)
+          pagination = pagination - 1
+        }
+        else if(innerhtmlpage == "Next")
+        {
+          pagination = parseInt(pagination)
+          pagination = pagination + 1
+        }
+        else
+        {
+          pagination = parseInt(e.target.innerHTML)
+        }
+        let checkfornull = window.location.pathname.split('/')[2]
+        let clicked = parseInt(window.location.pathname.split('/')[2])
+        if (checkfornull == null){
+            clicked = 0
+        }
+        let type=""
+        if (this.props.data["type"] == "request")
+        {
+            type = "myrequesthtml"
+        }
+        const getcooked = getCookie('csrftoken');
+
+       
+        console.log("pagination before going", pagination)
+        fetch(`/gotozjguen484s9gj302g/${pagination}`, {
+            method: 'PUT',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+                from: "inbox",
+                type: type
+                })
+            })
+       
+        .then(response => response.json())
+        .then(data => {
+        console.log("when returnedasldifasodfbnlasdbnfoasdofuiasodufhosaudhf", this.props.data)
+          this.setState({
+            newdata: data,
+             
+          })
+          this.setState({
+            pagination:this.state.newdata["paginationid"]
+        })
+        console.log("newest pagination", this.state.newdata)
+        console.log("newest pagination", this.state.newdata["data"])
+
+        });
+  
+        window.scrollTo(0, 0)
     }
     render() {
-        const rows = [];
+    
 
+  
+
+    console.log("check for fast data", this.state.newdata["data"])
+    console.log("check for fast data", this.state.newdata["data"][0])
+
+
+    const button = [];
+    const rows = [];
+
+    const paginationid = this.props.data["paginationid"]
+
+    for (let j = 0; j < this.props.data["num_pages"]; j++)
+    {
+      let thej = j + 1
+      button.push
+      (
+        <li class={paginationid == thej ? "page-item active":"page-item"} onClick={this.changePage}><a class="page-link">{thej}</a></li>
+      )
+
+    }
         console.log(this.props.data)
-        for (let i = 0; i < this.props.data["data"].length; i++)
+        if (this.state.newdata["data"] == null)
         {
-            console.log("we wil lcccc", this.props.data["data"][i])
-            console.log("we wil lcccc22", this.props.data["fornamedata"][i])
-            rows.push( 
-                <InboxFeedRows 
-                id={this.props.data["data"][i].id}
-                name={this.props.data["fornamedata"][i]}
-                giftornot={this.props.data["data"][i].typeintro}
-                whatoccasion={this.props.data["data"][i].typeoccasion}
-                completed={this.props.data["data"][i].completed}/>
-            );
-            
-        } 
+            console.log("looking to hire")            
+        }
+        else
+        {
+            for (let i = 0; i < this.state.newdata["data"].length; i++)
+            {
+                console.log("we wil lcccc", this.props.data["data"][i])
+                rows.push( 
+                    <InboxFeedRows 
+                    id={this.state.newdata["data"][i].id}
+                    name={this.state.newdata["data"][i].username}
+                    giftornot={this.state.newdata["data"][i].typeintro}
+                    whatoccasion={this.state.newdata["data"][i].typeoccasion}
+                    completed={this.state.newdata["data"][i].completed}/>
+                );
+            } 
+        }
+        console.log("orange 7", paginationid)
+
+        console.log(this.state.paginationid)
+        if (this.state.pagination == null)
+        {
+            this.setState({
+                pagination:1
+            })
+        }
+        
+        
         return(
-            <div>
+            <div>{this.state.newdata["data"] != null ? 
                 <table className="table table-hover table-sm">
                     <tbody>{rows}</tbody>
-                </table>
+                </table>: <div>
+                <h6>
+                    No Requests yet
+                </h6>
+                <h6>
+                    Maybe a page for you to tell influencer to share their page on ig, fb, utube.
+                </h6>
+            </div>}
+                {rows != "" ? 
+        <div class="paginationcss">
+        {this.props.data["num_pages"] != 0 ?
+        <ul class="pagination container justify-content-center mt-3">
+            <li class="page-item">
+              {this.state.pagination != 1 ? <span id={this.state.pagination} class="page-link pagelink" onClick={this.changePage}>Previous</span>: null}
+              </li>
+                {button}              
+              <li class="page-item">
+              {this.state.pagination != this.props.data["num_pages"] ? <span id={this.state.pagination} class="page-link pagelink" onClick={this.changePage}>Next</span>: null}
+            </li>
+        </ul>: null}
+        </div>:null}
             </div>
         )
     }
@@ -474,7 +621,8 @@ class InboxFeedTitle extends React.Component {
 
             type = "myrequesthtml"
         }
-        fetch(`/gotozjguen484s9gj302g`, {
+        let paginationid = 1
+        fetch(`/gotozjguen484s9gj302g/${paginationid}`, {
             method: 'PUT',
             headers: {'X-CSRFToken': csrftoken
             },
@@ -514,8 +662,9 @@ document.addEventListener('DOMContentLoaded', function() {
    // var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
     var feedtype = "main"
     //console.log("influencer username", influencerusername)
+    let paginationid = 1;
     
-    fetch(`/gotozjguen484s9gj302g`)
+    fetch(`/gotozjguen484s9gj302g/${paginationid}`)
    .then(response => response.json())
     .then(data => {
     console.log("gimme data", data)

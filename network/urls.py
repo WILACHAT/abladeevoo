@@ -15,7 +15,7 @@ urlpatterns = [
     path("book/<str:username>", views.book, name="book"),
     path("gotobook/<str:username>", views.gotobook, name="gotobook"),
     path("inbox", views.inbox, name="inbox"),
-    path("gotozjguen484s9gj302g", views.gotozjguen484s9gj302g, name="gotozjguen484s9gj302g"),
+    path("gotozjguen484s9gj302g/<int:paginationid>", views.gotozjguen484s9gj302g, name="gotozjguen484s9gj302g"),
     
     path("eachreserve/<int:reservationid>", views.eachreserve, name="eachreserve"),
     path("gotoeachreserve", views.gotoeachreserve, name="gotoeachreserve"),

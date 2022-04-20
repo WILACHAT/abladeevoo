@@ -240,12 +240,6 @@ class InfluencerFeedTable extends React.Component {
                     <label htmlFor="edit_post_txt">Url 3: </label>
                     <textarea id="idurl3"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.third_url}></textarea>
                     </div>
-
-                    <div class="d-flex justify-content-center mt-2 mb-2">
-                    <label htmlFor="edit_post_txt">Video: </label>
-                    <textarea id="profiledes"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.profiledes}></textarea>
-
-                    </div> 
                     
                     <div class="d-flex justify-content-center mt-2 mb-2">
                         <button type="button" name="edit_post_button" className="loll btn btn-outline-success btn-sm mr-2" onClick={this.editPost}>Save</button>
@@ -314,30 +308,30 @@ class InfluencerFeedTitle extends React.Component {
             profilevideo = this.props.data["userinfodata"][0].profile_video
           }
           
-         
-      this.state = {
-        fullname: fullname,
-        description: description,
-        first_url: first_url,
-        second_url: second_url,
-        third_url: third_url,
-        profilepic: profilepic,
-        profilevideo: profilevideo,
-
-        edit:
-          <div>
-             <h4>Name</h4>
-              <h5>{fullname}</h5>
-            <h5>Description</h5>
-              <h6>{description}</h6>
-            <h5>Links</h5>
-              <h6>{first_url}</h6>
-              <h6>{second_url}</h6>
-             <h6>{third_url}</h6>
-          </div>
-
-        }
     }
+       
+    this.state = {
+      fullname: fullname,
+      description: description,
+      first_url: first_url,
+      second_url: second_url,
+      third_url: third_url,
+      profilepic: profilepic,
+      profilevideo: profilevideo,
+
+      edit:
+        <div>
+           <h4>Name</h4>
+            <h5>{fullname}</h5>
+          <h5>Description</h5>
+            <h6>{description}</h6>
+          <h5>Links</h5>
+            <h6>{first_url}</h6>
+            <h6>{second_url}</h6>
+           <h6>{third_url}</h6>
+        </div>
+
+      }
   }
     chooseFile(e)
     {
@@ -535,10 +529,24 @@ class InfluencerFeedTitle extends React.Component {
       let videolink = ""
       //THIS IS A NEW PROBLEM TO FIX
       //the user info data is fucked or essentially its blank and query anything
-      console.log("new problem arises", this.props.data["userinfodata"])
+      let bookhtmllink = "/book/"+this.props.data["username"]
+
+      if (this.state.profilepic != "")
+      {
+        link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg"
+        console.log("this is the new type of if in image")
+      }
+      if (this.state.profilevideo != "")
+      {
+        videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4"
+        console.log("this is the new type of if in video")
+
+      }
+
       if (this.props.data["userinfodata"] != "")
       {
-        if (this.props.data["userinfodata"][0].profile_picture != null)
+       
+       /* if (this.props.data["userinfodata"][0].profile_picture != null)
         {
           link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg"
         }
@@ -547,10 +555,10 @@ class InfluencerFeedTitle extends React.Component {
           console.log("you got this?")
           videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4"
         }
+        */
         console.log("what is going on2", videolink)
   
   
-        const bookhtmllink = "/book/"+this.props.data["username"]
         console.log("walowalo", this.props.data["userinfodata"][0].profile_picture)
           if (this.props.data["userinfodata"] == "")
           {
@@ -566,9 +574,9 @@ class InfluencerFeedTitle extends React.Component {
           {
             console.log("ok we start doing the edit from here")
           }
-      }
-     
 
+      }
+ 
         return (
          <div>
            {this.props.data["sameperson"] == 1 ?  

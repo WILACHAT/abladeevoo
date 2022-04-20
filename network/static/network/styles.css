@@ -23,3 +23,16 @@
   object-fit: cover;
 
 }
+.page-footer
+{
+  background-color: #FFBE00;
+  margin-top: 2px;
+}
+.navbar
+{
+  background-color: #FFBE00;
+
+}
+body{
+  background-color: #008fff;
+}

@@ -42,7 +42,9 @@ var SuggestionTable = function (_React$Component) {
           username: this.props.data[i].username,
           email: this.props.data[i].email,
           influencer_ornot: this.props.data[i].influencer_ornot,
-          freeze_account: this.props.data[i].freeze_account }));
+          freeze_account: this.props.data[i].freeze_account,
+          fullname: this.props.data[i].fullname,
+          profile_picture: this.props.data[i].profile_picture }));
       }
       return React.createElement(
         'div',
@@ -96,6 +98,13 @@ var SuggestionsRow = function (_React$Component2) {
   }, {
     key: 'render',
     value: function render() {
+      var link = void 0;
+      if (this.props.profile_picture != null) {
+        link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.profile_picture + ".jpg";
+      } else {
+        link = "";
+      }
+
       // might be of use so yea
       var ininfluencer_link = "/ininfluencer/" + this.props.username;
       //<a name="posterr" href={portalname} class="h4 colorstyle">{this.props.portalname}</a> 
@@ -117,7 +126,13 @@ var SuggestionsRow = function (_React$Component2) {
           'h5',
           null,
           this.props.freeze_account
-        )
+        ),
+        React.createElement(
+          'h5',
+          null,
+          this.props.fullname
+        ),
+        React.createElement('img', { width: '350', height: '200', src: link })
       );
     }
   }]);
@@ -129,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
   fetch('/inzwerg4jgnsd9aadif67').then(function (response) {
     return response.json();
   }).then(function (data) {
+    console.log("this is data", data);
     ReactDOM.render(React.createElement(SuggestionTable, { data: data }), document.querySelector('#suggestions_por_react'));
   });
 });

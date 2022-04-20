@@ -302,16 +302,6 @@ var EditPost = function (_React$Component3) {
             'div',
             { 'class': 'd-flex justify-content-center mt-2 mb-2' },
             React.createElement(
-              'label',
-              { htmlFor: 'edit_post_txt' },
-              'Video: '
-            ),
-            React.createElement('textarea', { id: 'profiledes', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.profiledes })
-          ),
-          React.createElement(
-            'div',
-            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
-            React.createElement(
               'button',
               { type: 'button', name: 'edit_post_button', className: 'loll btn btn-outline-success btn-sm mr-2', onClick: this.editPost },
               'Save'
@@ -379,63 +369,63 @@ var InfluencerFeedTitle = function (_React$Component4) {
       if (_this5.props.data["userinfodata"][0].profile_video != null) {
         profilevideo = _this5.props.data["userinfodata"][0].profile_video;
       }
-
-      _this5.state = {
-        fullname: fullname,
-        description: description,
-        first_url: first_url,
-        second_url: second_url,
-        third_url: third_url,
-        profilepic: profilepic,
-        profilevideo: profilevideo,
-
-        edit: React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'h4',
-            null,
-            'Name'
-          ),
-          React.createElement(
-            'h5',
-            null,
-            fullname
-          ),
-          React.createElement(
-            'h5',
-            null,
-            'Description'
-          ),
-          React.createElement(
-            'h6',
-            null,
-            description
-          ),
-          React.createElement(
-            'h5',
-            null,
-            'Links'
-          ),
-          React.createElement(
-            'h6',
-            null,
-            first_url
-          ),
-          React.createElement(
-            'h6',
-            null,
-            second_url
-          ),
-          React.createElement(
-            'h6',
-            null,
-            third_url
-          )
-        )
-
-      };
     }
+
+    _this5.state = {
+      fullname: fullname,
+      description: description,
+      first_url: first_url,
+      second_url: second_url,
+      third_url: third_url,
+      profilepic: profilepic,
+      profilevideo: profilevideo,
+
+      edit: React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'h4',
+          null,
+          'Name'
+        ),
+        React.createElement(
+          'h5',
+          null,
+          fullname
+        ),
+        React.createElement(
+          'h5',
+          null,
+          'Description'
+        ),
+        React.createElement(
+          'h6',
+          null,
+          description
+        ),
+        React.createElement(
+          'h5',
+          null,
+          'Links'
+        ),
+        React.createElement(
+          'h6',
+          null,
+          first_url
+        ),
+        React.createElement(
+          'h6',
+          null,
+          second_url
+        ),
+        React.createElement(
+          'h6',
+          null,
+          third_url
+        )
+      )
+
+    };
     return _this5;
   }
 
@@ -695,18 +685,31 @@ var InfluencerFeedTitle = function (_React$Component4) {
       var videolink = "";
       //THIS IS A NEW PROBLEM TO FIX
       //the user info data is fucked or essentially its blank and query anything
-      console.log("new problem arises", this.props.data["userinfodata"]);
+      var bookhtmllink = "/book/" + this.props.data["username"];
+
+      if (this.state.profilepic != "") {
+        link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
+        console.log("this is the new type of if in image");
+      }
+      if (this.state.profilevideo != "") {
+        videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4";
+        console.log("this is the new type of if in video");
+      }
+
       if (this.props.data["userinfodata"] != "") {
-        if (this.props.data["userinfodata"][0].profile_picture != null) {
-          link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
-        }
-        if (this.props.data["userinfodata"][0].profile_video != null) {
-          console.log("you got this?");
-          videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4";
-        }
+
+        /* if (this.props.data["userinfodata"][0].profile_picture != null)
+         {
+           link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg"
+         }
+         if (this.props.data["userinfodata"][0].profile_video != null)
+         {
+           console.log("you got this?")
+           videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4"
+         }
+         */
         console.log("what is going on2", videolink);
 
-        var _bookhtmllink = "/book/" + this.props.data["username"];
         console.log("walowalo", this.props.data["userinfodata"][0].profile_picture);
         if (this.props.data["userinfodata"] == "") {
           console.log("userinfodata is blank fak u");
