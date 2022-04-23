@@ -9,10 +9,13 @@ from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Reques
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 import uuid
+from django.db.models import Q, Count
+import re
+from datetime import datetime
+
 
 from django.http import JsonResponse
 from datetime import datetime
-import pytz
 import json
 from json import dumps
 from django.views.decorators.csrf import csrf_exempt
@@ -47,24 +50,52 @@ def index(request):
    # portals = Portal.objects.all()
     influencers = User.objects.all().filter(influencer_ornot=1)
     
-
-
-
-
-
-
     #influencers = User.objects.values('username').get(influencer_ornot = 1)
 
   #  print(portals)
     return render(request, "network/index.html", {"portalshown": influencers})
 
+def usersetting(request):
+
+
+    return render(request, "network/usersetting.html")
+def usersettingapi(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        User.objects.filter(id = request.user.id).update(normal_user_pic = data["profilepic"], first_name = data["firstname"], last_name = data["lastname"]
+        ,email = data["email"], username = data["username"])
+    return_request = {"what":"ngong"}
+    normal_user_info = User.objects.filter(id = request.user.id)
+    
+    data = []
+    for i in normal_user_info:
+        data.append(i.serialize())
+        return_request = {"data":data}
+
+    return JsonResponse(return_request, safe=False)
+    
 
 def inzwerg4jgnsd9aadif67(request):
 
     #influencer essentially a page that uses serialize to display all the influencers
-
+    
     influencers = User.objects.all().filter(influencer_ornot=1)
     checker = Userinfo.objects.all().filter()
+    if request.method == "POST":
+        print("ok in here forsearch")
+        data = json.loads(request.body)
+        searchvalue = data["searchvalue"]
+        listofcloseuser = []
+
+        for i in influencers:
+            i.username
+            match = re.search(f"{searchvalue}",i.username)
+            if match:
+                listofcloseuser.append(i.id)
+        
+        influencers = User.objects.filter(id__in = listofcloseuser)
+
+    
 
     newdata = []
     for influencer in influencers:
@@ -83,6 +114,8 @@ def inzwerg4jgnsd9aadif67(request):
     newdata = newdata
     return_request = newdata
     return JsonResponse(return_request, safe=False)
+
+
 def ininfluencer(request, ininfluencer):
     '''the request, ininfluencer -> ininfluencer came from urls.py
      and its value behindininfluence/str:ininfluence 
@@ -96,7 +129,22 @@ def gotoinfluencer(request, username, feedtype):
     hidedata = []
     userinfodata = []
     influencerid = User.objects.values('id').get(username=username)  
+
     influencerid = influencerid["id"]
+    reviewedinfo = Reviews.objects.filter(user_id_reviewed = influencerid)
+    averagestars = 0
+    for i in reviewedinfo:
+        print("this is the review stars", i.review_stars)
+        averagestars = i.review_stars + averagestars
+
+    if len(reviewedinfo) == 0:
+        reviewnum = 0
+
+    else:
+        reviewnum = len(reviewedinfo)
+        averagestars = averagestars / reviewnum
+
+    
 
     print("fadf")
     userinfo = Userinfo.objects.filter(influencer_id = influencerid)
@@ -130,13 +178,23 @@ def gotoinfluencer(request, username, feedtype):
             #query something from the influencer's post and send it back 
     else:
         print("this is review")
+        #can be fixed somehow??
         reviews = Reviews.objects.filter(user_id_reviewed_id = influencerid)
         for i in reviews:
-            alldata.append(str(i.review))
+            userreviewer= User.objects.filter(id = i.user_id_reviewer_id)
+            for w in userreviewer:
+                w.username
+                w.normal_user_pic
+            
+
+                reviewdict = {"username": w.username, "picture":w.normal_user_pic, "review":i.review}
+                break
+            alldata.append(reviewdict)
    
     print("this is alldata", alldata)
     
-    return_request = {"username":username, "sameperson": sameperson, "alldata":alldata, "feedtype":feedtype, "userinfodata":userinfodata, "hidedata":hidedata}
+    return_request = {"username":username, "sameperson": sameperson, "alldata":alldata, "feedtype":feedtype, "userinfodata":userinfodata, "hidedata":hidedata,
+    "reviewnum":reviewnum, "averagestars":averagestars}
         
     
     return JsonResponse(return_request, safe=False)
@@ -196,7 +254,7 @@ def book(request, username):
         tointro=data['tointro'], fromintro=data['fromintro'], typeoccasion=data['typeoccasion'],
         firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
         thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],
-        user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid)
+        user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid, duedate=data['datetime'])
         
         bookrequest.save()
   
@@ -221,36 +279,58 @@ def gotozjguen484s9gj302g(request, paginationid):
     checkifinfluencer = checkifinfluencer["influencer_ornot"]
     
     reserveinfo = Reservation.objects.filter(user_id_reserver = currentuser)
-    checker = 0
     type = "inbox"
+    hide = 0
+    propicandusername = []
     postandmessageinfo = ""
     if request.method == "PUT":   
         data = json.loads(request.body)
-      
         #FOUND THE PROBLEM AND IT IS HERE ALRIGHT U GOT THIS NEXT DK WHEN data["from"]/data["type "] is wrong
         if data["from"] == "inbox":
+            print("cehck data type", data["type"])
             if data["type"] == "myrequesthtml":
                 type= "request"
                 reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser)
-                checker = 1
+                hide = 0
+            elif data["type"] == "hidecompleted":
+                print("what is it in hidecomlted")
+                type= "request"
+                hide = 1
+
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False)
+                for i in reserveinfo:
+                    print(i.id)
+                    print(i.reviewcompleted)
+
+
+
         elif data["from"] == "eachreserve":
             print("ide", data["reservationid"])
             reserveinfo = Reservation.objects.filter(id = data["reservationid"])
 
+            for i in reserveinfo:
+            #print("reserveeeeeeeeeeeeeeeee;leme;lme;lme;emleeeeeee", reserveinfo.user_id_reserver_id)
+                userreviewer= User.objects.filter(id = i.user_id_reserver_id)
+            
+                for w in userreviewer:
+                    propicandusername.append(w.username)
+                    propicandusername.append(w.normal_user_pic)
+                    break
+                    
+
             #YOU ARE RIGHT HERE
+            
             postandmessageinfo = Postandmessage.objects.filter(reservation_ofpost_id = data["reservationid"])
             try:
                 reviewvalue = Reviews.objects.values('review').get(reservation_foreign_id = data["reservationid"])
                 reviewvalue = reviewvalue["review"]
             except ObjectDoesNotExist:
                 reviewvalue = ""
-        print("this is the reviewvalue", reviewvalue)            
 
     newdata = []
     forpostdata = []
 
 
-    print("this is forpostdata before", reserveinfo)
 
     # you are currently here right now waan next step is to do this
 
@@ -262,12 +342,10 @@ def gotozjguen484s9gj302g(request, paginationid):
         forpostdata.append(videoa)
 
     
-    print("this is forpostdata", forpostdata)
     for reserve in reserveinfo:
 
 
         newdata.append(reserve.serialize())
- 
 
     pagination = Paginator(newdata, 9)
     
@@ -282,9 +360,8 @@ def gotozjguen484s9gj302g(request, paginationid):
     data = []
 
 
-
     return_request = {"checkifinfluencer": checkifinfluencer, "data": newdata, "type":type, 
-    "forpostdata":forpostdata, "reviewvalue":reviewvalue, "num_pages":num_pages, "paginationid":paginationid, "data":data}
+    "forpostdata":forpostdata, "reviewvalue":reviewvalue, "num_pages":num_pages, "paginationid":paginationid, "data":data, "hide":hide, "propicandusername":propicandusername}
 
     print("paginationid before doing the work", paginationid)
     for row in pagination.page(paginationid).object_list:  
@@ -307,6 +384,7 @@ def eachreserve(request, reservationid):
 def gotoeachreserve(request):
     if request.method == "POST":
         data = json.loads(request.body)
+        print("just checking mofo", data["type"])
         #print("data value", data["value"])
         #print("data reserve id", data["reserveid"])
 
@@ -315,15 +393,17 @@ def gotoeachreserve(request):
             postandmessage = Postandmessage(post_info = data["value"], 
             reservation_ofpost_id = data["reserveid"], video = data["videoid"], poster_id = request.user.id)
             postandmessage.save()
+
             Reservation.objects.filter(id=data["reserveid"]).update(completed = True)
         elif data["type"] == "submitreview":
+            print("is it in submitreview?")
 
             userid = User.objects.values('id').get(username = data["influencername"])
             userid = userid["id"]
             print("this is userid", userid)
             Reservation.objects.filter(id=data["reserveid"]).update(reviewcompleted = True)
             reviews = Reviews(review = data["value"], user_id_reviewer_id = request.user.id,
-            user_id_reviewed_id = userid, reservation_foreign_id = data["reserveid"])
+            user_id_reviewed_id = userid, reservation_foreign_id = data["reserveid"], review_stars = data["reviewstars"])
             reviews.save()
 
 
@@ -491,6 +571,11 @@ def superuser(request):
         Requesteddara.objects.filter(requested_user_id = request.POST["idofuser"]).update(daradone = 1)
         User.objects.filter(id = request.POST["idofuser"]).update(influencer_ornot = 1)
 
+        Userinfo.objects.filter(influencer_id = request.POST["idofuser"]).update(category = request.POST["category"])
+
+
+
+
         print("ok it works thanks the christ")
 
     return render(request, "network/superuser.html", stu)
@@ -503,9 +588,12 @@ def dara(request):
         findwhere = request.POST["findwhere"]
         usernamefindwhere = request.POST["usernamefindwhere"]
         followerfindwhere = request.POST["followerfindwhere"]
+        category = request.POST["category"]
+        print("this is for category", category)
+
         requestdara = Requesteddara(name = name,email = email, phone = phonenumber,
         find = findwhere, findusername = usernamefindwhere, followernum = followerfindwhere, 
-        requested_user_id = request.user.id)
+        requested_user_id = request.user.id, category = category)
         requestdara.save()
 
         return HttpResponseRedirect(reverse("index"))

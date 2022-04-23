@@ -31,6 +31,7 @@ var InfluencerFeedRows = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (InfluencerFeedRows.__proto__ || Object.getPrototypeOf(InfluencerFeedRows)).call(this, props));
 
     _this.hideFunction = _this.hideFunction.bind(_this);
+    console.log("INFLUENCERFEEDROWSSSSSSSSSSSSSS");
     if (_this.props.hide == true) {
       _this.state = {
         hide: "Unhide"
@@ -77,7 +78,7 @@ var InfluencerFeedRows = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-
+      console.log("wawa", this.props.data);
       var thewholereturn = "";
       if (this.props.feedtype == "main") {
         var link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4";
@@ -97,10 +98,27 @@ var InfluencerFeedRows = function (_React$Component) {
           ) : null
         );
       } else {
+        //aab9d9bdb4bdfb65a5a030a5836762e2
+        var _link = "";
+        if (this.props.data["picture"] == null) {
+          _link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
+        } else {
+          _link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["picture"] + ".jpg";
+        }
         thewholereturn = React.createElement(
-          'h4',
+          'div',
           null,
-          this.props.data
+          React.createElement(
+            'h4',
+            null,
+            this.props.data["username"]
+          ),
+          React.createElement(
+            'h4',
+            null,
+            this.props.data["review"]
+          ),
+          React.createElement('img', { 'class': 'imgnoedit', src: _link })
         );
       }
 
@@ -127,8 +145,9 @@ var InfluencerFeedTable = function (_React$Component2) {
   _createClass(InfluencerFeedTable, [{
     key: 'render',
     value: function render() {
-      console.log("datamofo", this.props.data);
+      console.log("datamofo", this.props.data["feedtype"]);
       var rows = [];
+      console.log("HAHAHAHAH", this.props.data["alldata"]);
 
       for (var i = 0; i < this.props.data["alldata"].length; i++) {
         rows.push(React.createElement(InfluencerFeedRows, {
@@ -722,7 +741,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
           console.log("ok we start doing the edit from here");
         }
       }
-
       return React.createElement(
         'div',
         null,
@@ -794,6 +812,23 @@ var InfluencerFeedTitle = function (_React$Component4) {
           null,
           this.props.data['username']
         ),
+        React.createElement(
+          'h5',
+          null,
+          'Number of Review: ',
+          this.props.data["reviewnum"]
+        ),
+        React.createElement(
+          'h5',
+          null,
+          'Stars: ',
+          this.props.data["averagestars"]
+        ),
+        this.props.data["userinfodata"] != "" ? React.createElement(
+          'h5',
+          null,
+          this.props.data["userinfodata"][0].category
+        ) : null,
         React.createElement(
           'button',
           { type: 'button', 'class': 'btn btn-primary', id: 'publicfeedbutid', onClick: this.changeFeedPortal },

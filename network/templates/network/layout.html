@@ -32,7 +32,7 @@
                     {% else %}
                     <!--this will go to edit profile page of the account-->
                     <li class="nav-item">
-                      <a id="navprofile" class="nav-link"><strong>{{ user.username }}</strong></a>
+                      <a id="navprofile" class="nav-link" href="{% url 'usersetting' %}"><strong>{{ user.username }}</strong></a>
                     </li>
                   {% endif %}
                   {% if user.is_superuser == 1 %}

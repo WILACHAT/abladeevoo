@@ -22,29 +22,111 @@ function getCookie(name) {
   return cookieValue;
 }
 
-var SuggestionTable = function (_React$Component) {
-  _inherits(SuggestionTable, _React$Component);
+var SearchBar = function (_React$Component) {
+  _inherits(SearchBar, _React$Component);
+
+  function SearchBar(props) {
+    _classCallCheck(this, SearchBar);
+
+    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
+
+    _this.checkSearch = _this.checkSearch.bind(_this);
+
+    return _this;
+  }
+
+  _createClass(SearchBar, [{
+    key: 'checkSearch',
+    value: function checkSearch(e) {
+      this.props.oncheckSearch(e.target.value);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+
+      return React.createElement(
+        'div',
+        { 'class': 'd-flex justify-content-end' },
+        React.createElement(
+          'div',
+          { 'class': 'divsearch d-flex justify-content-center' },
+          React.createElement(
+            'form',
+            null,
+            React.createElement('input', {
+              id: 'searchid',
+              type: 'text',
+              'class': 'inputsearch form-control mr-sm-2 mt-2 pb-2',
+              placeholder: 'Search...',
+              value: this.props.searchtext,
+              onChange: this.checkSearch })
+          )
+        )
+      );
+    }
+  }]);
+
+  return SearchBar;
+}(React.Component);
+
+var SuggestionTable = function (_React$Component2) {
+  _inherits(SuggestionTable, _React$Component2);
 
   function SuggestionTable(props) {
     _classCallCheck(this, SuggestionTable);
 
-    return _possibleConstructorReturn(this, (SuggestionTable.__proto__ || Object.getPrototypeOf(SuggestionTable)).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, (SuggestionTable.__proto__ || Object.getPrototypeOf(SuggestionTable)).call(this, props));
+
+    _this2.mainSearch = _this2.mainSearch.bind(_this2);
+    console.log("this.props.dat", _this2.props.data);
+    _this2.state = {
+      searchtext: "",
+      newdata: _this2.props.data
+
+    };
+
+    return _this2;
   }
 
   _createClass(SuggestionTable, [{
+    key: 'mainSearch',
+    value: function mainSearch(searchtext) {
+      var _this3 = this;
+
+      console.log("searchtext", searchtext);
+      this.setState({ searchtext: searchtext });
+      var getcooked = getCookie('csrftoken');
+      fetch('/inzwerg4jgnsd9aadif67', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': getcooked },
+        body: JSON.stringify({
+          //add state of newdata right here
+          searchvalue: searchtext
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log("this is data", data);
+        _this3.setState({
+          newdata: data
+        });
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var suggestion_rows = [];
-      for (var i = 0; i < this.props.data.length; i++) {
-        console.log("lol wtf", this.props.data[i]);
+      console.log("this.state.new", this.state.newdata);
+      for (var i = 0; i < this.state.newdata.length; i++) {
+        //console.log("lol wtf", this.props.data[i])
         suggestion_rows.push(React.createElement(SuggestionsRow, {
-          id: this.props.data[i].id,
-          username: this.props.data[i].username,
-          email: this.props.data[i].email,
-          influencer_ornot: this.props.data[i].influencer_ornot,
-          freeze_account: this.props.data[i].freeze_account,
-          fullname: this.props.data[i].fullname,
-          profile_picture: this.props.data[i].profile_picture }));
+          id: this.state.newdata[i].id,
+          username: this.state.newdata[i].username,
+          email: this.state.newdata[i].email,
+          influencer_ornot: this.state.newdata[i].influencer_ornot,
+          freeze_account: this.state.newdata[i].freeze_account,
+          fullname: this.state.newdata[i].fullname,
+          profile_picture: this.state.newdata[i].profile_picture }));
       }
       return React.createElement(
         'div',
@@ -58,6 +140,12 @@ var SuggestionTable = function (_React$Component) {
           'h4',
           { 'class': 'd-flex justify-content-center' },
           'Personalized videos from your favorite stars'
+        ),
+        React.createElement(
+          'div',
+          { 'class': 'd-flex justify-content-center' },
+          React.createElement(SearchBar, { searchtext: this.state.searchtext, oncheckSearch: this.mainSearch }),
+          ':'
         ),
         React.createElement(
           'table',
@@ -77,17 +165,17 @@ var SuggestionTable = function (_React$Component) {
   return SuggestionTable;
 }(React.Component);
 
-var SuggestionsRow = function (_React$Component2) {
-  _inherits(SuggestionsRow, _React$Component2);
+var SuggestionsRow = function (_React$Component3) {
+  _inherits(SuggestionsRow, _React$Component3);
 
   function SuggestionsRow(props) {
     _classCallCheck(this, SuggestionsRow);
 
-    var _this2 = _possibleConstructorReturn(this, (SuggestionsRow.__proto__ || Object.getPrototypeOf(SuggestionsRow)).call(this, props));
+    var _this4 = _possibleConstructorReturn(this, (SuggestionsRow.__proto__ || Object.getPrototypeOf(SuggestionsRow)).call(this, props));
 
-    _this2.clickHref = _this2.clickHref.bind(_this2);
+    _this4.clickHref = _this4.clickHref.bind(_this4);
 
-    return _this2;
+    return _this4;
   }
 
   _createClass(SuggestionsRow, [{

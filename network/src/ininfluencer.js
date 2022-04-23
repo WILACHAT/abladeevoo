@@ -18,6 +18,7 @@ class InfluencerFeedRows extends React.Component {
 constructor(props) {
   super(props);
   this.hideFunction = this.hideFunction.bind(this);
+  console.log("INFLUENCERFEEDROWSSSSSSSSSSSSSS")
   if (this.props.hide == true)
   {
     this.state = {
@@ -65,12 +66,10 @@ hideFunction(e)
 
           });
 
-
-
 }
 render()
 {  
-
+  console.log("wawa", this.props.data)
   let thewholereturn = ""
   if (this.props.feedtype == "main")
   {
@@ -87,7 +86,24 @@ render()
   }
   else
   {
-    thewholereturn =  <h4>{this.props.data}</h4>
+    //aab9d9bdb4bdfb65a5a030a5836762e2
+    let link = ""
+    if (this.props.data["picture"] == null)
+    {
+      link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
+
+    }
+    else
+    {
+      link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["picture"] + ".jpg"
+    }
+    thewholereturn =  
+    <div>
+      <h4>{this.props.data["username"]}</h4>
+      <h4>{this.props.data["review"]}</h4>
+      <img class="imgnoedit" src={link}></img>
+    </div>
+    
   }
   
   return(
@@ -104,20 +120,25 @@ class InfluencerFeedTable extends React.Component {
   }
     render()
     {
-      console.log("datamofo", this.props.data)
+      console.log("datamofo", this.props.data["feedtype"])
       const rows = [];
+      console.log("HAHAHAHAH", this.props.data["alldata"])
 
-      for (let i = 0; i < this.props.data["alldata"].length; i++)
-      {
-        rows.push( 
-          <InfluencerFeedRows 
-          data={this.props.data["alldata"][i]}
-          feedtype={this.props.data["feedtype"]}
-          sameperson={this.props.data["sameperson"]}
-          hide={this.props.data["hidedata"][i]}/>
-        );
-      }
     
+        for (let i = 0; i < this.props.data["alldata"].length; i++)
+        {
+          rows.push( 
+            <InfluencerFeedRows 
+            data={this.props.data["alldata"][i]}
+            feedtype={this.props.data["feedtype"]}
+            sameperson={this.props.data["sameperson"]}
+            hide={this.props.data["hidedata"][i]}/>
+          );
+        }
+      
+     
+      
+
       return (
         <div>
             {this.props.data["feedtype"] == "main" ? <h1>Example Posts</h1>:<h1>Revies of Customers</h1>}
@@ -574,9 +595,7 @@ class InfluencerFeedTitle extends React.Component {
           {
             console.log("ok we start doing the edit from here")
           }
-
       }
- 
         return (
          <div>
            {this.props.data["sameperson"] == 1 ?  
@@ -615,6 +634,11 @@ class InfluencerFeedTitle extends React.Component {
                     </video>
                 </div>}
              <h1>{this.props.data['username']}</h1>
+             <h5>Number of Review: {this.props.data["reviewnum"]}</h5>
+             <h5>Stars: {this.props.data["averagestars"]}</h5>
+             {this.props.data["userinfodata"] != "" ? <h5>{this.props.data["userinfodata"][0].category}</h5>:null}
+
+
             <button type="button" class="btn btn-primary" id="publicfeedbutid" onClick={this.changeFeedPortal}>Public Feed</button>
             <button type="button" class="btn btn-primary" id="reviewfeedbutid" onClick={this.changeFeedPortal}>Reviews</button>
             {this.props.data["sameperson"] != 1 ? <a name="posterr" class="btn btn-primary" href={bookhtmllink}>Reserve</a>:  <button type="button" class="btn btn-success" onClick={this.editProfile}>Edit</button>}

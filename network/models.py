@@ -10,6 +10,7 @@ from cloudinary.models import CloudinaryField
 class User(AbstractUser):
     influencer_ornot = models.BooleanField(default=False)
     freeze_account = models.BooleanField(default=True)
+    normal_user_pic = models.CharField(max_length=256, null=True)
     pass
     def serialize(self):
         return {
@@ -17,8 +18,13 @@ class User(AbstractUser):
             "username":self.username,
             "email":self.email,
             "influencer_ornot":self.influencer_ornot,
-            "freeze_account":self.freeze_account
+            "freeze_account":self.freeze_account,
+            "first_name":self.first_name,
+            "last_name":self.last_name,
+            "normal_user_pic":self.normal_user_pic
+
         }
+
 class Userinfo(models.Model):
     profile_description = models.CharField(max_length=256, null=True)
     profile_video = models.CharField(max_length=256, null=True)
@@ -28,6 +34,8 @@ class Userinfo(models.Model):
     second_url = models.URLField(max_length=256, null=True)
     third_url = models.URLField(max_length=256, null=True)
     influencer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencer_userinfo') 
+    category = models.CharField(max_length=256, null=True)
+
 
     def serialize(self):
         return {
@@ -39,17 +47,15 @@ class Userinfo(models.Model):
             "first_url":self.first_url,
             "second_url":self.second_url,
             "third_url":self.third_url,
-            "influencer":str(self.influencer)
+            "influencer":str(self.influencer),
+            "category":self.category
         } 
 
 
 #How do i do the category? EZ, essentially put category name in the database
 #and whenever category is involve just query stuff from your database
 #portal
-class Category(models.Model):
-    category_name = models.CharField(max_length=64)
-    def __str__(self):
-        return self.category_name
+
 
 class Reservation(models.Model):
     typeintro = models.CharField(max_length=256, null=True)
@@ -65,6 +71,9 @@ class Reservation(models.Model):
     creationtime = models.DateTimeField(auto_now_add=True, null=True)
     user_id_reserver = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reserver') 
     user_id_influencerreserve = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerreserve')
+    #duedate = models.DateTimeField(null=True)
+    duedate = models.CharField(max_length=256, null=True)
+
     
 
     def serialize(self):
@@ -90,9 +99,17 @@ class Reservation(models.Model):
             "completed":self.completed,
             "reviewcompleted":self.reviewcompleted,
             "username":str(self.user_id_reserver),
-            "username_influencer":str(self.user_id_influencerreserve)
-
+            "username_influencer":str(self.user_id_influencerreserve),
+            "duedate":self.duedate
         } 
+
+#Recently viewed + Most popular
+class Viewing(models.Model):
+    khondoo = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='khondoo') 
+    influencer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerkhondoo')    
+    creationtime = models.DateTimeField(auto_now_add=True, null=True)
+
+
 
 
 class Postandmessage(models.Model):
@@ -128,6 +145,8 @@ class Requesteddara(models.Model):
     followernum = models.CharField(max_length=256, null=True)
     requested_user = models.OneToOneField(User, unique=True, null=True, on_delete=models.CASCADE, related_name='requested_user') 
     daradone= models.BooleanField(default=False)
+    category = models.CharField(max_length=256, null=True)
+
 
 
 

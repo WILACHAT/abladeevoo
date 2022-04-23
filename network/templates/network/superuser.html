@@ -14,7 +14,11 @@
     <h6>{{i.find}}</h6>
     <h6>{{i.findusername}}</h6>
     <h6>{{i.follownum}}</h6>
+    <h6>{{i.category}}</h6>
+
     <input name="idofuser" type="hidden" value={{i.requested_user_id}}></input>
+    <input name="category" type="hidden" value={{i.category}}></input>
+
     <input class="btn btn-primary" type="submit" value="Submit">
     </form>
     {% endfor %}

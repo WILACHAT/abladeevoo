@@ -10,6 +10,10 @@ urlpatterns = [
     #index main influecer api 
     path("inzwerg4jgnsd9aadif67", views.inzwerg4jgnsd9aadif67, name="inzwerg4jgnsd9aadif67"),
     path("ininfluencer/<str:ininfluencer>", views.ininfluencer, name="ininfluencer"),
+    path("usersetting", views.usersetting, name="usersetting"),
+    path("usersettingapi", views.usersettingapi, name="usersettingapi"),
+
+
     path("gotoinfluencer/<str:username>/<str:feedtype>", views.gotoinfluencer, name="gotoinfluencer"),
 
     path("book/<str:username>", views.book, name="book"),
@@ -19,13 +23,11 @@ urlpatterns = [
     
     path("eachreserve/<int:reservationid>", views.eachreserve, name="eachreserve"),
     path("gotoeachreserve", views.gotoeachreserve, name="gotoeachreserve"),
+
     path("editprofile", views.editprofile, name="editprofile"),
     path("hidepost", views.hidepost, name="hidepost"),
     path("superuser", views.superuser, name="superuser"),
     path("dara", views.dara, name="dara"),
-
-
-
 
 
 

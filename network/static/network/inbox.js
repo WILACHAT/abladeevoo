@@ -1,5 +1,7 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -156,6 +158,8 @@ var EachReserve = function (_React$Component) {
     }, {
         key: 'submitReview',
         value: function submitReview(e) {
+            var _JSON$stringify;
+
             var getcooked = getCookie('csrftoken');
             var value = document.querySelector('#typeforreview').value;
             var reserveid = this.props.data["data"][0].id;
@@ -165,24 +169,19 @@ var EachReserve = function (_React$Component) {
             var influencername = this.props.data["data"][0].username_influencer;
 
             var selectreview = document.querySelector('#selectforreview').value;
-            console.log("selectreview", selectreview);
 
             console.log("value of review", value);
-            /*
-            fetch(`/gotoeachreserve`, {
+
+            fetch('/gotoeachreserve', {
                 method: 'POST',
-                headers:{'X-CSRFToken': getcooked},
-                body: JSON.stringify({
-                  value: value,
-                  reserveid: reserveid,
-                  influencername, influencername,
-                  type:"submitreview"
-                })
-              })
-              .then(result => {
-                  window.location.href = "/inbox";
-              });
-            */
+                headers: { 'X-CSRFToken': getcooked },
+                body: JSON.stringify((_JSON$stringify = {
+                    value: value,
+                    reserveid: reserveid,
+                    influencername: influencername }, _defineProperty(_JSON$stringify, 'influencername', influencername), _defineProperty(_JSON$stringify, 'type', "submitreview"), _defineProperty(_JSON$stringify, 'reviewstars', selectreview), _JSON$stringify))
+            }).then(function (result) {
+                window.location.href = "/inbox";
+            });
         }
     }, {
         key: 'render',
@@ -234,7 +233,7 @@ var EachReserve = function (_React$Component) {
                     );
                 } else {
                     //this is after influencer posted video
-                    var link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4";
+                    var _link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4";
                     if (this.props.data["data"][0].reviewcompleted != true) {
                         postoption = React.createElement(
                             'div',
@@ -247,7 +246,7 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'video',
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
-                                React.createElement('source', { src: link }),
+                                React.createElement('source', { src: _link }),
                                 'Your browser does not support the video tag.'
                             ),
                             React.createElement(
@@ -276,7 +275,7 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'video',
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
-                                React.createElement('source', { src: link }),
+                                React.createElement('source', { src: _link }),
                                 'Your browser does not support the video tag.'
                             ),
                             React.createElement(
@@ -306,7 +305,7 @@ var EachReserve = function (_React$Component) {
                         )
                     );
                 } else {
-                    var _link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4";
+                    var _link2 = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4";
 
                     if (this.props.data["data"][0].reviewcompleted != true) {
                         postoption = React.createElement(
@@ -320,7 +319,7 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'video',
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
-                                React.createElement('source', { src: _link }),
+                                React.createElement('source', { src: _link2 }),
                                 'Your browser does not support the video tag.'
                             ),
                             React.createElement(
@@ -377,7 +376,7 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'video',
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
-                                React.createElement('source', { src: _link }),
+                                React.createElement('source', { src: _link2 }),
                                 'Your browser does not support the video tag.'
                             ),
                             React.createElement(
@@ -516,6 +515,13 @@ var EachReserve = function (_React$Component) {
                 );
             }
             console.log("this is the type of intro", this.props.data["data"][0].typeintro);
+            console.log("SIDEMEN", this.props.data["propicandusername"]);
+            var link = "";
+            if (this.props.data["propicandusername"][1] == null) {
+                link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
+            } else {
+                link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["propicandusername"][1] + ".jpg";
+            }
 
             return React.createElement(
                 'div',
@@ -530,6 +536,18 @@ var EachReserve = function (_React$Component) {
                     null,
                     'Order Details'
                 ),
+                React.createElement(
+                    'h4',
+                    null,
+                    'Username'
+                ),
+                React.createElement('br', null),
+                React.createElement(
+                    'h4',
+                    null,
+                    this.props.data["propicandusername"][0]
+                ),
+                React.createElement('img', { 'class': 'imgnoedit', src: link }),
                 this.props.data["data"][0].typeintro == "someoneelse_html_id" ? React.createElement(
                     'div',
                     null,
@@ -626,6 +644,110 @@ var InboxFeedRows = function (_React$Component2) {
         value: function render() {
 
             console.log("check for", this.props.completed);
+            var today = new Date().toISOString().slice(0, 10);
+
+            console.log("LETS CHECK THE DATE FOR TODAY!!!", today);
+            var g1 = new Date(today);
+
+            var g2 = new Date(this.props.duedate);
+
+            var checktime = 0;
+            if (g1.getTime() < g2.getTime()) {
+                checktime = 0;
+            } else {
+                checktime = 1;
+            }
+            var eachcontent = "";
+            console.log("this.propsasdfasdfasdf", this.props);
+
+            if (this.props.type == "request") {
+                eachcontent = React.createElement(
+                    'div',
+                    null,
+                    checktime == 0 ? React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'a',
+                            { name: this.props.id, onClick: this.clickHref, 'class': 'h4 colorstyle' },
+                            this.props.name
+                        ),
+                        React.createElement(
+                            'h4',
+                            null,
+                            this.props.giftornot == "someoneelse_html_id" ? "A gift" : "For you"
+                        ),
+                        React.createElement(
+                            'h4',
+                            null,
+                            occasion
+                        ),
+                        React.createElement(
+                            'h4',
+                            null,
+                            this.props.completed == true ? "Completed" : "Not Complete"
+                        ),
+                        React.createElement(
+                            'label',
+                            null,
+                            '\u0E2A\u0E48\u0E07\u0E01\u0E48\u0E2D\u0E19'
+                        ),
+                        React.createElement(
+                            'h4',
+                            null,
+                            this.props.duedate
+                        )
+                    ) : null
+                );
+            } else {
+                eachcontent = React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                        'a',
+                        { name: this.props.id, onClick: this.clickHref, 'class': 'h4 colorstyle' },
+                        this.props.name
+                    ),
+                    React.createElement(
+                        'h4',
+                        null,
+                        this.props.giftornot == "someoneelse_html_id" ? "A gift" : "For you"
+                    ),
+                    React.createElement(
+                        'h4',
+                        null,
+                        occasion
+                    ),
+                    checktime == 0 ? React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'h4',
+                            null,
+                            this.props.completed == true ? "Completed" : "Not Complete"
+                        ),
+                        React.createElement(
+                            'label',
+                            null,
+                            '\u0E2A\u0E48\u0E07\u0E01\u0E48\u0E2D\u0E19'
+                        ),
+                        React.createElement(
+                            'h6',
+                            null,
+                            React.createElement(
+                                'h4',
+                                null,
+                                this.props.duedate
+                            )
+                        ),
+                        ' '
+                    ) : React.createElement(
+                        'h4',
+                        null,
+                        'Expired'
+                    )
+                );
+            }
 
             var occasion = checkforoccasiontype(this.props.whatoccasion);
 
@@ -635,26 +757,7 @@ var InboxFeedRows = function (_React$Component2) {
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
-                    'a',
-                    { name: this.props.id, onClick: this.clickHref, 'class': 'h4 colorstyle' },
-                    this.props.name
-                ),
-                React.createElement(
-                    'h4',
-                    null,
-                    this.props.giftornot == "someoneelse_html_id" ? "A gift" : "For you"
-                ),
-                React.createElement(
-                    'h4',
-                    null,
-                    occasion
-                ),
-                React.createElement(
-                    'h4',
-                    null,
-                    this.props.completed == true ? "Completed" : "Not Complete"
-                )
+                eachcontent
             );
         }
     }]);
@@ -671,27 +774,68 @@ var InboxFeedInbox = function (_React$Component3) {
         var _this3 = _possibleConstructorReturn(this, (InboxFeedInbox.__proto__ || Object.getPrototypeOf(InboxFeedInbox)).call(this, props));
 
         _this3.changePage = _this3.changePage.bind(_this3);
-        console.log("propsdata PAGINATION", _this3.props.data["paginationid"]);
-        console.log("propsdata PAGINATION", _this3.props.data);
+        _this3.hideCompleted = _this3.hideCompleted.bind(_this3);
 
         _this3.state = {
-            searchtext: "",
-            newdata: _this3.props.data
+            newdata: _this3.props.data,
+            hide: "Hide Completed"
 
         };
         return _this3;
     }
 
     _createClass(InboxFeedInbox, [{
-        key: 'changePage',
-        value: function changePage(e) {
+        key: 'hideCompleted',
+        value: function hideCompleted(e) {
             var _this4 = this;
 
-            console.log("change page page");
+            var type = "";
+
+            console.log("ngong");
+            console.log("ngong sus", this.state.hide);
+
+            var csrftoken = getCookie('csrftoken');
+            var paginationid = 1;
+            if (e.target.value == "Unhide Completed") {
+                type = "myrequesthtml";
+            } else {
+                console.log("is it in hidecompleted yohohoho");
+                type = "hidecompleted";
+            }
+            console.log("type before in ", type);
+            fetch('/gotozjguen484s9gj302g/' + paginationid, {
+                method: 'PUT',
+                headers: { 'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    from: "inbox",
+                    type: type
+                })
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log("mg pen kuay arai", _this4.props.data);
+
+                var hide = "";
+                if (data["hide"] == 0) {
+                    hide = "Hide Completed";
+                } else {
+                    hide = "Unhide Completed";
+                }
+
+                _this4.setState({
+                    newdata: data,
+                    hide: hide
+                });
+            });
+        }
+    }, {
+        key: 'changePage',
+        value: function changePage(e) {
+            var _this5 = this;
+
             var pagination = e.target.id;
             var innerhtmlpage = e.target.innerHTML;
-
-            console.log("the pagination", pagination);
 
             if (innerhtmlpage == "Previous") {
                 pagination = parseInt(pagination);
@@ -713,7 +857,6 @@ var InboxFeedInbox = function (_React$Component3) {
             }
             var getcooked = getCookie('csrftoken');
 
-            console.log("pagination before going", pagination);
             fetch('/gotozjguen484s9gj302g/' + pagination, {
                 method: 'PUT',
                 headers: { 'X-CSRFToken': getcooked },
@@ -724,16 +867,13 @@ var InboxFeedInbox = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("when returnedasldifasodfbnlasdbnfoasdofuiasodufhosaudhf", _this4.props.data);
-                _this4.setState({
+                _this5.setState({
                     newdata: data
 
                 });
-                _this4.setState({
-                    pagination: _this4.state.newdata["paginationid"]
+                _this5.setState({
+                    pagination: _this5.state.newdata["paginationid"]
                 });
-                console.log("newest pagination", _this4.state.newdata);
-                console.log("newest pagination", _this4.state.newdata["data"]);
             });
 
             window.scrollTo(0, 0);
@@ -741,9 +881,6 @@ var InboxFeedInbox = function (_React$Component3) {
     }, {
         key: 'render',
         value: function render() {
-
-            console.log("check for fast data", this.state.newdata["data"]);
-            console.log("check for fast data", this.state.newdata["data"][0]);
 
             var button = [];
             var rows = [];
@@ -762,7 +899,6 @@ var InboxFeedInbox = function (_React$Component3) {
                     )
                 ));
             }
-            console.log(this.props.data);
             if (this.state.newdata["data"] == null) {
                 console.log("looking to hire");
             } else {
@@ -770,15 +906,15 @@ var InboxFeedInbox = function (_React$Component3) {
                     console.log("we wil lcccc", this.props.data["data"][i]);
                     rows.push(React.createElement(InboxFeedRows, {
                         id: this.state.newdata["data"][i].id,
-                        name: this.state.newdata["data"][i].username,
+                        name: this.props.data["type"] == "inbox" ? this.state.newdata["data"][i].username_influencer : this.state.newdata["data"][i].username,
                         giftornot: this.state.newdata["data"][i].typeintro,
                         whatoccasion: this.state.newdata["data"][i].typeoccasion,
-                        completed: this.state.newdata["data"][i].completed }));
+                        completed: this.state.newdata["data"][i].completed,
+                        duedate: this.state.newdata["data"][i].duedate,
+                        type: this.state.newdata["type"] }));
                 }
             }
-            console.log("orange 7", paginationid);
 
-            console.log(this.state.paginationid);
             if (this.state.pagination == null) {
                 this.setState({
                     pagination: 1
@@ -788,6 +924,11 @@ var InboxFeedInbox = function (_React$Component3) {
             return React.createElement(
                 'div',
                 null,
+                this.state.newdata["type"] == "request" ? React.createElement(
+                    'button',
+                    { id: 'hidecompletedid', value: this.state.hide, 'class': 'btn btn-primary', onClick: this.hideCompleted },
+                    this.state.hide
+                ) : null,
                 this.state.newdata["data"] != null ? React.createElement(
                     'table',
                     { className: 'table table-hover table-sm' },
@@ -850,15 +991,14 @@ var InboxFeedTitle = function (_React$Component4) {
     function InboxFeedTitle(props) {
         _classCallCheck(this, InboxFeedTitle);
 
-        var _this5 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
+        var _this6 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
 
-        _this5.changeFeedInbox = _this5.changeFeedInbox.bind(_this5);
-        console.log("checklolol", _this5.props.data["checkifinfluencer"]);
+        _this6.changeFeedInbox = _this6.changeFeedInbox.bind(_this6);
 
         //document.querySelector('#maininfluencer').hidden = false;
         //document.querySelector('#reviewsmainfluencer').hidden = true;
 
-        return _this5;
+        return _this6;
     }
 
     _createClass(InboxFeedTitle, [{
@@ -872,10 +1012,17 @@ var InboxFeedTitle = function (_React$Component4) {
                 document.querySelector('#myinboxhtml').hidden = false;
 
                 type = "myinboxhtml";
+            } else if (e.target.id == "myrequestid") {
+                document.querySelector('#typeofpage').value = "request";
+                document.querySelector('#myinboxhtml').hidden = true;
+                document.querySelector('#myrequesthtml').hidden = false;
+
+                type = "myrequesthtml";
             } else {
                 document.querySelector('#typeofpage').value = "request";
                 document.querySelector('#myinboxhtml').hidden = true;
                 document.querySelector('#myrequesthtml').hidden = false;
+                document.querySelector('#hiderequesthtml').hidden = false;
 
                 type = "myrequesthtml";
             }
@@ -891,21 +1038,13 @@ var InboxFeedTitle = function (_React$Component4) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("this is the data that was sent back we will see", data);
                 ReactDOM.render(React.createElement(InboxFeedInbox, { data: data }), document.querySelector('#' + type));
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            // console.log("please print this out first", username)
 
-            //  console.log("please print this out", this.props.username)
-            // const bookhtmllink = "/book/"+this.props.data["username"]
-            // console.log("sameperson", this.props.data["sameperson"])
-
-            //<button onClick={this.subscribeButton}>{this.state.subscribecheck == "true" ? "Subscribed":"Subscribe"}</button>
-            // console.log("arai gor mai roo but yea", username)
             return React.createElement(
                 'div',
                 null,
@@ -918,7 +1057,21 @@ var InboxFeedTitle = function (_React$Component4) {
                     'button',
                     { type: 'button', 'class': 'btn btn-primary', id: 'myrequestid', onClick: this.changeFeedInbox },
                     'My Requests'
-                ) : null
+                ) : null,
+                React.createElement(
+                    'select',
+                    null,
+                    React.createElement(
+                        'option',
+                        { value: '1' },
+                        'Newest'
+                    ),
+                    React.createElement(
+                        'option',
+                        { value: '2' },
+                        'Oldest'
+                    )
+                )
             );
         }
     }]);

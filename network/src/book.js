@@ -1,12 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
 
-    //might be dealing with money stuff here
-    var idk = document.querySelector('#wholereservepage');
-   
-
-    document.querySelector('#compose-form').onsubmit=save_post;
-
-});
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -22,8 +14,39 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-function save_post()
-{
+
+class BookPage extends React.Component {
+    constructor(props) {
+      super(props);
+      this.changeIntroReserve = this.changeIntroReserve.bind(this);
+      this.changeOccasionReserve = this.changeOccasionReserve.bind(this);
+      this.saveReserve = this.saveReserve.bind(this);
+
+
+
+      //the number of steps can be state as well i believe
+      this.state = {
+        reserve_into_html: 
+            <div name="introname"id="someoneelse_html_id">
+                <div>
+                    <h1>Who is this cameo from?</h1>
+                    <input id="from_intro" placeholder="From"></input>
+                </div>
+            </div>,
+        reserve_occasion_html:
+            <div name="occasionname"id="birthday_html_id">
+                <div>
+                    <input name="occa1" placeholder="When is their birthday?"></input><br></br>
+                    <input name="occa2" placeholder="How old are they turning?"></input><br></br>
+                    <input name="occa3"placeholder="Instructions for"></input><br></br>
+                    <input name="occa4" placeholder="Optional"></input>
+                </div>
+            </div>
+      }
+
+    }
+    saveReserve(e)
+    {
     var typeintro = "";
     var tointro = "";
     var fromintro = "";
@@ -32,8 +55,8 @@ function save_post()
     var secondinputocca = "";
     var thirdinputocca = "";
     var fourthinputocca = "";
+    let datetime = ""
 
-    const getcooked = getCookie('csrftoken')
     var checkerintro = document.getElementsByName("introname")[0].id
     tointro = document.querySelector('#to_intro').value;
     typeintro = checkerintro;
@@ -61,7 +84,21 @@ function save_post()
     }
 
     var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+    datetime = document.getElementById('date_inputid').value
+
+    console.log("mamamamamamamamamamamam")
+
+    console.log(typeintro)
+    console.log(tointro)
+    console.log(fromintro)
+    console.log(typeoccasion)
+    console.log(firstinputocca)
+    console.log(datetime)
+
+
+
     
+    const getcooked = getCookie('csrftoken')
     fetch(`/book/${influencerusername}`, {
       method: 'POST',
       headers:{'X-CSRFToken': getcooked},
@@ -73,46 +110,17 @@ function save_post()
         firstinputocca: firstinputocca,
         secondinputocca: secondinputocca,
         thirdinputocca: thirdinputocca,
-        fourthinputocca: fourthinputocca
-
+        fourthinputocca: fourthinputocca,
+        datetime: datetime
       })
     })
-    
- 
-    .then(result => {
+    .then(data => {
         window.location.href = "/";
     });
     
-    return false;
-}
-class BookPage extends React.Component {
-    constructor(props) {
-      super(props);
-      this.changeIntroReserve = this.changeIntroReserve.bind(this);
-      this.changeOccasionReserve = this.changeOccasionReserve.bind(this);
-
-
-      //the number of steps can be state as well i believe
-      this.state = {
-        reserve_into_html: 
-            <div name="introname"id="someoneelse_html_id">
-                <div>
-                    <h1>Who is this cameo from?</h1>
-                    <input id="from_intro" placeholder="From"></input>
-                </div>
-            </div>,
-        reserve_occasion_html:
-            <div name="occasionname"id="birthday_html_id">
-                <div>
-                    <input name="occa1" placeholder="When is their birthday?"></input><br></br>
-                    <input name="occa2" placeholder="How old are they turning?"></input><br></br>
-                    <input name="occa3"placeholder="Instructions for"></input><br></br>
-                    <input name="occa4" placeholder="Optional"></input>
-                </div>
-            </div>
-      }
-
+    
     }
+    
     changeIntroReserve(e)
     {
 
@@ -123,6 +131,7 @@ class BookPage extends React.Component {
                 reserve_into_html:
                      <div name="introname" id="someoneelse_html_id">
                         <div>
+                            <h1>Who is this cameo from?</h1>
                             <input id="from_intro"placeholder="From"></input>
                         </div>
                      </div>
@@ -226,6 +235,10 @@ class BookPage extends React.Component {
              </div>
              <h1>Make your request memorable</h1>
              {this.state.reserve_occasion_html}
+             <label>Need by when</label><br></br>
+             <input id="date_inputid" name="date_inputname" type="date"></input>
+             <h6>NOTE* ถ้าinfluencerทําเสร็จไม่ทันวันที่นี้คุณจะได้เงินคืน</h6>
+             <input id="submitreservation" type="submit" onClick={this.saveReserve} value="Reserve"class="btn btn-primary"/>
 
          </div>
         )

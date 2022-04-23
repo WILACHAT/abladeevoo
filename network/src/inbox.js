@@ -169,11 +169,10 @@ class EachReserve extends React.Component{
         var influencername = this.props.data["data"][0].username_influencer
  
         var selectreview = document.querySelector('#selectforreview').value
-        console.log("selectreview", selectreview)
        
 
         console.log("value of review", value)
-        /*
+        
         fetch(`/gotoeachreserve`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
@@ -181,14 +180,15 @@ class EachReserve extends React.Component{
               value: value,
               reserveid: reserveid,
               influencername, influencername,
-              type:"submitreview"
+              type:"submitreview",
+              reviewstars: selectreview
             })
           })
           .then(result => {
               window.location.href = "/inbox";
           });
 
-*/
+
     }
     render() {
        
@@ -352,11 +352,27 @@ class EachReserve extends React.Component{
             </div>
         }
         console.log("this is the type of intro", this.props.data["data"][0].typeintro)
+        console.log("SIDEMEN", this.props.data["propicandusername"])
+        let link = ""
+        if (this.props.data["propicandusername"][1] == null)
+        {
+          link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
+    
+        }
+        else
+        {
+          link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["propicandusername"][1] + ".jpg"
+        }
 
         return (
             <div>
                 <button class="btn btn-primary"onClick={this.goBack}>Back</button>
                 <h4>Order Details</h4>
+                <h4>Username</h4><br></br>
+                <h4>{this.props.data["propicandusername"][0]}</h4>
+                <img class="imgnoedit" src={link}></img>
+
+                
                 {this.props.data["data"][0].typeintro == "someoneelse_html_id" ?   
                 <div>
                     <h4>A Gift For Someone Else</h4> 
@@ -411,6 +427,51 @@ class InboxFeedRows extends React.Component {
     render() {
 
         console.log("check for", this.props.completed)
+        let today = new Date().toISOString().slice(0, 10)
+
+        console.log("LETS CHECK THE DATE FOR TODAY!!!", today)
+        let g1 = new Date(today);
+
+        let g2 = new Date(this.props.duedate);
+
+        let checktime = 0
+        if (g1.getTime() < g2.getTime())
+        {
+            checktime = 0
+        }
+        else
+        {
+            checktime = 1
+        }
+        let eachcontent = ""
+        console.log("this.propsasdfasdfasdf", this.props)
+        
+        if (this.props.type == "request")
+        {
+            eachcontent =
+            <div>
+                {checktime == 0 ? <div><a name={this.props.id} onClick={this.clickHref} class="h4 colorstyle">{this.props.name}</a> 
+                <h4>{this.props.giftornot == "someoneelse_html_id" ? "A gift":"For you"}</h4>
+                <h4>{occasion}</h4>
+                <h4>{this.props.completed == true ? "Completed" : "Not Complete"}</h4>
+                <label>ส่งก่อน</label>
+                <h4>{this.props.duedate}</h4></div>:null}
+            </div>
+        }
+        else
+        {
+            eachcontent =
+            <div>
+                <a name={this.props.id} onClick={this.clickHref} class="h4 colorstyle">{this.props.name}</a> 
+                <h4>{this.props.giftornot == "someoneelse_html_id" ? "A gift":"For you"}</h4>
+                <h4>{occasion}</h4>
+                {checktime == 0 ? <div>
+                <h4>{this.props.completed == true ? "Completed" : "Not Complete"}</h4>
+                <label>ส่งก่อน</label>
+                <h6><h4>{this.props.duedate}</h4></h6> </div>:<h4>Expired</h4>}
+
+            </div>
+        }
         
        
         var occasion = checkforoccasiontype(this.props.whatoccasion)
@@ -418,12 +479,10 @@ class InboxFeedRows extends React.Component {
         const eachreserve = "/eachreserve"
         console.log("this is the id", this.props.id)
 
+
         return(
             <div>
-                <a name={this.props.id} onClick={this.clickHref} class="h4 colorstyle">{this.props.name}</a> 
-                <h4>{this.props.giftornot == "someoneelse_html_id" ? "A gift":"For you"}</h4>
-                <h4>{occasion}</h4>
-                <h4>{this.props.completed == true ? "Completed" : "Not Complete"}</h4>
+                {eachcontent}
             </div>
         )
     }
@@ -433,23 +492,74 @@ class InboxFeedInbox extends React.Component {
     constructor(props) {
         super(props);
         this.changePage = this.changePage.bind(this);
-        console.log("propsdata PAGINATION", this.props.data["paginationid"])
-        console.log("propsdata PAGINATION", this.props.data)
+        this.hideCompleted = this.hideCompleted.bind(this);
+
 
         this.state = 
         {
-          searchtext:"",
-          newdata: this.props.data
-  
+          newdata: this.props.data,
+          hide: "Hide Completed"
+
         }
     }
+    hideCompleted(e)
+    {
+
+
+        let type = ""
+
+        console.log("ngong")
+        console.log("ngong sus", this.state.hide)
+
+        const csrftoken = getCookie('csrftoken');
+        let paginationid = 1
+        if (e.target.value == "Unhide Completed")
+        {
+            type = "myrequesthtml"
+        }
+        else
+        {
+            console.log("is it in hidecompleted yohohoho")
+            type = "hidecompleted"
+        }
+        console.log("type before in ", type)
+        fetch(`/gotozjguen484s9gj302g/${paginationid}`, {
+            method: 'PUT',
+            headers: {'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({
+                from: "inbox",
+                type: type
+            })
+        })        
+        .then(response => response.json())
+        .then(data => {
+            console.log("mg pen kuay arai", this.props.data)
+        
+            let hide = ""
+            if (data["hide"] == 0)
+            {
+                hide = "Hide Completed"
+            }
+            else
+            {
+                hide = "Unhide Completed"
+            }
+
+            this.setState({
+                newdata: data,
+                hide: hide
+              })
+
+
+        });
+    }
+    
     changePage(e)
     {
-        console.log("change page page")
         let pagination = e.target.id
         const innerhtmlpage = e.target.innerHTML
       
-        console.log("the pagination", pagination)
       
         if (innerhtmlpage == "Previous")
         {
@@ -478,7 +588,6 @@ class InboxFeedInbox extends React.Component {
         const getcooked = getCookie('csrftoken');
 
        
-        console.log("pagination before going", pagination)
         fetch(`/gotozjguen484s9gj302g/${pagination}`, {
             method: 'PUT',
             headers:{'X-CSRFToken': getcooked},
@@ -490,7 +599,6 @@ class InboxFeedInbox extends React.Component {
        
         .then(response => response.json())
         .then(data => {
-        console.log("when returnedasldifasodfbnlasdbnfoasdofuiasodufhosaudhf", this.props.data)
           this.setState({
             newdata: data,
              
@@ -498,20 +606,13 @@ class InboxFeedInbox extends React.Component {
           this.setState({
             pagination:this.state.newdata["paginationid"]
         })
-        console.log("newest pagination", this.state.newdata)
-        console.log("newest pagination", this.state.newdata["data"])
-
+      
         });
   
         window.scrollTo(0, 0)
     }
     render() {
-    
-
   
-
-    console.log("check for fast data", this.state.newdata["data"])
-    console.log("check for fast data", this.state.newdata["data"][0])
 
 
     const button = [];
@@ -528,7 +629,6 @@ class InboxFeedInbox extends React.Component {
       )
 
     }
-        console.log(this.props.data)
         if (this.state.newdata["data"] == null)
         {
             console.log("looking to hire")            
@@ -541,16 +641,16 @@ class InboxFeedInbox extends React.Component {
                 rows.push( 
                     <InboxFeedRows 
                     id={this.state.newdata["data"][i].id}
-                    name={this.state.newdata["data"][i].username}
+                    name={this.props.data["type"] == "inbox" ? this.state.newdata["data"][i].username_influencer:this.state.newdata["data"][i].username}
                     giftornot={this.state.newdata["data"][i].typeintro}
                     whatoccasion={this.state.newdata["data"][i].typeoccasion}
-                    completed={this.state.newdata["data"][i].completed}/>
+                    completed={this.state.newdata["data"][i].completed}
+                    duedate={this.state.newdata["data"][i].duedate}
+                    type={this.state.newdata["type"]}/>
                 );
             } 
         }
-        console.log("orange 7", paginationid)
 
-        console.log(this.state.paginationid)
         if (this.state.pagination == null)
         {
             this.setState({
@@ -558,9 +658,11 @@ class InboxFeedInbox extends React.Component {
             })
         }
         
-        
         return(
-            <div>{this.state.newdata["data"] != null ? 
+            <div>           
+               {this.state.newdata["type"] == "request" ? <button id="hidecompletedid" value={this.state.hide}class="btn btn-primary" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
+                {this.state.newdata["data"] != null ? 
+            
                 <table className="table table-hover table-sm">
                     <tbody>{rows}</tbody>
                 </table>: <div>
@@ -592,12 +694,13 @@ class InboxFeedTitle extends React.Component {
     constructor(props) {
       super(props);
       this.changeFeedInbox = this.changeFeedInbox.bind(this);
-      console.log("checklolol", this.props.data["checkifinfluencer"])
+
       
     //document.querySelector('#maininfluencer').hidden = false;
     //document.querySelector('#reviewsmainfluencer').hidden = true;
       
     }
+    
     changeFeedInbox(e)
     {
         var type=""
@@ -608,18 +711,27 @@ class InboxFeedTitle extends React.Component {
             document.querySelector('#myrequesthtml').hidden = true;
             document.querySelector('#myinboxhtml').hidden = false;
 
-
             type = "myinboxhtml"  
 
         }
-        else
+        else if(e.target.id == "myrequestid")
         {
             document.querySelector('#typeofpage').value = "request"
             document.querySelector('#myinboxhtml').hidden = true;
             document.querySelector('#myrequesthtml').hidden = false;
 
+            type = "myrequesthtml"
+        }
+        else 
+        {
+            document.querySelector('#typeofpage').value = "request"
+            document.querySelector('#myinboxhtml').hidden = true;
+            document.querySelector('#myrequesthtml').hidden = false;
+            document.querySelector('#hiderequesthtml').hidden = false;
+
 
             type = "myrequesthtml"
+
         }
         let paginationid = 1
         fetch(`/gotozjguen484s9gj302g/${paginationid}`, {
@@ -633,25 +745,22 @@ class InboxFeedTitle extends React.Component {
         })        
         .then(response => response.json())
         .then(data => {
-            console.log("this is the data that was sent back we will see", data)
             ReactDOM.render(<InboxFeedInbox data={data}/>, document.querySelector('#' + type));
 
         });
     }
     
     render() {
-       // console.log("please print this out first", username)
-
-      //  console.log("please print this out", this.props.username)
-       // const bookhtmllink = "/book/"+this.props.data["username"]
-       // console.log("sameperson", this.props.data["sameperson"])
-
-        //<button onClick={this.subscribeButton}>{this.state.subscribecheck == "true" ? "Subscribed":"Subscribe"}</button>
-       // console.log("arai gor mai roo but yea", username)
+  
         return (
          <div>
             <button type="button" class="btn btn-primary" id="myinboxid" onClick={this.changeFeedInbox}>My Inbox</button>
             {this.props.data["checkifinfluencer"] == true ? <button type="button" class="btn btn-primary" id="myrequestid" onClick={this.changeFeedInbox}>My Requests</button>:null}
+            <select>
+                <option value="1">Newest</option>
+                <option value="2">Oldest</option>      
+            </select>
+
          </div>
         )
 
