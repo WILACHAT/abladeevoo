@@ -15,18 +15,18 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Concert+One&family=Londrina+Outline&family=Luckiest+Guy&family=Orelega+One&family=Sarabun:wght@600&display=swap" rel="stylesheet">        
         
-        
         {% block script %}
         {% endblock %}
    
     </head>
+    
     <body>
       <!--css colors
         background-color: #C1E1C1;
 -->
     
-
-<nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top justify-content-between">
 
       <a class="navbar-brand" href="{% url 'index' %}"><h4 class="videme">Vidme!</h4></a>
       <div class="justify-content-start">
@@ -45,7 +45,7 @@
                     {% endif %}
                     {% if user.is_superuser == 1 %}
                       <li class="nav-item">
-                        <a id="navprofile" class="nav-link" href="{% url 'superuser' %}"><strong>Super User</strong></a>
+                        <a id="navprofile" class="wa" href="{% url 'superuser' %}"><strong>Super User</strong></a>
                       </li>
                     {% endif %}
                  {% endif %}
@@ -60,9 +60,9 @@
                   <li class="nav-item mt-2 ml-4">
                     <a class="wa" href="{% url 'dara' %}">สมัครเป็นสตาร์</a>
                   </li> 
-                
-        </div>
-          <div>
+                    
+            </div>
+              <div>
                   <div class="dropdown dropleft">
                     <button class="dropdownbutton btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     อื่นๆ
@@ -81,23 +81,28 @@
                    
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                        <a class="wa" href="{% url 'login' %}">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="wa" href="{% url 'register' %}">Register</a>
                     </li>
                 {% endif %}
               </ul>
             </div>
             
-          </nav>
 
 
           </div>
-        <div class="body mb-3">
-            {% block body %}
-            {% endblock %}
-        </div>
+        </nav>
+      </div>
+
+     
+
+          <div class="body mt-5">
+              {% block body %}
+              {% endblock %}
+          </div>
+
         <footer onload class="page-footer font-small">
 
           <!-- Footer Text -->

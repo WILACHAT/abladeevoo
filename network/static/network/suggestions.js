@@ -46,7 +46,7 @@ var SearchBar = function (_React$Component) {
 
       return React.createElement(
         'div',
-        { 'class': 'd-flex justify-content-end' },
+        { 'class': 'd-flex justify-content-center' },
         React.createElement(
           'div',
           { 'class': 'divsearch d-flex justify-content-center' },
@@ -56,7 +56,7 @@ var SearchBar = function (_React$Component) {
             React.createElement('input', {
               id: 'searchid',
               type: 'text',
-              'class': 'inputsearch form-control mr-sm-2 mt-2 pb-2',
+              'class': 'inputsearch form-control mr-sm-2 mt-2 pb-2 d-flex justify-content-center',
               placeholder: 'Search...',
               value: this.props.searchtext,
               onChange: this.checkSearch })
@@ -117,6 +117,13 @@ var SuggestionTable = function (_React$Component2) {
     value: function render() {
       var suggestion_rows = [];
       console.log("this.state.new", this.state.newdata);
+      /*
+      <div id="control-suggestions">
+      <div class="d-flex justify-content-start">
+       <SearchBar searchtext={this.state.searchtext} oncheckSearch={this.mainSearch}/>
+      </div>
+      </div>
+      */
       for (var i = 0; i < this.state.newdata.length; i++) {
         //console.log("lol wtf", this.props.data[i])
         suggestion_rows.push(React.createElement(SuggestionsRow, {
@@ -132,30 +139,17 @@ var SuggestionTable = function (_React$Component2) {
         'div',
         { id: 'control-suggestions' },
         React.createElement(
-          'h2',
-          { 'class': 'd-flex justify-content-center mt-2' },
-          'Welcome to Ablaze'
-        ),
-        React.createElement(
-          'h4',
+          'div',
           { 'class': 'd-flex justify-content-center' },
-          'Personalized videos from your favorite stars'
+          React.createElement(SearchBar, { searchtext: this.state.searchtext, oncheckSearch: this.mainSearch })
         ),
         React.createElement(
           'div',
-          { 'class': 'd-flex justify-content-center' },
-          React.createElement(SearchBar, { searchtext: this.state.searchtext, oncheckSearch: this.mainSearch }),
-          ':'
-        ),
-        React.createElement(
-          'table',
-          { 'class': 'd-flex justify-content-center' },
+          { 'class': 'content' },
           React.createElement(
-            'tbody',
-            null,
-            ' ',
-            suggestion_rows,
-            ' '
+            'div',
+            { 'class': 'box' },
+            suggestion_rows
           )
         )
       );
@@ -199,7 +193,7 @@ var SuggestionsRow = function (_React$Component3) {
 
       return React.createElement(
         'div',
-        { id: 'suggestion_row_id' },
+        null,
         React.createElement(
           'a',
           { name: 'posterr', href: ininfluencer_link, 'class': 'h4 colorstyle' },

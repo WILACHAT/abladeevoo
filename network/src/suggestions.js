@@ -27,13 +27,13 @@ function getCookie(name) {
       {
    
         return (
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-center">
           <div class="divsearch d-flex justify-content-center">
-          <form>
+            <form>
           <input
             id="searchid"
             type="text"
-            class="inputsearch form-control mr-sm-2 mt-2 pb-2"
+            class="inputsearch form-control mr-sm-2 mt-2 pb-2 d-flex justify-content-center"
             placeholder="Search..."
             value={this.props.searchtext} 
             onChange={this.checkSearch}/>
@@ -85,6 +85,13 @@ function getCookie(name) {
     render() {
       const suggestion_rows = [];
       console.log("this.state.new", this.state.newdata)
+      /*
+      <div id="control-suggestions">
+      <div class="d-flex justify-content-start">
+       <SearchBar searchtext={this.state.searchtext} oncheckSearch={this.mainSearch}/>
+      </div>
+      </div>
+      */
       for (let i = 0; i < this.state.newdata.length; i++)
       {
         //console.log("lol wtf", this.props.data[i])
@@ -100,19 +107,18 @@ function getCookie(name) {
         );
       }
         return (
-        <div id="control-suggestions">
-            <h2 class="d-flex justify-content-center mt-2">Welcome to Ablaze</h2>
-            <h4 class="d-flex justify-content-center">Personalized videos from your favorite stars</h4>
-            <div class="d-flex justify-content-center">
-             <SearchBar searchtext={this.state.searchtext} oncheckSearch={this.mainSearch}/>:
+          <div id="control-suggestions">
+          <div class="d-flex justify-content-center">
+           <SearchBar searchtext={this.state.searchtext} oncheckSearch={this.mainSearch}/>
+          </div>
+          <div class="content">
+              <div class="box">{suggestion_rows}</div>
             </div>
-            <table class="d-flex justify-content-center">
-                <tbody> {suggestion_rows} </tbody>
-            </table>
-        </div>
+          </div>
+            
         )
 
-    }
+        }
   }
   class SuggestionsRow extends React.Component {
       constructor(props) {
@@ -141,7 +147,7 @@ function getCookie(name) {
       //<a name="posterr" href={portalname} class="h4 colorstyle">{this.props.portalname}</a> 
 
         return (
-        <div id="suggestion_row_id">
+        <div> 
           <a name="posterr" href={ininfluencer_link} class="h4 colorstyle">{this.props.username}</a> 
           <h5>{this.props.influencer_ornot}</h5>
           <h5>{this.props.freeze_account}</h5>
