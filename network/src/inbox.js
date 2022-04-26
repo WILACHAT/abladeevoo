@@ -68,6 +68,8 @@ class EachReserve extends React.Component{
         this.submitSave = this.submitSave.bind(this);
         this.submitReview = this.submitReview.bind(this);
         this.chooseFile = this.chooseFile.bind(this);
+        this.saveUrl = this.saveUrl.bind(this);
+
 
 
         console.log("right in the constructor")
@@ -76,6 +78,23 @@ class EachReserve extends React.Component{
 
         console.log("bruh", this.props.data["type"])
         
+    }
+    saveUrl(e)
+    {
+        let content = e.target.value
+        if (!navigator.clipboard) {
+            return
+        }
+
+        navigator.clipboard.writeText(content)
+        .then(() => {
+        console.log("Text copied to clipboard...")
+        })
+        .catch(err => {
+        console.log('Something went wrong', err);
+        })
+      
+
     }
     chooseFile(e)
     {
@@ -231,6 +250,8 @@ class EachReserve extends React.Component{
                             <source src={link}></source>
                             Your browser does not support the video tag.
                         </video>
+                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
+
 
                         <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
                         <h3>No reviews from customer yet</h3>
@@ -247,6 +268,8 @@ class EachReserve extends React.Component{
                             <source src={link}></source>
                             Your browser does not support the video tag.
                         </video>
+                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
+
 
                         <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
                         <h3>Customer Review: {this.props.data["reviewvalue"]}</h3>
@@ -276,6 +299,8 @@ class EachReserve extends React.Component{
                             <source src={link}></source>
                             Your browser does not support the video tag.
                         </video>
+                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
+
 
                         <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
                         <input id="typeforreview"></input>
@@ -299,6 +324,8 @@ class EachReserve extends React.Component{
                             <source src={link}></source>
                             Your browser does not support the video tag.
                         </video>
+                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
+
 
                         <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
                         <h1>Ur Review</h1>

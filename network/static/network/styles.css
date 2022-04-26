@@ -30,7 +30,37 @@
 }
 .navbar
 {
-  background-color: #FFBE00;
-
+  min-height: 90px;
 }
+.navbar-brand
+{
+ 
+}
+.videme
+{
+  color:#FF7F50;
+  font-family: 'Bangers', cursive;
+    font-size:40px;
+}
+.wa
+{
+  color:#203354;
+
+  font-family: 'Sarabun';
+  
+}
+.dropdownbutton
+{
+  color:#1c2e4a;
+
+  font-family: 'Sarabun';
+ 
+}
+.ngong
+{
+  float: right;
+}
+
+
+
 

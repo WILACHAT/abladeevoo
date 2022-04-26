@@ -74,6 +74,7 @@ var EachReserve = function (_React$Component) {
         _this.submitSave = _this.submitSave.bind(_this);
         _this.submitReview = _this.submitReview.bind(_this);
         _this.chooseFile = _this.chooseFile.bind(_this);
+        _this.saveUrl = _this.saveUrl.bind(_this);
 
         console.log("right in the constructor");
         console.log("this.props.data", _this.props.data);
@@ -84,6 +85,20 @@ var EachReserve = function (_React$Component) {
     }
 
     _createClass(EachReserve, [{
+        key: 'saveUrl',
+        value: function saveUrl(e) {
+            var content = e.target.value;
+            if (!navigator.clipboard) {
+                return;
+            }
+
+            navigator.clipboard.writeText(content).then(function () {
+                console.log("Text copied to clipboard...");
+            }).catch(function (err) {
+                console.log('Something went wrong', err);
+            });
+        }
+    }, {
         key: 'chooseFile',
         value: function chooseFile(e) {
             var fileinput = document.querySelector('#inputGroupFile01').files[0];
@@ -250,6 +265,11 @@ var EachReserve = function (_React$Component) {
                                 'Your browser does not support the video tag.'
                             ),
                             React.createElement(
+                                'button',
+                                { id: 'savethelink', value: _link, onClick: this.saveUrl, 'class': 'btn btn-primary' },
+                                'Copy Video to Post somewhere!'
+                            ),
+                            React.createElement(
                                 'h1',
                                 null,
                                 'What you wrote: ',
@@ -277,6 +297,11 @@ var EachReserve = function (_React$Component) {
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
                                 React.createElement('source', { src: _link }),
                                 'Your browser does not support the video tag.'
+                            ),
+                            React.createElement(
+                                'button',
+                                { id: 'savethelink', value: _link, onClick: this.saveUrl, 'class': 'btn btn-primary' },
+                                'Copy Video to Post somewhere!'
                             ),
                             React.createElement(
                                 'h1',
@@ -321,6 +346,11 @@ var EachReserve = function (_React$Component) {
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
                                 React.createElement('source', { src: _link2 }),
                                 'Your browser does not support the video tag.'
+                            ),
+                            React.createElement(
+                                'button',
+                                { id: 'savethelink', value: _link2, onClick: this.saveUrl, 'class': 'btn btn-primary' },
+                                'Copy Video to Post somewhere!'
                             ),
                             React.createElement(
                                 'h2',
@@ -378,6 +408,11 @@ var EachReserve = function (_React$Component) {
                                 { id: 'testervideo', width: '320', height: '240', controls: true },
                                 React.createElement('source', { src: _link2 }),
                                 'Your browser does not support the video tag.'
+                            ),
+                            React.createElement(
+                                'button',
+                                { id: 'savethelink', value: _link2, onClick: this.saveUrl, 'class': 'btn btn-primary' },
+                                'Copy Video to Post somewhere!'
                             ),
                             React.createElement(
                                 'h2',

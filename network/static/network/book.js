@@ -47,7 +47,7 @@ var BookPage = function (_React$Component) {
                         null,
                         'Who is this cameo from?'
                     ),
-                    React.createElement('input', { id: 'from_intro', placeholder: 'From' })
+                    React.createElement('input', { required: true, id: 'from_intro', placeholder: 'From' })
                 )
             ),
             reserve_occasion_html: React.createElement(
@@ -56,11 +56,11 @@ var BookPage = function (_React$Component) {
                 React.createElement(
                     'div',
                     null,
-                    React.createElement('input', { name: 'occa1', placeholder: 'When is their birthday?' }),
+                    React.createElement('input', { required: true, name: 'occa1', placeholder: 'When is their birthday?' }),
                     React.createElement('br', null),
-                    React.createElement('input', { name: 'occa2', placeholder: 'How old are they turning?' }),
+                    React.createElement('input', { required: true, name: 'occa2', placeholder: 'How old are they turning?' }),
                     React.createElement('br', null),
-                    React.createElement('input', { name: 'occa3', placeholder: 'Instructions for' }),
+                    React.createElement('input', { required: true, name: 'occa3', placeholder: 'Instructions for' }),
                     React.createElement('br', null),
                     React.createElement('input', { name: 'occa4', placeholder: 'Optional' })
                 )
@@ -178,11 +178,11 @@ var BookPage = function (_React$Component) {
                         React.createElement(
                             'div',
                             null,
-                            React.createElement('input', { name: 'occa1', placeholder: 'When is their birthday?' }),
+                            React.createElement('input', { required: true, name: 'occa1', placeholder: 'When is their birthday?' }),
                             React.createElement('br', null),
-                            React.createElement('input', { name: 'occa2', placeholder: 'How old are they turning?' }),
+                            React.createElement('input', { required: true, name: 'occa2', placeholder: 'How old are they turning?' }),
                             React.createElement('br', null),
-                            React.createElement('input', { name: 'occa3', placeholder: 'Instructions for' }),
+                            React.createElement('input', { required: true, name: 'occa3', placeholder: 'Instructions for' }),
                             React.createElement('br', null),
                             React.createElement('input', { name: 'occa4', placeholder: 'Optional' }),
                             React.createElement('br', null)
@@ -198,9 +198,9 @@ var BookPage = function (_React$Component) {
                         React.createElement(
                             'div',
                             null,
-                            React.createElement('input', { name: 'occa1', placeholder: 'What\'s going on with the recipient?' }),
+                            React.createElement('input', { required: true, name: 'occa1', placeholder: 'What\'s going on with the recipient?' }),
                             React.createElement('br', null),
-                            React.createElement('input', { name: 'occa2', placeholder: 'How can ... help?' }),
+                            React.createElement('input', { required: true, name: 'occa2', placeholder: 'How can ... help?' }),
                             React.createElement('br', null),
                             React.createElement('input', { name: 'occa3', placeholder: 'Optional details' }),
                             React.createElement('br', null)
@@ -216,7 +216,7 @@ var BookPage = function (_React$Component) {
                         React.createElement(
                             'div',
                             null,
-                            React.createElement('input', { name: 'occa1', placeholder: 'What would you like Kevin McKidd to roast the recipient about?' }),
+                            React.createElement('input', { required: true, name: 'occa1', placeholder: 'What would you like Kevin McKidd to roast the recipient about?' }),
                             React.createElement('br', null),
                             React.createElement('input', { name: 'occa2', placeholder: 'Optional' }),
                             React.createElement('br', null)
@@ -232,9 +232,9 @@ var BookPage = function (_React$Component) {
                         React.createElement(
                             'div',
                             null,
-                            React.createElement('input', { name: 'occa1', placeholder: 'What\'s the occasion?' }),
+                            React.createElement('input', { required: true, name: 'occa1', placeholder: 'What\'s the occasion?' }),
                             React.createElement('br', null),
-                            React.createElement('input', { name: 'occa2', placeholder: 'Instructions for' }),
+                            React.createElement('input', { required: true, name: 'occa2', placeholder: 'Instructions for' }),
                             React.createElement('br', null),
                             React.createElement('input', { name: 'occa3', placeholder: 'Optional' })
                         )
@@ -268,7 +268,7 @@ var BookPage = function (_React$Component) {
                         'Myself'
                     )
                 ),
-                React.createElement('input', { id: 'to_intro', placeholder: 'To' }),
+                React.createElement('input', { required: true, id: 'to_intro', placeholder: 'To' }),
                 this.state.reserve_into_html,
                 React.createElement(
                     'div',
@@ -311,13 +311,13 @@ var BookPage = function (_React$Component) {
                     'Need by when'
                 ),
                 React.createElement('br', null),
-                React.createElement('input', { id: 'date_inputid', name: 'date_inputname', type: 'date' }),
+                React.createElement('input', { required: true, id: 'date_inputid', name: 'date_inputname', type: 'date' }),
                 React.createElement(
                     'h6',
                     null,
                     'NOTE* \u0E16\u0E49\u0E32influencer\u0E17\u0E4D\u0E32\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E44\u0E21\u0E48\u0E17\u0E31\u0E19\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E19\u0E35\u0E49\u0E04\u0E38\u0E13\u0E08\u0E30\u0E44\u0E14\u0E49\u0E40\u0E07\u0E34\u0E19\u0E04\u0E37\u0E19'
                 ),
-                React.createElement('input', { id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: 'Reserve', 'class': 'btn btn-primary' })
+                React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: 'Reserve', 'class': 'btn btn-primary' })
             );
         }
     }]);

@@ -5,10 +5,17 @@
     <head>
         <title>{% block title %}Rondevoo.tv{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
         <link href="{% static 'network/styles.css' %}" rel="stylesheet">
         <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>    
-           
+        <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/ablaze-project/image/upload/v1649896515/xxi4iwlvii4h4dg0jytj.jpg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Concert+One&family=Londrina+Outline&family=Luckiest+Guy&family=Orelega+One&family=Sarabun:wght@600&display=swap" rel="stylesheet">        
+        
+        
         {% block script %}
         {% endblock %}
    
@@ -19,20 +26,19 @@
 -->
     
 
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="{% url 'index' %}">Ablaze</a>
-            <!--https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Fs3.amazonaws.com%2Fappforest_uf%2Ff1620750817817x913030110232724100%2Frondevoo%2520logo%25201.png?w=192&h=&auto=compress&dpr=2&fit=max-->
+        <nav class="navbar navbar-expand-lg navbar-light ml-auto">
+            <a class="navbar-brand ml-5" href="{% url 'index' %}"><h4 class="videme">Vidme!</h4></a>
             <div>
-              <ul class="navbar-nav mr-auto">
+              <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     {% if user.influencer_ornot == 1 %}
-                    <li class="nav-item">
-                        <a id="navprofile" class="nav-link" href="{% url 'ininfluencer' user.username %}"><strong>{{ user.username }}</strong></a>
+                    <li class="nav-item mt-2 ml-4">
+                        <a id="navprofile" class="wa" href="{% url 'ininfluencer' user.username %}"><strong>{{ user.username }}</strong></a>
                     </li>
                     {% else %}
                     <!--this will go to edit profile page of the account-->
-                    <li class="nav-item">
-                      <a id="navprofile" class="nav-link" href="{% url 'usersetting' %}"><strong>{{ user.username }}</strong></a>
+                    <li class="nav-item mt-2 ml-4">
+                      <a id="navprofile" class="wa" href="{% url 'usersetting' %}"><strong>{{ user.username }}</strong></a>
                     </li>
                   {% endif %}
                   {% if user.is_superuser == 1 %}
@@ -44,29 +50,37 @@
                
                 {% endif %}
           
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'index' %}">Home</a>
+                <li class="nav-item mt-2 ml-4">
+                  <a class="wa" href="{% url 'index' %}">หน้าหลัก</a>
                 </li>   
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'aboutus' %}">About Us</a>
-                </li>  
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'inbox' %}">Inbox</a>
+                <li class="nav-item mt-2 ml-4">
+                  <a class="wa" href="{% url 'inbox' %}">อินบ็อกซ์</a>
                 </li>    
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'dara' %}">Dara</a>
+                <li class="nav-item mt-2 ml-4">
+                  <a class="wa" href="{% url 'dara' %}">สมัครเป็นสตาร์</a>
                 </li> 
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'legal' %}">Legal</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'helpcenter' %}">Help Center</a>
-                  </li>
+                
+                
+                  <div class="dropdown">
+                    <button class="dropdownbutton btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    อื่นๆ
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <a class="nav-link" href="{% url 'legal' %}">Legal</a>
+                      <a class="nav-link" href="{% url 'helpcenter' %}">Help Center</a>
+                      <a class="nav-link" href="{% url 'aboutus' %}">About Us</a>
+                      <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+
+                    </ul>
                   
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                    </li>
+                </div>
+
+                <div class="ngong">
+                
+                
+              </div>
+                   
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Log In</a>
@@ -77,7 +91,10 @@
                 {% endif %}
               </ul>
             </div>
+            
           </nav>
+
+          </div>
         <div class="body mb-3">
             {% block body %}
             {% endblock %}

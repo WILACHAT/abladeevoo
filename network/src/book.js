@@ -30,15 +30,15 @@ class BookPage extends React.Component {
             <div name="introname"id="someoneelse_html_id">
                 <div>
                     <h1>Who is this cameo from?</h1>
-                    <input id="from_intro" placeholder="From"></input>
+                    <input required id="from_intro" placeholder="From"></input>
                 </div>
             </div>,
         reserve_occasion_html:
             <div name="occasionname"id="birthday_html_id">
                 <div>
-                    <input name="occa1" placeholder="When is their birthday?"></input><br></br>
-                    <input name="occa2" placeholder="How old are they turning?"></input><br></br>
-                    <input name="occa3"placeholder="Instructions for"></input><br></br>
+                    <input required name="occa1" placeholder="When is their birthday?"></input><br></br>
+                    <input required name="occa2" placeholder="How old are they turning?"></input><br></br>
+                    <input required name="occa3"placeholder="Instructions for"></input><br></br>
                     <input name="occa4" placeholder="Optional"></input>
                 </div>
             </div>
@@ -158,9 +158,9 @@ class BookPage extends React.Component {
                 reserve_occasion_html:
                     <div name="occasionname" id="birthday_html_id">
                         <div>
-                            <input name="occa1" placeholder="When is their birthday?"></input><br></br>
-                            <input name="occa2" placeholder="How old are they turning?"></input><br></br>
-                            <input name="occa3" placeholder="Instructions for"></input><br></br>
+                            <input required name="occa1" placeholder="When is their birthday?"></input><br></br>
+                            <input required name="occa2" placeholder="How old are they turning?"></input><br></br>
+                            <input required name="occa3" placeholder="Instructions for"></input><br></br>
                             <input name="occa4" placeholder="Optional"></input><br></br>
                         </div>
                     </div>
@@ -173,8 +173,8 @@ class BookPage extends React.Component {
                 reserve_occasion_html:
                     <div name="occasionname" id="peptalk_html_id">
                         <div>
-                            <input name="occa1" placeholder="What's going on with the recipient?"></input><br></br>
-                            <input name="occa2" placeholder="How can ... help?"></input><br></br>
+                            <input required name="occa1" placeholder="What's going on with the recipient?"></input><br></br>
+                            <input required name="occa2" placeholder="How can ... help?"></input><br></br>
                             <input name="occa3" placeholder="Optional details"></input><br></br>
                         </div>
                     </div>
@@ -188,7 +188,7 @@ class BookPage extends React.Component {
                 reserve_occasion_html:
                     <div name="occasionname" id="roastbutton_html_id">
                         <div>
-                            <input name="occa1" placeholder="What would you like Kevin McKidd to roast the recipient about?"></input><br></br>
+                            <input required name="occa1" placeholder="What would you like Kevin McKidd to roast the recipient about?"></input><br></br>
                             <input name="occa2" placeholder="Optional"></input><br></br>
                         </div>
                     </div>
@@ -202,8 +202,8 @@ class BookPage extends React.Component {
                 reserve_occasion_html:
                     <div name="occasionname" id="other_html_id">
                         <div>
-                            <input name="occa1" placeholder="What's the occasion?"></input><br></br>
-                            <input name="occa2" placeholder="Instructions for"></input><br></br>
+                            <input required name="occa1" placeholder="What's the occasion?"></input><br></br>
+                            <input required name="occa2" placeholder="Instructions for"></input><br></br>
                             <input name="occa3" placeholder="Optional"/>
                         </div>
                     </div>
@@ -222,7 +222,7 @@ class BookPage extends React.Component {
                 <button type="button" class="btn btn-primary" id="someoneelsehtml" onClick={this.changeIntroReserve}>Someone Else</button>
                 <button type="button" class="btn btn-primary" id="myselfhtml" onClick={this.changeIntroReserve}>Myself</button>
              </div>
-             <input id="to_intro" placeholder="To"></input>
+             <input required id="to_intro" placeholder="To"></input>
              {this.state.reserve_into_html}
              
              <div id="occasion">
@@ -236,9 +236,9 @@ class BookPage extends React.Component {
              <h1>Make your request memorable</h1>
              {this.state.reserve_occasion_html}
              <label>Need by when</label><br></br>
-             <input id="date_inputid" name="date_inputname" type="date"></input>
+             <input required id="date_inputid" name="date_inputname" type="date"></input>
              <h6>NOTE* ถ้าinfluencerทําเสร็จไม่ทันวันที่นี้คุณจะได้เงินคืน</h6>
-             <input id="submitreservation" type="submit" onClick={this.saveReserve} value="Reserve"class="btn btn-primary"/>
+             <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="Reserve"class="btn btn-primary"/>
 
          </div>
         )
