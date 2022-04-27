@@ -23,6 +23,16 @@
   object-fit: cover;
 
 }
+.imgnoeditinbox
+{
+  height: 5em;
+  width: 5em;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  object-fit: cover;
+
+}
 .page-footer
 {
   background-color: #FFBE00;
@@ -49,6 +59,24 @@
 
   font-family: 'Sarabun';
   
+}
+.waduedate
+{
+  color:#203354;
+  font-family: 'Sarabun';
+  font-size:15px;
+}
+.waduedatecomplete
+{
+  color:greenyellow;
+  font-family: 'Sarabun';
+  font-size:15px;
+}
+.waduedateexpire
+{
+  color:red;
+  font-family: 'Sarabun';
+  font-size:15px;
 }
 .dropdownbutton
 {
@@ -214,3 +242,186 @@ padding: 10px;
 {
 
 }
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+span{
+  position: relative;
+  display: inline-flex;
+  width: 180px;
+  height: 55px;
+  margin: 0 15px;
+  perspective: 1000px;
+}
+span .requestcss{
+  font-size: 19px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .1s;
+  font-family: 'Montserrat', sans-serif;
+   
+}
+span .requestcss:before,
+span .requestcss:after{
+  position: absolute;
+  content: "My Requests";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffc500;
+
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+span .requestcss:before{
+  color: white;;
+  background: #008fff;;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span .requestcss:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span .requestcss:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+
+
+
+
+span .myinboxcss{
+  font-size: 19px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .1s;
+  font-family: 'Montserrat', sans-serif;
+   
+}
+span .myinboxcss:before,
+span .myinboxcss:after{
+  position: absolute;
+  content: "My Inbox";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background: #ffc500;
+
+}
+span .myinboxcss:before{
+  color: white;
+  background: #008fff;;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span .myinboxcss:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span .myinboxcss:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+.myinboxcss:hover{
+  cursor: pointer;
+}
+.requestcss:hover{
+  cursor: pointer;
+}
+.ineachrow
+{
+  justify-content: center;
+  width:65%;
+  height:12em;
+  background-color: #ffc500;
+  border-radius: 1.5em;
+
+
+
+
+}
+.columninbox
+{
+  width:75%;
+
+  justify-content: center;
+  background: #008fff;
+  border-radius: 1.5em;
+
+
+}
+.okseecolor
+{
+  padding:5%;
+ 
+}
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+
+
+/* Button Styles */
+
+.button {
+  display: inline-flex;
+  height: 40px;
+  width: 150px;
+  border: 2px solid #BFC0C0;
+  margin: 20px 20px 20px 20px;
+  color: #BFC0C0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: .8em;
+  letter-spacing: 1.5px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.letsgo {
+  color: #008fff;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+#button-7 {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#button-7 a {
+  position: relative;
+  left: 0;
+  transition: all .1s ease-Out;
+}
+
+.dub-arrow {
+  width: 100%;
+  height: 100%;
+  background: #008fff;
+  left: -200px;
+  position: absolute;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .1s ease-Out;
+  bottom: 0;
+}
+
+#button-7 img {
+  width: 20px;
+  height: auto;
+}
+
+#button-7:hover .dub-arrow {
+  left: 0;
+}
+
+#button-7:hover a {
+  left: 150px;
+}
+
+

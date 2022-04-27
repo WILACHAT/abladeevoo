@@ -430,6 +430,11 @@ class InboxFeedRows extends React.Component {
         document.querySelector('#eachreserve').hidden = false;
         document.querySelector('#inboxmainid').hidden = true;
         document.querySelector('#myinboxhtml').hidden = true;
+        console.log("etargetnameinclickhred", e)
+
+        console.log("etargetnameinclickhred", e.target)
+
+        console.log("etargetnameinclickhred", e.target.id)
         document.querySelector('#myrequesthtml').hidden = true;
 
         console.log("clickedwork")
@@ -439,7 +444,7 @@ class InboxFeedRows extends React.Component {
         method: 'PUT',
         headers:{'X-CSRFToken': getcooked},
         body: JSON.stringify({
-          reservationid: e.target.name,
+          reservationid: e.target.id,
           from: "eachreserve"  
             })
         })
@@ -454,9 +459,13 @@ class InboxFeedRows extends React.Component {
     render() {
 
         console.log("check for", this.props.completed)
+       
+        let eachcontent = ""
+        console.log("this.propsasdfasdfasdf", this.props)
+        console.log(this.props.influencer_pic)
+        console.log(this.props.normal_pic)
         let today = new Date().toISOString().slice(0, 10)
 
-        console.log("LETS CHECK THE DATE FOR TODAY!!!", today)
         let g1 = new Date(today);
 
         let g2 = new Date(this.props.duedate);
@@ -470,46 +479,82 @@ class InboxFeedRows extends React.Component {
         {
             checktime = 1
         }
-        let eachcontent = ""
-        console.log("this.propsasdfasdfasdf", this.props)
-        
+        let link = ""
+
         if (this.props.type == "request")
         {
-            eachcontent =
-            <div>
-                {checktime == 0 ? <div><a name={this.props.id} onClick={this.clickHref} class="h4 colorstyle">{this.props.name}</a> 
-                <h4>{this.props.giftornot == "someoneelse_html_id" ? "A gift":"For you"}</h4>
-                <h4>{occasion}</h4>
-                <h4>{this.props.completed == true ? "Completed" : "Not Complete"}</h4>
-                <label>ส่งก่อน</label>
-                <h4>{this.props.duedate}</h4></div>:null}
-            </div>
+            if (this.props.normal_pic == null)
+            {
+              link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
+        
+            }
+            else
+            {
+              link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.normal_pic + ".jpg"
+            }
         }
         else
         {
-            eachcontent =
-            <div>
-                <a name={this.props.id} onClick={this.clickHref} class="h4 colorstyle">{this.props.name}</a> 
-                <h4>{this.props.giftornot == "someoneelse_html_id" ? "A gift":"For you"}</h4>
-                <h4>{occasion}</h4>
-                {checktime == 0 ? <div>
-                <h4>{this.props.completed == true ? "Completed" : "Not Complete"}</h4>
-                <label>ส่งก่อน</label>
-                <h6><h4>{this.props.duedate}</h4></h6> </div>:<h4>Expired</h4>}
-
-            </div>
+            if (this.props.influencer_pic == null)
+            {
+              link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
+        
+            }
+            else
+            {
+              link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.influencer_pic + ".jpg"
+            }
         }
         
-       
         var occasion = checkforoccasiontype(this.props.whatoccasion)
-        
-        const eachreserve = "/eachreserve"
-        console.log("this is the id", this.props.id)
+
+        eachcontent =  
+        <div class="okseecolor">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-start">
+                <img class="imgnoeditinbox mr-5" src={link}></img>
+                <div class="d-flex flex-column">
+                    <a class="wa" >{this.props.name}</a> 
+                    <h4 class="wa">{this.props.giftornot == "someoneelse_html_id" ? "A gift":"For you"}</h4>
+                   
+                   {this.props.completed == true ? <h6 class="waduedatecomplete">เสร็จสิ้น</h6> : 
+                   checktime == 0 ? 
+                       <div>
+                            <h6 class="waduedate"> ไม่เสร็จสิ้น</h6>
+                            <label class="wa">ส่งก่อน</label>
+                            <h4 class="waduedate">{this.props.duedate}</h4> 
+                       </div>:
+                       <h4 class="waduedateexpire">หมดอายุ</h4>}
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <div class="d-flex justify-content-center">
+                    <h4 class="wa">{occasion}</h4>
+                </div>
+                <div onClick={this.clickHref} class="button" id="button-7">
+                    <div name={this.props.id} id={this.props.id} class="dub-arrow">
+                        <img src="https://github.com/atloomer/atloomer.github.io/blob/master/img/iconmonstr-arrow-48-240.png?raw=true" alt="" />
+                    </div>
+                    <a class="letsgo" href="#">Watch</a>
+                </div>
+                
+            </div>
+            
+
+        </div>
+    </div>
 
 
         return(
-            <div>
-                {eachcontent}
+            <div class="d-flex justify-content-center mb-4">
+
+                {this.props.type == "inbox" ? <div class="ineachrow mt-4"> {eachcontent} </div>: 
+                
+                this.props.completed == true ? <div class="ineachrow mt-4"> {eachcontent} </div>:
+                
+                checktime == 1 ? null:
+                <div class="ineachrow mt-4"> {eachcontent} </div>}
+
             </div>
         )
     }
@@ -673,7 +718,9 @@ class InboxFeedInbox extends React.Component {
                     whatoccasion={this.state.newdata["data"][i].typeoccasion}
                     completed={this.state.newdata["data"][i].completed}
                     duedate={this.state.newdata["data"][i].duedate}
-                    type={this.state.newdata["type"]}/>
+                    type={this.state.newdata["type"]}
+                    influencer_pic={this.state.newdata["data"][i].influencer_pic}
+                    normal_pic={this.state.newdata["data"][i].normal_pic}/>
                 );
             } 
         }
@@ -685,14 +732,19 @@ class InboxFeedInbox extends React.Component {
             })
         }
         
+        console.log("WAKU WAKU", this.state.newdata["data"])
         return(
-            <div>           
-               {this.state.newdata["type"] == "request" ? <button id="hidecompletedid" value={this.state.hide}class="btn btn-primary" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
+            <div>      
+                <div class="d-flex justify-content-center mb-5">    
+                    {this.state.newdata["type"] == "request" ? <button id="hidecompletedid" value={this.state.hide}class="btn btn-primary" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
+               </div> 
                 {this.state.newdata["data"] != null ? 
             
-                <table className="table table-hover table-sm">
-                    <tbody>{rows}</tbody>
-                </table>: <div>
+                <div class="inboxtable d-flex justify-content-center">
+                    <div class="columninbox d-flex justify-content-center flex-column">
+                        {rows}
+                    </div>
+                </div>: <div>
                 <h6>
                     No Requests yet
                 </h6>
@@ -778,15 +830,17 @@ class InboxFeedTitle extends React.Component {
     }
     
     render() {
+        //<select>
+       // <option value="1">Newest</option>
+       // <option value="2">Oldest</option>      
+    //</select>
   
         return (
-         <div>
-            <button type="button" class="btn btn-primary" id="myinboxid" onClick={this.changeFeedInbox}>My Inbox</button>
-            {this.props.data["checkifinfluencer"] == true ? <button type="button" class="btn btn-primary" id="myrequestid" onClick={this.changeFeedInbox}>My Requests</button>:null}
-            <select>
-                <option value="1">Newest</option>
-                <option value="2">Oldest</option>      
-            </select>
+         <div class="d-flex justify-content-center mb-2">
+            
+            <span><a id="myinboxid" onClick={this.changeFeedInbox} class="myinboxcss"></a></span>
+            {this.props.data["checkifinfluencer"] == true ?  <span><a id="myrequestid" onClick={this.changeFeedInbox} class="requestcss"></a></span>:null}
+
 
          </div>
         )

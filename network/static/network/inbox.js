@@ -655,6 +655,11 @@ var InboxFeedRows = function (_React$Component2) {
             document.querySelector('#eachreserve').hidden = false;
             document.querySelector('#inboxmainid').hidden = true;
             document.querySelector('#myinboxhtml').hidden = true;
+            console.log("etargetnameinclickhred", e);
+
+            console.log("etargetnameinclickhred", e.target);
+
+            console.log("etargetnameinclickhred", e.target.id);
             document.querySelector('#myrequesthtml').hidden = true;
 
             console.log("clickedwork");
@@ -664,7 +669,7 @@ var InboxFeedRows = function (_React$Component2) {
                 method: 'PUT',
                 headers: { 'X-CSRFToken': getcooked },
                 body: JSON.stringify({
-                    reservationid: e.target.name,
+                    reservationid: e.target.id,
                     from: "eachreserve"
                 })
             }).then(function (response) {
@@ -679,9 +684,13 @@ var InboxFeedRows = function (_React$Component2) {
         value: function render() {
 
             console.log("check for", this.props.completed);
+
+            var eachcontent = "";
+            console.log("this.propsasdfasdfasdf", this.props);
+            console.log(this.props.influencer_pic);
+            console.log(this.props.normal_pic);
             var today = new Date().toISOString().slice(0, 10);
 
-            console.log("LETS CHECK THE DATE FOR TODAY!!!", today);
             var g1 = new Date(today);
 
             var g2 = new Date(this.props.duedate);
@@ -692,107 +701,128 @@ var InboxFeedRows = function (_React$Component2) {
             } else {
                 checktime = 1;
             }
-            var eachcontent = "";
-            console.log("this.propsasdfasdfasdf", this.props);
+            var link = "";
 
             if (this.props.type == "request") {
-                eachcontent = React.createElement(
-                    'div',
-                    null,
-                    checktime == 0 ? React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'a',
-                            { name: this.props.id, onClick: this.clickHref, 'class': 'h4 colorstyle' },
-                            this.props.name
-                        ),
-                        React.createElement(
-                            'h4',
-                            null,
-                            this.props.giftornot == "someoneelse_html_id" ? "A gift" : "For you"
-                        ),
-                        React.createElement(
-                            'h4',
-                            null,
-                            occasion
-                        ),
-                        React.createElement(
-                            'h4',
-                            null,
-                            this.props.completed == true ? "Completed" : "Not Complete"
-                        ),
-                        React.createElement(
-                            'label',
-                            null,
-                            '\u0E2A\u0E48\u0E07\u0E01\u0E48\u0E2D\u0E19'
-                        ),
-                        React.createElement(
-                            'h4',
-                            null,
-                            this.props.duedate
-                        )
-                    ) : null
-                );
+                if (this.props.normal_pic == null) {
+                    link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
+                } else {
+                    link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.normal_pic + ".jpg";
+                }
             } else {
-                eachcontent = React.createElement(
-                    'div',
-                    null,
-                    React.createElement(
-                        'a',
-                        { name: this.props.id, onClick: this.clickHref, 'class': 'h4 colorstyle' },
-                        this.props.name
-                    ),
-                    React.createElement(
-                        'h4',
-                        null,
-                        this.props.giftornot == "someoneelse_html_id" ? "A gift" : "For you"
-                    ),
-                    React.createElement(
-                        'h4',
-                        null,
-                        occasion
-                    ),
-                    checktime == 0 ? React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'h4',
-                            null,
-                            this.props.completed == true ? "Completed" : "Not Complete"
-                        ),
-                        React.createElement(
-                            'label',
-                            null,
-                            '\u0E2A\u0E48\u0E07\u0E01\u0E48\u0E2D\u0E19'
-                        ),
-                        React.createElement(
-                            'h6',
-                            null,
-                            React.createElement(
-                                'h4',
-                                null,
-                                this.props.duedate
-                            )
-                        ),
-                        ' '
-                    ) : React.createElement(
-                        'h4',
-                        null,
-                        'Expired'
-                    )
-                );
+                if (this.props.influencer_pic == null) {
+                    link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
+                } else {
+                    link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.influencer_pic + ".jpg";
+                }
             }
 
             var occasion = checkforoccasiontype(this.props.whatoccasion);
 
-            var eachreserve = "/eachreserve";
-            console.log("this is the id", this.props.id);
+            eachcontent = React.createElement(
+                'div',
+                { 'class': 'okseecolor' },
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-between' },
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-start' },
+                        React.createElement('img', { 'class': 'imgnoeditinbox mr-5', src: link }),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex flex-column' },
+                            React.createElement(
+                                'a',
+                                { 'class': 'wa' },
+                                this.props.name
+                            ),
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                this.props.giftornot == "someoneelse_html_id" ? "A gift" : "For you"
+                            ),
+                            this.props.completed == true ? React.createElement(
+                                'h6',
+                                { 'class': 'waduedatecomplete' },
+                                '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
+                            ) : checktime == 0 ? React.createElement(
+                                'div',
+                                null,
+                                React.createElement(
+                                    'h6',
+                                    { 'class': 'waduedate' },
+                                    ' \u0E44\u0E21\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
+                                ),
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E2A\u0E48\u0E07\u0E01\u0E48\u0E2D\u0E19'
+                                ),
+                                React.createElement(
+                                    'h4',
+                                    { 'class': 'waduedate' },
+                                    this.props.duedate
+                                )
+                            ) : React.createElement(
+                                'h4',
+                                { 'class': 'waduedateexpire' },
+                                '\u0E2B\u0E21\u0E14\u0E2D\u0E32\u0E22\u0E38'
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex flex-column' },
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                occasion
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { onClick: this.clickHref, 'class': 'button', id: 'button-7' },
+                            React.createElement(
+                                'div',
+                                { name: this.props.id, id: this.props.id, 'class': 'dub-arrow' },
+                                React.createElement('img', { src: 'https://github.com/atloomer/atloomer.github.io/blob/master/img/iconmonstr-arrow-48-240.png?raw=true', alt: '' })
+                            ),
+                            React.createElement(
+                                'a',
+                                { 'class': 'letsgo', href: '#' },
+                                'Watch'
+                            )
+                        )
+                    )
+                )
+            );
 
             return React.createElement(
                 'div',
-                null,
-                eachcontent
+                { 'class': 'd-flex justify-content-center mb-4' },
+                this.props.type == "inbox" ? React.createElement(
+                    'div',
+                    { 'class': 'ineachrow mt-4' },
+                    ' ',
+                    eachcontent,
+                    ' '
+                ) : this.props.completed == true ? React.createElement(
+                    'div',
+                    { 'class': 'ineachrow mt-4' },
+                    ' ',
+                    eachcontent,
+                    ' '
+                ) : checktime == 1 ? null : React.createElement(
+                    'div',
+                    { 'class': 'ineachrow mt-4' },
+                    ' ',
+                    eachcontent,
+                    ' '
+                )
             );
         }
     }]);
@@ -946,7 +976,9 @@ var InboxFeedInbox = function (_React$Component3) {
                         whatoccasion: this.state.newdata["data"][i].typeoccasion,
                         completed: this.state.newdata["data"][i].completed,
                         duedate: this.state.newdata["data"][i].duedate,
-                        type: this.state.newdata["type"] }));
+                        type: this.state.newdata["type"],
+                        influencer_pic: this.state.newdata["data"][i].influencer_pic,
+                        normal_pic: this.state.newdata["data"][i].normal_pic }));
                 }
             }
 
@@ -956,20 +988,25 @@ var InboxFeedInbox = function (_React$Component3) {
                 });
             }
 
+            console.log("WAKU WAKU", this.state.newdata["data"]);
             return React.createElement(
                 'div',
                 null,
-                this.state.newdata["type"] == "request" ? React.createElement(
-                    'button',
-                    { id: 'hidecompletedid', value: this.state.hide, 'class': 'btn btn-primary', onClick: this.hideCompleted },
-                    this.state.hide
-                ) : null,
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center mb-5' },
+                    this.state.newdata["type"] == "request" ? React.createElement(
+                        'button',
+                        { id: 'hidecompletedid', value: this.state.hide, 'class': 'btn btn-primary', onClick: this.hideCompleted },
+                        this.state.hide
+                    ) : null
+                ),
                 this.state.newdata["data"] != null ? React.createElement(
-                    'table',
-                    { className: 'table table-hover table-sm' },
+                    'div',
+                    { 'class': 'inboxtable d-flex justify-content-center' },
                     React.createElement(
-                        'tbody',
-                        null,
+                        'div',
+                        { 'class': 'columninbox d-flex justify-content-center flex-column' },
                         rows
                     )
                 ) : React.createElement(
@@ -1079,34 +1116,24 @@ var InboxFeedTitle = function (_React$Component4) {
     }, {
         key: 'render',
         value: function render() {
+            //<select>
+            // <option value="1">Newest</option>
+            // <option value="2">Oldest</option>      
+            //</select>
 
             return React.createElement(
                 'div',
-                null,
+                { 'class': 'd-flex justify-content-center mb-2' },
                 React.createElement(
-                    'button',
-                    { type: 'button', 'class': 'btn btn-primary', id: 'myinboxid', onClick: this.changeFeedInbox },
-                    'My Inbox'
+                    'span',
+                    null,
+                    React.createElement('a', { id: 'myinboxid', onClick: this.changeFeedInbox, 'class': 'myinboxcss' })
                 ),
                 this.props.data["checkifinfluencer"] == true ? React.createElement(
-                    'button',
-                    { type: 'button', 'class': 'btn btn-primary', id: 'myrequestid', onClick: this.changeFeedInbox },
-                    'My Requests'
-                ) : null,
-                React.createElement(
-                    'select',
+                    'span',
                     null,
-                    React.createElement(
-                        'option',
-                        { value: '1' },
-                        'Newest'
-                    ),
-                    React.createElement(
-                        'option',
-                        { value: '2' },
-                        'Oldest'
-                    )
-                )
+                    React.createElement('a', { id: 'myrequestid', onClick: this.changeFeedInbox, 'class': 'requestcss' })
+                ) : null
             );
         }
     }]);

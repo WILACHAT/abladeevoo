@@ -86,8 +86,12 @@ class Reservation(models.Model):
       #  user_username = User.objects.values('username').get(id = self.user_id_reserver)
       #  user_username["username"]
        # print(user_username["username"])
-        print(self.user_id_reserver)
-        print(str(self.user_id_reserver))
+        pic = User.objects.values('normal_user_pic').get(id = self.user_id_influencerreserve.id)
+        normalpic = User.objects.values('normal_user_pic').get(id = self.user_id_reserver.id)
+        pic = pic['normal_user_pic']
+        normalpic = normalpic['normal_user_pic']
+
+     
 
 
         return {
@@ -105,7 +109,9 @@ class Reservation(models.Model):
             "reviewcompleted":self.reviewcompleted,
             "username":str(self.user_id_reserver),
             "username_influencer":str(self.user_id_influencerreserve),
-            "duedate":self.duedate
+            "duedate":self.duedate,
+            "influencer_pic":pic,
+            "normal_pic":normalpic
         } 
 
 #Recently viewed + Most popular

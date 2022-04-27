@@ -12,6 +12,7 @@ import uuid
 from django.db.models import Q, Count
 import re
 from datetime import datetime
+import time
 
 
 from django.http import JsonResponse
@@ -34,6 +35,8 @@ import subprocess
 import os
 
 
+def current_milli_time():
+        return round(time.time() * 1000)
 
 def aboutus(request):
     return render(request, "network/aboutus.html")
@@ -62,6 +65,7 @@ def usersetting(request):
 def usersettingapi(request):
     if request.method == "POST":
         data = json.loads(request.body)
+        
         User.objects.filter(id = request.user.id).update(normal_user_pic = data["profilepic"], first_name = data["firstname"], last_name = data["lastname"]
         ,email = data["email"], username = data["username"])
     return_request = {"what":"ngong"}
@@ -71,7 +75,6 @@ def usersettingapi(request):
     data = []
 
     for i in normal_user_info:
-        i.influencer_id
         data.append(i.serialize())
         return_request = {"data":data}
 
@@ -81,16 +84,16 @@ def usersettingapi(request):
 def inzwerg4jgnsd9aadif67(request):
 
     #influencer essentially a page that uses serialize to display all the influencers
-    
     influencers = User.objects.all().filter(influencer_ornot=1)[:10]
     checker = Userinfo.objects.all().filter()
     view = Views.objects.values('influencer_id').annotate(dcount=Count('influencer_id')).order_by('-dcount')[:10]
     populardata = []
     
-
+    
+    t1 = current_milli_time()
     for i in view:
         print(i["influencer_id"])
-        newinfluencers = Userinfo.objects.filter(id=i["influencer_id"])
+        newinfluencers = Userinfo.objects.filter(influencer_id=i["influencer_id"])
         for w in newinfluencers:
 
             popularpuller = w.serialize()
@@ -100,14 +103,12 @@ def inzwerg4jgnsd9aadif67(request):
             for user in users:
                 popularpuller["username"] = user.username
 
-
             print(w.profile_picture)
             print(w.profile_fullname)
 
             populardata.append(popularpuller)
-
-            
-    
+    t2 = current_milli_time()
+    print("this is the amount of time wasted", t2 - t1)
     #influencers = Views.objects.all()order_by('-pub_date', 'headline')
 
     if request.method == "POST":
@@ -353,8 +354,8 @@ def gotozjguen484s9gj302g(request, paginationid):
                     print(i.reviewcompleted)
 
 
-
         elif data["from"] == "eachreserve":
+            print("data", data)
             print("ide", data["reservationid"])
             reserveinfo = Reservation.objects.filter(id = data["reservationid"])
 
@@ -393,8 +394,6 @@ def gotozjguen484s9gj302g(request, paginationid):
 
     
     for reserve in reserveinfo:
-
-
         newdata.append(reserve.serialize())
 
     pagination = Paginator(newdata, 9)
@@ -558,6 +557,7 @@ def forupload(request, type):
                 else:
                     userinfo = Userinfo(profile_picture=uploaded_response['resources'][0]['public_id'], influencer_id=request.user.id)
                     userinfo.save()
+                User.objects.filter(id = request.user.id).update(normal_user_pic = uploaded_response['resources'][0]['public_id'])
     
                 return_response = {"url": uploaded_response['resources'][0]['public_id']}
 
