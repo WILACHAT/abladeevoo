@@ -38,6 +38,10 @@ var SearchBar = function (_React$Component) {
   _createClass(SearchBar, [{
     key: 'checkSearch',
     value: function checkSearch(e) {
+      //if (e.target.value !=  "")
+      // {
+      //  document.querySelector('#suggestions_por_react_popular').hidden = true;
+      //}
       this.props.oncheckSearch(e.target.value);
     }
   }, {
@@ -100,15 +104,17 @@ var SuggestionTable = function (_React$Component2) {
         method: 'POST',
         headers: { 'X-CSRFToken': getcooked },
         body: JSON.stringify({
+
           //add state of newdata right here
           searchvalue: searchtext
         })
       }).then(function (response) {
         return response.json();
       }).then(function (data) {
-        console.log("this is data", data);
+        console.log("checker checky for newdata", _this3.state.newdata);
+        console.log("this is dataaaaaa mama mama", data);
         _this3.setState({
-          newdata: data
+          newdata: data["newdata"]
         });
       });
     }
@@ -124,6 +130,7 @@ var SuggestionTable = function (_React$Component2) {
       </div>
       </div>
       */
+
       for (var i = 0; i < this.state.newdata.length; i++) {
         //console.log("lol wtf", this.props.data[i])
         suggestion_rows.push(React.createElement(SuggestionsRow, {
@@ -135,20 +142,26 @@ var SuggestionTable = function (_React$Component2) {
           fullname: this.state.newdata[i].fullname,
           profile_picture: this.state.newdata[i].profile_picture }));
       }
+      console.log(this.props.type);
       return React.createElement(
         'div',
-        { id: 'control-suggestions' },
-        React.createElement(
+        { id: 'control-suggestions', 'class': 'control-suggestions' },
+        this.props.type == "main" ? React.createElement(
           'div',
           { 'class': 'd-flex justify-content-center' },
           React.createElement(SearchBar, { searchtext: this.state.searchtext, oncheckSearch: this.mainSearch })
+        ) : React.createElement('null', null),
+        React.createElement(
+          'h3',
+          { 'class': 'startitleindex d-flex justify-content-start mt-3' },
+          this.props.type == "main" ? "สตาร์" : "ป๊อปปูล่า"
         ),
         React.createElement(
           'div',
-          { 'class': 'content' },
+          { 'class': 'content row mb-5' },
           React.createElement(
             'div',
-            { 'class': 'box' },
+            { 'class': 'box col' },
             suggestion_rows
           )
         )
@@ -192,11 +205,12 @@ var SuggestionsRow = function (_React$Component3) {
       //<a name="posterr" href={portalname} class="h4 colorstyle">{this.props.portalname}</a> 
 
       return React.createElement(
-        'div',
-        null,
+        'a',
+        { name: 'goodmorning', 'class': 'goodmorning mr-5 mb-3', href: ininfluencer_link },
+        React.createElement('img', { 'class': 'imgindex', width: '240', height: '300', src: link }),
         React.createElement(
           'a',
-          { name: 'posterr', href: ininfluencer_link, 'class': 'h4 colorstyle' },
+          { name: 'posterr', 'class': 'h4 colorstyle' },
           this.props.username
         ),
         React.createElement(
@@ -213,8 +227,7 @@ var SuggestionsRow = function (_React$Component3) {
           'h5',
           null,
           this.props.fullname
-        ),
-        React.createElement('img', { width: '350', height: '200', src: link })
+        )
       );
     }
   }]);
@@ -226,7 +239,10 @@ document.addEventListener('DOMContentLoaded', function () {
   fetch('/inzwerg4jgnsd9aadif67').then(function (response) {
     return response.json();
   }).then(function (data) {
-    console.log("this is data", data);
-    ReactDOM.render(React.createElement(SuggestionTable, { data: data }), document.querySelector('#suggestions_por_react'));
+    console.log("this is newdata", data["newdata"]);
+    console.log("this is populardata", data["populardata"]);
+
+    ReactDOM.render(React.createElement(SuggestionTable, { data: data["newdata"], type: 'main' }), document.querySelector('#suggestions_por_react'));
+    ReactDOM.render(React.createElement(SuggestionTable, { data: data["populardata"], type: 'popular' }), document.querySelector('#suggestions_por_react_popular'));
   });
 });

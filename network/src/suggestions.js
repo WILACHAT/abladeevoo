@@ -20,6 +20,10 @@ function getCookie(name) {
 
     };
     checkSearch(e) {      
+      //if (e.target.value !=  "")
+     // {
+      //  document.querySelector('#suggestions_por_react_popular').hidden = true;
+      //}
       this.props.oncheckSearch(e.target.value);
 
     }
@@ -68,6 +72,7 @@ function getCookie(name) {
       method: 'POST',
       headers:{'X-CSRFToken': getcooked},
         body: JSON.stringify({
+
           //add state of newdata right here
           searchvalue:  searchtext
             })
@@ -75,10 +80,12 @@ function getCookie(name) {
     
     .then(response => response.json())
     .then(data => {
-     console.log("this is data", data)
+    console.log("checker checky for newdata", this.state.newdata)
+     console.log("this is dataaaaaa mama mama", data)
      this.setState({
-      newdata: data
+      newdata: data["newdata"]
     })
+
 
     });
     }
@@ -92,6 +99,7 @@ function getCookie(name) {
       </div>
       </div>
       */
+      
       for (let i = 0; i < this.state.newdata.length; i++)
       {
         //console.log("lol wtf", this.props.data[i])
@@ -106,13 +114,18 @@ function getCookie(name) {
               profile_picture={this.state.newdata[i].profile_picture}/>
         );
       }
+      console.log(this.props.type)
         return (
-          <div id="control-suggestions">
-          <div class="d-flex justify-content-center">
+          <div id="control-suggestions" class="control-suggestions">
+            
+            {this.props.type == "main" ? <div class="d-flex justify-content-center">
            <SearchBar searchtext={this.state.searchtext} oncheckSearch={this.mainSearch}/>
-          </div>
-          <div class="content">
-              <div class="box">{suggestion_rows}</div>
+          </div>:<null></null>}
+          
+          <h3 class="startitleindex d-flex justify-content-start mt-3">{this.props.type == "main" ? "สตาร์":"ป๊อปปูล่า"}</h3>
+
+          <div class="content row mb-5">
+              <div class="box col">{suggestion_rows}</div>
             </div>
           </div>
             
@@ -147,15 +160,13 @@ function getCookie(name) {
       //<a name="posterr" href={portalname} class="h4 colorstyle">{this.props.portalname}</a> 
 
         return (
-        <div> 
-          <a name="posterr" href={ininfluencer_link} class="h4 colorstyle">{this.props.username}</a> 
+        <a name="goodmorning" class="goodmorning mr-5 mb-3" href={ininfluencer_link}> 
+          <img class="imgindex" width="240" height="300" src={link}></img>
+          <a name="posterr" class="h4 colorstyle">{this.props.username}</a> 
           <h5>{this.props.influencer_ornot}</h5>
           <h5>{this.props.freeze_account}</h5>
           <h5>{this.props.fullname}</h5>
-          <img width="350" height="200" src={link}></img>
-
-
-        </div>
+        </a>
         )
 
       }
@@ -165,9 +176,13 @@ document.addEventListener('DOMContentLoaded', function() {
       fetch(`/inzwerg4jgnsd9aadif67`)
       .then(response => response.json())
       .then(data => {        
-        console.log("this is data", data)
-        ReactDOM.render(<SuggestionTable data={data}/>, document.querySelector('#suggestions_por_react'));
-    
+        console.log("this is newdata", data["newdata"])
+        console.log("this is populardata", data["populardata"])
+
+
+        ReactDOM.render(<SuggestionTable data={data["newdata"]} type="main"/>, document.querySelector('#suggestions_por_react'));
+        ReactDOM.render(<SuggestionTable data={data["populardata"]} type="popular"/>, document.querySelector('#suggestions_por_react_popular'));
+
       });
     
      

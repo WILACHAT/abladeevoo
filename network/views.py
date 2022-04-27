@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara
+from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara, Views
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 import uuid
@@ -66,9 +66,12 @@ def usersettingapi(request):
         ,email = data["email"], username = data["username"])
     return_request = {"what":"ngong"}
     normal_user_info = User.objects.filter(id = request.user.id)
+
     
     data = []
+
     for i in normal_user_info:
+        i.influencer_id
         data.append(i.serialize())
         return_request = {"data":data}
 
@@ -79,27 +82,55 @@ def inzwerg4jgnsd9aadif67(request):
 
     #influencer essentially a page that uses serialize to display all the influencers
     
-    influencers = User.objects.all().filter(influencer_ornot=1)
+    influencers = User.objects.all().filter(influencer_ornot=1)[:10]
     checker = Userinfo.objects.all().filter()
+    view = Views.objects.values('influencer_id').annotate(dcount=Count('influencer_id')).order_by('-dcount')[:10]
+    populardata = []
+    
+
+    for i in view:
+        print(i["influencer_id"])
+        newinfluencers = Userinfo.objects.filter(id=i["influencer_id"])
+        for w in newinfluencers:
+
+            popularpuller = w.serialize()
+            popularpuller["profile_picture"] = w.profile_picture
+            popularpuller["fullname"] = w.profile_fullname
+            users = User.objects.filter(id=i["influencer_id"])
+            for user in users:
+                popularpuller["username"] = user.username
+
+
+            print(w.profile_picture)
+            print(w.profile_fullname)
+
+            populardata.append(popularpuller)
+
+            
+    
+    #influencers = Views.objects.all()order_by('-pub_date', 'headline')
+
     if request.method == "POST":
         print("ok in here forsearch")
         data = json.loads(request.body)
         searchvalue = data["searchvalue"]
-        listofcloseuser = []
+        print("this is the search value", searchvalue)
+        if searchvalue != "":
 
-        for i in influencers:
-            i.username
-            match = re.search(f"{searchvalue}",i.username)
-            if match:
-                listofcloseuser.append(i.id)
-        
-        influencers = User.objects.filter(id__in = listofcloseuser)
+            listofcloseuser = []
+            newinfluencers = User.objects.all().filter(influencer_ornot=1)
 
-    
-
+            for i in newinfluencers:
+                i.username
+                match = re.search(f"{searchvalue}",i.username)
+                if match:
+                    listofcloseuser.append(i.id)
+            
+            influencers = User.objects.filter(id__in = listofcloseuser)
+            
+       
     newdata = []
     for influencer in influencers:
-        print("data before serialize", influencer.serialize())
         puller = influencer.serialize()
         
         checker = Userinfo.objects.filter(influencer = puller["id"])
@@ -110,9 +141,9 @@ def inzwerg4jgnsd9aadif67(request):
 
         newdata.append(puller)
 
-    print("what is going on", newdata)
     newdata = newdata
-    return_request = newdata
+    what = ""
+    return_request = {"newdata":newdata, "populardata":populardata}
     return JsonResponse(return_request, safe=False)
 
 
@@ -120,6 +151,9 @@ def ininfluencer(request, ininfluencer):
     '''the request, ininfluencer -> ininfluencer came from urls.py
      and its value behindininfluence/str:ininfluence 
      *influencer needs to have the same name as the /ininfluencer of url'''
+ 
+
+
 
    
     return render(request, "network/ininfluencer.html", {'username': ininfluencer})
@@ -130,7 +164,23 @@ def gotoinfluencer(request, username, feedtype):
     userinfodata = []
     influencerid = User.objects.values('id').get(username=username)  
 
+   
+
+
     influencerid = influencerid["id"]
+    viewcheck = Views.objects.filter(viewer_id = request.user.id, influencer_id = influencerid)
+    
+    print("here it comes")
+    print(request.user.id)
+    print(influencerid)
+
+    print(viewcheck)
+    if viewcheck.exists():
+        print("what")
+    else:
+        view = Views(viewer_id = request.user.id, influencer_id = influencerid)
+        view.save()
+
     reviewedinfo = Reviews.objects.filter(user_id_reviewed = influencerid)
     averagestars = 0
     for i in reviewedinfo:

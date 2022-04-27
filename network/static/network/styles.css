@@ -190,7 +190,27 @@
   display: flex;
   min-height: min-content; /* needs vendor prefixes */
 }
-.column
+.startitleindex
 {
-  width:500px;
+  font-size: 350%;
+  font-family: 'Sarabun';
+  color: #ffc500;
+}
+.control-suggestions
+{
+  margin: auto;
+width: 90%;
+padding: 10px;
+
+
+}
+.imgindex
+{
+  border-radius: 7px;
+  object-fit: contain;
+
+}
+.goodmorning:hover
+{
+
 }

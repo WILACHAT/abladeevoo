@@ -37,6 +37,7 @@ class Userinfo(models.Model):
     category = models.CharField(max_length=256, null=True)
 
 
+
     def serialize(self):
         return {
             "id":self.id,
@@ -50,6 +51,10 @@ class Userinfo(models.Model):
             "influencer":str(self.influencer),
             "category":self.category
         } 
+class Views(models.Model):
+    viewer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='viewer') 
+    influencer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencer_view') 
+
 
 
 #How do i do the category? EZ, essentially put category name in the database
