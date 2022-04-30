@@ -84,12 +84,16 @@ var InfluencerFeedRows = function (_React$Component) {
         var link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4";
         thewholereturn = React.createElement(
           'div',
-          null,
+          { 'class': 'videomaincover d-flex justify-content-center mt-5' },
           React.createElement(
-            'video',
-            { id: 'testervideo', width: '320', height: '240', controls: true },
-            React.createElement('source', { src: link }),
-            'Your browser does not support the video tag.'
+            'div',
+            null,
+            React.createElement(
+              'video',
+              { 'class': 'videoshow', id: 'testervideo', width: '320', height: '240', controls: true },
+              React.createElement('source', { src: link }),
+              'Your browser does not support the video tag.'
+            )
           ),
           this.props.sameperson == 1 ? React.createElement(
             'button',
@@ -107,18 +111,26 @@ var InfluencerFeedRows = function (_React$Component) {
         }
         thewholereturn = React.createElement(
           'div',
-          null,
+          { 'class': 'grid' },
           React.createElement(
-            'h4',
-            null,
-            this.props.data["username"]
-          ),
-          React.createElement(
-            'h4',
-            null,
-            this.props.data["review"]
-          ),
-          React.createElement('img', { 'class': 'imgnoedit', src: _link })
+            'div',
+            { 'class': 'reviewmaincover d-flex justify-content-center' },
+            React.createElement(
+              'div',
+              { 'class': 'd-flex flex-column d-flex justify-content-start mt-3' },
+              React.createElement('img', { 'class': 'imgnoedit', src: _link }),
+              React.createElement(
+                'h4',
+                null,
+                this.props.data["username"]
+              ),
+              React.createElement(
+                'h6',
+                { 'class': 'reviewtext' },
+                this.props.data["review"]
+              )
+            )
+          )
         );
       }
 
@@ -161,18 +173,47 @@ var InfluencerFeedTable = function (_React$Component2) {
         'div',
         null,
         this.props.data["feedtype"] == "main" ? React.createElement(
-          'h1',
+          'div',
           null,
-          'Example Posts'
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center' },
+            React.createElement(
+              'h1',
+              null,
+              'Example Posts'
+            )
+          ),
+          this.props.data["alldata"] == "" ? React.createElement(
+            'h6',
+            null,
+            '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E42\u0E1E\u0E2A'
+          ) : React.createElement(
+            'div',
+            { 'class': 'grid d-flex justify-content-center' },
+            rows
+          )
         ) : React.createElement(
-          'h1',
+          'div',
           null,
-          'Revies of Customers'
-        ),
-        React.createElement(
-          'table',
-          { className: 'table table-hover table-sm' },
-          rows
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center' },
+            React.createElement(
+              'h1',
+              null,
+              '\u0E23\u0E34\u0E27\u0E34\u0E27'
+            )
+          ),
+          this.props.data["alldata"] == "" ? React.createElement(
+            'h6',
+            null,
+            '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E23\u0E35\u0E27\u0E34\u0E27'
+          ) : React.createElement(
+            'div',
+            { 'class': 'row d-flex justify-content-center' },
+            rows
+          )
         )
       );
     }
@@ -647,6 +688,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }, {
     key: 'editProfile',
     value: function editProfile(e) {
+      console.log("edot");
       //go to edit thingy ok??
       //the jon of this state is to essentially send the value to EditPost
 
@@ -717,19 +759,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
 
       if (this.props.data["userinfodata"] != "") {
 
-        /* if (this.props.data["userinfodata"][0].profile_picture != null)
-         {
-           link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg"
-         }
-         if (this.props.data["userinfodata"][0].profile_video != null)
-         {
-           console.log("you got this?")
-           videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4"
-         }
-         */
-        console.log("what is going on2", videolink);
-
-        console.log("walowalo", this.props.data["userinfodata"][0].profile_picture);
         if (this.props.data["userinfodata"] == "") {
           console.log("userinfodata is blank fak u");
         } else {
@@ -741,12 +770,37 @@ var InfluencerFeedTitle = function (_React$Component4) {
           console.log("ok we start doing the edit from here");
         }
       }
+      var averagestars = Math.round(10 * this.props.data["averagestars"]) / 10;
+
+      var categoryname = "";
+      if (this.props.data["userinfodata"][0].category == "athelete") {
+        categoryname = "นักกีฬา";
+      } else if (this.props.data["userinfodata"][0].category == "gamer") {
+        categoryname = "เกมเมอร์";
+      } else if (this.props.data["userinfodata"][0].category == "actor") {
+        categoryname = "นักแสดง";
+      } else if (this.props.data["userinfodata"][0].category == "influencer") {
+        categoryname = "อินฟลูเอนเซอร์";
+      } else if (this.props.data["userinfodata"][0].category == "comedian") {
+        categoryname = "นักแสดงตลก";
+      } else if (this.props.data["userinfodata"][0].category == "singer") {
+        categoryname = "นักร้อง";
+      }
+
+      console.log("CATEGORY DARA", this.props.data["userinfodata"][0].category);
+
+      console.log("daijoubu dayou", this.props.data);
       return React.createElement(
         'div',
         null,
         this.props.data["sameperson"] == 1 ? React.createElement(
           'div',
           null,
+          React.createElement(
+            'h1',
+            null,
+            'WHAT IS GOIGN ON'
+          ),
           React.createElement(
             'div',
             { 'class': 'd-flex justify-content-center mt-1 mb-1' },
@@ -766,6 +820,11 @@ var InfluencerFeedTitle = function (_React$Component4) {
               { htmlFor: 'edit_post_txt' },
               'Click to change Introduction video: '
             )
+          ),
+          React.createElement(
+            'button',
+            { type: 'button', 'class': 'btn btn-success', onClick: this.editProfile },
+            'Edit'
           ),
           React.createElement(
             'div',
@@ -798,57 +857,103 @@ var InfluencerFeedTitle = function (_React$Component4) {
           )
         ) : React.createElement(
           'div',
-          { onClick: this.showImg, 'class': 'd-flex justify-content-center' },
-          React.createElement('img', { 'class': 'imgnoedit', src: link }),
+          null,
           React.createElement(
-            'video',
-            { id: 'testervideo', width: '320', height: '240', controls: true },
-            React.createElement('source', { src: videolink }),
-            'Your browser does not support the video tag.'
+            'h2',
+            null,
+            'looking for a yea u know'
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-between' },
+            React.createElement(
+              'div',
+              { 'class': 'hihi d-flex flex-column ml-5' },
+              React.createElement(
+                'div',
+                { 'class': 'd-flex justify-content-center' },
+                React.createElement('img', { 'class': 'imgnoedit', src: link })
+              ),
+              React.createElement(
+                'div',
+                { 'class': 'd-flex justify-content-between mt-3' },
+                React.createElement(
+                  'h1',
+                  null,
+                  this.props.data['username']
+                ),
+                React.createElement(
+                  'div',
+                  null,
+                  React.createElement(
+                    'a',
+                    { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
+                    'Reserve'
+                  )
+                )
+              ),
+              React.createElement(
+                'div',
+                { 'class': 'forfont d-flex justify-content-center' },
+                React.createElement(
+                  'div',
+                  { 'class': 'mr-3' },
+                  React.createElement(
+                    'h5',
+                    { 'class': 'forfont ml-3' },
+                    this.props.data["reviewnum"],
+                    ' \u0E23\u0E35\u0E27\u0E34\u0E27'
+                  )
+                ),
+                React.createElement(
+                  'div',
+                  null,
+                  React.createElement(
+                    'h5',
+                    null,
+                    averagestars,
+                    ' \u0E14\u0E32\u0E27\u0E40\u0E09\u0E25\u0E35\u0E48\u0E22'
+                  )
+                )
+              ),
+              React.createElement(
+                'div',
+                { 'class': 'd-flex justify-content-center mt-1' },
+                this.props.data["userinfodata"] != "" ? React.createElement(
+                  'h5',
+                  null,
+                  categoryname
+                ) : null
+              ),
+              this.state.edit
+            ),
+            React.createElement(
+              'video',
+              { 'class': 'mr-5', id: 'introvideo', controls: true },
+              React.createElement('source', { src: videolink }),
+              'Your browser does not support the video tag.'
+            )
           )
         ),
         React.createElement(
-          'h1',
+          'div',
+          { 'class': 'd-flex justify-content-center mt-5 mb-3' },
+          React.createElement(
+            'button',
+            { type: 'button', 'class': 'btn btn-primary mr-5', id: 'publicfeedbutid', onClick: this.changeFeedPortal },
+            'Public Feed'
+          ),
+          React.createElement(
+            'button',
+            { type: 'button', 'class': 'btn btn-primary', id: 'reviewfeedbutid', onClick: this.changeFeedPortal },
+            'Reviews'
+          )
+        ),
+        this.props.data["sameperson"] == 1 ? React.createElement(
+          'h6',
           null,
-          this.props.data['username']
-        ),
-        React.createElement(
-          'h5',
-          null,
-          'Number of Review: ',
-          this.props.data["reviewnum"]
-        ),
-        React.createElement(
-          'h5',
-          null,
-          'Stars: ',
-          this.props.data["averagestars"]
-        ),
-        this.props.data["userinfodata"] != "" ? React.createElement(
-          'h5',
-          null,
-          this.props.data["userinfodata"][0].category
-        ) : null,
-        React.createElement(
-          'button',
-          { type: 'button', 'class': 'btn btn-primary', id: 'publicfeedbutid', onClick: this.changeFeedPortal },
-          'Public Feed'
-        ),
-        React.createElement(
-          'button',
-          { type: 'button', 'class': 'btn btn-primary', id: 'reviewfeedbutid', onClick: this.changeFeedPortal },
-          'Reviews'
-        ),
-        this.props.data["sameperson"] != 1 ? React.createElement(
-          'a',
-          { name: 'posterr', 'class': 'btn btn-primary', href: bookhtmllink },
-          'Reserve'
-        ) : React.createElement(
-          'button',
-          { type: 'button', 'class': 'btn btn-success', onClick: this.editProfile },
-          'Edit'
-        ),
-        this.state.edit
+          '*note \u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16 Show \u0E44\u0E14\u0E49\u0E41\u0E04\u0E48 9 Posts'
+        ) : null
       );
     }
   }]);

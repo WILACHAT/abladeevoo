@@ -423,5 +423,51 @@ span .myinboxcss:hover{
 #button-7:hover a {
   left: 150px;
 }
+.grid {
+  display: grid;
+  gap: 1px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.videomaincover
+{
+  width:400px;
+  height:400px;
+}
 
+.reviewmaincover
+{
+  width:400px;
+  height:50%;
+}
 
+.reviewtext
+{
+  font-size:15px;
+}
+#introvideo
+{
+  width:60%;
+  height:35em;
+}
+.hihi
+{
+  background-color: #FFBE00;
+  padding:15px;
+  border-radius: 5px;
+  width:400px;
+}
+.reservebutton
+{
+  background-color: #008fff;
+  color:white;
+}
+.forfont
+{
+  font-family: 'Sarabun';
+}
+.flexclass
+{
+  display: flex;
+  flex-wrap: wrap;
+}

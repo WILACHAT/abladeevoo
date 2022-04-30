@@ -1001,7 +1001,7 @@ var InboxFeedInbox = function (_React$Component3) {
                         this.state.hide
                     ) : null
                 ),
-                this.state.newdata["data"] != null ? React.createElement(
+                this.state.newdata["data"] != "" ? React.createElement(
                     'div',
                     { 'class': 'inboxtable d-flex justify-content-center' },
                     React.createElement(
@@ -1015,12 +1015,16 @@ var InboxFeedInbox = function (_React$Component3) {
                     React.createElement(
                         'h6',
                         null,
-                        'No Requests yet'
-                    ),
-                    React.createElement(
-                        'h6',
-                        null,
-                        'Maybe a page for you to tell influencer to share their page on ig, fb, utube.'
+                        React.createElement(
+                            'h4',
+                            null,
+                            '\u0E22\u0E31\u0E27\u0E44\u0E21\u0E48\u0E21\u0E35 Request'
+                        ),
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Share hai khon eunn '
+                        )
                     )
                 ),
                 rows != "" ? React.createElement(

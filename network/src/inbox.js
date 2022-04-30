@@ -738,7 +738,7 @@ class InboxFeedInbox extends React.Component {
                 <div class="d-flex justify-content-center mb-5">    
                     {this.state.newdata["type"] == "request" ? <button id="hidecompletedid" value={this.state.hide}class="btn btn-primary" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
                </div> 
-                {this.state.newdata["data"] != null ? 
+                {this.state.newdata["data"] != "" ? 
             
                 <div class="inboxtable d-flex justify-content-center">
                     <div class="columninbox d-flex justify-content-center flex-column">
@@ -746,11 +746,10 @@ class InboxFeedInbox extends React.Component {
                     </div>
                 </div>: <div>
                 <h6>
-                    No Requests yet
+                    <h4>ยัวไม่มี Request</h4>
+                    <h4>Share hai khon eunn </h4>
                 </h6>
-                <h6>
-                    Maybe a page for you to tell influencer to share their page on ig, fb, utube.
-                </h6>
+                
             </div>}
                 {rows != "" ? 
         <div class="paginationcss">

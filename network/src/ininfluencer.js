@@ -75,13 +75,16 @@ render()
   {
     let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4"
     thewholereturn = 
-    <div>
-      <video id="testervideo" width="320" height="240" controls>
-        <source src={link}></source>
-        Your browser does not support the video tag.
-      </video>
+    <div  class="videomaincover d-flex justify-content-center mt-5">
+      <div>
+        <video class="videoshow" id="testervideo" width="320" height="240" controls>
+          <source src={link}></source>
+          Your browser does not support the video tag.
+        </video>
+      
+      </div>
       {this.props.sameperson == 1 ?  <button id={this.props.data} value={this.state.hide} class="btn btn-primary" onClick={this.hideFunction}>{this.state.hide}</button>:null}
-    
+
     </div>
   }
   else
@@ -98,11 +101,16 @@ render()
       link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["picture"] + ".jpg"
     }
     thewholereturn =  
-    <div>
-      <h4>{this.props.data["username"]}</h4>
-      <h4>{this.props.data["review"]}</h4>
-      <img class="imgnoedit" src={link}></img>
-    </div>
+    <div class="grid">
+      <div class="reviewmaincover d-flex justify-content-center">
+      <div class="d-flex flex-column d-flex justify-content-start mt-3">
+
+        <img class="imgnoedit" src={link}></img>
+          <h4>{this.props.data["username"]}</h4>
+          <h6 class="reviewtext">{this.props.data["review"]}</h6>
+      </div>
+      </div>
+      </div>
     
   }
   
@@ -137,14 +145,27 @@ class InfluencerFeedTable extends React.Component {
         }
       
      
-      
-
+    
       return (
         <div>
-            {this.props.data["feedtype"] == "main" ? <h1>Example Posts</h1>:<h1>Revies of Customers</h1>}
-            <table className="table table-hover table-sm">
+      
+            {this.props.data["feedtype"] == "main" ? <div><div class="d-flex justify-content-center"><h1>Example Posts</h1></div>{this.props.data["alldata"] == "" ? <h6>ยังไม่มีโพส</h6>: 
+            <div class="grid d-flex justify-content-center">
               {rows}
-            </table>
+            </div>}</div>:
+           
+           <div>
+                  <div class="d-flex justify-content-center">
+                    <h1>ริวิว</h1>
+                  </div> 
+                  {this.props.data["alldata"] == "" ? <h6>ยังไม่มีรีวิว</h6>: 
+
+                  <div class="row d-flex justify-content-center">
+                    {rows}
+                  </div>}
+            </div>}
+           
+
         </div>
       )
     }
@@ -486,6 +507,7 @@ class InfluencerFeedTitle extends React.Component {
     
     editProfile(e)
     {
+      console.log("edot")
       //go to edit thingy ok??
       //the jon of this state is to essentially send the value to EditPost
 
@@ -567,20 +589,6 @@ class InfluencerFeedTitle extends React.Component {
       if (this.props.data["userinfodata"] != "")
       {
        
-       /* if (this.props.data["userinfodata"][0].profile_picture != null)
-        {
-          link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg"
-        }
-        if (this.props.data["userinfodata"][0].profile_video != null)
-        {
-          console.log("you got this?")
-          videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4"
-        }
-        */
-        console.log("what is going on2", videolink)
-  
-  
-        console.log("walowalo", this.props.data["userinfodata"][0].profile_picture)
           if (this.props.data["userinfodata"] == "")
           {
             console.log("userinfodata is blank fak u")
@@ -596,19 +604,58 @@ class InfluencerFeedTitle extends React.Component {
             console.log("ok we start doing the edit from here")
           }
       }
+      let averagestars= Math.round(10*this.props.data["averagestars"])/10; 
+
+      let categoryname = ""
+      if (this.props.data["userinfodata"][0].category == "athelete")
+      {
+        categoryname = "นักกีฬา"
+      }
+      else if(this.props.data["userinfodata"][0].category == "gamer")
+      {
+        categoryname = "เกมเมอร์"
+      }
+      else if(this.props.data["userinfodata"][0].category == "actor")
+      {
+        categoryname = "นักแสดง"
+      }
+      else if(this.props.data["userinfodata"][0].category == "influencer")
+      {
+        categoryname = "อินฟลูเอนเซอร์"
+      }
+      else if(this.props.data["userinfodata"][0].category == "comedian")
+      {
+        categoryname = "นักแสดงตลก"
+      }
+      else if(this.props.data["userinfodata"][0].category == "singer")
+      {
+        categoryname = "นักร้อง"
+      }
+
+
+      console.log("CATEGORY DARA", this.props.data["userinfodata"][0].category);
+
+      console.log("daijoubu dayou", this.props.data)
         return (
          <div>
            {this.props.data["sameperson"] == 1 ?  
                 <div>
+                <h1>WHAT IS GOIGN ON</h1>
+
                 <div class="d-flex justify-content-center mt-1 mb-1">
                   <label htmlFor="edit_post_txt">Click to change profile picture: </label>
                 </div>  
                   <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>
                   <img class="imgnoedit" src={link}></img>
 
+
+
                   <div class="d-flex justify-content-center mt-1 mb-1">
                       <label htmlFor="edit_post_txt">Click to change Introduction video: </label>
                   </div> 
+
+                  <button type="button" class="btn btn-success" onClick={this.editProfile}>Edit</button>
+
 
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -624,25 +671,51 @@ class InfluencerFeedTitle extends React.Component {
                     Your browser does not support the video tag.
                 </video>
 
-
                 </div>:  
-                <div onClick={this.showImg} class="d-flex justify-content-center">
-                    <img class="imgnoedit" src={link}></img>
-                    <video id="testervideo" width="320" height="240" controls>
-                        <source src={videolink}></source>
-                        Your browser does not support the video tag.
-                    </video>
-                </div>}
-             <h1>{this.props.data['username']}</h1>
-             <h5>Number of Review: {this.props.data["reviewnum"]}</h5>
-             <h5>Stars: {this.props.data["averagestars"]}</h5>
-             {this.props.data["userinfodata"] != "" ? <h5>{this.props.data["userinfodata"][0].category}</h5>:null}
+                <div>
+                    <h2>looking for a yea u know</h2>
+                    <div class="d-flex justify-content-between"> 
+                          <div class="hihi d-flex flex-column ml-5">
+                              <div class="d-flex justify-content-center">
+                                <img class="imgnoedit" src={link}></img>
+                              </div>
+                              <div class="d-flex justify-content-between mt-3">
+                                <h1>{this.props.data['username']}</h1>
+                                <div>
+                                  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>Reserve</a>
+                                </div>
+                              </div>                              
+                              <div class="forfont d-flex justify-content-center">
+                                  <div class="mr-3">
+                                      <h5 class="forfont ml-3">{this.props.data["reviewnum"]} รีวิว</h5>
+                                  </div>
+                                  <div>
+                                      <h5>{averagestars} ดาวเฉลี่ย</h5>
+                                  </div>
+                              </div>
+                              <div class="d-flex justify-content-center mt-1">
+                                  {this.props.data["userinfodata"] != "" ? <h5>{categoryname}</h5>:null}
+                              </div>
 
+                                  {this.state.edit}
 
-            <button type="button" class="btn btn-primary" id="publicfeedbutid" onClick={this.changeFeedPortal}>Public Feed</button>
-            <button type="button" class="btn btn-primary" id="reviewfeedbutid" onClick={this.changeFeedPortal}>Reviews</button>
-            {this.props.data["sameperson"] != 1 ? <a name="posterr" class="btn btn-primary" href={bookhtmllink}>Reserve</a>:  <button type="button" class="btn btn-success" onClick={this.editProfile}>Edit</button>}
-            {this.state.edit}
+                              </div>
+
+                          <video class="mr-5" id="introvideo" controls>
+                                <source src={videolink}></source>
+                                Your browser does not support the video tag.
+                            </video>
+                     
+                    </div>
+             </div>}
+
+            <div class="d-flex justify-content-center mt-5 mb-3">
+              <button type="button" class="btn btn-primary mr-5" id="publicfeedbutid" onClick={this.changeFeedPortal}>Public Feed</button>
+              <button type="button" class="btn btn-primary" id="reviewfeedbutid" onClick={this.changeFeedPortal}>Reviews</button>
+            </div>
+            {this.props.data["sameperson"] == 1 ?
+              <h6>*note สามารถ Show ได้แค่ 9 Posts</h6>
+              :null}
          </div>
         )
 
