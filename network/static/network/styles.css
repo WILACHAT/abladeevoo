@@ -447,7 +447,7 @@ span .myinboxcss:hover{
 }
 #introvideo
 {
-  width:60%;
+  width:90%;
   height:35em;
 }
 .hihi
@@ -455,7 +455,7 @@ span .myinboxcss:hover{
   background-color: #FFBE00;
   padding:15px;
   border-radius: 5px;
-  width:400px;
+  width:420px;
 }
 .reservebutton
 {
@@ -470,4 +470,32 @@ span .myinboxcss:hover{
 {
   display: flex;
   flex-wrap: wrap;
+}
+.editbutton
+{
+  background-color: coral;
+  color:white;
+}
+.hidebutton
+{
+  background-color: #008fff;
+  color:white;
+}
+.editintrovid
+{
+  width:30%;
+}
+.coversvdointro
+{
+  width:62%;
+  height:35em;
+  padding:10px;
+}
+.enough
+{
+  margin-top:50px;
+}
+.custom-file
+{
+  width:120%;
 }

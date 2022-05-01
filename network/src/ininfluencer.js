@@ -75,16 +75,19 @@ render()
   {
     let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4"
     thewholereturn = 
-    <div  class="videomaincover d-flex justify-content-center mt-5">
-      <div>
-        <video class="videoshow" id="testervideo" width="320" height="240" controls>
-          <source src={link}></source>
-          Your browser does not support the video tag.
-        </video>
-      
+    <div class="d-flex justify-comlumn">
+      <div  class="videomaincover mt-3 ml-2">
+        <div class="d-flex justify-content-center">
+          <video class="videoshow" id="testervideo" width="320" height="240" controls>
+            <source src={link}></source>
+            Your browser does not support the video tag.
+          </video>
+        
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            {this.props.sameperson == 1 ?  <button id={this.props.data} value={this.state.hide} class="btn hidebutton" onClick={this.hideFunction}>{this.state.hide}</button>:null}
+        </div>
       </div>
-      {this.props.sameperson == 1 ?  <button id={this.props.data} value={this.state.hide} class="btn btn-primary" onClick={this.hideFunction}>{this.state.hide}</button>:null}
-
     </div>
   }
   else
@@ -638,49 +641,31 @@ class InfluencerFeedTitle extends React.Component {
       console.log("daijoubu dayou", this.props.data)
         return (
          <div>
-           {this.props.data["sameperson"] == 1 ?  
-                <div>
-                <h1>WHAT IS GOIGN ON</h1>
-
-                <div class="d-flex justify-content-center mt-1 mb-1">
-                  <label htmlFor="edit_post_txt">Click to change profile picture: </label>
-                </div>  
-                  <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>
-                  <img class="imgnoedit" src={link}></img>
-
-
-
-                  <div class="d-flex justify-content-center mt-1 mb-1">
-                      <label htmlFor="edit_post_txt">Click to change Introduction video: </label>
-                  </div> 
-
-                  <button type="button" class="btn btn-success" onClick={this.editProfile}>Edit</button>
-
-
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                    </div>
-                    <div class="custom-file">
-                        <input type="file" onChange={this.chooseFileVideo} class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
-                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                    </div>
-                </div>
-                <video id="testervideo" width="320" height="240" controls>
-                    <source src={videolink}></source>
-                    Your browser does not support the video tag.
-                </video>
-
-                </div>:  
+        
                 <div>
                     <h2>looking for a yea u know</h2>
                     <div class="d-flex justify-content-between"> 
                           <div class="hihi d-flex flex-column ml-5">
                               <div class="d-flex justify-content-center">
                                 <img class="imgnoedit" src={link}></img>
+  
                               </div>
+                              {this.props.data["sameperson"] == 1 ?                
+                    
+                      <div class="d-flex flex-column mt-3">
+                        <div class="d-flex justify-content-center">
+                            <label htmlFor="edit_post_txt">Click to change profile picture: </label>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>                  
+                        </div>
+
+                      </div> 
+                :null}
+
                               <div class="d-flex justify-content-between mt-3">
-                                <h1>{this.props.data['username']}</h1>
+                                <h1 >{this.props.data['username']}</h1>
+                                {this.props.data["sameperson"] == 1 ? <div><button type="button" class="btn editbutton" onClick={this.editProfile}>Edit</button></div>: null}
                                 <div>
                                   <a name="posterr" class="btn reservebutton" href={bookhtmllink}>Reserve</a>
                                 </div>
@@ -700,21 +685,40 @@ class InfluencerFeedTitle extends React.Component {
                                   {this.state.edit}
 
                               </div>
-
-                          <video class="mr-5" id="introvideo" controls>
-                                <source src={videolink}></source>
-                                Your browser does not support the video tag.
-                            </video>
-                     
+                            <div class="coversvdointro">
+                                <div class="d-flex flex-column">
+                                    <video class="mr-5" id="introvideo" controls>
+                                          <source src={videolink}></source>
+                                          Your browser does not support the video tag.
+                                    </video>
+                                    {this.props.data["sameperson"] == 1 ?   
+                                    <div class="mb-5">
+                                        <div class="d-flex justify-content-center">
+                                          <label htmlFor="edit_post_txt">Click to change introduction video: </label>
+                                      </div>
+                                        <div>
+                                            <div class="custom-file">
+                                                <div class="d-flex justify-content-center">
+                                                <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    :null}
+                                </div>
+                            </div>
                     </div>
-             </div>}
+             </div>
 
-            <div class="d-flex justify-content-center mt-5 mb-3">
+
+            <div class="enough d-flex justify-content-center mt-5 mb-3">
               <button type="button" class="btn btn-primary mr-5" id="publicfeedbutid" onClick={this.changeFeedPortal}>Public Feed</button>
               <button type="button" class="btn btn-primary" id="reviewfeedbutid" onClick={this.changeFeedPortal}>Reviews</button>
             </div>
             {this.props.data["sameperson"] == 1 ?
-              <h6>*note สามารถ Show ได้แค่ 9 Posts</h6>
+              <div class="d-flex justify-content-center">
+                  <h6>*note สามารถ Show ได้แค่ 9 Posts</h6>
+              </div>
               :null}
          </div>
         )

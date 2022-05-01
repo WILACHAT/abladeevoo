@@ -84,22 +84,30 @@ var InfluencerFeedRows = function (_React$Component) {
         var link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4";
         thewholereturn = React.createElement(
           'div',
-          { 'class': 'videomaincover d-flex justify-content-center mt-5' },
+          { 'class': 'd-flex justify-comlumn' },
           React.createElement(
             'div',
-            null,
+            { 'class': 'videomaincover mt-3 ml-2' },
             React.createElement(
-              'video',
-              { 'class': 'videoshow', id: 'testervideo', width: '320', height: '240', controls: true },
-              React.createElement('source', { src: link }),
-              'Your browser does not support the video tag.'
+              'div',
+              { 'class': 'd-flex justify-content-center' },
+              React.createElement(
+                'video',
+                { 'class': 'videoshow', id: 'testervideo', width: '320', height: '240', controls: true },
+                React.createElement('source', { src: link }),
+                'Your browser does not support the video tag.'
+              )
+            ),
+            React.createElement(
+              'div',
+              { 'class': 'd-flex justify-content-center mt-3' },
+              this.props.sameperson == 1 ? React.createElement(
+                'button',
+                { id: this.props.data, value: this.state.hide, 'class': 'btn hidebutton', onClick: this.hideFunction },
+                this.state.hide
+              ) : null
             )
-          ),
-          this.props.sameperson == 1 ? React.createElement(
-            'button',
-            { id: this.props.data, value: this.state.hide, 'class': 'btn btn-primary', onClick: this.hideFunction },
-            this.state.hide
-          ) : null
+          )
         );
       } else {
         //aab9d9bdb4bdfb65a5a030a5836762e2
@@ -793,69 +801,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
       return React.createElement(
         'div',
         null,
-        this.props.data["sameperson"] == 1 ? React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'h1',
-            null,
-            'WHAT IS GOIGN ON'
-          ),
-          React.createElement(
-            'div',
-            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
-            React.createElement(
-              'label',
-              { htmlFor: 'edit_post_txt' },
-              'Click to change profile picture: '
-            )
-          ),
-          React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' }),
-          React.createElement('img', { 'class': 'imgnoedit', src: link }),
-          React.createElement(
-            'div',
-            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
-            React.createElement(
-              'label',
-              { htmlFor: 'edit_post_txt' },
-              'Click to change Introduction video: '
-            )
-          ),
-          React.createElement(
-            'button',
-            { type: 'button', 'class': 'btn btn-success', onClick: this.editProfile },
-            'Edit'
-          ),
-          React.createElement(
-            'div',
-            { 'class': 'input-group' },
-            React.createElement(
-              'div',
-              { 'class': 'input-group-prepend' },
-              React.createElement(
-                'span',
-                { 'class': 'input-group-text', id: 'inputGroupFileAddon01' },
-                'Upload'
-              )
-            ),
-            React.createElement(
-              'div',
-              { 'class': 'custom-file' },
-              React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'custom-file-input', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' }),
-              React.createElement(
-                'label',
-                { 'class': 'custom-file-label', 'for': 'inputGroupFile01' },
-                'Choose file'
-              )
-            )
-          ),
-          React.createElement(
-            'video',
-            { id: 'testervideo', width: '320', height: '240', controls: true },
-            React.createElement('source', { src: videolink }),
-            'Your browser does not support the video tag.'
-          )
-        ) : React.createElement(
+        React.createElement(
           'div',
           null,
           React.createElement(
@@ -874,6 +820,24 @@ var InfluencerFeedTitle = function (_React$Component4) {
                 { 'class': 'd-flex justify-content-center' },
                 React.createElement('img', { 'class': 'imgnoedit', src: link })
               ),
+              this.props.data["sameperson"] == 1 ? React.createElement(
+                'div',
+                { 'class': 'd-flex flex-column mt-3' },
+                React.createElement(
+                  'div',
+                  { 'class': 'd-flex justify-content-center' },
+                  React.createElement(
+                    'label',
+                    { htmlFor: 'edit_post_txt' },
+                    'Click to change profile picture: '
+                  )
+                ),
+                React.createElement(
+                  'div',
+                  { 'class': 'd-flex justify-content-end' },
+                  React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
+                )
+              ) : null,
               React.createElement(
                 'div',
                 { 'class': 'd-flex justify-content-between mt-3' },
@@ -882,6 +846,15 @@ var InfluencerFeedTitle = function (_React$Component4) {
                   null,
                   this.props.data['username']
                 ),
+                this.props.data["sameperson"] == 1 ? React.createElement(
+                  'div',
+                  null,
+                  React.createElement(
+                    'button',
+                    { type: 'button', 'class': 'btn editbutton', onClick: this.editProfile },
+                    'Edit'
+                  )
+                ) : null,
                 React.createElement(
                   'div',
                   null,
@@ -928,16 +901,50 @@ var InfluencerFeedTitle = function (_React$Component4) {
               this.state.edit
             ),
             React.createElement(
-              'video',
-              { 'class': 'mr-5', id: 'introvideo', controls: true },
-              React.createElement('source', { src: videolink }),
-              'Your browser does not support the video tag.'
+              'div',
+              { 'class': 'coversvdointro' },
+              React.createElement(
+                'div',
+                { 'class': 'd-flex flex-column' },
+                React.createElement(
+                  'video',
+                  { 'class': 'mr-5', id: 'introvideo', controls: true },
+                  React.createElement('source', { src: videolink }),
+                  'Your browser does not support the video tag.'
+                ),
+                this.props.data["sameperson"] == 1 ? React.createElement(
+                  'div',
+                  { 'class': 'mb-5' },
+                  React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                      'label',
+                      { htmlFor: 'edit_post_txt' },
+                      'Click to change introduction video: '
+                    )
+                  ),
+                  React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                      'div',
+                      { 'class': 'custom-file' },
+                      React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                      )
+                    )
+                  )
+                ) : null
+              )
             )
           )
         ),
         React.createElement(
           'div',
-          { 'class': 'd-flex justify-content-center mt-5 mb-3' },
+          { 'class': 'enough d-flex justify-content-center mt-5 mb-3' },
           React.createElement(
             'button',
             { type: 'button', 'class': 'btn btn-primary mr-5', id: 'publicfeedbutid', onClick: this.changeFeedPortal },
@@ -950,9 +957,13 @@ var InfluencerFeedTitle = function (_React$Component4) {
           )
         ),
         this.props.data["sameperson"] == 1 ? React.createElement(
-          'h6',
-          null,
-          '*note \u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16 Show \u0E44\u0E14\u0E49\u0E41\u0E04\u0E48 9 Posts'
+          'div',
+          { 'class': 'd-flex justify-content-center' },
+          React.createElement(
+            'h6',
+            null,
+            '*note \u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16 Show \u0E44\u0E14\u0E49\u0E41\u0E04\u0E48 9 Posts'
+          )
         ) : null
       );
     }
