@@ -380,60 +380,85 @@ class InfluencerFeedTitle extends React.Component {
   }
     chooseFile(e)
     {
+          //  return file && file['type'].split('/')[0] === 'image';
+        
+        
       const getcooked = getCookie('csrftoken')
       let fileInput = document.querySelector('#choosefile').files[0]
-      console.log("this is fileinput", fileInput)
+      if (fileInput["type"].split('/')[0] != 'image')
+      {
+        alert("ไม่ใช่รูป");
 
-      console.log("this is in choose file")
+      }
+      else
+      {
 
-      let formData = new FormData();
-      formData.append("media", fileInput);
-      let type = "imageinprofile"
-      console.log("formdata", formData)
-      fetch(`/forupload/${type}`, {
-        method: 'POST',
-        headers: {'X-CSRFToken': getcooked
-        },
-        body:formData
-    })
-    .then(response => response.json())
-        .then(result =>{
-            console.log("result", result)
-            console.log(result['url'])
-            this.setState({
-              profilepic : result['url']
-            })
-        });
+        console.log("this is fileinput", fileInput)
+
+        console.log("this is in choose file")
+
+        let formData = new FormData();
+        formData.append("media", fileInput);
+        let type = "imageinprofile"
+        console.log("formdata", formData)
+        fetch(`/forupload/${type}`, {
+          method: 'POST',
+          headers: {'X-CSRFToken': getcooked
+          },
+          body:formData
+      })
+      .then(response => response.json())
+          .then(result =>{
+              console.log("result", result)
+              console.log(result['url'])
+              this.setState({
+                profilepic : result['url']
+              })
+          });
+      }
+
 
 
     }
     chooseFileVideo(e)
     {
-      console.log("CHOOSEFILEVIDEOOOOOO")
-      const getcooked = getCookie('csrftoken')
+
       let fileInput = document.querySelector('#inputGroupFile01').files[0]
-      console.log("this is fileinput", fileInput)
 
-      console.log("this is in choose file")
+      if (fileInput["type"].split('/')[0] != 'video')
+      {
+        alert("ไม่ใช่วีดีโอ");
 
-      let formData = new FormData();
-      formData.append("media", fileInput);
-      let type = "videoinprofile"
-      console.log("what the fuck is thye type", type)
-      console.log("formdata", formData)
-      fetch(`/forupload/${type}`, {
-        method: 'POST',
-        headers: {'X-CSRFToken': getcooked
-        },
-        body:formData
-    })
-    .then(response => response.json())
-        .then(result =>{
-            console.log("result", result)
-            console.log("waan weesakul", result['url'])
-            document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + result['url'] + ".mp4"
+      }
+      else
+      {
 
-        });
+        console.log("CHOOSEFILEVIDEOOOOOO")
+        const getcooked = getCookie('csrftoken')
+        console.log("this is fileinput", fileInput)
+  
+        console.log("this is in choose file")
+  
+        let formData = new FormData();
+        formData.append("media", fileInput);
+        let type = "videoinprofile"
+        console.log("what the fuck is thye type", type)
+        console.log("formdata", formData)
+        fetch(`/forupload/${type}`, {
+          method: 'POST',
+          headers: {'X-CSRFToken': getcooked
+          },
+          body:formData
+      })
+      .then(response => response.json())
+          .then(result =>{
+              console.log("result", result)
+              console.log("waan weesakul", result['url'])
+              document.querySelector('#introvideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + result['url'] + ".mp4"
+  
+          });
+      }
+   
 
 
     }
@@ -661,13 +686,12 @@ class InfluencerFeedTitle extends React.Component {
                         </div>
 
                       </div> 
-                :null}
-
+                      :null}
                               <div class="d-flex justify-content-between mt-3">
                                 <h1 >{this.props.data['username']}</h1>
                                 {this.props.data["sameperson"] == 1 ? <div><button type="button" class="btn editbutton" onClick={this.editProfile}>Edit</button></div>: null}
                                 <div>
-                                  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>Reserve</a>
+                                {this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>Reserve</a>: <div></div>}
                                 </div>
                               </div>                              
                               <div class="forfont d-flex justify-content-center">

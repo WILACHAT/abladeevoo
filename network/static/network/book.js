@@ -83,58 +83,90 @@ var BookPage = function (_React$Component) {
             var fourthinputocca = "";
             var datetime = "";
 
+            var checkblank = 0;
+
             var checkerintro = document.getElementsByName("introname")[0].id;
             tointro = document.querySelector('#to_intro').value;
+
             typeintro = checkerintro;
+
+            if (intro == "") {
+                checkblank = 1;
+            }
 
             if (checkerintro == "someoneelse_html_id") {
                 fromintro = document.querySelector('#from_intro').value;
+                if (fromintro == "") {
+                    checkblank = 1;
+                }
             }
 
             var checkeroccasion = document.getElementsByName("occasionname")[0].id;
             typeoccasion = checkeroccasion;
 
             firstinputocca = document.getElementsByName("occa1")[0].value;
+            if (firstinputocca == "") {
+                checkblank = 1;
+            }
             secondinputocca = document.getElementsByName("occa2")[0].value;
+            if (secondinputocca == "") {
+                checkblank = 1;
+            }
 
             if (document.getElementsByName("occa3").length != 0) {
                 thirdinputocca = document.getElementsByName("occa3")[0].value;
+                if (thirdinputocca == "") {
+                    checkblank = 1;
+                }
             }
 
             if (document.getElementsByName("occa4").length != 0) {
                 fourthinputocca = document.getElementsByName("occa4")[0].value;
+                if (fourthinputocca == "") {
+                    checkblank = 1;
+                }
             }
 
             var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
             datetime = document.getElementById('date_inputid').value;
+            if (datetime == "") {
+                checkblank = 1;
+            }
 
-            console.log("mamamamamamamamamamamam");
+            var today = new Date().toISOString().slice(0, 10);
 
-            console.log(typeintro);
-            console.log(tointro);
-            console.log(fromintro);
-            console.log(typeoccasion);
-            console.log(firstinputocca);
-            console.log(datetime);
+            var g1 = new Date(today);
 
-            var getcooked = getCookie('csrftoken');
-            fetch('/book/' + influencerusername, {
-                method: 'POST',
-                headers: { 'X-CSRFToken': getcooked },
-                body: JSON.stringify({
-                    typeintro: typeintro,
-                    tointro: tointro,
-                    fromintro: fromintro,
-                    typeoccasion: typeoccasion,
-                    firstinputocca: firstinputocca,
-                    secondinputocca: secondinputocca,
-                    thirdinputocca: thirdinputocca,
-                    fourthinputocca: fourthinputocca,
-                    datetime: datetime
-                })
-            }).then(function (data) {
-                window.location.href = "/";
-            });
+            var g2 = new Date(datetime);
+
+            if (g1.getTime() >= g2.getTime()) {
+                checkblank = 2;
+            }
+
+            if (checkblank == 1) {
+                alert("Forgot to fill in at least one form");
+            } else if (checkblank == 2) {
+                alert("Time must be atleast 1 day ahead");
+            } else {
+                var getcooked = getCookie('csrftoken');
+                fetch('/book/' + influencerusername, {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': getcooked },
+                    body: JSON.stringify({
+                        typeintro: typeintro,
+                        tointro: tointro,
+                        fromintro: fromintro,
+                        typeoccasion: typeoccasion,
+                        firstinputocca: firstinputocca,
+                        secondinputocca: secondinputocca,
+                        thirdinputocca: thirdinputocca,
+                        fourthinputocca: fourthinputocca,
+                        datetime: datetime
+                    })
+                }).then(function (data) {
+                    window.location.href = "/";
+                });
+            }
         }
     }, {
         key: 'changeIntroReserve',

@@ -219,19 +219,20 @@ class EachReserve extends React.Component{
             {
                 postoption = 
                 <div>
-                    <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                    </div>
+                    <div class="d-flex justify-content-center">
+                        <label htmlFor="edit_post_txt">Click to change introduction video: </label>
+                     </div>
                     <div class="custom-file">
-                        <input type="file" onChange={this.chooseFile} class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
-                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        <div class="d-flex justify-content-center">
+                            <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                        </div>
                     </div>
-                </div>
-                <video hidden id="testervideo" width="320" height="240" controls>
-                    <source src=""></source>
-                    Your browser does not support the video tag.
-                </video>
+                    <div class="d-flex justify-content-center">
+                        <video hidden id="testervideo" width="320" height="240" controls>
+                            <source src=""></source>
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                     <input name="" type="hidden" id="sendingvideoidback"></input>
                     <input id="sendingbacktorequest"></input>
                     <button class="btn btn-primary" onClick={this.submitSave} id="submitrequested">Post</button>
@@ -342,40 +343,87 @@ class EachReserve extends React.Component{
         {
             occasion = 
             <div>
-                <h4>Birthday</h4>
-                <h4>When is the birthday: {this.props.data["data"][0].firstinputoccasion}</h4>
-                <h4>How old are they turning: {this.props.data["data"][0].secondinputoccasion}</h4>
-                <h4>Instructions: {this.props.data["data"][0].thirdinputoccasion}</h4>
-                <h4>Optional: {this.props.data["data"][0].fourthinputoccasion}</h4>
+                <div class="d-flex justify-content-center">
+                    <h4>Birthday</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>When is the birthday: {this.props.data["data"][0].firstinputoccasion}</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>How old are they turning: {this.props.data["data"][0].secondinputoccasion}</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>Instructions: {this.props.data["data"][0].thirdinputoccasion}</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>Optional: {this.props.data["data"][0].fourthinputoccasion}</h4> 
+                </div>
+
             </div>
         } 
         else if (occasion == "Pep Talk")
         {
             occasion = 
             <div>
-                <h4>Pep Talk</h4>
-                <h4>What's going on?: {this.props.data["data"][0].firstinputoccasion}</h4>
-                <h4>How can help?: {this.props.data["data"][0].secondinputoccasion}</h4>
-                <h4>Optional: {this.props.data["data"][0].thirdinputoccasion}</h4>
+                <div class="d-flex justify-content-center">
+                    <h4>Pep Talk</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>What's going on?: {this.props.data["data"][0].firstinputoccasion}</h4>
+                </div>
+                
+                <div class="d-flex justify-content-center">
+                    <h4>How can help?: {this.props.data["data"][0].secondinputoccasion}</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>Optional: {this.props.data["data"][0].thirdinputoccasion}</h4>
+                </div>
+
             </div>
         }
         else if (occasion == "Roast")
         {
             occasion = 
             <div>
-                <h4>Pep Talk</h4>
-                <h4>What to Roast?: {this.props.data["data"][0].firstinputoccasion}</h4>
-                <h4>Optional: {this.props.data["data"][0].secondinputoccasion}</h4>
+                <div class="d-flex justify-content-center">
+                    <h4>Pep Talk</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>What to Roast?: {this.props.data["data"][0].firstinputoccasion}</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>Optional: {this.props.data["data"][0].secondinputoccasion}</h4>
+                </div>
+                
             </div>
         }
         else
         {
             occasion = 
             <div>
-                <h4>Others</h4>
-                <h4>What's the occasion?: {this.props.data["data"][0].firstinputoccasion}</h4>
-                <h4>Instructions: {this.props.data["data"][0].secondinputoccasion}</h4>
-                <h4>Optional: {this.props.data["data"][0].thirdinputoccasion}</h4>
+                <div class="d-flex justify-content-center">
+                    <h4>Others</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>What's the occasion?: {this.props.data["data"][0].firstinputoccasion}</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>Instructions: {this.props.data["data"][0].secondinputoccasion}</h4>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <h4>Optional: {this.props.data["data"][0].thirdinputoccasion}</h4>
+                </div>
             </div>
         }
         console.log("this is the type of intro", this.props.data["data"][0].typeintro)
@@ -394,25 +442,42 @@ class EachReserve extends React.Component{
         return (
             <div>
                 <button class="btn btn-primary"onClick={this.goBack}>Back</button>
-                <h4>Order Details</h4>
-                <h4>Username</h4><br></br>
-                <h4>{this.props.data["propicandusername"][0]}</h4>
-                <img class="imgnoedit" src={link}></img>
+                <div class="d-flex justify-content-center">
+                    <h4>Order Details</h4>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <h4>Username: </h4>
+                    <h4>{this.props.data["propicandusername"][0]}</h4>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <img class="imgnoedit" src={link}></img>
+                </div>
+            
+                    {this.props.data["data"][0].typeintro == "someoneelse_html_id" ?   
+                    <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-center"> 
+                        <h4>A Gift For Someone Else</h4> 
 
-                
-                {this.props.data["data"][0].typeintro == "someoneelse_html_id" ?   
-                <div>
-                    <h4>A Gift For Someone Else</h4> 
-                    <h4>From: {this.props.data["data"][0].tointro}</h4>
-                    <h4>To: {this.props.data["data"][0].fromintro}</h4>
-                </div>:
-                <div>
-                    <h4>For Buyer</h4> 
-                    <h4>{this.props.toinro}</h4>
-                </div>}     
-                {occasion}
-                {this.props.data["data"][0].completed == true ? <h4>Completed</h4> : <h4>Not Complete</h4>}
-                {postoption}
+                        </div>
+                        <div class="d-flex justify-content-center"> 
+                        <h4>From: {this.props.data["data"][0].tointro}</h4>
+
+                        </div>
+                        <div class="d-flex justify-content-center"> 
+                        <h4>To: {this.props.data["data"][0].fromintro}</h4>
+
+                        </div>
+                    </div>:
+                    <div>
+                        <h4>For Buyer</h4> 
+                     
+                        <h4>{this.props.toinro}</h4>
+                    </div>}     
+                    {occasion}
+                    <div class="d-flex justify-content-center">
+                        {this.props.data["data"][0].completed == true ? <h4>Completed</h4> : <h4>Not Complete</h4>}
+                    </div>
+                    {postoption}
             </div>
         )
     }
@@ -430,11 +495,8 @@ class InboxFeedRows extends React.Component {
         document.querySelector('#eachreserve').hidden = false;
         document.querySelector('#inboxmainid').hidden = true;
         document.querySelector('#myinboxhtml').hidden = true;
-        console.log("etargetnameinclickhred", e)
 
-        console.log("etargetnameinclickhred", e.target)
-
-        console.log("etargetnameinclickhred", e.target.id)
+        console.log("KINGDOM IS ONE OF THE BEST MANGA OF ALL TIME BUT STILL ONE PIECE IS BETTER", document.querySelector('#divtogetid').value)
         document.querySelector('#myrequesthtml').hidden = true;
 
         console.log("clickedwork")
@@ -444,7 +506,7 @@ class InboxFeedRows extends React.Component {
         method: 'PUT',
         headers:{'X-CSRFToken': getcooked},
         body: JSON.stringify({
-          reservationid: e.target.id,
+          reservationid: document.querySelector('#divtogetid').value,
           from: "eachreserve"  
             })
         })
@@ -532,7 +594,8 @@ class InboxFeedRows extends React.Component {
                     <h4 class="wa">{occasion}</h4>
                 </div>
                 <div onClick={this.clickHref} class="button" id="button-7">
-                    <div name={this.props.id} id={this.props.id} class="dub-arrow">
+                    <input type="hidden" id="divtogetid"value={this.props.id}></input>
+                    <div value={this.props.id}  class="dub-arrow">
                         <img src="https://github.com/atloomer/atloomer.github.io/blob/master/img/iconmonstr-arrow-48-240.png?raw=true" alt="" />
                     </div>
                     <a class="letsgo" href="#">Watch</a>

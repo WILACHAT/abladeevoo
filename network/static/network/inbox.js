@@ -211,32 +211,31 @@ var EachReserve = function (_React$Component) {
                         null,
                         React.createElement(
                             'div',
-                            { 'class': 'input-group' },
+                            { 'class': 'd-flex justify-content-center' },
                             React.createElement(
-                                'div',
-                                { 'class': 'input-group-prepend' },
-                                React.createElement(
-                                    'span',
-                                    { 'class': 'input-group-text', id: 'inputGroupFileAddon01' },
-                                    'Upload'
-                                )
-                            ),
-                            React.createElement(
-                                'div',
-                                { 'class': 'custom-file' },
-                                React.createElement('input', { type: 'file', onChange: this.chooseFile, 'class': 'custom-file-input', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' }),
-                                React.createElement(
-                                    'label',
-                                    { 'class': 'custom-file-label', 'for': 'inputGroupFile01' },
-                                    'Choose file'
-                                )
+                                'label',
+                                { htmlFor: 'edit_post_txt' },
+                                'Click to change introduction video: '
                             )
                         ),
                         React.createElement(
-                            'video',
-                            { hidden: true, id: 'testervideo', width: '320', height: '240', controls: true },
-                            React.createElement('source', { src: '' }),
-                            'Your browser does not support the video tag.'
+                            'div',
+                            { 'class': 'custom-file' },
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'video',
+                                { hidden: true, id: 'testervideo', width: '320', height: '240', controls: true },
+                                React.createElement('source', { src: '' }),
+                                'Your browser does not support the video tag.'
+                            )
                         ),
                         React.createElement('input', { name: '', type: 'hidden', id: 'sendingvideoidback' }),
                         React.createElement('input', { id: 'sendingbacktorequest' }),
@@ -441,33 +440,53 @@ var EachReserve = function (_React$Component) {
                     'div',
                     null,
                     React.createElement(
-                        'h4',
-                        null,
-                        'Birthday'
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Birthday'
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'When is the birthday: ',
-                        this.props.data["data"][0].firstinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'When is the birthday: ',
+                            this.props.data["data"][0].firstinputoccasion
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'How old are they turning: ',
-                        this.props.data["data"][0].secondinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'How old are they turning: ',
+                            this.props.data["data"][0].secondinputoccasion
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'Instructions: ',
-                        this.props.data["data"][0].thirdinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Instructions: ',
+                            this.props.data["data"][0].thirdinputoccasion
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'Optional: ',
-                        this.props.data["data"][0].fourthinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Optional: ',
+                            this.props.data["data"][0].fourthinputoccasion
+                        )
                     )
                 );
             } else if (occasion == "Pep Talk") {
@@ -475,27 +494,43 @@ var EachReserve = function (_React$Component) {
                     'div',
                     null,
                     React.createElement(
-                        'h4',
-                        null,
-                        'Pep Talk'
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Pep Talk'
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'What\'s going on?: ',
-                        this.props.data["data"][0].firstinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'What\'s going on?: ',
+                            this.props.data["data"][0].firstinputoccasion
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'How can help?: ',
-                        this.props.data["data"][0].secondinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'How can help?: ',
+                            this.props.data["data"][0].secondinputoccasion
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'Optional: ',
-                        this.props.data["data"][0].thirdinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Optional: ',
+                            this.props.data["data"][0].thirdinputoccasion
+                        )
                     )
                 );
             } else if (occasion == "Roast") {
@@ -503,21 +538,33 @@ var EachReserve = function (_React$Component) {
                     'div',
                     null,
                     React.createElement(
-                        'h4',
-                        null,
-                        'Pep Talk'
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Pep Talk'
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'What to Roast?: ',
-                        this.props.data["data"][0].firstinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'What to Roast?: ',
+                            this.props.data["data"][0].firstinputoccasion
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'Optional: ',
-                        this.props.data["data"][0].secondinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Optional: ',
+                            this.props.data["data"][0].secondinputoccasion
+                        )
                     )
                 );
             } else {
@@ -525,27 +572,43 @@ var EachReserve = function (_React$Component) {
                     'div',
                     null,
                     React.createElement(
-                        'h4',
-                        null,
-                        'Others'
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Others'
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'What\'s the occasion?: ',
-                        this.props.data["data"][0].firstinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'What\'s the occasion?: ',
+                            this.props.data["data"][0].firstinputoccasion
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'Instructions: ',
-                        this.props.data["data"][0].secondinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Instructions: ',
+                            this.props.data["data"][0].secondinputoccasion
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'Optional: ',
-                        this.props.data["data"][0].thirdinputoccasion
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'Optional: ',
+                            this.props.data["data"][0].thirdinputoccasion
+                        )
                     )
                 );
             }
@@ -567,41 +630,64 @@ var EachReserve = function (_React$Component) {
                     'Back'
                 ),
                 React.createElement(
-                    'h4',
-                    null,
-                    'Order Details'
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'h4',
+                        null,
+                        'Order Details'
+                    )
                 ),
                 React.createElement(
-                    'h4',
-                    null,
-                    'Username'
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'h4',
+                        null,
+                        'Username: '
+                    ),
+                    React.createElement(
+                        'h4',
+                        null,
+                        this.props.data["propicandusername"][0]
+                    )
                 ),
-                React.createElement('br', null),
                 React.createElement(
-                    'h4',
-                    null,
-                    this.props.data["propicandusername"][0]
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement('img', { 'class': 'imgnoedit', src: link })
                 ),
-                React.createElement('img', { 'class': 'imgnoedit', src: link }),
                 this.props.data["data"][0].typeintro == "someoneelse_html_id" ? React.createElement(
                     'div',
-                    null,
+                    { 'class': 'd-flex flex-column' },
                     React.createElement(
-                        'h4',
-                        null,
-                        'A Gift For Someone Else'
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'A Gift For Someone Else'
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'From: ',
-                        this.props.data["data"][0].tointro
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'From: ',
+                            this.props.data["data"][0].tointro
+                        )
                     ),
                     React.createElement(
-                        'h4',
-                        null,
-                        'To: ',
-                        this.props.data["data"][0].fromintro
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            null,
+                            'To: ',
+                            this.props.data["data"][0].fromintro
+                        )
                     )
                 ) : React.createElement(
                     'div',
@@ -618,14 +704,18 @@ var EachReserve = function (_React$Component) {
                     )
                 ),
                 occasion,
-                this.props.data["data"][0].completed == true ? React.createElement(
-                    'h4',
-                    null,
-                    'Completed'
-                ) : React.createElement(
-                    'h4',
-                    null,
-                    'Not Complete'
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    this.props.data["data"][0].completed == true ? React.createElement(
+                        'h4',
+                        null,
+                        'Completed'
+                    ) : React.createElement(
+                        'h4',
+                        null,
+                        'Not Complete'
+                    )
                 ),
                 postoption
             );
@@ -655,11 +745,8 @@ var InboxFeedRows = function (_React$Component2) {
             document.querySelector('#eachreserve').hidden = false;
             document.querySelector('#inboxmainid').hidden = true;
             document.querySelector('#myinboxhtml').hidden = true;
-            console.log("etargetnameinclickhred", e);
 
-            console.log("etargetnameinclickhred", e.target);
-
-            console.log("etargetnameinclickhred", e.target.id);
+            console.log("KINGDOM IS ONE OF THE BEST MANGA OF ALL TIME BUT STILL ONE PIECE IS BETTER", document.querySelector('#divtogetid').value);
             document.querySelector('#myrequesthtml').hidden = true;
 
             console.log("clickedwork");
@@ -669,7 +756,7 @@ var InboxFeedRows = function (_React$Component2) {
                 method: 'PUT',
                 headers: { 'X-CSRFToken': getcooked },
                 body: JSON.stringify({
-                    reservationid: e.target.id,
+                    reservationid: document.querySelector('#divtogetid').value,
                     from: "eachreserve"
                 })
             }).then(function (response) {
@@ -786,9 +873,10 @@ var InboxFeedRows = function (_React$Component2) {
                         React.createElement(
                             'div',
                             { onClick: this.clickHref, 'class': 'button', id: 'button-7' },
+                            React.createElement('input', { type: 'hidden', id: 'divtogetid', value: this.props.id }),
                             React.createElement(
                                 'div',
-                                { name: this.props.id, id: this.props.id, 'class': 'dub-arrow' },
+                                { value: this.props.id, 'class': 'dub-arrow' },
                                 React.createElement('img', { src: 'https://github.com/atloomer/atloomer.github.io/blob/master/img/iconmonstr-arrow-48-240.png?raw=true', alt: '' })
                             ),
                             React.createElement(

@@ -581,6 +581,7 @@ def dump_response(response):
         print("  %s: %s" % (key, response[key]))
 
 def upload_files(file, fileid):
+    print("this is in upload_files")
     cloudinary.uploader.upload(file, public_id = fileid)
     
     

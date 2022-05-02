@@ -502,58 +502,73 @@ var InfluencerFeedTitle = function (_React$Component4) {
     value: function chooseFile(e) {
       var _this6 = this;
 
+      //  return file && file['type'].split('/')[0] === 'image';
+
+
       var getcooked = getCookie('csrftoken');
       var fileInput = document.querySelector('#choosefile').files[0];
-      console.log("this is fileinput", fileInput);
+      if (fileInput["type"].split('/')[0] != 'image') {
+        alert("ไม่ใช่รูป");
+      } else {
 
-      console.log("this is in choose file");
+        console.log("this is fileinput", fileInput);
 
-      var formData = new FormData();
-      formData.append("media", fileInput);
-      var type = "imageinprofile";
-      console.log("formdata", formData);
-      fetch('/forupload/' + type, {
-        method: 'POST',
-        headers: { 'X-CSRFToken': getcooked
-        },
-        body: formData
-      }).then(function (response) {
-        return response.json();
-      }).then(function (result) {
-        console.log("result", result);
-        console.log(result['url']);
-        _this6.setState({
-          profilepic: result['url']
+        console.log("this is in choose file");
+
+        var formData = new FormData();
+        formData.append("media", fileInput);
+        var type = "imageinprofile";
+        console.log("formdata", formData);
+        fetch('/forupload/' + type, {
+          method: 'POST',
+          headers: { 'X-CSRFToken': getcooked
+          },
+          body: formData
+        }).then(function (response) {
+          return response.json();
+        }).then(function (result) {
+          console.log("result", result);
+          console.log(result['url']);
+          _this6.setState({
+            profilepic: result['url']
+          });
         });
-      });
+      }
     }
   }, {
     key: 'chooseFileVideo',
     value: function chooseFileVideo(e) {
-      console.log("CHOOSEFILEVIDEOOOOOO");
-      var getcooked = getCookie('csrftoken');
+
       var fileInput = document.querySelector('#inputGroupFile01').files[0];
-      console.log("this is fileinput", fileInput);
 
-      console.log("this is in choose file");
+      if (fileInput["type"].split('/')[0] != 'video') {
+        alert("ไม่ใช่วีดีโอ");
+      } else {
 
-      var formData = new FormData();
-      formData.append("media", fileInput);
-      var type = "videoinprofile";
-      console.log("what the fuck is thye type", type);
-      console.log("formdata", formData);
-      fetch('/forupload/' + type, {
-        method: 'POST',
-        headers: { 'X-CSRFToken': getcooked
-        },
-        body: formData
-      }).then(function (response) {
-        return response.json();
-      }).then(function (result) {
-        console.log("result", result);
-        console.log("waan weesakul", result['url']);
-        document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + result['url'] + ".mp4";
-      });
+        console.log("CHOOSEFILEVIDEOOOOOO");
+        var getcooked = getCookie('csrftoken');
+        console.log("this is fileinput", fileInput);
+
+        console.log("this is in choose file");
+
+        var formData = new FormData();
+        formData.append("media", fileInput);
+        var type = "videoinprofile";
+        console.log("what the fuck is thye type", type);
+        console.log("formdata", formData);
+        fetch('/forupload/' + type, {
+          method: 'POST',
+          headers: { 'X-CSRFToken': getcooked
+          },
+          body: formData
+        }).then(function (response) {
+          return response.json();
+        }).then(function (result) {
+          console.log("result", result);
+          console.log("waan weesakul", result['url']);
+          document.querySelector('#introvideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + result['url'] + ".mp4";
+        });
+      }
     }
   }, {
     key: 'sendEditPost',
@@ -858,11 +873,11 @@ var InfluencerFeedTitle = function (_React$Component4) {
                 React.createElement(
                   'div',
                   null,
-                  React.createElement(
+                  this.props.data["sameperson"] != 1 ? React.createElement(
                     'a',
                     { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
                     'Reserve'
-                  )
+                  ) : React.createElement('div', null)
                 )
               ),
               React.createElement(

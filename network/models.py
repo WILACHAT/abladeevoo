@@ -78,6 +78,7 @@ class Reservation(models.Model):
     user_id_influencerreserve = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerreserve')
     #duedate = models.DateTimeField(null=True)
     duedate = models.CharField(max_length=256, null=True)
+    expired = models.BooleanField(default=False)
 
     
 
