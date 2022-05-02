@@ -126,6 +126,7 @@ class EachReserve extends React.Component{
         .then(response => response.json())
           .then(data => {
               //right now its either you create a new video or unhide the one that you already have
+            console.log("yayyyyyyyyyyyyyyy")
             document.querySelector('#testervideo').hidden = false
             document.querySelector('#sendingvideoidback').name = data['url']
             document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4"
@@ -210,7 +211,39 @@ class EachReserve extends React.Component{
 
     }
     render() {
-       
+        let videoandstuff = ""
+        link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
+
+        videoandstuff = 
+        <div>
+                   {document.querySelector('#typeofpage').value == "request" ? <div>
+                        {this.props.data["data"].completed != true ? 
+                              <div>
+                              <div class="d-flex justify-content-center">
+                                  <label htmlFor="edit_post_txt">Click to change introduction video: </label>
+                              </div>
+                              <div class="custom-file">
+                                  <div class="d-flex justify-content-center">
+                                      <input type="file" onChange={this.chooseFile} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                                  </div>
+                              </div>
+                              <video hidden id="testervideo" width="320" height="240" controls>
+                            <source src=""></source>
+                            Your browser does not support the video tag.
+                        </video>
+                          </div>:   
+                    null}
+                        
+                    </div>:  <video id="testervideo" width="320" height="240" controls>
+                        <source src={link}></source>
+                        Your browser does not support the video tag.
+                        </video>}
+
+                        
+                    
+        </div>
+
+
         var postoption = ""
         if (document.querySelector('#typeofpage').value == "request")
         {
@@ -219,20 +252,8 @@ class EachReserve extends React.Component{
             {
                 postoption = 
                 <div>
-                    <div class="d-flex justify-content-center">
-                        <label htmlFor="edit_post_txt">Click to change introduction video: </label>
-                     </div>
-                    <div class="custom-file">
-                        <div class="d-flex justify-content-center">
-                            <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <video hidden id="testervideo" width="320" height="240" controls>
-                            <source src=""></source>
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
+                    {videoandstuff}
+
                     <input name="" type="hidden" id="sendingvideoidback"></input>
                     <input id="sendingbacktorequest"></input>
                     <button class="btn btn-primary" onClick={this.submitSave} id="submitrequested">Post</button>
@@ -242,40 +263,25 @@ class EachReserve extends React.Component{
             {
                 //this is after influencer posted video
                 let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
-                if (this.props.data["data"][0].reviewcompleted != true)
-                {
+                
                     postoption = 
                     <div>
                         <h1>DONE</h1>
-                        <video id="testervideo" width="320" height="240" controls>
-                            <source src={link}></source>
-                            Your browser does not support the video tag.
-                        </video>
+                        {videoandstuff}
+
                         <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
 
 
                         <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
-                        <h3>No reviews from customer yet</h3>
+                    
+                        {this.props.data["data"][0].reviewcompleted != true ? 
+                        <div class="d-flex justify-content-center">
+                            <h3>No reviews from customer yet</h3>
+                        </div>:
+                         <div class="d-flex justify-content-center">
+                          <h3>Customer Review: {this.props.data["reviewvalue"]}</h3>
+                     </div>}
                     </div>
-                }
-                else
-                {
-                   // <img id="testerimage" alt="ye" width="800" height="500"></img>
-
-                    postoption = 
-                    <div>
-                        <h1>DONE</h1>
-                        <video id="testervideo" width="320" height="240" controls>
-                            <source src={link}></source>
-                            Your browser does not support the video tag.
-                        </video>
-                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
-
-
-                        <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
-                        <h3>Customer Review: {this.props.data["reviewvalue"]}</h3>
-                    </div>
-                }
             }
         }
         else
@@ -291,22 +297,20 @@ class EachReserve extends React.Component{
             {
                 let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
 
-                if (this.props.data["data"][0].reviewcompleted != true)
-                {
                     postoption = 
                     <div>
                         <h1>Done</h1>
-                        <video id="testervideo" width="320" height="240" controls>
-                            <source src={link}></source>
-                            Your browser does not support the video tag.
-                        </video>
+                        {videoandstuff}
+
                         <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
-
-
                         <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
+
+
+                        {this.props.data["data"][0].reviewcompleted != true ? 
+                        <div>
                         <input id="typeforreview"></input>
                         <select id="selectforreview">
-                             <option value="1">1</option>
+                            <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
@@ -314,26 +318,13 @@ class EachReserve extends React.Component{
 
                         </select>
                         <button onClick={this.submitReview} class="btn btn-primary">Submit</button>
-                    </div>
-                }
-                else
-                {
-                    postoption = 
-                    <div>
-                        <h1>Done</h1>
-                        <video id="testervideo" width="320" height="240" controls>
-                            <source src={link}></source>
-                            Your browser does not support the video tag.
-                        </video>
-                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
-
-
-                        <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
+                    </div>:    
+                    <div>        
                         <h1>Ur Review</h1>
                         <h3>{this.props.data["reviewvalue"]}</h3>
+                    </div>}
+                        
                     </div>
-                }
-                
             }
           
         }
