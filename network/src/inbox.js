@@ -182,65 +182,70 @@ class EachReserve extends React.Component{
     {
         const getcooked = getCookie('csrftoken');
         var value = document.querySelector('#typeforreview').value
-        var reserveid = this.props.data["data"][0].id
+        if (value == "")
+        {
+            alert("You can't submit Review without writing a review")
+        }
+        else
+        {
+            var reserveid = this.props.data["data"][0].id
 
-        console.log("before error", this.props.data["data"][0].username_influencer)
+            console.log("before error", this.props.data["data"][0].username_influencer)
 
-        var influencername = this.props.data["data"][0].username_influencer
- 
-        var selectreview = document.querySelector('#selectforreview').value
-       
-
-        console.log("value of review", value)
+            var influencername = this.props.data["data"][0].username_influencer
+    
+            var selectreview = document.querySelector('#selectforreview').value
         
-        fetch(`/gotoeachreserve`, {
-            method: 'POST',
-            headers:{'X-CSRFToken': getcooked},
-            body: JSON.stringify({
-              value: value,
-              reserveid: reserveid,
-              influencername, influencername,
-              type:"submitreview",
-              reviewstars: selectreview
-            })
-          })
-          .then(result => {
-              window.location.href = "/inbox";
-          });
 
+            console.log("value of review", value)
+            
+            fetch(`/gotoeachreserve`, {
+                method: 'POST',
+                headers:{'X-CSRFToken': getcooked},
+                body: JSON.stringify({
+                value: value,
+                reserveid: reserveid,
+                influencername, influencername,
+                type:"submitreview",
+                reviewstars: selectreview
+                })
+            })
+            .then(result => {
+                window.location.href = "/inbox";
+            });
+
+        }
+        
+        
 
     }
     render() {
+        console.log("hahahahahahheheheheheh", document.querySelector('#typeofpage').value)
+
         let videoandstuff = ""
         link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
 
         videoandstuff = 
         <div>
-                   {document.querySelector('#typeofpage').value == "request" ? <div>
-                        {this.props.data["data"].completed != true ? 
-                              <div>
-                              <div class="d-flex justify-content-center">
-                                  <label htmlFor="edit_post_txt">Click to change introduction video: </label>
-                              </div>
-                              <div class="custom-file">
-                                  <div class="d-flex justify-content-center">
-                                      <input type="file" onChange={this.chooseFile} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
-                                  </div>
-                              </div>
-                              <video hidden id="testervideo" width="320" height="240" controls>
-                            <source src=""></source>
+            <div class="videowhenget">
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-center">
+                        <video id="testervideo" class="videovideowhenget" controls>
+                            <source src={link}></source>
                             Your browser does not support the video tag.
                         </video>
-                          </div>:   
-                    null}
-                        
-                    </div>:  <video id="testervideo" width="320" height="240" controls>
-                        <source src={link}></source>
-                        Your browser does not support the video tag.
-                        </video>}
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-2">
+                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
+                    </div>
+
+                </div>
+
+            </div>
 
                         
-                    
+        
         </div>
 
 
@@ -251,12 +256,36 @@ class EachReserve extends React.Component{
             if (this.props.data["data"][0].completed != true)
             {
                 postoption = 
-                <div>
-                    {videoandstuff}
-
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="postoptionforinfluencer">
+                        <div>
+                              <div class="d-flex justify-content-center">
+                                  <label class="wa" htmlFor="edit_post_txt">คลิ๊กเพื่อเลือก Vid โพสต์: </label>
+                              </div>
+                              <div class="custom-file">
+                                  <div class="d-flex justify-content-center">
+                                      <input type="file" onChange={this.chooseFile} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                                  </div>
+                              </div>
+                              <div class="d-flex justify-content-center mt-5">
+                        <video hidden id="testervideo" class="videovideowhenget" controls>
+                            <source src={link}></source>
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                          </div>
+                          
+                    <div class="d-flex justify-content-center mt-4">
+                        <h6 class="wa">ข้อความสั้นๆให้แฟนคลับ: </h6>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <input id="sendingbacktorequest"></input>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3 mb-5">
+                        <button class="btn btn-primary" onClick={this.submitSave} id="submitrequested">Post</button>
+                    </div>
                     <input name="" type="hidden" id="sendingvideoidback"></input>
-                    <input id="sendingbacktorequest"></input>
-                    <button class="btn btn-primary" onClick={this.submitSave} id="submitrequested">Post</button>
+                </div>
                 </div>
             }
             else
@@ -266,20 +295,56 @@ class EachReserve extends React.Component{
                 
                     postoption = 
                     <div>
-                        <h1>DONE</h1>
+                        <div class="donetitle">
+                          <div class="d-flex justify-content-center">
+                                <h1 class="donetext">เสร็จแล้ววว!</h1>
+                          </div>
+                        </div>
                         {videoandstuff}
 
-                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
 
 
-                        <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="orderdetails">
+                                <div class="d-flex justify-content-center">
+                                    <h4 class="wa">สิ่งที่คุณเขียนให้แฟนคลับ: </h4>
+                                </div>
+                            
+                                <hr class="hr"/>
+                                <div class="d-flex justify-content-center">
+                                    <h2 class="wa">{this.props.data["forpostdata"][0]}</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    
                     
                         {this.props.data["data"][0].reviewcompleted != true ? 
-                        <div class="d-flex justify-content-center">
-                            <h3>No reviews from customer yet</h3>
-                        </div>:
-                         <div class="d-flex justify-content-center">
-                          <h3>Customer Review: {this.props.data["reviewvalue"]}</h3>
+                        
+                        <div class="d-flex justify-content-center mt-3 mb-5">
+                        <div class="orderdetails">
+                            <div class="d-flex justify-content-center">
+                                <h4 class="wa">Customer Review: </h4>
+                            </div>
+                        
+                            <hr class="hr"/>
+                            <div class="d-flex justify-content-center">
+                                <h2 class="wa">ยัวไม่มีรีวิว</h2>
+                            </div>
+                        </div>
+                    </div>:
+                         <div class="d-flex justify-content-center mt-5 mb-5">
+                         <div class="orderdetails">
+                             <div class="d-flex justify-content-center">
+                                 <h4 class="wa">Customer Review: </h4>
+                             </div>
+                         
+                             <hr class="hr"/>
+                             <div class="d-flex justify-content-center">
+                                 <h2 class="wa">{this.props.data["reviewvalue"]}</h2>
+                             </div>
+                         </div>
                      </div>}
                     </div>
             }
@@ -289,8 +354,10 @@ class EachReserve extends React.Component{
             if (this.props.data["data"][0].completed != true)
             {
                 postoption = 
-                <div>
-                    <h1>Waiting for influencer</h1>
+                <div class="mb-5">
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wa">สตาร์กําลังดําเนินการทํา Vid ที่น่าจดจําของท่านอยู่</h4>
+                    </div>
                 </div>
             }
             else
@@ -299,30 +366,66 @@ class EachReserve extends React.Component{
 
                     postoption = 
                     <div>
-                        <h1>Done</h1>
+                        <div class="donetitle">
+                          <div class="d-flex justify-content-center">
+                                <h1 class="donetext">เสร็จแล้ววว!</h1>
+                          </div>
+                        </div>
                         {videoandstuff}
 
-                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
-                        <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="orderdetails">
+                                <div class="d-flex justify-content-center">
+                                    <h4 class="wa">ขอความเล็กๆน้อยๆจากสตาร์</h4>
+                                </div>
+                            
+                                <hr class="hr"/>
+                                <div class="d-flex justify-content-center">
+                                    <h2 class="wa">{this.props.data["forpostdata"][0]}</h2>
+                                </div>
+                            </div>
+                        </div>
 
+                        
 
+                            
+                      
                         {this.props.data["data"][0].reviewcompleted != true ? 
-                        <div>
-                        <input id="typeforreview"></input>
-                        <select id="selectforreview">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
+                        <div class="d-flex flex-column">
 
-                        </select>
-                        <button onClick={this.submitReview} class="btn btn-primary">Submit</button>
+                        <div class="d-flex justify-content-center mt-5">
+                            <h4 class="wa">เขียนรีวิวให้กับสตาร์คนโปรด</h4>
+                        </div>
+
+                        <div class="d-flex justify-content-center mt-2 mb-3">
+                            <input id="typeforreview"></input>
+                            <select id="selectforreview">
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+
+                       
+                        
+                        <div class="d-flex justify-content-center mb-5">
+                            <button onClick={this.submitReview} class="btn btn-primary">Submit</button>
+                        </div>
                     </div>:    
-                    <div>        
-                        <h1>Ur Review</h1>
-                        <h3>{this.props.data["reviewvalue"]}</h3>
-                    </div>}
+                    <div class="d-flex justify-content-center mt-5 mb-5">
+                    <div class="orderdetails">
+                        <div class="d-flex justify-content-center">
+                            <h4 class="wa">รีวิวของคุณ: </h4>
+                        </div>
+                    
+                        <hr class="hr"/>
+                        <div class="d-flex justify-content-center">
+                            <h2 class="wa">{this.props.data["reviewvalue"]}</h2>
+                        </div>
+                    </div>
+                </div>}
                         
                     </div>
             }
@@ -333,48 +436,134 @@ class EachReserve extends React.Component{
         if (occasion == "Birthday") 
         {
             occasion = 
+            
             <div>
-                <div class="d-flex justify-content-center">
-                    <h4>Birthday</h4>
+            <hr></hr>
+
+
+                <div class="d-flex flex-column mt-3">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">เนื่องในโอกาส: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">เฉลมเฉลองวันเกิด</h4>
+                    </div>
+
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <h4>When is the birthday: {this.props.data["data"][0].firstinputoccasion}</h4>
+                <hr></hr>
+
+
+
+                <div class="d-flex flex-column mt-2">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">วันที่เกิด: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].firstinputoccasion}</h4>
+                    </div>
+
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <h4>How old are they turning: {this.props.data["data"][0].secondinputoccasion}</h4>
+                <hr></hr>
+
+
+
+                <div class="d-flex flex-column mt-2">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">อายุขึ้นเท่าไหร่: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].secondinputoccasion}</h4>
+                    </div>
+
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <h4>Instructions: {this.props.data["data"][0].thirdinputoccasion}</h4>
+                <hr></hr>
+
+                <div class="d-flex flex-column mt-2">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">อยากให้สตาร์พูดอะไร: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].thirdinputoccasion}</h4>
+                    </div>
+
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <h4>Optional: {this.props.data["data"][0].fourthinputoccasion}</h4> 
+                <hr></hr>
+
+
+                <div class="d-flex flex-column mt-2">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">อยากบอกอะไรเพิ่มเติมกับสตาร์: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].fourthinputoccasion}</h4>
+                    </div>
+
                 </div>
 
             </div>
         } 
         else if (occasion == "Pep Talk")
-        {
+        { 
             occasion = 
             <div>
-                <div class="d-flex justify-content-center">
-                    <h4>Pep Talk</h4>
+                <hr></hr>
+
+                <div class="d-flex flex-column mt-3">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">เนื่องในโอกาส: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">คุยให้กําลังใจ</h4>
+                    </div>
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <h4>What's going on?: {this.props.data["data"][0].firstinputoccasion}</h4>
-                </div>
-                
-                <div class="d-flex justify-content-center">
-                    <h4>How can help?: {this.props.data["data"][0].secondinputoccasion}</h4>
+                <hr></hr>
+
+                <div class="d-flex flex-column mt-3">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">ทําไมถึงอยากได้กําลังใจ: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].firstinputoccasion}</h4>
+                    </div>
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <h4>Optional: {this.props.data["data"][0].thirdinputoccasion}</h4>
+                <hr></hr>
+
+                <div class="d-flex flex-column mt-3">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">ให้สตาร์ช่วยอะไรได้บ้าง: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].secondinputoccasion}</h4>
+                    </div>
                 </div>
+
+                <hr></hr>
+
+                <div class="d-flex flex-column mt-2">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">อยากบอกอะไรเพิ่มเติมกับสตาร์: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].thirdinputoccasion}</h4>
+                    </div>
+
+                </div>
+       
 
             </div>
         }
@@ -382,16 +571,43 @@ class EachReserve extends React.Component{
         {
             occasion = 
             <div>
-                <div class="d-flex justify-content-center">
-                    <h4>Pep Talk</h4>
+                <hr></hr>
+
+                <div class="d-flex flex-column mt-3">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">เนื่องในโอกาส: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">เผา</h4>
+                    </div>
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <h4>What to Roast?: {this.props.data["data"][0].firstinputoccasion}</h4>
+                <hr></hr>
+
+
+                <div class="d-flex flex-column mt-3">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">อยากให้สตาร์เผาอะไร: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].firstinputoccasion}</h4>
+                    </div>
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <h4>Optional: {this.props.data["data"][0].secondinputoccasion}</h4>
+                <hr></hr>
+
+
+                <div class="d-flex flex-column mt-2">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">อยากบอกอะไรเพิ่มเติมกับสตาร์: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].secondinputoccasion}</h4>
+                    </div>
+
                 </div>
                 
             </div>
@@ -400,74 +616,152 @@ class EachReserve extends React.Component{
         {
             occasion = 
             <div>
-                <div class="d-flex justify-content-center">
-                    <h4>Others</h4>
+                <hr></hr>
+
+                  <div class="d-flex flex-column mt-3">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">เนื่องในโอกาส: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].firstinputoccasion}</h4>
+                    </div>
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <h4>What's the occasion?: {this.props.data["data"][0].firstinputoccasion}</h4>
+                <hr></hr>
+
+
+                <div class="d-flex flex-column mt-3">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">อยากให้สตาร์ทําอะไร: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].secondinputoccasion}</h4>
+                    </div>
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <h4>Instructions: {this.props.data["data"][0].secondinputoccasion}</h4>
-                </div>
+                <hr></hr>
 
-                <div class="d-flex justify-content-center">
-                    <h4>Optional: {this.props.data["data"][0].thirdinputoccasion}</h4>
+
+
+                <div class="d-flex flex-column mt-2">
+                    
+                    <div class="d-flex justify-content-center">
+                        <h4 class="watitle">อยากบอกอะไรเพิ่มเติมกับสตาร์: </h4>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wainfo">{this.props.data["data"][0].thirdinputoccasion}</h4>
+                    </div>
+
                 </div>
             </div>
         }
         console.log("this is the type of intro", this.props.data["data"][0].typeintro)
         console.log("SIDEMEN", this.props.data["propicandusername"])
-        let link = ""
-        if (this.props.data["propicandusername"][1] == null)
+        console.log("gu tong check for data eek laew", this.props.data)
+        console.log("gu tong check for data eek laew", this.props.data["data"][0].influencer_pic)
+
+        
+        let link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
+
+        if (document.querySelector('#typeofpage').value == "inbox")
         {
-          link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
-    
+            if (this.props.data["data"][0].influencer_pic != null || this.props.data["data"][0].influencer_pic != "")
+            {
+                link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["data"][0].influencer_pic + ".jpg"
+
+            }
+     
         }
         else
         {
-          link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["propicandusername"][1] + ".jpg"
+            if (this.props.data["data"][0].influencer_pic != null || this.props.data["data"][0].influencer_pic != "")
+            {
+                link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["data"][0].normal_pic + ".jpg"
+            }
         }
+
+
 
         return (
             <div>
-                <button class="btn btn-primary"onClick={this.goBack}>Back</button>
-                <div class="d-flex justify-content-center">
-                    <h4>Order Details</h4>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <h4>Username: </h4>
-                    <h4>{this.props.data["propicandusername"][0]}</h4>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <img class="imgnoedit" src={link}></img>
-                </div>
-            
-                    {this.props.data["data"][0].typeintro == "someoneelse_html_id" ?   
-                    <div class="d-flex flex-column">
-                        <div class="d-flex justify-content-center"> 
-                        <h4>A Gift For Someone Else</h4> 
-
+                <button class="btn btn-primary ml-5"onClick={this.goBack}>Back</button>
+                
+                <div class="d-flex justify-content-center mb-5">
+                    <div class="orderorder">
+                        <div class="d-flex justify-content-center">
+                            <h4 class="wa">รายละเอียดการสั่งซื้อ</h4>
                         </div>
-                        <div class="d-flex justify-content-center"> 
-                        <h4>From: {this.props.data["data"][0].tointro}</h4>
-
+                        <div class="d-flex justify-content-center">
+                            {this.props.data["data"][0].completed == true ? <h4 class="watitle" style={{color: "green"}}>เสร็จสิ้น</h4> : <h4 class="watitle" style={{color: "red"}}>ไม่เสร็จสิ้น</h4>}
                         </div>
-                        <div class="d-flex justify-content-center"> 
-                        <h4>To: {this.props.data["data"][0].fromintro}</h4>
-
-                        </div>
-                    </div>:
-                    <div>
-                        <h4>For Buyer</h4> 
-                     
-                        <h4>{this.props.toinro}</h4>
-                    </div>}     
-                    {occasion}
-                    <div class="d-flex justify-content-center">
-                        {this.props.data["data"][0].completed == true ? <h4>Completed</h4> : <h4>Not Complete</h4>}
                     </div>
+                </div>
+
+
+                <div class="d-flex justify-content-center mb-5">
+                    <div class="orderfrom">
+                        <div class="d-flex justify-content-center">
+                            {document.querySelector('#typeofpage').value == "inbox" ?                            
+                            <h4 class="wa">ออเดอร์ถึง</h4>:<h4 class="wa">ออเดอร์จาก</h4>}
+                        </div>
+                        <hr class="hr"/>
+                        <div class="d-flex justify-content-center">
+                            {document.querySelector('#typeofpage').value == "inbox" ?   
+                            <h4 class="ml-2 align-middle">{this.props.data["data"][0].username_influencer}</h4>:
+                            <h4 class="ml-2 align-middle">{this.props.data["data"][0].username}</h4>}
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <img class="imgnoeditinbox" src={link}></img>
+                        </div>
+
+                    </div>
+                </div>
+               
+
+                <div class="d-flex justify-content-center mb-5">
+                    <div class="orderdetails">
+                        <div class="d-flex justify-content-center">
+                            {this.props.data["data"][0].typeintro == "someoneelse_html_id" ?  <h4 class="wa">ของขวัญสำหรับคนอื่น</h4>: <h4 class="wa">ของขวัญสำหรับตนเอง</h4>}
+                        </div>
+                       
+                        <hr class="hr"/>
+
+      
+                    {this.props.data["data"][0].typeintro == "someoneelse_html_id" ?   
+                        <div class="d-flex justify-content-center mb-5">
+                            <div class="d-flex flex-column mt-3">
+                                <div class="d-flex justify-content-center">
+                                    <h4 class="wa">จาก: {this.props.data["data"][0].tointro}</h4>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <h4 class="wa">ถึง: {this.props.data["data"][0].fromintro}</h4>
+                                </div>
+                              
+                                
+                                {occasion}
+                            </div>
+
+                        </div>:
+                       <div class="d-flex justify-content-center mb-5">
+                       <div class="d-flex flex-column mt-3">
+                           <div class="d-flex justify-content-center">
+                               <h4 class="wa">ถึง: {this.props.data["data"][0].tointro}</h4>
+                           </div>
+                           {occasion}
+
+                       </div>
+
+                   </div>} 
+
+                    </div>
+
+                   
+
+                </div>
+  
                     {postoption}
             </div>
         )
@@ -486,6 +780,7 @@ class InboxFeedRows extends React.Component {
         document.querySelector('#eachreserve').hidden = false;
         document.querySelector('#inboxmainid').hidden = true;
         document.querySelector('#myinboxhtml').hidden = true;
+        console.log("this.props.iddddddd", this.props.id)
 
         console.log("KINGDOM IS ONE OF THE BEST MANGA OF ALL TIME BUT STILL ONE PIECE IS BETTER", document.querySelector('#divtogetid').value)
         document.querySelector('#myrequesthtml').hidden = true;
@@ -497,7 +792,7 @@ class InboxFeedRows extends React.Component {
         method: 'PUT',
         headers:{'X-CSRFToken': getcooked},
         body: JSON.stringify({
-          reservationid: document.querySelector('#divtogetid').value,
+          reservationid: this.props.id,
           from: "eachreserve"  
             })
         })
@@ -585,7 +880,7 @@ class InboxFeedRows extends React.Component {
                     <h4 class="wa">{occasion}</h4>
                 </div>
                 <div onClick={this.clickHref} class="button" id="button-7">
-                    <input type="hidden" id="divtogetid"value={this.props.id}></input>
+                    <input type="hidden" id="divtogetid" value={this.props.id}></input>
                     <div value={this.props.id}  class="dub-arrow">
                         <img src="https://github.com/atloomer/atloomer.github.io/blob/master/img/iconmonstr-arrow-48-240.png?raw=true" alt="" />
                     </div>
@@ -738,20 +1033,25 @@ class InboxFeedInbox extends React.Component {
         window.scrollTo(0, 0)
     }
     render() {
-  
+    console.log("CUCKOOOOOOOOOO", this.props.data)
+    console.log("CUCKOOOOOOOOOO SECONDO", this.state.pagination)
+
 
 
     const button = [];
     const rows = [];
 
     const paginationid = this.props.data["paginationid"]
+   // {this.state.pagination == thej ? "page-item active":"page-item"}
+   //style:{color:"red"}
+
 
     for (let j = 0; j < this.props.data["num_pages"]; j++)
     {
       let thej = j + 1
       button.push
       (
-        <li class={paginationid == thej ? "page-item active":"page-item"} onClick={this.changePage}><a class="page-link">{thej}</a></li>
+        <a onClick={this.changePage} class={this.state.pagination == thej ? "paginationcolor btn btn-primary":"paginationnocolor btn"}>{thej}</a>
       )
 
     }
@@ -791,6 +1091,7 @@ class InboxFeedInbox extends React.Component {
             <div>      
                 <div class="d-flex justify-content-center mb-5">    
                     {this.state.newdata["type"] == "request" ? <button id="hidecompletedid" value={this.state.hide}class="btn btn-primary" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
+
                </div> 
                 {this.state.newdata["data"] != "" ? 
             
@@ -809,13 +1110,9 @@ class InboxFeedInbox extends React.Component {
         <div class="paginationcss">
         {this.props.data["num_pages"] != 0 ?
         <ul class="pagination container justify-content-center mt-3">
-            <li class="page-item">
-              {this.state.pagination != 1 ? <span id={this.state.pagination} class="page-link pagelink" onClick={this.changePage}>Previous</span>: null}
-              </li>
+              {this.state.pagination != 1 ?  <a id={this.state.pagination} class="nextbutton btn" onClick={this.changePage}>Previous</a>: null}
                 {button}              
-              <li class="page-item">
-              {this.state.pagination != this.props.data["num_pages"] ? <span id={this.state.pagination} class="page-link pagelink" onClick={this.changePage}>Next</span>: null}
-            </li>
+              {this.state.pagination != this.props.data["num_pages"] ? <a id={this.state.pagination} class="nextbutton btn" onClick={this.changePage}>Next</a>: null}
         </ul>: null}
         </div>:null}
             </div>

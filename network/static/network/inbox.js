@@ -174,76 +174,72 @@ var EachReserve = function (_React$Component) {
     }, {
         key: 'submitReview',
         value: function submitReview(e) {
-            var _JSON$stringify;
-
             var getcooked = getCookie('csrftoken');
             var value = document.querySelector('#typeforreview').value;
-            var reserveid = this.props.data["data"][0].id;
+            if (value == "") {
+                alert("You can't submit Review without writing a review");
+            } else {
+                var _JSON$stringify;
 
-            console.log("before error", this.props.data["data"][0].username_influencer);
+                var reserveid = this.props.data["data"][0].id;
 
-            var influencername = this.props.data["data"][0].username_influencer;
+                console.log("before error", this.props.data["data"][0].username_influencer);
 
-            var selectreview = document.querySelector('#selectforreview').value;
+                var influencername = this.props.data["data"][0].username_influencer;
 
-            console.log("value of review", value);
+                var selectreview = document.querySelector('#selectforreview').value;
 
-            fetch('/gotoeachreserve', {
-                method: 'POST',
-                headers: { 'X-CSRFToken': getcooked },
-                body: JSON.stringify((_JSON$stringify = {
-                    value: value,
-                    reserveid: reserveid,
-                    influencername: influencername }, _defineProperty(_JSON$stringify, 'influencername', influencername), _defineProperty(_JSON$stringify, 'type', "submitreview"), _defineProperty(_JSON$stringify, 'reviewstars', selectreview), _JSON$stringify))
-            }).then(function (result) {
-                window.location.href = "/inbox";
-            });
+                console.log("value of review", value);
+
+                fetch('/gotoeachreserve', {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': getcooked },
+                    body: JSON.stringify((_JSON$stringify = {
+                        value: value,
+                        reserveid: reserveid,
+                        influencername: influencername }, _defineProperty(_JSON$stringify, 'influencername', influencername), _defineProperty(_JSON$stringify, 'type', "submitreview"), _defineProperty(_JSON$stringify, 'reviewstars', selectreview), _JSON$stringify))
+                }).then(function (result) {
+                    window.location.href = "/inbox";
+                });
+            }
         }
     }, {
         key: 'render',
         value: function render() {
+            console.log("hahahahahahheheheheheh", document.querySelector('#typeofpage').value);
+
             var videoandstuff = "";
             link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4";
 
             videoandstuff = React.createElement(
                 'div',
                 null,
-                document.querySelector('#typeofpage').value == "request" ? React.createElement(
+                React.createElement(
                     'div',
-                    null,
-                    this.props.data["data"].completed != true ? React.createElement(
+                    { 'class': 'videowhenget' },
+                    React.createElement(
                         'div',
-                        null,
+                        { 'class': 'd-flex flex-column' },
                         React.createElement(
                             'div',
                             { 'class': 'd-flex justify-content-center' },
                             React.createElement(
-                                'label',
-                                { htmlFor: 'edit_post_txt' },
-                                'Click to change introduction video: '
+                                'video',
+                                { id: 'testervideo', 'class': 'videovideowhenget', controls: true },
+                                React.createElement('source', { src: link }),
+                                'Your browser does not support the video tag.'
                             )
                         ),
                         React.createElement(
                             'div',
-                            { 'class': 'custom-file' },
+                            { 'class': 'd-flex justify-content-center mt-2' },
                             React.createElement(
-                                'div',
-                                { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { type: 'file', onChange: this.chooseFile, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                                'button',
+                                { id: 'savethelink', value: link, onClick: this.saveUrl, 'class': 'btn btn-primary' },
+                                'Copy Video to Post somewhere!'
                             )
-                        ),
-                        React.createElement(
-                            'video',
-                            { hidden: true, id: 'testervideo', width: '320', height: '240', controls: true },
-                            React.createElement('source', { src: '' }),
-                            'Your browser does not support the video tag.'
                         )
-                    ) : null
-                ) : React.createElement(
-                    'video',
-                    { id: 'testervideo', width: '320', height: '240', controls: true },
-                    React.createElement('source', { src: link }),
-                    'Your browser does not support the video tag.'
+                    )
                 )
             );
 
@@ -253,14 +249,66 @@ var EachReserve = function (_React$Component) {
                 if (this.props.data["data"][0].completed != true) {
                     postoption = React.createElement(
                         'div',
-                        null,
-                        videoandstuff,
-                        React.createElement('input', { name: '', type: 'hidden', id: 'sendingvideoidback' }),
-                        React.createElement('input', { id: 'sendingbacktorequest' }),
+                        { 'class': 'd-flex justify-content-center mb-3' },
                         React.createElement(
-                            'button',
-                            { 'class': 'btn btn-primary', onClick: this.submitSave, id: 'submitrequested' },
-                            'Post'
+                            'div',
+                            { 'class': 'postoptionforinfluencer' },
+                            React.createElement(
+                                'div',
+                                null,
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'label',
+                                        { 'class': 'wa', htmlFor: 'edit_post_txt' },
+                                        '\u0E04\u0E25\u0E34\u0E4A\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E25\u0E37\u0E2D\u0E01 Vid \u0E42\u0E1E\u0E2A\u0E15\u0E4C: '
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'custom-file' },
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement('input', { type: 'file', onChange: this.chooseFile, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center mt-5' },
+                                    React.createElement(
+                                        'video',
+                                        { hidden: true, id: 'testervideo', 'class': 'videovideowhenget', controls: true },
+                                        React.createElement('source', { src: link }),
+                                        'Your browser does not support the video tag.'
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-4' },
+                                React.createElement(
+                                    'h6',
+                                    { 'class': 'wa' },
+                                    '\u0E02\u0E49\u0E2D\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E31\u0E49\u0E19\u0E46\u0E43\u0E2B\u0E49\u0E41\u0E1F\u0E19\u0E04\u0E25\u0E31\u0E1A: '
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { id: 'sendingbacktorequest' })
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-3 mb-5' },
+                                React.createElement(
+                                    'button',
+                                    { 'class': 'btn btn-primary', onClick: this.submitSave, id: 'submitrequested' },
+                                    'Post'
+                                )
+                            ),
+                            React.createElement('input', { name: '', type: 'hidden', id: 'sendingvideoidback' })
                         )
                     );
                 } else {
@@ -271,38 +319,97 @@ var EachReserve = function (_React$Component) {
                         'div',
                         null,
                         React.createElement(
-                            'h1',
-                            null,
-                            'DONE'
+                            'div',
+                            { 'class': 'donetitle' },
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement(
+                                    'h1',
+                                    { 'class': 'donetext' },
+                                    '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E41\u0E25\u0E49\u0E27\u0E27\u0E27!'
+                                )
+                            )
                         ),
                         videoandstuff,
                         React.createElement(
-                            'button',
-                            { id: 'savethelink', value: _link, onClick: this.saveUrl, 'class': 'btn btn-primary' },
-                            'Copy Video to Post somewhere!'
-                        ),
-                        React.createElement(
-                            'h1',
-                            null,
-                            'What you wrote: ',
-                            this.props.data["forpostdata"][0]
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-3' },
+                            React.createElement(
+                                'div',
+                                { 'class': 'orderdetails' },
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wa' },
+                                        '\u0E2A\u0E34\u0E48\u0E07\u0E17\u0E35\u0E48\u0E04\u0E38\u0E13\u0E40\u0E02\u0E35\u0E22\u0E19\u0E43\u0E2B\u0E49\u0E41\u0E1F\u0E19\u0E04\u0E25\u0E31\u0E1A: '
+                                    )
+                                ),
+                                React.createElement('hr', { 'class': 'hr' }),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h2',
+                                        { 'class': 'wa' },
+                                        this.props.data["forpostdata"][0]
+                                    )
+                                )
+                            )
                         ),
                         this.props.data["data"][0].reviewcompleted != true ? React.createElement(
                             'div',
-                            { 'class': 'd-flex justify-content-center' },
+                            { 'class': 'd-flex justify-content-center mt-3 mb-5' },
                             React.createElement(
-                                'h3',
-                                null,
-                                'No reviews from customer yet'
+                                'div',
+                                { 'class': 'orderdetails' },
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wa' },
+                                        'Customer Review: '
+                                    )
+                                ),
+                                React.createElement('hr', { 'class': 'hr' }),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h2',
+                                        { 'class': 'wa' },
+                                        '\u0E22\u0E31\u0E27\u0E44\u0E21\u0E48\u0E21\u0E35\u0E23\u0E35\u0E27\u0E34\u0E27'
+                                    )
+                                )
                             )
                         ) : React.createElement(
                             'div',
-                            { 'class': 'd-flex justify-content-center' },
+                            { 'class': 'd-flex justify-content-center mt-5 mb-5' },
                             React.createElement(
-                                'h3',
-                                null,
-                                'Customer Review: ',
-                                this.props.data["reviewvalue"]
+                                'div',
+                                { 'class': 'orderdetails' },
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wa' },
+                                        'Customer Review: '
+                                    )
+                                ),
+                                React.createElement('hr', { 'class': 'hr' }),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h2',
+                                        { 'class': 'wa' },
+                                        this.props.data["reviewvalue"]
+                                    )
+                                )
                             )
                         )
                     );
@@ -311,11 +418,15 @@ var EachReserve = function (_React$Component) {
                 if (this.props.data["data"][0].completed != true) {
                     postoption = React.createElement(
                         'div',
-                        null,
+                        { 'class': 'mb-5' },
                         React.createElement(
-                            'h1',
-                            null,
-                            'Waiting for influencer'
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                '\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E01\u0E4D\u0E32\u0E25\u0E31\u0E07\u0E14\u0E4D\u0E32\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E17\u0E4D\u0E32 Vid \u0E17\u0E35\u0E48\u0E19\u0E48\u0E32\u0E08\u0E14\u0E08\u0E4D\u0E32\u0E02\u0E2D\u0E07\u0E17\u0E48\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48'
+                            )
                         )
                     );
                 } else {
@@ -325,72 +436,126 @@ var EachReserve = function (_React$Component) {
                         'div',
                         null,
                         React.createElement(
-                            'h1',
-                            null,
-                            'Done'
+                            'div',
+                            { 'class': 'donetitle' },
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement(
+                                    'h1',
+                                    { 'class': 'donetext' },
+                                    '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E41\u0E25\u0E49\u0E27\u0E27\u0E27!'
+                                )
+                            )
                         ),
                         videoandstuff,
                         React.createElement(
-                            'button',
-                            { id: 'savethelink', value: _link2, onClick: this.saveUrl, 'class': 'btn btn-primary' },
-                            'Copy Video to Post somewhere!'
-                        ),
-                        React.createElement(
-                            'h2',
-                            null,
-                            'Message from influencer: ',
-                            this.props.data["forpostdata"][0]
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-3' },
+                            React.createElement(
+                                'div',
+                                { 'class': 'orderdetails' },
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wa' },
+                                        '\u0E02\u0E2D\u0E04\u0E27\u0E32\u0E21\u0E40\u0E25\u0E47\u0E01\u0E46\u0E19\u0E49\u0E2D\u0E22\u0E46\u0E08\u0E32\u0E01\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                    )
+                                ),
+                                React.createElement('hr', { 'class': 'hr' }),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h2',
+                                        { 'class': 'wa' },
+                                        this.props.data["forpostdata"][0]
+                                    )
+                                )
+                            )
                         ),
                         this.props.data["data"][0].reviewcompleted != true ? React.createElement(
                             'div',
-                            null,
-                            React.createElement('input', { id: 'typeforreview' }),
+                            { 'class': 'd-flex flex-column' },
                             React.createElement(
-                                'select',
-                                { id: 'selectforreview' },
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-5' },
                                 React.createElement(
-                                    'option',
-                                    { value: '1' },
-                                    '1'
-                                ),
-                                React.createElement(
-                                    'option',
-                                    { value: '2' },
-                                    '2'
-                                ),
-                                React.createElement(
-                                    'option',
-                                    { value: '3' },
-                                    '3'
-                                ),
-                                React.createElement(
-                                    'option',
-                                    { value: '4' },
-                                    '4'
-                                ),
-                                React.createElement(
-                                    'option',
-                                    { value: '5' },
-                                    '5'
+                                    'h4',
+                                    { 'class': 'wa' },
+                                    '\u0E40\u0E02\u0E35\u0E22\u0E19\u0E23\u0E35\u0E27\u0E34\u0E27\u0E43\u0E2B\u0E49\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E04\u0E19\u0E42\u0E1B\u0E23\u0E14'
                                 )
                             ),
                             React.createElement(
-                                'button',
-                                { onClick: this.submitReview, 'class': 'btn btn-primary' },
-                                'Submit'
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2 mb-3' },
+                                React.createElement('input', { id: 'typeforreview' }),
+                                React.createElement(
+                                    'select',
+                                    { id: 'selectforreview' },
+                                    React.createElement(
+                                        'option',
+                                        { value: '5' },
+                                        '5'
+                                    ),
+                                    React.createElement(
+                                        'option',
+                                        { value: '4' },
+                                        '4'
+                                    ),
+                                    React.createElement(
+                                        'option',
+                                        { value: '3' },
+                                        '3'
+                                    ),
+                                    React.createElement(
+                                        'option',
+                                        { value: '2' },
+                                        '2'
+                                    ),
+                                    React.createElement(
+                                        'option',
+                                        { value: '1' },
+                                        '1'
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mb-5' },
+                                React.createElement(
+                                    'button',
+                                    { onClick: this.submitReview, 'class': 'btn btn-primary' },
+                                    'Submit'
+                                )
                             )
                         ) : React.createElement(
                             'div',
-                            null,
+                            { 'class': 'd-flex justify-content-center mt-5 mb-5' },
                             React.createElement(
-                                'h1',
-                                null,
-                                'Ur Review'
-                            ),
-                            React.createElement(
-                                'h3',
-                                null,
-                                this.props.data["reviewvalue"]
+                                'div',
+                                { 'class': 'orderdetails' },
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wa' },
+                                        '\u0E23\u0E35\u0E27\u0E34\u0E27\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13: '
+                                    )
+                                ),
+                                React.createElement('hr', { 'class': 'hr' }),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h2',
+                                        { 'class': 'wa' },
+                                        this.props.data["reviewvalue"]
+                                    )
+                                )
                             )
                         )
                     );
@@ -402,53 +567,119 @@ var EachReserve = function (_React$Component) {
                 occasion = React.createElement(
                     'div',
                     null,
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-3' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'Birthday'
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E40\u0E19\u0E37\u0E48\u0E2D\u0E07\u0E43\u0E19\u0E42\u0E2D\u0E01\u0E32\u0E2A: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                '\u0E40\u0E09\u0E25\u0E21\u0E40\u0E09\u0E25\u0E2D\u0E07\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14'
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-2' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'When is the birthday: ',
-                            this.props.data["data"][0].firstinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E01\u0E34\u0E14: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].firstinputoccasion
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-2' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'How old are they turning: ',
-                            this.props.data["data"][0].secondinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].secondinputoccasion
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-2' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'Instructions: ',
-                            this.props.data["data"][0].thirdinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14\u0E2D\u0E30\u0E44\u0E23: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].thirdinputoccasion
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-2' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'Optional: ',
-                            this.props.data["data"][0].fourthinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].fourthinputoccasion
+                            )
                         )
                     )
                 );
@@ -456,43 +687,96 @@ var EachReserve = function (_React$Component) {
                 occasion = React.createElement(
                     'div',
                     null,
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-3' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'Pep Talk'
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E40\u0E19\u0E37\u0E48\u0E2D\u0E07\u0E43\u0E19\u0E42\u0E2D\u0E01\u0E32\u0E2A: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                '\u0E04\u0E38\u0E22\u0E43\u0E2B\u0E49\u0E01\u0E4D\u0E32\u0E25\u0E31\u0E07\u0E43\u0E08'
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-3' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'What\'s going on?: ',
-                            this.props.data["data"][0].firstinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E17\u0E4D\u0E32\u0E44\u0E21\u0E16\u0E36\u0E07\u0E2D\u0E22\u0E32\u0E01\u0E44\u0E14\u0E49\u0E01\u0E4D\u0E32\u0E25\u0E31\u0E07\u0E43\u0E08: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].firstinputoccasion
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-3' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'How can help?: ',
-                            this.props.data["data"][0].secondinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E0A\u0E48\u0E27\u0E22\u0E2D\u0E30\u0E44\u0E23\u0E44\u0E14\u0E49\u0E1A\u0E49\u0E32\u0E07: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].secondinputoccasion
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-2' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'Optional: ',
-                            this.props.data["data"][0].thirdinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].thirdinputoccasion
+                            )
                         )
                     )
                 );
@@ -500,33 +784,73 @@ var EachReserve = function (_React$Component) {
                 occasion = React.createElement(
                     'div',
                     null,
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-3' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'Pep Talk'
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E40\u0E19\u0E37\u0E48\u0E2D\u0E07\u0E43\u0E19\u0E42\u0E2D\u0E01\u0E32\u0E2A: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                '\u0E40\u0E1C\u0E32'
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-3' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'What to Roast?: ',
-                            this.props.data["data"][0].firstinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E40\u0E1C\u0E32\u0E2D\u0E30\u0E44\u0E23: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].firstinputoccasion
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-2' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'Optional: ',
-                            this.props.data["data"][0].secondinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].secondinputoccasion
+                            )
                         )
                     )
                 );
@@ -534,54 +858,92 @@ var EachReserve = function (_React$Component) {
                 occasion = React.createElement(
                     'div',
                     null,
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-3' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'Others'
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E40\u0E19\u0E37\u0E48\u0E2D\u0E07\u0E43\u0E19\u0E42\u0E2D\u0E01\u0E32\u0E2A: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].firstinputoccasion
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-3' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'What\'s the occasion?: ',
-                            this.props.data["data"][0].firstinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23: '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].secondinputoccasion
+                            )
                         )
                     ),
+                    React.createElement('hr', null),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'd-flex flex-column mt-2' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'Instructions: ',
-                            this.props.data["data"][0].secondinputoccasion
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { 'class': 'd-flex justify-content-center' },
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'watitle' },
+                                '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C: '
+                            )
+                        ),
                         React.createElement(
-                            'h4',
-                            null,
-                            'Optional: ',
-                            this.props.data["data"][0].thirdinputoccasion
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wainfo' },
+                                this.props.data["data"][0].thirdinputoccasion
+                            )
                         )
                     )
                 );
             }
             console.log("this is the type of intro", this.props.data["data"][0].typeintro);
             console.log("SIDEMEN", this.props.data["propicandusername"]);
-            var link = "";
-            if (this.props.data["propicandusername"][1] == null) {
-                link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
+            console.log("gu tong check for data eek laew", this.props.data);
+            console.log("gu tong check for data eek laew", this.props.data["data"][0].influencer_pic);
+
+            var link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
+
+            if (document.querySelector('#typeofpage').value == "inbox") {
+                if (this.props.data["data"][0].influencer_pic != null || this.props.data["data"][0].influencer_pic != "") {
+                    link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["data"][0].influencer_pic + ".jpg";
+                }
             } else {
-                link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["propicandusername"][1] + ".jpg";
+                if (this.props.data["data"][0].influencer_pic != null || this.props.data["data"][0].influencer_pic != "") {
+                    link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["data"][0].normal_pic + ".jpg";
+                }
             }
 
             return React.createElement(
@@ -589,95 +951,146 @@ var EachReserve = function (_React$Component) {
                 null,
                 React.createElement(
                     'button',
-                    { 'class': 'btn btn-primary', onClick: this.goBack },
+                    { 'class': 'btn btn-primary ml-5', onClick: this.goBack },
                     'Back'
                 ),
                 React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center' },
+                    { 'class': 'd-flex justify-content-center mb-5' },
                     React.createElement(
-                        'h4',
-                        null,
-                        'Order Details'
+                        'div',
+                        { 'class': 'orderorder' },
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                '\u0E23\u0E32\u0E22\u0E25\u0E30\u0E40\u0E2D\u0E35\u0E22\u0E14\u0E01\u0E32\u0E23\u0E2A\u0E31\u0E48\u0E07\u0E0B\u0E37\u0E49\u0E2D'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            this.props.data["data"][0].completed == true ? React.createElement(
+                                'h4',
+                                { 'class': 'watitle', style: { color: "green" } },
+                                '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
+                            ) : React.createElement(
+                                'h4',
+                                { 'class': 'watitle', style: { color: "red" } },
+                                '\u0E44\u0E21\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
+                            )
+                        )
                     )
                 ),
                 React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center' },
+                    { 'class': 'd-flex justify-content-center mb-5' },
                     React.createElement(
-                        'h4',
-                        null,
-                        'Username: '
-                    ),
-                    React.createElement(
-                        'h4',
-                        null,
-                        this.props.data["propicandusername"][0]
+                        'div',
+                        { 'class': 'orderfrom' },
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            document.querySelector('#typeofpage').value == "inbox" ? React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                '\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E16\u0E36\u0E07'
+                            ) : React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                '\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E08\u0E32\u0E01'
+                            )
+                        ),
+                        React.createElement('hr', { 'class': 'hr' }),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            document.querySelector('#typeofpage').value == "inbox" ? React.createElement(
+                                'h4',
+                                { 'class': 'ml-2 align-middle' },
+                                this.props.data["data"][0].username_influencer
+                            ) : React.createElement(
+                                'h4',
+                                { 'class': 'ml-2 align-middle' },
+                                this.props.data["data"][0].username
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement('img', { 'class': 'imgnoeditinbox', src: link })
+                        )
                     )
                 ),
                 React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement('img', { 'class': 'imgnoedit', src: link })
-                ),
-                this.props.data["data"][0].typeintro == "someoneelse_html_id" ? React.createElement(
-                    'div',
-                    { 'class': 'd-flex flex-column' },
+                    { 'class': 'd-flex justify-content-center mb-5' },
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'orderdetails' },
                         React.createElement(
-                            'h4',
-                            null,
-                            'A Gift For Someone Else'
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            this.props.data["data"][0].typeintro == "someoneelse_html_id" ? React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                '\u0E02\u0E2D\u0E07\u0E02\u0E27\u0E31\u0E0D\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E04\u0E19\u0E2D\u0E37\u0E48\u0E19'
+                            ) : React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                '\u0E02\u0E2D\u0E07\u0E02\u0E27\u0E31\u0E0D\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E15\u0E19\u0E40\u0E2D\u0E07'
+                            )
+                        ),
+                        React.createElement('hr', { 'class': 'hr' }),
+                        this.props.data["data"][0].typeintro == "someoneelse_html_id" ? React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mb-5' },
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex flex-column mt-3' },
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wa' },
+                                        '\u0E08\u0E32\u0E01: ',
+                                        this.props.data["data"][0].tointro
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wa' },
+                                        '\u0E16\u0E36\u0E07: ',
+                                        this.props.data["data"][0].fromintro
+                                    )
+                                ),
+                                occasion
+                            )
+                        ) : React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mb-5' },
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex flex-column mt-3' },
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wa' },
+                                        '\u0E16\u0E36\u0E07: ',
+                                        this.props.data["data"][0].tointro
+                                    )
+                                ),
+                                occasion
+                            )
                         )
-                    ),
-                    React.createElement(
-                        'div',
-                        { 'class': 'd-flex justify-content-center' },
-                        React.createElement(
-                            'h4',
-                            null,
-                            'From: ',
-                            this.props.data["data"][0].tointro
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { 'class': 'd-flex justify-content-center' },
-                        React.createElement(
-                            'h4',
-                            null,
-                            'To: ',
-                            this.props.data["data"][0].fromintro
-                        )
-                    )
-                ) : React.createElement(
-                    'div',
-                    null,
-                    React.createElement(
-                        'h4',
-                        null,
-                        'For Buyer'
-                    ),
-                    React.createElement(
-                        'h4',
-                        null,
-                        this.props.toinro
-                    )
-                ),
-                occasion,
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    this.props.data["data"][0].completed == true ? React.createElement(
-                        'h4',
-                        null,
-                        'Completed'
-                    ) : React.createElement(
-                        'h4',
-                        null,
-                        'Not Complete'
                     )
                 ),
                 postoption
@@ -708,6 +1121,7 @@ var InboxFeedRows = function (_React$Component2) {
             document.querySelector('#eachreserve').hidden = false;
             document.querySelector('#inboxmainid').hidden = true;
             document.querySelector('#myinboxhtml').hidden = true;
+            console.log("this.props.iddddddd", this.props.id);
 
             console.log("KINGDOM IS ONE OF THE BEST MANGA OF ALL TIME BUT STILL ONE PIECE IS BETTER", document.querySelector('#divtogetid').value);
             document.querySelector('#myrequesthtml').hidden = true;
@@ -719,7 +1133,7 @@ var InboxFeedRows = function (_React$Component2) {
                 method: 'PUT',
                 headers: { 'X-CSRFToken': getcooked },
                 body: JSON.stringify({
-                    reservationid: document.querySelector('#divtogetid').value,
+                    reservationid: this.props.id,
                     from: "eachreserve"
                 })
             }).then(function (response) {
@@ -997,22 +1411,23 @@ var InboxFeedInbox = function (_React$Component3) {
     }, {
         key: 'render',
         value: function render() {
+            console.log("CUCKOOOOOOOOOO", this.props.data);
+            console.log("CUCKOOOOOOOOOO SECONDO", this.state.pagination);
 
             var button = [];
             var rows = [];
 
             var paginationid = this.props.data["paginationid"];
+            // {this.state.pagination == thej ? "page-item active":"page-item"}
+            //style:{color:"red"}
+
 
             for (var j = 0; j < this.props.data["num_pages"]; j++) {
                 var thej = j + 1;
                 button.push(React.createElement(
-                    'li',
-                    { 'class': paginationid == thej ? "page-item active" : "page-item", onClick: this.changePage },
-                    React.createElement(
-                        'a',
-                        { 'class': 'page-link' },
-                        thej
-                    )
+                    'a',
+                    { onClick: this.changePage, 'class': this.state.pagination == thej ? "paginationcolor btn btn-primary" : "paginationnocolor btn" },
+                    thej
                 ));
             }
             if (this.state.newdata["data"] == null) {
@@ -1084,25 +1499,17 @@ var InboxFeedInbox = function (_React$Component3) {
                     this.props.data["num_pages"] != 0 ? React.createElement(
                         'ul',
                         { 'class': 'pagination container justify-content-center mt-3' },
-                        React.createElement(
-                            'li',
-                            { 'class': 'page-item' },
-                            this.state.pagination != 1 ? React.createElement(
-                                'span',
-                                { id: this.state.pagination, 'class': 'page-link pagelink', onClick: this.changePage },
-                                'Previous'
-                            ) : null
-                        ),
+                        this.state.pagination != 1 ? React.createElement(
+                            'a',
+                            { id: this.state.pagination, 'class': 'nextbutton btn', onClick: this.changePage },
+                            'Previous'
+                        ) : null,
                         button,
-                        React.createElement(
-                            'li',
-                            { 'class': 'page-item' },
-                            this.state.pagination != this.props.data["num_pages"] ? React.createElement(
-                                'span',
-                                { id: this.state.pagination, 'class': 'page-link pagelink', onClick: this.changePage },
-                                'Next'
-                            ) : null
-                        )
+                        this.state.pagination != this.props.data["num_pages"] ? React.createElement(
+                            'a',
+                            { id: this.state.pagination, 'class': 'nextbutton btn', onClick: this.changePage },
+                            'Next'
+                        ) : null
                     ) : null
                 ) : null
             );
