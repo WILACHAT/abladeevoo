@@ -647,3 +647,58 @@ span .myinboxcss:hover{
   background-color: white;
 }
 
+
+span .completecss{
+  font-size: 19px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .1s;
+  font-family: 'Montserrat', sans-serif;
+   
+}
+span .completecss:before,
+span .completecss:after{
+  position: absolute;
+  content: "Completed";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffc500;
+
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+span .completecss:before{
+  color: white;;
+  background: #008fff;;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span .completecss:after{
+  color: #000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span .completecss:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+.completecss:hover{
+  cursor: pointer;
+}
+.norequestdiv
+{
+  align-content: center;
+  width:100%;
+  height:100vh;
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wae
+{
+  color:red;
+  font-family: 'Sarabun';
+
+}

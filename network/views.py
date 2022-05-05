@@ -9,10 +9,16 @@ from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Reques
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 import uuid
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Case, Value, When
 import re
 from datetime import datetime
 import time
+from datetime import timedelta  
+
+import datetime
+from datetime import date
+from django.db.models import F, Q, When
+
 
 
 from django.http import JsonResponse
@@ -50,6 +56,8 @@ def index(request):
     pack the api into the format you want then send it back to the js using jsonresponse
     then from that on you use the data and input it into ReactDOM render into a react class
     '''
+    
+
    # portals = Portal.objects.all()
     influencers = User.objects.all().filter(influencer_ornot=1)
     
@@ -120,12 +128,38 @@ def inzwerg4jgnsd9aadif67(request):
 
             listofcloseuser = []
             newinfluencers = User.objects.all().filter(influencer_ornot=1)
+            print("this is fucking print")
+            print(newinfluencers.count())
+            wa = Userinfo.objects.filter()
+          #  for q in wa:
+           #     print("hehe", q.profile_fullname)
+
+           # for z in newinfluencers:
+           #     print("hehe",z.username)
+
+
+           # print(len(wa))
+
+            #for i,a in zip(newinfluencers, wa):
+             #   match = re.search(f"{searchvalue}",i.username, a.profile_fullname)
+                
+              #  if match:
+               #     listofcloseuser.append(i.id)
+
 
             for i in newinfluencers:
-                i.username
-                match = re.search(f"{searchvalue}",i.username)
+                match = re.search(f"{searchvalue}",i.username, re.IGNORECASE)
+                
                 if match:
                     listofcloseuser.append(i.id)
+            
+            for a in wa:
+                match = re.search(f"{searchvalue}", str(a.profile_fullname), re.IGNORECASE)
+                
+                if match:
+                    listofcloseuser.append(a.influencer_id)
+
+            
             
             influencers = User.objects.filter(id__in = listofcloseuser)
             
@@ -261,10 +295,10 @@ def editprofile(request):
             userinfo = checker.update(profile_fullname=data['idfullname'],profile_description=data['iddescription'],
             first_url=data['idurl1'], second_url=data['idurl2'], third_url=data['idurl3'], influencer_id=request.user.id)
         
-        else: 
-            userinfo = Userinfo(profile_fullname=data['idfullname'],profile_description=data['iddescription'],
-            first_url=data['idurl1'], second_url=data['idurl2'], third_url=data['idurl3'], influencer_id=request.user.id)
-            userinfo.save()
+        #else: 
+           # userinfo = Userinfo(profile_fullname=data['idfullname'],profile_description=data['iddescription'],
+           # first_url=data['idurl1'], second_url=data['idurl2'], third_url=data['idurl3'], influencer_id=request.user.id)
+           # userinfo.save()
     
 
     return_request = {"thebest":"waan"}
@@ -300,12 +334,15 @@ def book(request, username):
     if request.method == "POST":
         data = json.loads(request.body)
         print(data)
-  
+        print("this is datetime", data["datetime"])
+        #date_time_obj = datetime.strptime(data["datetime"], '%Y-%m-%d')
+
+
         bookrequest =  Reservation(typeintro=data['typeintro'],
         tointro=data['tointro'], fromintro=data['fromintro'], typeoccasion=data['typeoccasion'],
         firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
         thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],
-        user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid, duedate=data['datetime'])
+        user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid, duedate=data["datetime"])
         
         bookrequest.save()
   
@@ -328,10 +365,28 @@ def gotozjguen484s9gj302g(request, paginationid):
     checkifinfluencer = User.objects.values('influencer_ornot').get(id = currentuser)
     reviewvalue = ""
     checkifinfluencer = checkifinfluencer["influencer_ornot"]
+
+    # DUE DATE 2022-05-01 
+    # 
+    # MINUS TODAY 2022-05-03
+    # TODAY 2022-05-05
+    day = date.today() - timedelta(days=2)
+    #Reservation.objects.filter(Case(When(completed= False, then=duedate__gte=day))
     
-    reserveinfo = Reservation.objects.filter(user_id_reserver = currentuser)
+    print("I FUCKING HATE QUERIES")
+
+    ngongdaek = Reservation.objects.filter(typeintro=Case(When(completed=False, duedate__gte=day)), user_id_reserver = currentuser)
+    for w in ngongdaek:
+        print("I FUCKING HATE QUERIES", w)
+
+    
+    what = When(completed=False, then='Reservation', duedate__gte=day)
+    reserveinfo = Reservation.objects.filter(Q(completed=True) | Q(duedate__gte=day), user_id_reserver = currentuser)
+
+
     type = "inbox"
     hide = 0
+    sort = 0
     propicandusername = []
     postandmessageinfo = ""
     if request.method == "PUT":   
@@ -341,17 +396,34 @@ def gotozjguen484s9gj302g(request, paginationid):
             print("cehck data type", data["type"])
             if data["type"] == "myrequesthtml":
                 type= "request"
-                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser)
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False, duedate__gte=date.today())
                 hide = 0
+            #some of this will have to change so yea
+            elif data["type"] == "mycompletehtml":
+                type= "complete"
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = True)
+                hide = 0
+
+                
             elif data["type"] == "hidecompleted":
-                print("what is it in hidecomlted")
-                type= "request"
+                print("what is it in hidecomltejkldnfljkasdnfkljnasdfkjnd")
+                type= "inbox"
                 hide = 1
 
-                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False)
+                reserveinfo = Reservation.objects.filter(user_id_reserver = currentuser, completed = False, duedate__gte=day)
                 for i in reserveinfo:
                     print(i.id)
                     print(i.reviewcompleted)
+
+            elif data["type"] == "mysorttime":
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False, duedate__gte=date.today()).order_by('duedate')
+                type = "request"
+                for i in reserveinfo:
+                    print(i.duedate)
+                    hide = 0
+                    sort = 1
+
+
 
 
         elif data["from"] == "eachreserve":
@@ -398,7 +470,7 @@ def gotozjguen484s9gj302g(request, paginationid):
 
     pagination = Paginator(newdata, 9)
     
-
+    
 
     paginationid = int(paginationid)
     print("why does this not change", paginationid)
@@ -410,11 +482,10 @@ def gotozjguen484s9gj302g(request, paginationid):
 
 
     return_request = {"checkifinfluencer": checkifinfluencer, "data": newdata, "type":type, 
-    "forpostdata":forpostdata, "reviewvalue":reviewvalue, "num_pages":num_pages, "paginationid":paginationid, "data":data, "hide":hide, "propicandusername":propicandusername}
+    "forpostdata":forpostdata, "reviewvalue":reviewvalue, "num_pages":num_pages, "paginationid":paginationid, "data":data, "hide":hide,"sort":sort, "propicandusername":propicandusername}
 
     print("paginationid before doing the work", paginationid)
     for row in pagination.page(paginationid).object_list:  
-        print("this is row", row)
         return_request["data"].append(row)
     
     return JsonResponse(return_request, safe=False)
@@ -443,7 +514,8 @@ def gotoeachreserve(request):
             reservation_ofpost_id = data["reserveid"], video = data["videoid"], poster_id = request.user.id)
             postandmessage.save()
 
-            Reservation.objects.filter(id=data["reserveid"]).update(completed = True)
+            today = date.today()
+            Reservation.objects.filter(id=data["reserveid"]).update(completed = True, completiondate = today)
         elif data["type"] == "submitreview":
             print("is it in submitreview?")
 
@@ -622,12 +694,11 @@ def superuser(request):
         Requesteddara.objects.filter(requested_user_id = request.POST["idofuser"]).update(daradone = 1)
         User.objects.filter(id = request.POST["idofuser"]).update(influencer_ornot = 1)
 
-        Userinfo.objects.filter(influencer_id = request.POST["idofuser"]).update(category = request.POST["category"])
+        
+        userinfo = Userinfo(profile_fullname=request.POST["firstname"], influencer_id=request.POST["idofuser"], category = request.POST["category"])
+        userinfo.save()
+        
 
-
-
-
-        print("ok it works thanks the christ")
 
     return render(request, "network/superuser.html", stu)
 
@@ -646,6 +717,8 @@ def dara(request):
         find = findwhere, findusername = usernamefindwhere, followernum = followerfindwhere, 
         requested_user_id = request.user.id, category = category)
         requestdara.save()
+
+   
 
         return HttpResponseRedirect(reverse("index"))
 

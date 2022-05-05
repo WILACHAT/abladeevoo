@@ -60,6 +60,8 @@ class Views(models.Model):
 #How do i do the category? EZ, essentially put category name in the database
 #and whenever category is involve just query stuff from your database
 #portal
+def now():
+     return timezone.now()
 
 
 class Reservation(models.Model):
@@ -76,9 +78,15 @@ class Reservation(models.Model):
     creationtime = models.DateTimeField(auto_now_add=True, null=True)
     user_id_reserver = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reserver') 
     user_id_influencerreserve = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerreserve')
-    #duedate = models.DateTimeField(null=True)
     duedate = models.CharField(max_length=256, null=True)
     expired = models.BooleanField(default=False)
+    
+    realduedate = models.DateTimeField(null=True)
+    completiondate = models.DateTimeField(null=True)
+
+    
+
+
 
     
 
@@ -91,6 +99,7 @@ class Reservation(models.Model):
         normalpic = User.objects.values('normal_user_pic').get(id = self.user_id_reserver.id)
         pic = pic['normal_user_pic']
         normalpic = normalpic['normal_user_pic']
+
 
      
 

@@ -140,16 +140,27 @@ class EachReserve extends React.Component{
 
         document.querySelector('#eachreserve').hidden = true;
         document.querySelector('#inboxmainid').hidden = false;
+
         if (document.querySelector('#typeofpage').value == "request")
         {
             
             document.querySelector('#myinboxhtml').hidden = true;
             document.querySelector('#myrequesthtml').hidden = false;
+            document.querySelector('#mycompletehtml').hidden = true;
+
         }
-        else
+        else if (document.querySelector('#typeofpage').value == "inbox")
         {
             document.querySelector('#myinboxhtml').hidden = false;
             document.querySelector('#myrequesthtml').hidden = true;
+            document.querySelector('#mycompletehtml').hidden = true;
+        }
+        else
+        {
+            document.querySelector('#myinboxhtml').hidden = true;
+            document.querySelector('#myrequesthtml').hidden = true;
+            document.querySelector('#mycompletehtml').hidden = false;
+
         }
 
     }
@@ -298,6 +309,7 @@ class EachReserve extends React.Component{
                         <div class="donetitle">
                           <div class="d-flex justify-content-center">
                                 <h1 class="donetext">เสร็จแล้ววว!</h1>
+                                
                           </div>
                         </div>
                         {videoandstuff}
@@ -780,6 +792,8 @@ class InboxFeedRows extends React.Component {
         document.querySelector('#eachreserve').hidden = false;
         document.querySelector('#inboxmainid').hidden = true;
         document.querySelector('#myinboxhtml').hidden = true;
+        document.querySelector('#mycompletehtml').hidden = true;
+
         console.log("this.props.iddddddd", this.props.id)
 
         console.log("KINGDOM IS ONE OF THE BEST MANGA OF ALL TIME BUT STILL ONE PIECE IS BETTER", document.querySelector('#divtogetid').value)
@@ -814,22 +828,25 @@ class InboxFeedRows extends React.Component {
         console.log(this.props.normal_pic)
         let today = new Date().toISOString().slice(0, 10)
 
-        let g1 = new Date(today);
-
-        let g2 = new Date(this.props.duedate);
-
         let checktime = 0
-        if (g1.getTime() < g2.getTime())
+        if (this.props.duedate != null || this.props.dudedate != "")
         {
-            checktime = 0
+            if (today > this.props.duedate)
+            {
+                checktime = 1
+            }
+           
         }
-        else
-        {
-            checktime = 1
-        }
+        console.log("WTF", this.props.duedate - today)
+
+      
+
+        
+
         let link = ""
 
-        if (this.props.type == "request")
+        //this will 
+        if (this.props.type == "request" || this.props.type == "complete")
         {
             if (this.props.normal_pic == null)
             {
@@ -914,14 +931,66 @@ class InboxFeedInbox extends React.Component {
         super(props);
         this.changePage = this.changePage.bind(this);
         this.hideCompleted = this.hideCompleted.bind(this);
+        this.sortTime = this.sortTime.bind(this);
 
 
         this.state = 
         {
           newdata: this.props.data,
-          hide: "Hide Completed"
+          hide: "Hide Completed",
+          sort: "Sort Closest to Due Date"
 
         }
+    }
+    sortTime(e)
+    {
+       
+        
+        let type = "mysorttime"
+        const csrftoken = getCookie('csrftoken');
+        console.log("e.target.value", e.target.value)
+
+
+        if (e.target.value == "Sort Closest to Due Date")
+        {
+            type = "mysorttime"
+        }
+        else
+        {
+            type = "myrequesthtml"
+            console.log("e.target.value", type)
+
+        }
+
+        fetch(`/gotozjguen484s9gj302g/${this.state.newdata["paginationid"]}`, {
+            method: 'PUT',
+            headers: {'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({
+                from: "inbox",
+                type: type
+            })
+        })        
+        .then(response => response.json())
+        .then(data => {
+            console.log("sortting time", data)
+            let sort = ""
+
+            if (data["sort"] == 0)
+            {
+                sort = "Sort Closest to Due Date"               
+            }
+            else
+            {
+                sort = "Unsort"
+            }
+
+            console.log("e.target.value", sort)
+            this.setState({
+                newdata: data,
+                sort: sort
+              })
+        })
     }
     hideCompleted(e)
     {
@@ -933,10 +1002,12 @@ class InboxFeedInbox extends React.Component {
         console.log("ngong sus", this.state.hide)
 
         const csrftoken = getCookie('csrftoken');
-        let paginationid = 1
+       
+        
+        
         if (e.target.value == "Unhide Completed")
         {
-            type = "myrequesthtml"
+            type = "myinboxhtml"
         }
         else
         {
@@ -944,7 +1015,14 @@ class InboxFeedInbox extends React.Component {
             type = "hidecompleted"
         }
         console.log("type before in ", type)
-        fetch(`/gotozjguen484s9gj302g/${paginationid}`, {
+        console.log("pagi", this.state.newdata)
+
+        console.log("pagi", this.state.newdata["paginationid"])
+        console.log("pagi", this.state.newdata["num_pages"])
+        
+
+        //might have to be an if here
+        fetch(`/gotozjguen484s9gj302g/${1}`, {
             method: 'PUT',
             headers: {'X-CSRFToken': csrftoken
             },
@@ -966,10 +1044,15 @@ class InboxFeedInbox extends React.Component {
             {
                 hide = "Unhide Completed"
             }
+            console.log("sentback", data)
+            console.log("sentback", data["paginationid"])
+
 
             this.setState({
                 newdata: data,
-                hide: hide
+                hide: hide,
+                pagination:data["paginationid"]
+
               })
 
 
@@ -1001,14 +1084,45 @@ class InboxFeedInbox extends React.Component {
         if (checkfornull == null){
             clicked = 0
         }
+        console.log("detective conan", this.props.data)
+        console.log("detective conan2", this.state.hide)
+
         let type=""
         if (this.props.data["type"] == "request")
         {
-            type = "myrequesthtml"
+            if (this.state.sort == "Hide Completed")
+            {
+                type = "myrequesthtml"
+
+            }
+            else
+            {
+                type = "mysorttime"
+               
+            }
+
         }
+        else if (this.props.data["type"] == "complete")
+        {
+            type = "mycompletehtml"
+        }
+        else 
+        {
+            if (this.state.hide == "Hide Completed")
+            {
+                type = "myinboxhtml"
+            }
+            else
+            {
+                type = "hidecompleted"
+               
+            }
+
+        }
+      
         const getcooked = getCookie('csrftoken');
 
-       
+        console.log("the not so strongest", pagination)
         fetch(`/gotozjguen484s9gj302g/${pagination}`, {
             method: 'PUT',
             headers:{'X-CSRFToken': getcooked},
@@ -1020,10 +1134,13 @@ class InboxFeedInbox extends React.Component {
        
         .then(response => response.json())
         .then(data => {
+            console.log("gojo", this.props.data)
           this.setState({
             newdata: data,
              
           })
+
+          console.log("gojo", this.state.newdata)
           this.setState({
             pagination:this.state.newdata["paginationid"]
         })
@@ -1044,9 +1161,11 @@ class InboxFeedInbox extends React.Component {
     const paginationid = this.props.data["paginationid"]
    // {this.state.pagination == thej ? "page-item active":"page-item"}
    //style:{color:"red"}
+   console.log("one piece", this.state.newdata)
+   console.log("one piece", this.state.newdata["num_pages"])
 
 
-    for (let j = 0; j < this.props.data["num_pages"]; j++)
+    for (let j = 0; j < this.state.newdata["num_pages"]; j++)
     {
       let thej = j + 1
       button.push
@@ -1087,11 +1206,25 @@ class InboxFeedInbox extends React.Component {
         }
         
         console.log("WAKU WAKU", this.state.newdata["data"])
+        console.log("WAKU FAKU", this.state.newdata["type"])
+        console.log("waka paku", this.state.pagination)
+        console.log("waka naku", this.state.newdata)
+        console.log("waka naku", this.state.newdata["paginationid"])
+    
+        console.log("this")
+
+        console.log(this.state.newdata["num_pages"])
+        console.log(this.state.pagination)
+
+        let gotoindex = "/"
+        let gotoaboutus = "/aboutus"
+
+
         return(
             <div>      
                 <div class="d-flex justify-content-center mb-5">    
-                    {this.state.newdata["type"] == "request" ? <button id="hidecompletedid" value={this.state.hide}class="btn btn-primary" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
-
+                    {this.state.newdata["type"] == "inbox" ? <button id="hidecompletedid" value={this.state.hide}class="btn btn-primary" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
+                    {this.state.newdata["type"] == "request" ? <button class="btn btn-primary" value={this.state.sort}onClick={this.sortTime}>{this.state.sort}</button>:null}
                </div> 
                 {this.state.newdata["data"] != "" ? 
             
@@ -1099,20 +1232,46 @@ class InboxFeedInbox extends React.Component {
                     <div class="columninbox d-flex justify-content-center flex-column">
                         {rows}
                     </div>
-                </div>: <div>
-                <h6>
-                    <h4>ยัวไม่มี Request</h4>
-                    <h4>Share hai khon eunn </h4>
-                </h6>
+                </div>: 
+                <div>
+                    <div class="norequestdiv">
+                            <div class="d-flex justify-content-center">
+                            {this.state.newdata["type"] == "inbox" ? 
+                            <div>
+                                <h1 class="wa">ยัวไม่มีออเดอร์ใน อินบ็อกซ์</h1>
+
+                                <div class="d-flex justify-content-center mt-4">
+                                    <h4 class="wa mr-3">ไปค้นหาสตาร์ได้เลย: </h4>
+                                   <h4><a href={gotoindex} class="wae">หน้าหลัก</a></h4> 
+                                </div>
+
+                                <div class="d-flex justify-content-center mt-4">
+                                    <h4 class="wa mr-3">ถ้าอยากเรียนรู้เพิ่มเติมกับพวกเรา: </h4>
+                                   <h4><a href={gotoaboutus} class="wae">เกี่ยวกับเรา</a></h4> 
+                                </div>
+                               
+                            </div>: 
+                            <div>
+                                <div class="d-flex justify-content-center">
+                                    <h1 class="wa">ยัวไม่มีออเดอร์ใน รีเควสท์</h1>
+                                </div>
+                                    <div class="d-flex justify-content-center">                                <h2 class="wa mt-2">ช่วยแชร์ให้แฟนคลับคุณใน โซเชียล!</h2>
+                                </div>
+
+                            
+                            </div>}
+                            </div>
+                    </div>
+                
                 
             </div>}
                 {rows != "" ? 
         <div class="paginationcss">
-        {this.props.data["num_pages"] != 0 ?
+        {this.state.newdata["num_pages"] != 0 ?
         <ul class="pagination container justify-content-center mt-3">
-              {this.state.pagination != 1 ?  <a id={this.state.pagination} class="nextbutton btn" onClick={this.changePage}>Previous</a>: null}
+              {this.state.pagination > 1 ?  <a id={this.state.pagination} class="nextbutton btn" onClick={this.changePage}>Previous</a>: null}
                 {button}              
-              {this.state.pagination != this.props.data["num_pages"] ? <a id={this.state.pagination} class="nextbutton btn" onClick={this.changePage}>Next</a>: null}
+              {this.state.pagination != this.state.newdata["num_pages"] ? <a id={this.state.pagination} class="nextbutton btn" onClick={this.changePage}>Next</a>: null}
         </ul>: null}
         </div>:null}
             </div>
@@ -1138,6 +1297,8 @@ class InboxFeedTitle extends React.Component {
         {
             document.querySelector('#typeofpage').value = "inbox"
             document.querySelector('#myrequesthtml').hidden = true;
+            document.querySelector('#mycompletehtml').hidden = true;
+
             document.querySelector('#myinboxhtml').hidden = false;
 
             type = "myinboxhtml"  
@@ -1148,18 +1309,32 @@ class InboxFeedTitle extends React.Component {
             document.querySelector('#typeofpage').value = "request"
             document.querySelector('#myinboxhtml').hidden = true;
             document.querySelector('#myrequesthtml').hidden = false;
+            document.querySelector('#mycompletehtml').hidden = true;
+
 
             type = "myrequesthtml"
+        }
+        else if (e.target.id == "mycompleteid")
+        {
+            document.querySelector('#typeofpage').value = "completed"
+            document.querySelector('#mycompletehtml').hidden = false;
+            document.querySelector('#myinboxhtml').hidden = true;
+            document.querySelector('#myrequesthtml').hidden = true;
+
+            type = "mycompletehtml"  
+
+
         }
         else 
         {
             document.querySelector('#typeofpage').value = "request"
-            document.querySelector('#myinboxhtml').hidden = true;
-            document.querySelector('#myrequesthtml').hidden = false;
-            document.querySelector('#hiderequesthtml').hidden = false;
+            document.querySelector('#myinboxhtml').hidden = false;
+            document.querySelector('#myrequesthtml').hidden = true;
+            document.querySelector('#mycompletehtml').hidden = true;
 
 
-            type = "myrequesthtml"
+
+            type = "myinboxhtml"
 
         }
         let paginationid = 1
@@ -1190,6 +1365,8 @@ class InboxFeedTitle extends React.Component {
             
             <span><a id="myinboxid" onClick={this.changeFeedInbox} class="myinboxcss"></a></span>
             {this.props.data["checkifinfluencer"] == true ?  <span><a id="myrequestid" onClick={this.changeFeedInbox} class="requestcss"></a></span>:null}
+            {this.props.data["checkifinfluencer"] == true ?  <span><a id="mycompleteid" onClick={this.changeFeedInbox} class="completecss"></a></span>:null}
+
 
 
          </div>

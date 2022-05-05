@@ -139,13 +139,20 @@ var EachReserve = function (_React$Component) {
 
             document.querySelector('#eachreserve').hidden = true;
             document.querySelector('#inboxmainid').hidden = false;
+
             if (document.querySelector('#typeofpage').value == "request") {
 
                 document.querySelector('#myinboxhtml').hidden = true;
                 document.querySelector('#myrequesthtml').hidden = false;
-            } else {
+                document.querySelector('#mycompletehtml').hidden = true;
+            } else if (document.querySelector('#typeofpage').value == "inbox") {
                 document.querySelector('#myinboxhtml').hidden = false;
                 document.querySelector('#myrequesthtml').hidden = true;
+                document.querySelector('#mycompletehtml').hidden = true;
+            } else {
+                document.querySelector('#myinboxhtml').hidden = true;
+                document.querySelector('#myrequesthtml').hidden = true;
+                document.querySelector('#mycompletehtml').hidden = false;
             }
         }
     }, {
@@ -1121,6 +1128,8 @@ var InboxFeedRows = function (_React$Component2) {
             document.querySelector('#eachreserve').hidden = false;
             document.querySelector('#inboxmainid').hidden = true;
             document.querySelector('#myinboxhtml').hidden = true;
+            document.querySelector('#mycompletehtml').hidden = true;
+
             console.log("this.props.iddddddd", this.props.id);
 
             console.log("KINGDOM IS ONE OF THE BEST MANGA OF ALL TIME BUT STILL ONE PIECE IS BETTER", document.querySelector('#divtogetid').value);
@@ -1155,19 +1164,18 @@ var InboxFeedRows = function (_React$Component2) {
             console.log(this.props.normal_pic);
             var today = new Date().toISOString().slice(0, 10);
 
-            var g1 = new Date(today);
-
-            var g2 = new Date(this.props.duedate);
-
             var checktime = 0;
-            if (g1.getTime() < g2.getTime()) {
-                checktime = 0;
-            } else {
-                checktime = 1;
+            if (this.props.duedate != null || this.props.dudedate != "") {
+                if (today > this.props.duedate) {
+                    checktime = 1;
+                }
             }
+            console.log("WTF", this.props.duedate - today);
+
             var link = "";
 
-            if (this.props.type == "request") {
+            //this will 
+            if (this.props.type == "request" || this.props.type == "complete") {
                 if (this.props.normal_pic == null) {
                     link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
                 } else {
@@ -1305,35 +1313,34 @@ var InboxFeedInbox = function (_React$Component3) {
 
         _this3.changePage = _this3.changePage.bind(_this3);
         _this3.hideCompleted = _this3.hideCompleted.bind(_this3);
+        _this3.sortTime = _this3.sortTime.bind(_this3);
 
         _this3.state = {
             newdata: _this3.props.data,
-            hide: "Hide Completed"
+            hide: "Hide Completed",
+            sort: "Sort Closest to Due Date"
 
         };
         return _this3;
     }
 
     _createClass(InboxFeedInbox, [{
-        key: 'hideCompleted',
-        value: function hideCompleted(e) {
+        key: 'sortTime',
+        value: function sortTime(e) {
             var _this4 = this;
 
-            var type = "";
-
-            console.log("ngong");
-            console.log("ngong sus", this.state.hide);
-
+            var type = "mysorttime";
             var csrftoken = getCookie('csrftoken');
-            var paginationid = 1;
-            if (e.target.value == "Unhide Completed") {
-                type = "myrequesthtml";
+            console.log("e.target.value", e.target.value);
+
+            if (e.target.value == "Sort Closest to Due Date") {
+                type = "mysorttime";
             } else {
-                console.log("is it in hidecompleted yohohoho");
-                type = "hidecompleted";
+                type = "myrequesthtml";
+                console.log("e.target.value", type);
             }
-            console.log("type before in ", type);
-            fetch('/gotozjguen484s9gj302g/' + paginationid, {
+
+            fetch('/gotozjguen484s9gj302g/' + this.state.newdata["paginationid"], {
                 method: 'PUT',
                 headers: { 'X-CSRFToken': csrftoken
                 },
@@ -1344,7 +1351,59 @@ var InboxFeedInbox = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("mg pen kuay arai", _this4.props.data);
+                console.log("sortting time", data);
+                var sort = "";
+
+                if (data["sort"] == 0) {
+                    sort = "Sort Closest to Due Date";
+                } else {
+                    sort = "Unsort";
+                }
+
+                console.log("e.target.value", sort);
+                _this4.setState({
+                    newdata: data,
+                    sort: sort
+                });
+            });
+        }
+    }, {
+        key: 'hideCompleted',
+        value: function hideCompleted(e) {
+            var _this5 = this;
+
+            var type = "";
+
+            console.log("ngong");
+            console.log("ngong sus", this.state.hide);
+
+            var csrftoken = getCookie('csrftoken');
+
+            if (e.target.value == "Unhide Completed") {
+                type = "myinboxhtml";
+            } else {
+                console.log("is it in hidecompleted yohohoho");
+                type = "hidecompleted";
+            }
+            console.log("type before in ", type);
+            console.log("pagi", this.state.newdata);
+
+            console.log("pagi", this.state.newdata["paginationid"]);
+            console.log("pagi", this.state.newdata["num_pages"]);
+
+            //might have to be an if here
+            fetch('/gotozjguen484s9gj302g/' + 1, {
+                method: 'PUT',
+                headers: { 'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    from: "inbox",
+                    type: type
+                })
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log("mg pen kuay arai", _this5.props.data);
 
                 var hide = "";
                 if (data["hide"] == 0) {
@@ -1352,17 +1411,21 @@ var InboxFeedInbox = function (_React$Component3) {
                 } else {
                     hide = "Unhide Completed";
                 }
+                console.log("sentback", data);
+                console.log("sentback", data["paginationid"]);
 
-                _this4.setState({
+                _this5.setState({
                     newdata: data,
-                    hide: hide
+                    hide: hide,
+                    pagination: data["paginationid"]
+
                 });
             });
         }
     }, {
         key: 'changePage',
         value: function changePage(e) {
-            var _this5 = this;
+            var _this6 = this;
 
             var pagination = e.target.id;
             var innerhtmlpage = e.target.innerHTML;
@@ -1381,12 +1444,29 @@ var InboxFeedInbox = function (_React$Component3) {
             if (checkfornull == null) {
                 clicked = 0;
             }
+            console.log("detective conan", this.props.data);
+            console.log("detective conan2", this.state.hide);
+
             var type = "";
             if (this.props.data["type"] == "request") {
-                type = "myrequesthtml";
+                if (this.state.sort == "Hide Completed") {
+                    type = "myrequesthtml";
+                } else {
+                    type = "mysorttime";
+                }
+            } else if (this.props.data["type"] == "complete") {
+                type = "mycompletehtml";
+            } else {
+                if (this.state.hide == "Hide Completed") {
+                    type = "myinboxhtml";
+                } else {
+                    type = "hidecompleted";
+                }
             }
+
             var getcooked = getCookie('csrftoken');
 
+            console.log("the not so strongest", pagination);
             fetch('/gotozjguen484s9gj302g/' + pagination, {
                 method: 'PUT',
                 headers: { 'X-CSRFToken': getcooked },
@@ -1397,12 +1477,15 @@ var InboxFeedInbox = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                _this5.setState({
+                console.log("gojo", _this6.props.data);
+                _this6.setState({
                     newdata: data
 
                 });
-                _this5.setState({
-                    pagination: _this5.state.newdata["paginationid"]
+
+                console.log("gojo", _this6.state.newdata);
+                _this6.setState({
+                    pagination: _this6.state.newdata["paginationid"]
                 });
             });
 
@@ -1420,9 +1503,10 @@ var InboxFeedInbox = function (_React$Component3) {
             var paginationid = this.props.data["paginationid"];
             // {this.state.pagination == thej ? "page-item active":"page-item"}
             //style:{color:"red"}
+            console.log("one piece", this.state.newdata);
+            console.log("one piece", this.state.newdata["num_pages"]);
 
-
-            for (var j = 0; j < this.props.data["num_pages"]; j++) {
+            for (var j = 0; j < this.state.newdata["num_pages"]; j++) {
                 var thej = j + 1;
                 button.push(React.createElement(
                     'a',
@@ -1455,16 +1539,34 @@ var InboxFeedInbox = function (_React$Component3) {
             }
 
             console.log("WAKU WAKU", this.state.newdata["data"]);
+            console.log("WAKU FAKU", this.state.newdata["type"]);
+            console.log("waka paku", this.state.pagination);
+            console.log("waka naku", this.state.newdata);
+            console.log("waka naku", this.state.newdata["paginationid"]);
+
+            console.log("this");
+
+            console.log(this.state.newdata["num_pages"]);
+            console.log(this.state.pagination);
+
+            var gotoindex = "/";
+            var gotoaboutus = "/aboutus";
+
             return React.createElement(
                 'div',
                 null,
                 React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center mb-5' },
-                    this.state.newdata["type"] == "request" ? React.createElement(
+                    this.state.newdata["type"] == "inbox" ? React.createElement(
                         'button',
                         { id: 'hidecompletedid', value: this.state.hide, 'class': 'btn btn-primary', onClick: this.hideCompleted },
                         this.state.hide
+                    ) : null,
+                    this.state.newdata["type"] == "request" ? React.createElement(
+                        'button',
+                        { 'class': 'btn btn-primary', value: this.state.sort, onClick: this.sortTime },
+                        this.state.sort
                     ) : null
                 ),
                 this.state.newdata["data"] != "" ? React.createElement(
@@ -1479,33 +1581,94 @@ var InboxFeedInbox = function (_React$Component3) {
                     'div',
                     null,
                     React.createElement(
-                        'h6',
-                        null,
+                        'div',
+                        { 'class': 'norequestdiv' },
                         React.createElement(
-                            'h4',
-                            null,
-                            '\u0E22\u0E31\u0E27\u0E44\u0E21\u0E48\u0E21\u0E35 Request'
-                        ),
-                        React.createElement(
-                            'h4',
-                            null,
-                            'Share hai khon eunn '
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            this.state.newdata["type"] == "inbox" ? React.createElement(
+                                'div',
+                                null,
+                                React.createElement(
+                                    'h1',
+                                    { 'class': 'wa' },
+                                    '\u0E22\u0E31\u0E27\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E43\u0E19 \u0E2D\u0E34\u0E19\u0E1A\u0E47\u0E2D\u0E01\u0E0B\u0E4C'
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center mt-4' },
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wa mr-3' },
+                                        '\u0E44\u0E1B\u0E04\u0E49\u0E19\u0E2B\u0E32\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22: '
+                                    ),
+                                    React.createElement(
+                                        'h4',
+                                        null,
+                                        React.createElement(
+                                            'a',
+                                            { href: gotoindex, 'class': 'wae' },
+                                            '\u0E2B\u0E19\u0E49\u0E32\u0E2B\u0E25\u0E31\u0E01'
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center mt-4' },
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wa mr-3' },
+                                        '\u0E16\u0E49\u0E32\u0E2D\u0E22\u0E32\u0E01\u0E40\u0E23\u0E35\u0E22\u0E19\u0E23\u0E39\u0E49\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E1E\u0E27\u0E01\u0E40\u0E23\u0E32: '
+                                    ),
+                                    React.createElement(
+                                        'h4',
+                                        null,
+                                        React.createElement(
+                                            'a',
+                                            { href: gotoaboutus, 'class': 'wae' },
+                                            '\u0E40\u0E01\u0E35\u0E48\u0E22\u0E27\u0E01\u0E31\u0E1A\u0E40\u0E23\u0E32'
+                                        )
+                                    )
+                                )
+                            ) : React.createElement(
+                                'div',
+                                null,
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h1',
+                                        { 'class': 'wa' },
+                                        '\u0E22\u0E31\u0E27\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E43\u0E19 \u0E23\u0E35\u0E40\u0E04\u0E27\u0E2A\u0E17\u0E4C'
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    '                                ',
+                                    React.createElement(
+                                        'h2',
+                                        { 'class': 'wa mt-2' },
+                                        '\u0E0A\u0E48\u0E27\u0E22\u0E41\u0E0A\u0E23\u0E4C\u0E43\u0E2B\u0E49\u0E41\u0E1F\u0E19\u0E04\u0E25\u0E31\u0E1A\u0E04\u0E38\u0E13\u0E43\u0E19 \u0E42\u0E0B\u0E40\u0E0A\u0E35\u0E22\u0E25!'
+                                    )
+                                )
+                            )
                         )
                     )
                 ),
                 rows != "" ? React.createElement(
                     'div',
                     { 'class': 'paginationcss' },
-                    this.props.data["num_pages"] != 0 ? React.createElement(
+                    this.state.newdata["num_pages"] != 0 ? React.createElement(
                         'ul',
                         { 'class': 'pagination container justify-content-center mt-3' },
-                        this.state.pagination != 1 ? React.createElement(
+                        this.state.pagination > 1 ? React.createElement(
                             'a',
                             { id: this.state.pagination, 'class': 'nextbutton btn', onClick: this.changePage },
                             'Previous'
                         ) : null,
                         button,
-                        this.state.pagination != this.props.data["num_pages"] ? React.createElement(
+                        this.state.pagination != this.state.newdata["num_pages"] ? React.createElement(
                             'a',
                             { id: this.state.pagination, 'class': 'nextbutton btn', onClick: this.changePage },
                             'Next'
@@ -1525,14 +1688,14 @@ var InboxFeedTitle = function (_React$Component4) {
     function InboxFeedTitle(props) {
         _classCallCheck(this, InboxFeedTitle);
 
-        var _this6 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
+        var _this7 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
 
-        _this6.changeFeedInbox = _this6.changeFeedInbox.bind(_this6);
+        _this7.changeFeedInbox = _this7.changeFeedInbox.bind(_this7);
 
         //document.querySelector('#maininfluencer').hidden = false;
         //document.querySelector('#reviewsmainfluencer').hidden = true;
 
-        return _this6;
+        return _this7;
     }
 
     _createClass(InboxFeedTitle, [{
@@ -1543,6 +1706,8 @@ var InboxFeedTitle = function (_React$Component4) {
             if (e.target.id == "myinboxid") {
                 document.querySelector('#typeofpage').value = "inbox";
                 document.querySelector('#myrequesthtml').hidden = true;
+                document.querySelector('#mycompletehtml').hidden = true;
+
                 document.querySelector('#myinboxhtml').hidden = false;
 
                 type = "myinboxhtml";
@@ -1550,15 +1715,23 @@ var InboxFeedTitle = function (_React$Component4) {
                 document.querySelector('#typeofpage').value = "request";
                 document.querySelector('#myinboxhtml').hidden = true;
                 document.querySelector('#myrequesthtml').hidden = false;
+                document.querySelector('#mycompletehtml').hidden = true;
 
                 type = "myrequesthtml";
+            } else if (e.target.id == "mycompleteid") {
+                document.querySelector('#typeofpage').value = "completed";
+                document.querySelector('#mycompletehtml').hidden = false;
+                document.querySelector('#myinboxhtml').hidden = true;
+                document.querySelector('#myrequesthtml').hidden = true;
+
+                type = "mycompletehtml";
             } else {
                 document.querySelector('#typeofpage').value = "request";
-                document.querySelector('#myinboxhtml').hidden = true;
-                document.querySelector('#myrequesthtml').hidden = false;
-                document.querySelector('#hiderequesthtml').hidden = false;
+                document.querySelector('#myinboxhtml').hidden = false;
+                document.querySelector('#myrequesthtml').hidden = true;
+                document.querySelector('#mycompletehtml').hidden = true;
 
-                type = "myrequesthtml";
+                type = "myinboxhtml";
             }
             var paginationid = 1;
             fetch('/gotozjguen484s9gj302g/' + paginationid, {
@@ -1595,6 +1768,11 @@ var InboxFeedTitle = function (_React$Component4) {
                     'span',
                     null,
                     React.createElement('a', { id: 'myrequestid', onClick: this.changeFeedInbox, 'class': 'requestcss' })
+                ) : null,
+                this.props.data["checkifinfluencer"] == true ? React.createElement(
+                    'span',
+                    null,
+                    React.createElement('a', { id: 'mycompleteid', onClick: this.changeFeedInbox, 'class': 'completecss' })
                 ) : null
             );
         }

@@ -796,21 +796,29 @@ var InfluencerFeedTitle = function (_React$Component4) {
       var averagestars = Math.round(10 * this.props.data["averagestars"]) / 10;
 
       var categoryname = "";
-      if (this.props.data["userinfodata"][0].category == "athelete") {
-        categoryname = "นักกีฬา";
-      } else if (this.props.data["userinfodata"][0].category == "gamer") {
-        categoryname = "เกมเมอร์";
-      } else if (this.props.data["userinfodata"][0].category == "actor") {
-        categoryname = "นักแสดง";
-      } else if (this.props.data["userinfodata"][0].category == "influencer") {
-        categoryname = "อินฟลูเอนเซอร์";
-      } else if (this.props.data["userinfodata"][0].category == "comedian") {
-        categoryname = "นักแสดงตลก";
-      } else if (this.props.data["userinfodata"][0].category == "singer") {
-        categoryname = "นักร้อง";
-      }
 
-      console.log("CATEGORY DARA", this.props.data["userinfodata"][0].category);
+      console.log("first");
+      console.log(this.props.data);
+      console.log(this.props.data["userinfodata"].length);
+
+      if (this.props.data["userinfodata"].length == 0) {
+
+        console.log("catching err");
+      } else {
+        if (this.props.data["userinfodata"][0].category == "athelete") {
+          categoryname = "นักกีฬา";
+        } else if (this.props.data["userinfodata"][0].category == "gamer") {
+          categoryname = "เกมเมอร์";
+        } else if (this.props.data["userinfodata"][0].category == "actor") {
+          categoryname = "นักแสดง";
+        } else if (this.props.data["userinfodata"][0].category == "influencer") {
+          categoryname = "อินฟลูเอนเซอร์";
+        } else if (this.props.data["userinfodata"][0].category == "comedian") {
+          categoryname = "นักแสดงตลก";
+        } else if (this.props.data["userinfodata"][0].category == "singer") {
+          categoryname = "นักร้อง";
+        }
+      }
 
       console.log("daijoubu dayou", this.props.data);
       return React.createElement(
