@@ -75,7 +75,7 @@ class EachReserve extends React.Component{
         console.log("right in the constructor")
         console.log("this.props.data", this.props.data)
 
-
+        console.log("kaido is ded2", document.querySelector('#typeofpage'))
         console.log("bruh", this.props.data["type"])
         
     }
@@ -259,9 +259,10 @@ class EachReserve extends React.Component{
         
         </div>
 
-
+        console.log("kaido is ded3", document.querySelector('#typeofpage'))     
+        //FOUND IT THIS IF IS MEGA WRONG
         var postoption = ""
-        if (document.querySelector('#typeofpage').value == "request")
+        if (document.querySelector('#typeofpage').value == "request" || document.querySelector('#typeofpage').value == "completed")
         {
             //this is before influencer posted video
             if (this.props.data["data"][0].completed != true)
@@ -366,8 +367,8 @@ class EachReserve extends React.Component{
             if (this.props.data["data"][0].completed != true)
             {
                 postoption = 
-                <div class="mb-5">
-                    <div class="d-flex justify-content-center">
+                <div class="mb-5 d-flex justify-content-center">
+                    <div class="waitingforstar">
                         <h4 class="wa">สตาร์กําลังดําเนินการทํา Vid ที่น่าจดจําของท่านอยู่</h4>
                     </div>
                 </div>
@@ -698,7 +699,9 @@ class EachReserve extends React.Component{
 
         return (
             <div>
-                <button class="btn btn-primary ml-5"onClick={this.goBack}>Back</button>
+                <div class="d-flex justify-content-center">
+                    <button class="backbutton btn btn-primary mb-3"onClick={this.goBack}>Back</button>
+                </div>
                 
                 <div class="d-flex justify-content-center mb-5">
                     <div class="orderorder">
@@ -1332,6 +1335,7 @@ class InboxFeedTitle extends React.Component {
         }
         else if (e.target.id == "mycompleteid")
         {
+            console.log("kaido is dedd")
             document.querySelector('#typeofpage').value = "completed"
             document.querySelector('#mycompletehtml').hidden = false;
             document.querySelector('#myinboxhtml').hidden = true;

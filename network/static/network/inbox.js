@@ -79,6 +79,7 @@ var EachReserve = function (_React$Component) {
         console.log("right in the constructor");
         console.log("this.props.data", _this.props.data);
 
+        console.log("kaido is ded2", document.querySelector('#typeofpage'));
         console.log("bruh", _this.props.data["type"]);
 
         return _this;
@@ -250,8 +251,10 @@ var EachReserve = function (_React$Component) {
                 )
             );
 
+            console.log("kaido is ded3", document.querySelector('#typeofpage'));
+            //FOUND IT THIS IF IS MEGA WRONG
             var postoption = "";
-            if (document.querySelector('#typeofpage').value == "request") {
+            if (document.querySelector('#typeofpage').value == "request" || document.querySelector('#typeofpage').value == "completed") {
                 //this is before influencer posted video
                 if (this.props.data["data"][0].completed != true) {
                     postoption = React.createElement(
@@ -425,10 +428,10 @@ var EachReserve = function (_React$Component) {
                 if (this.props.data["data"][0].completed != true) {
                     postoption = React.createElement(
                         'div',
-                        { 'class': 'mb-5' },
+                        { 'class': 'mb-5 d-flex justify-content-center' },
                         React.createElement(
                             'div',
-                            { 'class': 'd-flex justify-content-center' },
+                            { 'class': 'waitingforstar' },
                             React.createElement(
                                 'h4',
                                 { 'class': 'wa' },
@@ -957,9 +960,13 @@ var EachReserve = function (_React$Component) {
                 'div',
                 null,
                 React.createElement(
-                    'button',
-                    { 'class': 'btn btn-primary ml-5', onClick: this.goBack },
-                    'Back'
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'button',
+                        { 'class': 'backbutton btn btn-primary mb-3', onClick: this.goBack },
+                        'Back'
+                    )
                 ),
                 React.createElement(
                     'div',
@@ -1716,6 +1723,7 @@ var InboxFeedTitle = function (_React$Component4) {
 
                 type = "myrequesthtml";
             } else if (e.target.id == "mycompleteid") {
+                console.log("kaido is dedd");
                 document.querySelector('#typeofpage').value = "completed";
                 document.querySelector('#mycompletehtml').hidden = false;
                 document.querySelector('#myinboxhtml').hidden = true;
