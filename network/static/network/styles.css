@@ -1,17 +1,17 @@
 #checkercss{
     color:red;
 }
-#overlayrc {
+#inboxmainid
+{
+  margin-top:100px;
+
+}
+
+html, body {
+  min-height: 100%;
+}
+
   
-    position: fixed;
-    width: 100%;
-    height: 105vh;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 2;
-    cursor: pointer;
-  
-  
-  }
 
   .imgnoedit
 {
@@ -33,26 +33,29 @@
   object-fit: cover;
 
 }
+.sadul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  }
 .page-footer
 {
   background-color: #FFBE00;
   margin-top: 2px;
 }
+
 .navbar
 {
-  min-height: 90px;
   background-color:white;
 }
-.navbar-brand
-{
- 
-}
+
 .videme
 {
   color:#ffc500;
   font-family: 'Bangers', cursive;
-    font-size:40px;
+  font-size:40px;
 }
+
 .wa
 {
   color:#203354;
@@ -60,15 +63,38 @@
   font-family: 'Sarabun';
   
 }
+.waoccasion
+{
+  color:#203354;
+
+  font-family: 'Sarabun';
+  font-size:25px;
+}
+.nameininbox
+{
+  color:#203354;
+  font-family: 'Sarabun';
+  display:flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+
+
+}
+.yeathename
+{
+  width:50px;
+}
 .waduedate
 {
   color:#203354;
   font-family: 'Sarabun';
   font-size:15px;
 }
+
 .waduedatecomplete
 {
-  color:greenyellow;
+  color:green;
   font-family: 'Sarabun';
   font-size:15px;
 }
@@ -89,28 +115,123 @@
 {
   float: right;
 }
+.firstdivinmain
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  margin-top:80px;
+
+}
+@media only screen and (max-width: 800px) {
+  .firstdivinmain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
 .introdiv
 {
  
-  align-items: center;
-  width: 50%;
+  width: 100%;
   padding: 6rem 3rem;
   justify-content: center;
-  background-color: #008fff;
-  height:45em;
+  background-color: #094FCB   ;
+  display: flex;
+  height:625px;
 
 }
 .secondintrodiv
 {
- 
-  align-items: center;
-  width: 50%;
+  width: 100%;
   padding: 6rem 3rem;
   justify-content: center;
-  background-color:#ffc500;
-  height:45em;
+  background-color:#02d667  ;
+  display: flex;
+  height:625px;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  overflow: auto;
+}
+
+.box {
+  display: flex;
+  min-height: min-content; /* needs vendor prefixes */
+}
+.goodmorning
+{
+  margin-right:80px;
+}
+.startitleindex
+{
+  font-size: 350%;
+  font-family: 'Sarabun';
+  color: #ffc500;
+}
+
+.imgindex
+{
+  border-radius: 7px;
+  object-fit: cover;
 
 }
+
+.hrindex
+{
+  visibility:hidden;
+}
+
+
+@media only screen and (max-width: 650px) {
+  #suggestions_por_react_popular {
+    display:none;
+  }
+  .content
+  {
+    flex: 1;
+    display: flex;
+    overflow: auto;
+    justify-content: center;
+  
+    
+  }
+  .box
+  {
+    width:100%;
+    display: flex;
+    min-height: min-content; /* needs vendor prefixes */
+    flex-direction: column;
+    justify-content: center;
+    
+  }
+  .goodmorning
+  {
+    margin-right:0;
+  }
+  .divofstartitle
+  {
+    text-align: center;
+  }
+  .imgindex
+  {
+    border-radius: 7px;
+    object-fit: cover;
+
+  }
+  .hrindex
+  {
+    visibility: visible;
+  }
+ 
+
+}
+
+
 .first_div.intro
 {
   width:100%;
@@ -119,30 +240,33 @@
 }
 .introwords
 {
+  display:flex;
   color:white;
   font-size: 425%;
   font-family: 'Sarabun';
+  margin-top:20px;
 }
 .introwords2
 {
-  color:#008fff;
+  color:#094FCB;
   font-size: 150%;
   font-family: 'Sarabun';
 }
 .introwordsseconddiv
 {
-  font-size: 500%;
+  font-size: 900%;
   font-family: 'Bangers';
-  color:#ffc500;
-}
+  color:#FF336F;
+  --animate-duration: 3s;
 
+}
 
 /* CSS */
 .button-53 {
-  background-color: #008fff;;
+  background-color: #0d19a3;;
   border: 0 solid #E5E7EB;
   box-sizing: border-box;
-  color: #ffc500;
+  color: white;
   display: flex;
   font-family: 'Sarabun';
   font-size: 1rem;
@@ -190,7 +314,7 @@
 }
 .inputsearch
 {
-  width:180%;
+  width:100%;
 
 }
 .container {
@@ -208,22 +332,8 @@
   margin-right:20px;
   white-space:normal;
 }
-.content {
-  flex: 1;
-  display: flex;
-  overflow: auto;
-}
 
-.box {
-  display: flex;
-  min-height: min-content; /* needs vendor prefixes */
-}
-.startitleindex
-{
-  font-size: 350%;
-  font-family: 'Sarabun';
-  color: #ffc500;
-}
+
 .control-suggestions
 {
   margin: auto;
@@ -232,12 +342,7 @@ padding: 10px;
 
 
 }
-.imgindex
-{
-  border-radius: 7px;
-  object-fit: contain;
 
-}
 .goodmorning:hover
 {
 
@@ -333,30 +438,71 @@ span .myinboxcss:hover{
 .requestcss:hover{
   cursor: pointer;
 }
+
+.columninbox
+{
+  width:100%;
+  padding:2%;
+
+  justify-content: center;
+  background: #008fff;
+}
+
+
+
 .ineachrow
 {
+  display: flex;
+
   justify-content: center;
-  width:65%;
-  height:12em;
+  width:50%;
+  height:210px;
   background-color: #ffc500;
   border-radius: 1.5em;
 
 }
-.columninbox
-{
-  width:75%;
 
-  justify-content: center;
-  background: #008fff;
-  border-radius: 1.5em;
-
-
-}
 .okseecolor
 {
-  padding:5%;
- 
+  padding:3%;
+  height:100%;
+  width:100%;
+
 }
+.inboxtroublesome
+{
+  text-align: center;
+  justify-content: center;
+ 
+  width: 100%;
+  height: 100%;
+}
+.randomdesign
+{
+  background-color: #02d667;
+  padding:7px;
+  border-radius: 10px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .ineachrow {
+    width:80%;
+  }
+
+}
+@media only screen and (max-width: 800px) {
+  .ineachrow {
+    width:100%;
+  }
+  .waoccasion
+  {
+    font-size: 100%;
+  }
+  
+}
+
+
+
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
 
 
@@ -623,25 +769,28 @@ span .myinboxcss:hover{
 }
 .paginationcolor
 {
-  width:5%;
+  width:10%;
   height:10%;
   border: 0.5px solid grey;
+  text-align: center;
 
 
 
 }
 .paginationnocolor
 {
-  width:5%;
+  width:10%;
   height:10%;  
   border: 0.5px solid grey;
   background-color: white;
-  
+  text-align: center;
+
 }
+
 .nextbutton
 {
   text-align: center;
-  width:10%;
+  width:15%;
   height:10%;  
   border: 0.5px solid grey;
   background-color: white;
@@ -701,4 +850,11 @@ span .completecss:hover{
   color:red;
   font-family: 'Sarabun';
 
+}
+.buttonchoicesinbox
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }

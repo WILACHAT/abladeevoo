@@ -1,127 +1,81 @@
-var postoption = ""
-        if (document.querySelector('#typeofpage').value == "request")
-        {
-            //this is before influencer posted video
-            if (this.props.data["data"][0].completed != true)
-            {
-                postoption = 
-                <div>
-                    <div class="d-flex justify-content-center">
-                        <label htmlFor="edit_post_txt">Click to change introduction video: </label>
-                     </div>
-                    <div class="custom-file">
-                        <div class="d-flex justify-content-center">
-                            <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <video hidden id="testervideo" width="320" height="240" controls>
-                            <source src=""></source>
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
-                    <input name="" type="hidden" id="sendingvideoidback"></input>
-                    <input id="sendingbacktorequest"></input>
-                    <button class="btn btn-primary" onClick={this.submitSave} id="submitrequested">Post</button>
-                </div>
-            }
-            else
-            {
-                //this is after influencer posted video
-                let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
-                if (this.props.data["data"][0].reviewcompleted != true)
-                {
-                    postoption = 
-                    <div>
-                        <h1>DONE</h1>
-                        <video id="testervideo" width="320" height="240" controls>
-                            <source src={link}></source>
-                            Your browser does not support the video tag.
-                        </video>
-                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
 
 
-                        <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
-                        <h3>No reviews from customer yet</h3>
-                    </div>
-                }
-                else
-                {
-                   // <img id="testerimage" alt="ye" width="800" height="500"></img>
 
-                    postoption = 
-                    <div>
-                        <h1>DONE</h1>
-                        <video id="testervideo" width="320" height="240" controls>
-                            <source src={link}></source>
-                            Your browser does not support the video tag.
-                        </video>
-                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
+<div class="container">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark justify-content-between">
 
+      <a class="navbar-brand" href="{% url 'index' %}"><h4 class="videme">Vidme!</h4></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="justify-content-start collapse navbar-collapse" id="navbarSupportedContent">
 
-                        <h1>What you wrote: {this.props.data["forpostdata"][0]}</h1>
-                        <h3>Customer Review: {this.props.data["reviewvalue"]}</h3>
-                    </div>
-                }
-            }
-        }
-        else
-        {
-            if (this.props.data["data"][0].completed != true)
-            {
-                postoption = 
-                <div>
-                    <h1>Waiting for influencer</h1>
-                </div>
-            }
-            else
-            {
-                let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
-
-                if (this.props.data["data"][0].reviewcompleted != true)
-                {
-                    postoption = 
-                    <div>
-                        <h1>Done</h1>
-                        <video id="testervideo" width="320" height="240" controls>
-                            <source src={link}></source>
-                            Your browser does not support the video tag.
-                        </video>
-                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
-
-
-                        <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
-                        <input id="typeforreview"></input>
-                        <select id="selectforreview">
-                             <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-
-                        </select>
-                        <button onClick={this.submitReview} class="btn btn-primary">Submit</button>
-                    </div>
-                }
-                else
-                {
-                    postoption = 
-                    <div>
-                        <h1>Done</h1>
-                        <video id="testervideo" width="320" height="240" controls>
-                            <source src={link}></source>
-                            Your browser does not support the video tag.
-                        </video>
-                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
-
-
-                        <h2>Message from influencer: {this.props.data["forpostdata"][0]}</h2>
-                        <h1>Ur Review</h1>
-                        <h3>{this.props.data["reviewvalue"]}</h3>
-                    </div>
-                }
-                
-            }
+              <ul class="navbar-nav">
+                  {% if user.is_authenticated %}
+                    {% if user.influencer_ornot == 1 %}
+                      <li class="nav-item mt-2 ml-4">
+                          <a id="navprofile" class="wa" href="{% url 'ininfluencer' user.username %}"><strong>{{ user.username }}</strong></a>
+                      </li>
+                    {% else %}
+                    <!--this will go to edit profile page of the account-->
+                      <li class="nav-item mt-2 ml-4">
+                        <a id="navprofile" class="wa" href="{% url 'usersetting' %}"><strong>{{ user.username }}</strong></a>
+                      </li>
+                    {% endif %}
+                    {% if user.is_superuser == 1 %}
+                      <li class="nav-item">
+                        <a id="navprofile" class="wa" href="{% url 'superuser' %}"><strong>Super User</strong></a>
+                      </li>
+                    {% endif %}
+                 {% endif %}
           
-        }
+                  <li class="nav-item mt-2 ml-4">
+                    <a class="wa" href="{% url 'index' %}">หน้าหลัก</a>
+                  </li>   
+                {% if user.is_authenticated %}
+                  <li class="nav-item mt-2 ml-4">
+                    <a class="wa" href="{% url 'inbox' %}">อินบ็อกซ์</a>
+                  </li>    
+                  {% if user.influencer_ornot != 1 %}
+
+                    <li class="nav-item mt-2 ml-4">
+                      <a class="wa" href="{% url 'dara' %}">สมัครเป็นสตาร์</a>
+                    </li> 
+
+                  {% endif %}
+
+                    
+            </div>
+              <div>
+                  <div class="dropdown dropleft">
+                    <button class="dropdownbutton btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    อื่นๆ
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <a class="nav-link" href="{% url 'legal' %}">Legal</a>
+                      <a class="nav-link" href="{% url 'helpcenter' %}">Help Center</a>
+                      <a class="nav-link" href="{% url 'aboutus' %}">About Us</a>
+                      <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+
+                    </ul>
+                  
+                </div>
+              </div>
+                
+                   
+                {% else %}
+                    <li class="nav-item">
+                        <a class="wa" href="{% url 'login' %}">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="wa" href="{% url 'register' %}">Register</a>
+                    </li>
+                {% endif %}
+              </ul>
+            </div>
+            
+
+
+          </div>
+        </nav>
+      </div>

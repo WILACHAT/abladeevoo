@@ -1196,50 +1196,23 @@ var InboxFeedRows = function (_React$Component2) {
                 { 'class': 'okseecolor' },
                 React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-between' },
+                    { 'class': 'randomdesign d-flex justify-content-between' },
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-start' },
-                        React.createElement('img', { 'class': 'imgnoeditinbox mr-5', src: link }),
+                        { 'class': 'd-flex justify-content-start mt-2' },
+                        React.createElement('img', { 'class': 'imgnoeditinbox mt-3 mr-5', src: link }),
                         React.createElement(
                             'div',
-                            { 'class': 'd-flex flex-column' },
+                            { 'class': 'd-flex flex-column yeathename mt-2' },
                             React.createElement(
                                 'a',
-                                { 'class': 'wa' },
+                                { 'class': 'nameininbox' },
                                 this.props.name
                             ),
                             React.createElement(
                                 'h4',
                                 { 'class': 'wa' },
                                 this.props.giftornot == "someoneelse_html_id" ? "A gift" : "For you"
-                            ),
-                            this.props.completed == true ? React.createElement(
-                                'h6',
-                                { 'class': 'waduedatecomplete' },
-                                '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
-                            ) : checktime == 0 ? React.createElement(
-                                'div',
-                                null,
-                                React.createElement(
-                                    'h6',
-                                    { 'class': 'waduedate' },
-                                    ' \u0E44\u0E21\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
-                                ),
-                                React.createElement(
-                                    'label',
-                                    { 'class': 'wa' },
-                                    '\u0E2A\u0E48\u0E07\u0E01\u0E48\u0E2D\u0E19'
-                                ),
-                                React.createElement(
-                                    'h4',
-                                    { 'class': 'waduedate' },
-                                    this.props.duedate
-                                )
-                            ) : React.createElement(
-                                'h4',
-                                { 'class': 'waduedateexpire' },
-                                '\u0E2B\u0E21\u0E14\u0E2D\u0E32\u0E22\u0E38'
                             )
                         )
                     ),
@@ -1251,7 +1224,7 @@ var InboxFeedRows = function (_React$Component2) {
                             { 'class': 'd-flex justify-content-center' },
                             React.createElement(
                                 'h4',
-                                { 'class': 'wa' },
+                                { 'class': 'waoccasion' },
                                 occasion
                             )
                         ),
@@ -1271,30 +1244,55 @@ var InboxFeedRows = function (_React$Component2) {
                             )
                         )
                     )
+                ),
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center mt-1' },
+                    this.props.completed == true ? React.createElement(
+                        'h6',
+                        { 'class': 'waduedatecomplete mt-3' },
+                        '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
+                    ) : checktime == 0 ? React.createElement(
+                        'div',
+                        { 'class': 'inboxtroublesome mt-1 ml-2' },
+                        React.createElement(
+                            'h6',
+                            { 'class': 'waduedate' },
+                            ' \u0E44\u0E21\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h6',
+                                { 'class': 'waduedate' },
+                                '\u0E2A\u0E48\u0E07\u0E01\u0E48\u0E2D\u0E19:'
+                            ),
+                            React.createElement(
+                                'h6',
+                                { 'class': 'waduedate' },
+                                this.props.duedate
+                            )
+                        )
+                    ) : React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'h4',
+                            { 'class': 'waduedateexpire' },
+                            '\u0E2B\u0E21\u0E14\u0E2D\u0E32\u0E22\u0E38'
+                        )
+                    )
                 )
             );
 
             return React.createElement(
                 'div',
-                { 'class': 'd-flex justify-content-center mb-4' },
-                this.props.type == "inbox" ? React.createElement(
+                { 'class': 'd-flex justify-content-center' },
+                React.createElement(
                     'div',
-                    { 'class': 'ineachrow mt-4' },
-                    ' ',
-                    eachcontent,
-                    ' '
-                ) : this.props.completed == true ? React.createElement(
-                    'div',
-                    { 'class': 'ineachrow mt-4' },
-                    ' ',
-                    eachcontent,
-                    ' '
-                ) : checktime == 1 ? null : React.createElement(
-                    'div',
-                    { 'class': 'ineachrow mt-4' },
-                    ' ',
-                    eachcontent,
-                    ' '
+                    { 'class': 'ineachrow mt-4 mb-4' },
+                    this.props.type == "inbox" ? eachcontent : this.props.completed == true ? eachcontent : checktime == 1 ? null : eachcontent
                 )
             );
         }
@@ -1449,7 +1447,7 @@ var InboxFeedInbox = function (_React$Component3) {
 
             var type = "";
             if (this.props.data["type"] == "request") {
-                if (this.state.sort == "Hide Completed") {
+                if (this.state.sort == "Sort Closest to Due Date") {
                     type = "myrequesthtml";
                 } else {
                     type = "mysorttime";
@@ -1645,7 +1643,6 @@ var InboxFeedInbox = function (_React$Component3) {
                                 React.createElement(
                                     'div',
                                     { 'class': 'd-flex justify-content-center' },
-                                    '                                ',
                                     React.createElement(
                                         'h2',
                                         { 'class': 'wa mt-2' },
@@ -1661,7 +1658,7 @@ var InboxFeedInbox = function (_React$Component3) {
                     { 'class': 'paginationcss' },
                     this.state.newdata["num_pages"] != 0 ? React.createElement(
                         'ul',
-                        { 'class': 'pagination container justify-content-center mt-3' },
+                        { 'class': 'pagination justify-content-center mt-3' },
                         this.state.pagination > 1 ? React.createElement(
                             'a',
                             { id: this.state.pagination, 'class': 'nextbutton btn', onClick: this.changePage },
@@ -1758,20 +1755,20 @@ var InboxFeedTitle = function (_React$Component4) {
 
             return React.createElement(
                 'div',
-                { 'class': 'd-flex justify-content-center mb-2' },
+                { 'class': 'buttonchoicesinbox d-flex justify-content-center mb-2' },
                 React.createElement(
                     'span',
-                    null,
+                    { 'class': 'mt-2' },
                     React.createElement('a', { id: 'myinboxid', onClick: this.changeFeedInbox, 'class': 'myinboxcss' })
                 ),
                 this.props.data["checkifinfluencer"] == true ? React.createElement(
                     'span',
-                    null,
+                    { 'class': 'mt-2' },
                     React.createElement('a', { id: 'myrequestid', onClick: this.changeFeedInbox, 'class': 'requestcss' })
                 ) : null,
                 this.props.data["checkifinfluencer"] == true ? React.createElement(
                     'span',
-                    null,
+                    { 'class': 'mt-2' },
                     React.createElement('a', { id: 'mycompleteid', onClick: this.changeFeedInbox, 'class': 'completecss' })
                 ) : null
             );

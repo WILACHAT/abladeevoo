@@ -60,7 +60,7 @@ var SearchBar = function (_React$Component) {
             React.createElement('input', {
               id: 'searchid',
               type: 'text',
-              'class': 'inputsearch form-control mr-sm-2 mt-2 pb-2 d-flex justify-content-center',
+              'class': 'inputsearch form-control d-flex justify-content-center',
               placeholder: 'Search...',
               value: this.props.searchtext,
               onChange: this.checkSearch })
@@ -152,16 +152,20 @@ var SuggestionTable = function (_React$Component2) {
           React.createElement(SearchBar, { searchtext: this.state.searchtext, oncheckSearch: this.mainSearch })
         ) : React.createElement('null', null),
         React.createElement(
-          'h3',
-          { 'class': 'startitleindex d-flex justify-content-start mt-3' },
-          this.props.type == "main" ? "สตาร์" : "ป๊อปปูล่า"
+          'div',
+          { 'class': 'divofstartitle' },
+          React.createElement(
+            'h3',
+            { 'class': 'startitleindex mt-3' },
+            this.props.type == "main" ? "สตาร์" : "ป๊อปปูล่า"
+          )
         ),
         React.createElement(
           'div',
-          { 'class': 'content row mb-5' },
+          { 'class': 'content mt-3 mb-5' },
           React.createElement(
             'div',
-            { 'class': 'box col' },
+            { 'class': 'box' },
             suggestion_rows
           )
         )
@@ -204,30 +208,32 @@ var SuggestionsRow = function (_React$Component3) {
       var ininfluencer_link = "/ininfluencer/" + this.props.username;
       //<a name="posterr" href={portalname} class="h4 colorstyle">{this.props.portalname}</a> 
 
+      //not sure wa mee tummai but geb whai gorn
+      //<h5>{this.props.influencer_ornot}</h5>
+      //<h5>{this.props.freeze_account}</h5>
       return React.createElement(
-        'a',
-        { name: 'goodmorning', 'class': 'goodmorning mr-5 mb-3', href: ininfluencer_link },
-        React.createElement('img', { 'class': 'imgindex', width: '240', height: '300', src: link }),
+        'div',
+        null,
         React.createElement(
           'a',
-          { name: 'posterr', 'class': 'h4 colorstyle' },
-          this.props.username
+          { name: 'goodmorning', 'class': 'goodmorning d-flex justify-content-center mb-3', href: ininfluencer_link },
+          React.createElement(
+            'div',
+            { 'class': 'd-flex flex-column' },
+            React.createElement('img', { 'class': 'imgindex', width: '240', height: '300', src: link }),
+            React.createElement(
+              'a',
+              { name: 'posterr', 'class': 'h4 colorstyle' },
+              this.props.username
+            ),
+            React.createElement(
+              'h5',
+              null,
+              this.props.fullname
+            )
+          )
         ),
-        React.createElement(
-          'h5',
-          null,
-          this.props.influencer_ornot
-        ),
-        React.createElement(
-          'h5',
-          null,
-          this.props.freeze_account
-        ),
-        React.createElement(
-          'h5',
-          null,
-          this.props.fullname
-        )
+        React.createElement('hr', { 'class': 'hrindex' })
       );
     }
   }]);

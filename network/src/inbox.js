@@ -875,26 +875,22 @@ class InboxFeedRows extends React.Component {
 
         eachcontent =  
         <div class="okseecolor">
-        <div class="d-flex justify-content-between">
-            <div class="d-flex justify-content-start">
-                <img class="imgnoeditinbox mr-5" src={link}></img>
-                <div class="d-flex flex-column">
-                    <a class="wa" >{this.props.name}</a> 
+        <div class="randomdesign d-flex justify-content-between">
+            <div class="d-flex justify-content-start mt-2">
+                <img class="imgnoeditinbox mt-3 mr-5" src={link}></img>
+                <div class="d-flex flex-column yeathename mt-2">
+                    <a class="nameininbox" >{this.props.name}</a> 
                     <h4 class="wa">{this.props.giftornot == "someoneelse_html_id" ? "A gift":"For you"}</h4>
-                   
-                   {this.props.completed == true ? <h6 class="waduedatecomplete">เสร็จสิ้น</h6> : 
-                   checktime == 0 ? 
-                       <div>
-                            <h6 class="waduedate"> ไม่เสร็จสิ้น</h6>
-                            <label class="wa">ส่งก่อน</label>
-                            <h4 class="waduedate">{this.props.duedate}</h4> 
-                       </div>:
-                       <h4 class="waduedateexpire">หมดอายุ</h4>}
+                    
                 </div>
+                   
+              
             </div>
+        
+
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-center">
-                    <h4 class="wa">{occasion}</h4>
+                    <h4 class="waoccasion">{occasion}</h4>
                 </div>
                 <div onClick={this.clickHref} class="button" id="button-7">
                     <input type="hidden" id="divtogetid" value={this.props.id}></input>
@@ -908,19 +904,38 @@ class InboxFeedRows extends React.Component {
             
 
         </div>
+        <div class="d-flex justify-content-center mt-1">
+                    {this.props.completed == true ? <h6 class="waduedatecomplete mt-3">เสร็จสิ้น</h6> : 
+                    checktime == 0 ? 
+                        <div class="inboxtroublesome mt-1 ml-2">
+                                
+                                <h6 class="waduedate"> ไม่เสร็จสิ้น</h6>
+                                <div class="d-flex justify-content-center">
+                                    <h6 class="waduedate">ส่งก่อน:</h6>
+                                    <h6 class="waduedate">{this.props.duedate}</h6> 
+                                </div>
+                        </div>:
+                        <div class="d-flex justify-content-center">
+                            <h4 class="waduedateexpire">หมดอายุ</h4>
+                        </div>}
+                     </div>
+        
+       
     </div>
 
 
         return(
-            <div class="d-flex justify-content-center mb-4">
+            <div class="d-flex justify-content-center">
+            <div class="ineachrow mt-4 mb-4">
 
-                {this.props.type == "inbox" ? <div class="ineachrow mt-4"> {eachcontent} </div>: 
+                {this.props.type == "inbox" ? eachcontent: 
                 
-                this.props.completed == true ? <div class="ineachrow mt-4"> {eachcontent} </div>:
+                this.props.completed == true ?  eachcontent:
                 
                 checktime == 1 ? null:
-                <div class="ineachrow mt-4"> {eachcontent} </div>}
+                eachcontent}
 
+            </div>
             </div>
         )
     }
@@ -1090,7 +1105,7 @@ class InboxFeedInbox extends React.Component {
         let type=""
         if (this.props.data["type"] == "request")
         {
-            if (this.state.sort == "Hide Completed")
+            if (this.state.sort == "Sort Closest to Due Date")
             {
                 type = "myrequesthtml"
 
@@ -1255,7 +1270,8 @@ class InboxFeedInbox extends React.Component {
                                 <div class="d-flex justify-content-center">
                                     <h1 class="wa">ยัวไม่มีออเดอร์ใน รีเควสท์</h1>
                                 </div>
-                                    <div class="d-flex justify-content-center">                                <h2 class="wa mt-2">ช่วยแชร์ให้แฟนคลับคุณใน โซเชียล!</h2>
+                                    <div class="d-flex justify-content-center">                                
+                                    <h2 class="wa mt-2">ช่วยแชร์ให้แฟนคลับคุณใน โซเชียล!</h2>
                                 </div>
 
                             
@@ -1268,7 +1284,7 @@ class InboxFeedInbox extends React.Component {
                 {rows != "" ? 
         <div class="paginationcss">
         {this.state.newdata["num_pages"] != 0 ?
-        <ul class="pagination container justify-content-center mt-3">
+        <ul class="pagination justify-content-center mt-3">
               {this.state.pagination > 1 ?  <a id={this.state.pagination} class="nextbutton btn" onClick={this.changePage}>Previous</a>: null}
                 {button}              
               {this.state.pagination != this.state.newdata["num_pages"] ? <a id={this.state.pagination} class="nextbutton btn" onClick={this.changePage}>Next</a>: null}
@@ -1361,11 +1377,11 @@ class InboxFeedTitle extends React.Component {
     //</select>
   
         return (
-         <div class="d-flex justify-content-center mb-2">
+         <div class="buttonchoicesinbox d-flex justify-content-center mb-2">
             
-            <span><a id="myinboxid" onClick={this.changeFeedInbox} class="myinboxcss"></a></span>
-            {this.props.data["checkifinfluencer"] == true ?  <span><a id="myrequestid" onClick={this.changeFeedInbox} class="requestcss"></a></span>:null}
-            {this.props.data["checkifinfluencer"] == true ?  <span><a id="mycompleteid" onClick={this.changeFeedInbox} class="completecss"></a></span>:null}
+            <span class="mt-2"><a id="myinboxid" onClick={this.changeFeedInbox} class="myinboxcss"></a></span>
+            {this.props.data["checkifinfluencer"] == true ?  <span class="mt-2"><a id="myrequestid" onClick={this.changeFeedInbox} class="requestcss"></a></span>:null}
+            {this.props.data["checkifinfluencer"] == true ?  <span class="mt-2"><a id="mycompleteid" onClick={this.changeFeedInbox} class="completecss"></a></span>:null}
 
 
 
