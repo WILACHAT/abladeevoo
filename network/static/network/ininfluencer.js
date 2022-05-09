@@ -31,7 +31,6 @@ var InfluencerFeedRows = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (InfluencerFeedRows.__proto__ || Object.getPrototypeOf(InfluencerFeedRows)).call(this, props));
 
     _this.hideFunction = _this.hideFunction.bind(_this);
-    console.log("INFLUENCERFEEDROWSSSSSSSSSSSSSS");
     if (_this.props.hide == true) {
       _this.state = {
         hide: "Unhide"
@@ -103,7 +102,7 @@ var InfluencerFeedRows = function (_React$Component) {
               { 'class': 'd-flex justify-content-center mt-3' },
               this.props.sameperson == 1 ? React.createElement(
                 'button',
-                { id: this.props.data, value: this.state.hide, 'class': 'btn hidebutton', onClick: this.hideFunction },
+                { id: this.props.data, value: this.state.hide, 'class': this.state.hide == "Hide" ? "btn-primary hidebutton" : "btn-danger hidebutton", onClick: this.hideFunction },
                 this.state.hide
               ) : null
             )
@@ -193,9 +192,13 @@ var InfluencerFeedTable = function (_React$Component2) {
             )
           ),
           this.props.data["alldata"] == "" ? React.createElement(
-            'h6',
-            null,
-            '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E42\u0E1E\u0E2A'
+            'div',
+            { 'class': 'd-flex justify-content-center mt-3 mb-5' },
+            React.createElement(
+              'h6',
+              { 'class': 'wanopostyet' },
+              '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E42\u0E1E\u0E2A'
+            )
           ) : React.createElement(
             'div',
             { 'class': 'grid d-flex justify-content-center' },
@@ -214,9 +217,13 @@ var InfluencerFeedTable = function (_React$Component2) {
             )
           ),
           this.props.data["alldata"] == "" ? React.createElement(
-            'h6',
-            null,
-            '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E23\u0E35\u0E27\u0E34\u0E27'
+            'div',
+            { 'class': 'd-flex justify-content-center mt-3 mb-5' },
+            React.createElement(
+              'h6',
+              { 'class': 'wanopostyet' },
+              '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E42\u0E1E\u0E2A'
+            )
           ) : React.createElement(
             'div',
             { 'class': 'row d-flex justify-content-center' },
@@ -318,12 +325,25 @@ var EditPost = function (_React$Component3) {
           { className: 'form-floating' },
           React.createElement(
             'div',
+            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
+            React.createElement(
+              'button',
+              { type: 'button', className: 'loll btn btn-outline-danger btn-sm', name: 'cancel_button', onClick: this.editCancel },
+              'Cancel'
+            )
+          ),
+          React.createElement(
+            'div',
             { 'class': 'd-flex justify-content-center mt-1 mb-1' },
             React.createElement(
               'label',
               { htmlFor: 'edit_post_txt' },
-              'Full Name: '
-            ),
+              '\u0E0A\u0E37\u0E48\u0E2D\u0E08\u0E23\u0E34\u0E07: '
+            )
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
             React.createElement('textarea', { id: 'idfullname', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.fullname })
           ),
           React.createElement(
@@ -332,8 +352,12 @@ var EditPost = function (_React$Component3) {
             React.createElement(
               'label',
               { htmlFor: 'edit_post_txt' },
-              'Page Description: '
-            ),
+              '\u0E44\u0E1A\u0E42\u0E2D: '
+            )
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
             React.createElement('textarea', { id: 'iddescription', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.description })
           ),
           React.createElement(
@@ -342,8 +366,12 @@ var EditPost = function (_React$Component3) {
             React.createElement(
               'label',
               { htmlFor: 'edit_post_txt' },
-              'Url 1: '
-            ),
+              '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C 1: '
+            )
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
             React.createElement('textarea', { id: 'idurl1', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.first_url })
           ),
           React.createElement(
@@ -352,8 +380,12 @@ var EditPost = function (_React$Component3) {
             React.createElement(
               'label',
               { htmlFor: 'edit_post_txt' },
-              'Url 2: '
-            ),
+              '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C  2: '
+            )
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
             React.createElement('textarea', { id: 'idurl2', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.second_url })
           ),
           React.createElement(
@@ -362,8 +394,12 @@ var EditPost = function (_React$Component3) {
             React.createElement(
               'label',
               { htmlFor: 'edit_post_txt' },
-              'Url 3: '
-            ),
+              '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C  3: '
+            )
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
             React.createElement('textarea', { id: 'idurl3', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.third_url })
           ),
           React.createElement(
@@ -373,11 +409,6 @@ var EditPost = function (_React$Component3) {
               'button',
               { type: 'button', name: 'edit_post_button', className: 'loll btn btn-outline-success btn-sm mr-2', onClick: this.editPost },
               'Save'
-            ),
-            React.createElement(
-              'button',
-              { type: 'button', className: 'loll btn btn-outline-danger btn-sm', name: 'cancel_button', onClick: this.editCancel },
-              'Cancel'
             )
           )
         )
@@ -452,29 +483,31 @@ var InfluencerFeedTitle = function (_React$Component4) {
         'div',
         null,
         React.createElement(
-          'h4',
-          null,
-          'Name'
+          'label',
+          { 'class': 'wa' },
+          '\u0E0A\u0E37\u0E48\u0E2D'
         ),
         React.createElement(
           'h5',
           null,
           fullname
         ),
+        React.createElement('hr', null),
         React.createElement(
-          'h5',
-          null,
-          'Description'
+          'label',
+          { 'class': 'wa' },
+          '\u0E44\u0E1A\u0E42\u0E2D'
         ),
         React.createElement(
           'h6',
           null,
           description
         ),
+        React.createElement('hr', null),
         React.createElement(
-          'h5',
-          null,
-          'Links'
+          'label',
+          { 'class': 'wa' },
+          '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C'
         ),
         React.createElement(
           'h6',
@@ -490,7 +523,8 @@ var InfluencerFeedTitle = function (_React$Component4) {
           'h6',
           null,
           third_url
-        )
+        ),
+        React.createElement('hr', null)
       )
 
     };
@@ -512,7 +546,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
       } else {
 
         console.log("this is fileinput", fileInput);
-
         console.log("this is in choose file");
 
         var formData = new FormData();
@@ -613,29 +646,31 @@ var InfluencerFeedTitle = function (_React$Component4) {
             'div',
             null,
             React.createElement(
-              'h4',
-              null,
-              'Name'
+              'label',
+              { 'class': 'wa' },
+              '\u0E0A\u0E37\u0E48\u0E2D'
             ),
             React.createElement(
               'h5',
               null,
               idfullname
             ),
+            React.createElement('hr', null),
             React.createElement(
-              'h5',
-              null,
-              'Description'
+              'label',
+              { 'class': 'wa' },
+              '\u0E44\u0E1A\u0E42\u0E2D'
             ),
             React.createElement(
               'h6',
               null,
               iddescription
             ),
+            React.createElement('hr', null),
             React.createElement(
-              'h5',
-              null,
-              'Links'
+              'label',
+              { 'class': 'wa' },
+              '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C'
             ),
             React.createElement(
               'h6',
@@ -651,7 +686,8 @@ var InfluencerFeedTitle = function (_React$Component4) {
               'h6',
               null,
               idurl3
-            )
+            ),
+            React.createElement('hr', null)
           )
 
         });
@@ -666,29 +702,31 @@ var InfluencerFeedTitle = function (_React$Component4) {
           'div',
           null,
           React.createElement(
-            'h4',
-            null,
-            'Name'
+            'label',
+            { 'class': 'wa' },
+            '\u0E0A\u0E37\u0E48\u0E2D'
           ),
           React.createElement(
             'h5',
             null,
             this.state.fullname
           ),
+          React.createElement('hr', null),
           React.createElement(
-            'h5',
-            null,
-            'Description'
+            'label',
+            { 'class': 'wa' },
+            '\u0E44\u0E1A\u0E42\u0E2D'
           ),
           React.createElement(
             'h6',
             null,
             this.state.description
           ),
+          React.createElement('hr', null),
           React.createElement(
-            'h5',
-            null,
-            'Links'
+            'label',
+            { 'class': 'wa' },
+            '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C'
           ),
           React.createElement(
             'h6',
@@ -704,7 +742,8 @@ var InfluencerFeedTitle = function (_React$Component4) {
             'h6',
             null,
             this.state.third_url
-          )
+          ),
+          React.createElement('hr', null)
         )
       });
     }
@@ -828,16 +867,11 @@ var InfluencerFeedTitle = function (_React$Component4) {
           'div',
           null,
           React.createElement(
-            'h2',
-            null,
-            'looking for a yea u know'
-          ),
-          React.createElement(
             'div',
-            { 'class': 'd-flex justify-content-between' },
+            { 'class': 'controlininfluencer d-flex justify-content-between' },
             React.createElement(
               'div',
-              { 'class': 'hihi d-flex flex-column ml-5' },
+              { 'class': 'hihi d-flex flex-column' },
               React.createElement(
                 'div',
                 { 'class': 'd-flex justify-content-center' },
@@ -925,19 +959,31 @@ var InfluencerFeedTitle = function (_React$Component4) {
             ),
             React.createElement(
               'div',
-              { 'class': 'coversvdointro' },
+              { 'class': 'coversvdointro d-flex justify-content-center' },
               React.createElement(
                 'div',
-                { 'class': 'd-flex flex-column' },
+                { 'class': 'd-flex flex-column ' },
                 React.createElement(
-                  'video',
-                  { 'class': 'mr-5', id: 'introvideo', controls: true },
-                  React.createElement('source', { src: videolink }),
-                  'Your browser does not support the video tag.'
+                  'div',
+                  { 'class': 'd-flex justify-content-center' },
+                  videolink == "" ? React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                      'h6',
+                      { 'class': 'wanopostyet' },
+                      'No Introduction Video yet'
+                    )
+                  ) : React.createElement(
+                    'video',
+                    { 'class': 'almostvideovideowhenget', id: 'introvideo', controls: true },
+                    React.createElement('source', { src: videolink }),
+                    'Your browser does not support the video tag.'
+                  )
                 ),
                 this.props.data["sameperson"] == 1 ? React.createElement(
                   'div',
-                  { 'class': 'mb-5' },
+                  null,
                   React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center' },
@@ -955,7 +1001,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
                       { 'class': 'custom-file' },
                       React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center' },
+                        { 'class': 'videouploadininfluencer' },
                         React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
                       )
                     )
@@ -967,7 +1013,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
         ),
         React.createElement(
           'div',
-          { 'class': 'enough d-flex justify-content-center mt-5 mb-3' },
+          { 'class': 'enough d-flex justify-content-center mb-3' },
           React.createElement(
             'button',
             { type: 'button', 'class': 'btn btn-primary mr-5', id: 'publicfeedbutid', onClick: this.changeFeedPortal },

@@ -18,7 +18,6 @@ class InfluencerFeedRows extends React.Component {
 constructor(props) {
   super(props);
   this.hideFunction = this.hideFunction.bind(this);
-  console.log("INFLUENCERFEEDROWSSSSSSSSSSSSSS")
   if (this.props.hide == true)
   {
     this.state = {
@@ -85,7 +84,7 @@ render()
         
         </div>
         <div class="d-flex justify-content-center mt-3">
-            {this.props.sameperson == 1 ?  <button id={this.props.data} value={this.state.hide} class="btn hidebutton" onClick={this.hideFunction}>{this.state.hide}</button>:null}
+              {this.props.sameperson == 1 ?  <button id={this.props.data} value={this.state.hide} class={this.state.hide == "Hide" ? "btn-primary hidebutton":"btn-danger hidebutton"} onClick={this.hideFunction}>{this.state.hide}</button>:null}
         </div>
       </div>
     </div>
@@ -152,7 +151,10 @@ class InfluencerFeedTable extends React.Component {
       return (
         <div>
       
-            {this.props.data["feedtype"] == "main" ? <div><div class="d-flex justify-content-center"><h1>Example Posts</h1></div>{this.props.data["alldata"] == "" ? <h6>ยังไม่มีโพส</h6>: 
+            {this.props.data["feedtype"] == "main" ? <div><div class="d-flex justify-content-center"><h1>Example Posts</h1></div>{this.props.data["alldata"] == "" ? 
+            <div class="d-flex justify-content-center mt-3 mb-5">
+              <h6 class="wanopostyet">ยังไม่มีโพส</h6>
+            </div>: 
             <div class="grid d-flex justify-content-center">
               {rows}
             </div>}</div>:
@@ -161,7 +163,11 @@ class InfluencerFeedTable extends React.Component {
                   <div class="d-flex justify-content-center">
                     <h1>ริวิว</h1>
                   </div> 
-                  {this.props.data["alldata"] == "" ? <h6>ยังไม่มีรีวิว</h6>: 
+                  {this.props.data["alldata"] == "" ? 
+                  
+                  <div class="d-flex justify-content-center mt-3 mb-5">
+                  <h6 class="wanopostyet">ยังไม่มีโพส</h6>
+                </div>: 
 
                   <div class="row d-flex justify-content-center">
                     {rows}
@@ -257,38 +263,48 @@ class InfluencerFeedTable extends React.Component {
     return (
         <div>
                 <div className="form-floating">
+                    <div class="d-flex justify-content-center mt-2 mb-2">
+                        <button type="button"className="loll btn btn-outline-danger btn-sm" name="cancel_button" onClick={this.editCancel}>Cancel</button>
+                    </div>
                     <div class="d-flex justify-content-center mt-1 mb-1">
-                    <label htmlFor="edit_post_txt">Full Name: </label>
-                    <textarea id="idfullname" class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.fullname}></textarea>
-
+                        <label htmlFor="edit_post_txt">ชื่อจริง: </label>
+                    </div>
+                    <div class="d-flex justify-content-center mt-1 mb-1">
+                      <textarea id="idfullname" class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.fullname}></textarea>
                     </div>
 
                     <div class="d-flex justify-content-center mt-1 mb-1">
-                    <label htmlFor="edit_post_txt">Page Description: </label>
-                    <textarea id="iddescription" class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.description}></textarea>
-
+                      <label htmlFor="edit_post_txt">ไบโอ: </label>
+                    </div>
+                    <div class="d-flex justify-content-center mt-1 mb-1">
+                        <textarea id="iddescription" class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.description}></textarea>
                     </div>
                     
                     <div class="d-flex justify-content-center mt-2 mb-2">
-                    <label htmlFor="edit_post_txt">Url 1: </label>
-                    <textarea id="idurl1"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.first_url}></textarea>
+                      <label htmlFor="edit_post_txt">ลิ้งค์ 1: </label>
+                    </div>
+                    <div class="d-flex justify-content-center mt-1 mb-1">
+                      <textarea id="idurl1"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.first_url}></textarea>
                     </div>
 
                          
                     <div class="d-flex justify-content-center mt-2 mb-2">
-                    <label htmlFor="edit_post_txt">Url 2: </label>
-                    <textarea id="idurl2"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.second_url}></textarea>
+                      <label htmlFor="edit_post_txt">ลิ้งค์  2: </label>
+                    </div>
+                    <div class="d-flex justify-content-center mt-1 mb-1">
+                      <textarea id="idurl2"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.second_url}></textarea>
                     </div>
 
                          
                     <div class="d-flex justify-content-center mt-2 mb-2">
-                    <label htmlFor="edit_post_txt">Url 3: </label>
-                    <textarea id="idurl3"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.third_url}></textarea>
+                      <label htmlFor="edit_post_txt">ลิ้งค์  3: </label>
+                    </div>
+                    <div class="d-flex justify-content-center mt-1 mb-1">
+                      <textarea id="idurl3"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.third_url}></textarea>
                     </div>
                     
                     <div class="d-flex justify-content-center mt-2 mb-2">
                         <button type="button" name="edit_post_button" className="loll btn btn-outline-success btn-sm mr-2" onClick={this.editPost}>Save</button>
-                        <button type="button"className="loll btn btn-outline-danger btn-sm" name="cancel_button" onClick={this.editCancel}>Cancel</button>
                     </div>
                 
                 </div>
@@ -366,14 +382,20 @@ class InfluencerFeedTitle extends React.Component {
 
       edit:
         <div>
-           <h4>Name</h4>
+           <label class="wa">ชื่อ</label>
             <h5>{fullname}</h5>
-          <h5>Description</h5>
+            <hr></hr>
+
+          <label class="wa">ไบโอ</label>
             <h6>{description}</h6>
-          <h5>Links</h5>
+            <hr></hr>
+
+          <label class="wa">ลิ้งค์</label>
             <h6>{first_url}</h6>
             <h6>{second_url}</h6>
            <h6>{third_url}</h6>
+           <hr></hr>
+
         </div>
 
       }
@@ -394,7 +416,6 @@ class InfluencerFeedTitle extends React.Component {
       {
 
         console.log("this is fileinput", fileInput)
-
         console.log("this is in choose file")
 
         let formData = new FormData();
@@ -500,14 +521,20 @@ class InfluencerFeedTitle extends React.Component {
 
         edit:
           <div>
-             <h4>Name</h4>
+             <label class="wa">ชื่อ</label>
               <h5>{idfullname}</h5>
-            <h5>Description</h5>
+              <hr></hr>
+
+            <label class="wa">ไบโอ</label>
               <h6>{iddescription}</h6>
-            <h5>Links</h5>
+              <hr></hr>
+
+            <label class="wa">ลิ้งค์</label>
               <h6>{idurl1}</h6>
               <h6>{idurl2}</h6>
              <h6>{idurl3}</h6>
+             <hr></hr>
+
           </div>
 
         })
@@ -520,14 +547,18 @@ class InfluencerFeedTitle extends React.Component {
 
         edit:
           <div>
-             <h4>Name</h4>
+             <label class="wa">ชื่อ</label>
               <h5>{this.state.fullname}</h5>
-            <h5>Description</h5>
+              <hr></hr>
+            <label class="wa">ไบโอ</label>
               <h6>{this.state.description}</h6>
-            <h5>Links</h5>
+              <hr></hr>
+              <label class="wa">ลิ้งค์</label>
               <h6>{this.state.first_url}</h6>
               <h6>{this.state.second_url}</h6>
              <h6>{this.state.third_url}</h6>
+             <hr></hr>
+
           </div>
         })
       
@@ -673,18 +704,16 @@ class InfluencerFeedTitle extends React.Component {
             categoryname = "นักร้อง"
           }
       }
-   
 
-
+  
 
       console.log("daijoubu dayou", this.props.data)
         return (
          <div>
         
                 <div>
-                    <h2>looking for a yea u know</h2>
-                    <div class="d-flex justify-content-between"> 
-                          <div class="hihi d-flex flex-column ml-5">
+                        <div class="controlininfluencer d-flex justify-content-between"> 
+                          <div class="hihi d-flex flex-column">
                               <div class="d-flex justify-content-center">
                                 <img class="imgnoedit" src={link}></img>
   
@@ -723,21 +752,27 @@ class InfluencerFeedTitle extends React.Component {
                                   {this.state.edit}
 
                               </div>
-                            <div class="coversvdointro">
-                                <div class="d-flex flex-column">
-                                    <video class="mr-5" id="introvideo" controls>
-                                          <source src={videolink}></source>
-                                          Your browser does not support the video tag.
-                                    </video>
-                                    {this.props.data["sameperson"] == 1 ?   
-                                    <div class="mb-5">
+                            <div class="coversvdointro d-flex justify-content-center">
+                                <div class="d-flex flex-column ">
+                                    <div class="d-flex justify-content-center">
+                                   {videolink == "" ? <div>
+                                     <h6 class="wanopostyet">No Introduction Video yet</h6>
+                                   </div>:
+                                      <video class="almostvideovideowhenget" id="introvideo" controls>
+                                      <source src={videolink}></source>
+                                      Your browser does not support the video tag.
+                                   </video>  }
+                                                                
+                                </div>
+                                {this.props.data["sameperson"] == 1 ?   
+                                    <div>
                                         <div class="d-flex justify-content-center">
                                           <label htmlFor="edit_post_txt">Click to change introduction video: </label>
                                       </div>
                                         <div>
                                             <div class="custom-file">
-                                                <div class="d-flex justify-content-center">
-                                                <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                                                <div class="videouploadininfluencer">
+                                                    <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
                                                 </div>
                                             </div>
                                         </div>
@@ -749,7 +784,7 @@ class InfluencerFeedTitle extends React.Component {
              </div>
 
 
-            <div class="enough d-flex justify-content-center mt-5 mb-3">
+            <div class="enough d-flex justify-content-center mb-3">
               <button type="button" class="btn btn-primary mr-5" id="publicfeedbutid" onClick={this.changeFeedPortal}>Public Feed</button>
               <button type="button" class="btn btn-primary" id="reviewfeedbutid" onClick={this.changeFeedPortal}>Reviews</button>
             </div>

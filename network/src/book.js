@@ -27,21 +27,53 @@ class BookPage extends React.Component {
       //the number of steps can be state as well i believe
       this.state = {
         reserve_into_html: 
-            <div name="introname"id="someoneelse_html_id">
+            <div name="introname"id="someoneelse_html_id" >
                 <div>
-                    <h1>Who is this cameo from?</h1>
-                    <input required id="from_intro" placeholder="From"></input>
+                    <div class="d-flex justify-content-center mt-2">
+                        <label class="wa">จากใคร (ชื่อเล่น/ชื่อจริง)</label>
+                    </div>                    
+                    <div class="d-flex justify-content-center">
+                        <input class="inputheho" required id="from_intro" placeholder="จากใคร"></input>
+                    </div>
                 </div>
+
+                
             </div>,
         reserve_occasion_html:
             <div name="occasionname"id="birthday_html_id">
                 <div>
-                    <input required name="occa1" placeholder="When is their birthday?"></input><br></br>
-                    <input required name="occa2" placeholder="How old are they turning?"></input><br></br>
-                    <input required name="occa3"placeholder="Instructions for"></input><br></br>
-                    <input name="occa4" placeholder="Optional"></input>
+                    <div class="d-flex justify-content-center mt-2">
+                        <label class="wa">เกิดวันที่เท่าไหร่</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <input class="inputheho" required name="occa1" placeholder="เกิดวันที่เท่าไหร่?"></input>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-2">
+                        <label class="wa">จะอายุขึ้นเท่าไหร่</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <input class="inputheho" required name="occa2" placeholder="จะอายุขึ้นเท่าไหร่?"></input>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-2">
+                        <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <input class="inputheho" required name="occa3"placeholder="อยากให้สตาร์พูด/ทําอะไรให้"></input>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-2">
+                        <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์:</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <input class="inputheho" name="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                    </div>
+
                 </div>
-            </div>
+            </div>,
+        colorof1:"someoneelsehtml",
+        colorof2:"birthday"
       }
 
     }
@@ -176,10 +208,15 @@ class BookPage extends React.Component {
                 reserve_into_html:
                      <div name="introname" id="someoneelse_html_id">
                         <div>
-                            <h1>Who is this cameo from?</h1>
-                            <input id="from_intro"placeholder="From"></input>
+                            <div class="d-flex justify-content-center mt-2">
+                                <label class="wa">จากใคร (ชื่อเล่น/ชื่อจริง)</label>
+                            </div>                    
+                            <div class="d-flex justify-content-center">
+                                <input class="inputheho" required id="from_intro" placeholder="จากใคร"></input>
+                            </div>
                         </div>
-                     </div>
+                     </div>,
+                     colorof1:"someoneelsehtml"
             });
         }
         else
@@ -188,7 +225,8 @@ class BookPage extends React.Component {
             this.setState({
                 reserve_into_html:
                 <div name="introname" id="myself_html_id">
-                </div>
+                </div>,
+                colorof1:"myselfhtml"
             });
           
         }
@@ -203,12 +241,38 @@ class BookPage extends React.Component {
                 reserve_occasion_html:
                     <div name="occasionname" id="birthday_html_id">
                         <div>
-                            <input required name="occa1" placeholder="When is their birthday?"></input><br></br>
-                            <input required name="occa2" placeholder="How old are they turning?"></input><br></br>
-                            <input required name="occa3" placeholder="Instructions for"></input><br></br>
-                            <input name="occa4" placeholder="Optional"></input><br></br>
-                        </div>
+                    <div class="d-flex justify-content-center mt-2">
+                        <label class="wa">เกิดวันที่เท่าไหร่</label>
                     </div>
+                    <div class="d-flex justify-content-center">
+                        <input class="inputheho" required name="occa1" placeholder="เกิดวันที่เท่าไหร่?"></input>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-2">
+                        <label class="wa">จะอายุขึ้นเท่าไหร่</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <input class="inputheho" required name="occa2" placeholder="จะอายุขึ้นเท่าไหร่?"></input>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-2">
+                        <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <input class="inputheho" required name="occa3"placeholder="อยากให้สตาร์พูด/ทําอะไรให้"></input>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-2">
+                        <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์:</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <input class="inputheho" name="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                    </div>
+
+                </div>
+                    </div>,
+                    colorof2:"birthday"
+
             })
         }
         else if (e.target.id == "peptalkbutton")
@@ -218,11 +282,31 @@ class BookPage extends React.Component {
                 reserve_occasion_html:
                     <div name="occasionname" id="peptalk_html_id">
                         <div>
-                            <input required name="occa1" placeholder="What's going on with the recipient?"></input><br></br>
-                            <input required name="occa2" placeholder="How can ... help?"></input><br></br>
-                            <input name="occa3" placeholder="Optional details"></input><br></br>
+                            <div class="d-flex justify-content-center mt-2">
+                                <label class="wa">ทําไมถึงอยากได้กําลังใจ</label>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <input class="inputheho" required name="occa1" placeholder="ทําไมถึงอยากได้กําลังใจ?"></input><br></br>
+                            </div>
+
+                            <div class="d-flex justify-content-center mt-2">
+                                <label class="wa">ให้สตาร์ช่วยอะไรได้บ้าง</label>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <input class="inputheho" required name="occa2" placeholder="ให้สตาร์ช่วยอะไรได้บ้าง?"></input><br></br>
+                            </div>
+
+                            <div class="d-flex justify-content-center mt-2">
+                                <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <input class="inputheho" name="occa3" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input><br></br>
+                            </div>
+                           
                         </div>
-                    </div>
+                    </div>,
+                    colorof2:"peptalk"
+                    
             })
 
         }
@@ -233,10 +317,24 @@ class BookPage extends React.Component {
                 reserve_occasion_html:
                     <div name="occasionname" id="roastbutton_html_id">
                         <div>
-                            <input required name="occa1" placeholder="What would you like Kevin McKidd to roast the recipient about?"></input><br></br>
-                            <input name="occa2" placeholder="Optional"></input><br></br>
+                            <div class="d-flex justify-content-center mt-2">
+                                <label class="wa">อยากได้ฏัาลังใจในเรื่องอะไร</label>
+                            </div>
+
+                            <div class="d-flex justify-content-center"> 
+                                <input class="inputheho" required name="occa1" placeholder="อยากได้ฏัาลังใจในเรื่องอะไร"></input>
+                            </div>
+
+                            <div class="d-flex justify-content-center mt-2">
+                                <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <input class="inputheho" name="occa2" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                            </div>
                         </div>
-                    </div>
+                    </div>,
+                    colorof2:"roast"
             })
 
         }
@@ -247,11 +345,29 @@ class BookPage extends React.Component {
                 reserve_occasion_html:
                     <div name="occasionname" id="other_html_id">
                         <div>
-                            <input required name="occa1" placeholder="What's the occasion?"></input><br></br>
-                            <input required name="occa2" placeholder="Instructions for"></input><br></br>
-                            <input name="occa3" placeholder="Optional"/>
+                            <div class="d-flex justify-content-center mt-2">
+                                <label class="wa">เนื่องในโอกาสอะไร</label>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <input class="inputheho" required name="occa1" placeholder="เนื่องในโอกาสอะไร?"></input>
+                            </div>
+                           
+                            <div class="d-flex justify-content-center mt-2">
+                                <label class="wa">อยากให้สตาร์พูดหรือทําอะไร</label>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <input class="inputheho" required name="occa2" placeholder="อยากให้สตาร์พูดหรือทําอะไร"></input>
+                            </div>
+                           
+                            <div class="d-flex justify-content-center mt-2">
+                                <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <input class="inputheho" name="occa3" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"/>
+                            </div>
                         </div>
-                    </div>
+                    </div>,
+                    colorof2:"other"
             })
 
         }
@@ -259,31 +375,73 @@ class BookPage extends React.Component {
 
     
     render() {
+        console.log("this.state.colorof1", this.state.colorof1)
 
         return (
          <div>
-             <div id="intro">
-                <h1>who is this for</h1>
-                <button type="button" class="btn btn-primary" id="someoneelsehtml" onClick={this.changeIntroReserve}>Someone Else</button>
-                <button type="button" class="btn btn-primary" id="myselfhtml" onClick={this.changeIntroReserve}>Myself</button>
-             </div>
-             <input required id="to_intro" placeholder="To"></input>
-             {this.state.reserve_into_html}
-             
-             <div id="occasion">
-                <h1>whats the occasion</h1>
-                <button type="button" class="btn btn-primary" id="birthdaybutton" onClick={this.changeOccasionReserve}>Birthday</button>
-                <button type="button" class="btn btn-primary" id="peptalkbutton" onClick={this.changeOccasionReserve}>Pep Talk</button>
-                <button type="button" class="btn btn-primary" id="roastbutton" onClick={this.changeOccasionReserve}>Roast</button>
-                <button type="button" class="btn btn-primary" id="otherbutton" onClick={this.changeOccasionReserve}>Other</button>
+        
+            <div id="intro" class="d-flex justify-content-center">
+                <div class="bookdetails">
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wa">Vid นี้อยากทําให้ใคร: </h4>
+                    </div>
+                
+                    <hr class="hr"/>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button type="button" class= {this.state.colorof1 == "someoneelsehtml" ? "btn btn-success mr-3": "btn btn-primary mr-3"} id="someoneelsehtml" onClick={this.changeIntroReserve}><h6 id="someoneelsehtml" onClick={this.changeIntroReserve} class="wabuttontext">คนอื่น</h6></button>
+                        <button type="button" class={this.state.colorof1 == "myselfhtml" ? "btn btn-success": "btn btn-primary"} id="myselfhtml" onClick={this.changeIntroReserve}><h6 id="myselfhtml" onClick={this.changeIntroReserve} class="wabuttontext">ตัวเอง</h6></button>                    
+                    </div>
+                    <div>
+                        <div class="d-flex justify-content-center mt-2">
+                            <label class="wa">ถึงใคร (ชื่อเล่น/ชื่อจริง)</label>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <input class="inputheho" required id="to_intro" placeholder="ถึงใคร"></input>
+                        </div>
+                    </div>
+                    {this.state.reserve_into_html}
 
-             </div>
-             <h1>Make your request memorable</h1>
-             {this.state.reserve_occasion_html}
-             <label>Need by when</label><br></br>
-             <input required id="date_inputid" name="date_inputname" type="date"></input>
-             <h6>NOTE* ถ้าinfluencerทําเสร็จไม่ทันวันที่นี้คุณจะได้เงินคืน</h6>
-             <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="Reserve"class="btn btn-primary"/>
+                </div>
+            </div>
+
+            <div id="occasion" class="d-flex justify-content-center">
+
+                <div class="bookdetails mt-5">
+                    <div class="d-flex justify-content-center">
+                        <h4 class="wa">เนื่องในโอกาสอะไร: </h4>
+                    </div>
+                
+                    <hr class="hr"/>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button type="button" class= {this.state.colorof2 == "birthday" ? "btn btn-success mr-3": "btn btn-primary mr-3"} id="birthdaybutton" onClick={this.changeOccasionReserve}><h6 id="birthdaybutton" onClick={this.changeOccasionReserve} class="wabuttontext">วันเกิด</h6></button>
+                        <button type="button" class= {this.state.colorof2 == "peptalk" ? "btn btn-success mr-3": "btn btn-primary mr-3"} id="peptalkbutton" onClick={this.changeOccasionReserve}><h6 id="peptalkbutton" onClick={this.changeOccasionReserve} class="wabuttontext">กําลังใจ</h6></button>
+                        <button type="button" class= {this.state.colorof2 == "roast" ? "btn btn-success mr-3": "btn btn-primary mr-3"} id="roastbutton" onClick={this.changeOccasionReserve}><h6 id="roastbutton" onClick={this.changeOccasionReserve} class="wabuttontext">เผา</h6></button>
+                        <button type="button" class= {this.state.colorof2 == "other" ? "btn btn-success": "btn btn-primary"} id="otherbutton" onClick={this.changeOccasionReserve}><h6 id="otherbutton" onClick={this.changeOccasionReserve} class="wabuttontext">อื่นๆ</h6></button>              
+                    </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <h4 class="wa">ทําให้ Vid ของคุณน่าจดจํา!</h4>
+                    </div>
+                    {this.state.reserve_occasion_html}
+                </div>
+
+            </div>
+
+              
+
+            <div class="d-flex justify-content-center mt-2">
+                <label class="wa">ต้องการก่อนวันที่เท่าไหร่</label>
+            </div>
+            <div class="d-flex justify-content-center">
+                <input class="datechecker" equired id="date_inputid" name="date_inputname" type="date"></input>
+            </div>
+
+            <div class="d-flex justify-content-center mt-1">
+                <h6>NOTE* ถ้าสตาร์ทําเสร็จไม่ทันวันที่นี้คุณจะได้เงินคืน</h6>
+            </div>
+            
+            <div class="d-flex justify-content-center mt-2 mb-5">
+                <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="Reserve"class="btn btn-primary"/>
+            </div>
 
          </div>
         )

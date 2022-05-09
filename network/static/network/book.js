@@ -43,11 +43,19 @@ var BookPage = function (_React$Component) {
                     'div',
                     null,
                     React.createElement(
-                        'h1',
-                        null,
-                        'Who is this cameo from?'
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                            'label',
+                            { 'class': 'wa' },
+                            '\u0E08\u0E32\u0E01\u0E43\u0E04\u0E23 (\u0E0A\u0E37\u0E48\u0E2D\u0E40\u0E25\u0E48\u0E19/\u0E0A\u0E37\u0E48\u0E2D\u0E08\u0E23\u0E34\u0E07)'
+                        )
                     ),
-                    React.createElement('input', { required: true, id: 'from_intro', placeholder: 'From' })
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('input', { 'class': 'inputheho', required: true, id: 'from_intro', placeholder: '\u0E08\u0E32\u0E01\u0E43\u0E04\u0E23' })
+                    )
                 )
             ),
             reserve_occasion_html: React.createElement(
@@ -56,15 +64,66 @@ var BookPage = function (_React$Component) {
                 React.createElement(
                     'div',
                     null,
-                    React.createElement('input', { required: true, name: 'occa1', placeholder: 'When is their birthday?' }),
-                    React.createElement('br', null),
-                    React.createElement('input', { required: true, name: 'occa2', placeholder: 'How old are they turning?' }),
-                    React.createElement('br', null),
-                    React.createElement('input', { required: true, name: 'occa3', placeholder: 'Instructions for' }),
-                    React.createElement('br', null),
-                    React.createElement('input', { name: 'occa4', placeholder: 'Optional' })
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                            'label',
+                            { 'class': 'wa' },
+                            '\u0E40\u0E01\u0E34\u0E14\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E40\u0E01\u0E34\u0E14\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48?' })
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                            'label',
+                            { 'class': 'wa' },
+                            '\u0E08\u0E30\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E08\u0E30\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48?' })
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                            'label',
+                            { 'class': 'wa' },
+                            '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49' })
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                            'label',
+                            { 'class': 'wa' },
+                            '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C:'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('input', { 'class': 'inputheho', name: 'occa4', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                    )
                 )
-            )
+            ),
+            colorof1: "someoneelsehtml",
+            colorof2: "birthday"
         };
 
         return _this;
@@ -182,18 +241,28 @@ var BookPage = function (_React$Component) {
                             'div',
                             null,
                             React.createElement(
-                                'h1',
-                                null,
-                                'Who is this cameo from?'
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E08\u0E32\u0E01\u0E43\u0E04\u0E23 (\u0E0A\u0E37\u0E48\u0E2D\u0E40\u0E25\u0E48\u0E19/\u0E0A\u0E37\u0E48\u0E2D\u0E08\u0E23\u0E34\u0E07)'
+                                )
                             ),
-                            React.createElement('input', { id: 'from_intro', placeholder: 'From' })
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', required: true, id: 'from_intro', placeholder: '\u0E08\u0E32\u0E01\u0E43\u0E04\u0E23' })
+                            )
                         )
-                    )
+                    ),
+                    colorof1: "someoneelsehtml"
                 });
             } else {
                 console.log("is it anotherpeoplehtml");
                 this.setState({
-                    reserve_into_html: React.createElement('div', { name: 'introname', id: 'myself_html_id' })
+                    reserve_into_html: React.createElement('div', { name: 'introname', id: 'myself_html_id' }),
+                    colorof1: "myselfhtml"
                 });
             }
         }
@@ -210,16 +279,66 @@ var BookPage = function (_React$Component) {
                         React.createElement(
                             'div',
                             null,
-                            React.createElement('input', { required: true, name: 'occa1', placeholder: 'When is their birthday?' }),
-                            React.createElement('br', null),
-                            React.createElement('input', { required: true, name: 'occa2', placeholder: 'How old are they turning?' }),
-                            React.createElement('br', null),
-                            React.createElement('input', { required: true, name: 'occa3', placeholder: 'Instructions for' }),
-                            React.createElement('br', null),
-                            React.createElement('input', { name: 'occa4', placeholder: 'Optional' }),
-                            React.createElement('br', null)
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E40\u0E01\u0E34\u0E14\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E40\u0E01\u0E34\u0E14\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48?' })
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E08\u0E30\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E08\u0E30\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48?' })
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49' })
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C:'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', name: 'occa4', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                            )
                         )
-                    )
+                    ),
+                    colorof2: "birthday"
+
                 });
             } else if (e.target.id == "peptalkbutton") {
                 console.log("peptalk");
@@ -230,14 +349,55 @@ var BookPage = function (_React$Component) {
                         React.createElement(
                             'div',
                             null,
-                            React.createElement('input', { required: true, name: 'occa1', placeholder: 'What\'s going on with the recipient?' }),
-                            React.createElement('br', null),
-                            React.createElement('input', { required: true, name: 'occa2', placeholder: 'How can ... help?' }),
-                            React.createElement('br', null),
-                            React.createElement('input', { name: 'occa3', placeholder: 'Optional details' }),
-                            React.createElement('br', null)
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E17\u0E4D\u0E32\u0E44\u0E21\u0E16\u0E36\u0E07\u0E2D\u0E22\u0E32\u0E01\u0E44\u0E14\u0E49\u0E01\u0E4D\u0E32\u0E25\u0E31\u0E07\u0E43\u0E08'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E17\u0E4D\u0E32\u0E44\u0E21\u0E16\u0E36\u0E07\u0E2D\u0E22\u0E32\u0E01\u0E44\u0E14\u0E49\u0E01\u0E4D\u0E32\u0E25\u0E31\u0E07\u0E43\u0E08?' }),
+                                React.createElement('br', null)
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E0A\u0E48\u0E27\u0E22\u0E2D\u0E30\u0E44\u0E23\u0E44\u0E14\u0E49\u0E1A\u0E49\u0E32\u0E07'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E0A\u0E48\u0E27\u0E22\u0E2D\u0E30\u0E44\u0E23\u0E44\u0E14\u0E49\u0E1A\u0E49\u0E32\u0E07?' }),
+                                React.createElement('br', null)
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' }),
+                                React.createElement('br', null)
+                            )
                         )
-                    )
+                    ),
+                    colorof2: "peptalk"
+
                 });
             } else if (e.target.id == "roastbutton") {
                 console.log("roast");
@@ -248,12 +408,37 @@ var BookPage = function (_React$Component) {
                         React.createElement(
                             'div',
                             null,
-                            React.createElement('input', { required: true, name: 'occa1', placeholder: 'What would you like Kevin McKidd to roast the recipient about?' }),
-                            React.createElement('br', null),
-                            React.createElement('input', { name: 'occa2', placeholder: 'Optional' }),
-                            React.createElement('br', null)
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E44\u0E14\u0E49\u0E0F\u0E31\u0E32\u0E25\u0E31\u0E07\u0E43\u0E08\u0E43\u0E19\u0E40\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E2D\u0E30\u0E44\u0E23'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E44\u0E14\u0E49\u0E0F\u0E31\u0E32\u0E25\u0E31\u0E07\u0E43\u0E08\u0E43\u0E19\u0E40\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E2D\u0E30\u0E44\u0E23' })
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', name: 'occa2', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                            )
                         )
-                    )
+                    ),
+                    colorof2: "roast"
                 });
             } else {
                 console.log("other lets go");
@@ -264,92 +449,217 @@ var BookPage = function (_React$Component) {
                         React.createElement(
                             'div',
                             null,
-                            React.createElement('input', { required: true, name: 'occa1', placeholder: 'What\'s the occasion?' }),
-                            React.createElement('br', null),
-                            React.createElement('input', { required: true, name: 'occa2', placeholder: 'Instructions for' }),
-                            React.createElement('br', null),
-                            React.createElement('input', { name: 'occa3', placeholder: 'Optional' })
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E40\u0E19\u0E37\u0E48\u0E2D\u0E07\u0E43\u0E19\u0E42\u0E2D\u0E01\u0E32\u0E2A\u0E2D\u0E30\u0E44\u0E23'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E40\u0E19\u0E37\u0E48\u0E2D\u0E07\u0E43\u0E19\u0E42\u0E2D\u0E01\u0E32\u0E2A\u0E2D\u0E30\u0E44\u0E23?' })
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14\u0E2B\u0E23\u0E37\u0E2D\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14\u0E2B\u0E23\u0E37\u0E2D\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23' })
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                            )
                         )
-                    )
+                    ),
+                    colorof2: "other"
                 });
             }
         }
     }, {
         key: 'render',
         value: function render() {
+            console.log("this.state.colorof1", this.state.colorof1);
 
             return React.createElement(
                 'div',
                 null,
                 React.createElement(
                     'div',
-                    { id: 'intro' },
+                    { id: 'intro', 'class': 'd-flex justify-content-center' },
                     React.createElement(
-                        'h1',
-                        null,
-                        'who is this for'
-                    ),
-                    React.createElement(
-                        'button',
-                        { type: 'button', 'class': 'btn btn-primary', id: 'someoneelsehtml', onClick: this.changeIntroReserve },
-                        'Someone Else'
-                    ),
-                    React.createElement(
-                        'button',
-                        { type: 'button', 'class': 'btn btn-primary', id: 'myselfhtml', onClick: this.changeIntroReserve },
-                        'Myself'
+                        'div',
+                        { 'class': 'bookdetails' },
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                'Vid \u0E19\u0E35\u0E49\u0E2D\u0E22\u0E32\u0E01\u0E17\u0E4D\u0E32\u0E43\u0E2B\u0E49\u0E43\u0E04\u0E23: '
+                            )
+                        ),
+                        React.createElement('hr', { 'class': 'hr' }),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'button',
+                                { type: 'button', 'class': this.state.colorof1 == "someoneelsehtml" ? "btn btn-success mr-3" : "btn btn-primary mr-3", id: 'someoneelsehtml', onClick: this.changeIntroReserve },
+                                React.createElement(
+                                    'h6',
+                                    { id: 'someoneelsehtml', onClick: this.changeIntroReserve, 'class': 'wabuttontext' },
+                                    '\u0E04\u0E19\u0E2D\u0E37\u0E48\u0E19'
+                                )
+                            ),
+                            React.createElement(
+                                'button',
+                                { type: 'button', 'class': this.state.colorof1 == "myselfhtml" ? "btn btn-success" : "btn btn-primary", id: 'myselfhtml', onClick: this.changeIntroReserve },
+                                React.createElement(
+                                    'h6',
+                                    { id: 'myselfhtml', onClick: this.changeIntroReserve, 'class': 'wabuttontext' },
+                                    '\u0E15\u0E31\u0E27\u0E40\u0E2D\u0E07'
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-2' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'wa' },
+                                    '\u0E16\u0E36\u0E07\u0E43\u0E04\u0E23 (\u0E0A\u0E37\u0E48\u0E2D\u0E40\u0E25\u0E48\u0E19/\u0E0A\u0E37\u0E48\u0E2D\u0E08\u0E23\u0E34\u0E07)'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement('input', { 'class': 'inputheho', required: true, id: 'to_intro', placeholder: '\u0E16\u0E36\u0E07\u0E43\u0E04\u0E23' })
+                            )
+                        ),
+                        this.state.reserve_into_html
                     )
                 ),
-                React.createElement('input', { required: true, id: 'to_intro', placeholder: 'To' }),
-                this.state.reserve_into_html,
                 React.createElement(
                     'div',
-                    { id: 'occasion' },
+                    { id: 'occasion', 'class': 'd-flex justify-content-center' },
                     React.createElement(
-                        'h1',
-                        null,
-                        'whats the occasion'
-                    ),
-                    React.createElement(
-                        'button',
-                        { type: 'button', 'class': 'btn btn-primary', id: 'birthdaybutton', onClick: this.changeOccasionReserve },
-                        'Birthday'
-                    ),
-                    React.createElement(
-                        'button',
-                        { type: 'button', 'class': 'btn btn-primary', id: 'peptalkbutton', onClick: this.changeOccasionReserve },
-                        'Pep Talk'
-                    ),
-                    React.createElement(
-                        'button',
-                        { type: 'button', 'class': 'btn btn-primary', id: 'roastbutton', onClick: this.changeOccasionReserve },
-                        'Roast'
-                    ),
-                    React.createElement(
-                        'button',
-                        { type: 'button', 'class': 'btn btn-primary', id: 'otherbutton', onClick: this.changeOccasionReserve },
-                        'Other'
+                        'div',
+                        { 'class': 'bookdetails mt-5' },
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                '\u0E40\u0E19\u0E37\u0E48\u0E2D\u0E07\u0E43\u0E19\u0E42\u0E2D\u0E01\u0E32\u0E2A\u0E2D\u0E30\u0E44\u0E23: '
+                            )
+                        ),
+                        React.createElement('hr', { 'class': 'hr' }),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'button',
+                                { type: 'button', 'class': this.state.colorof2 == "birthday" ? "btn btn-success mr-3" : "btn btn-primary mr-3", id: 'birthdaybutton', onClick: this.changeOccasionReserve },
+                                React.createElement(
+                                    'h6',
+                                    { id: 'birthdaybutton', onClick: this.changeOccasionReserve, 'class': 'wabuttontext' },
+                                    '\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14'
+                                )
+                            ),
+                            React.createElement(
+                                'button',
+                                { type: 'button', 'class': this.state.colorof2 == "peptalk" ? "btn btn-success mr-3" : "btn btn-primary mr-3", id: 'peptalkbutton', onClick: this.changeOccasionReserve },
+                                React.createElement(
+                                    'h6',
+                                    { id: 'peptalkbutton', onClick: this.changeOccasionReserve, 'class': 'wabuttontext' },
+                                    '\u0E01\u0E4D\u0E32\u0E25\u0E31\u0E07\u0E43\u0E08'
+                                )
+                            ),
+                            React.createElement(
+                                'button',
+                                { type: 'button', 'class': this.state.colorof2 == "roast" ? "btn btn-success mr-3" : "btn btn-primary mr-3", id: 'roastbutton', onClick: this.changeOccasionReserve },
+                                React.createElement(
+                                    'h6',
+                                    { id: 'roastbutton', onClick: this.changeOccasionReserve, 'class': 'wabuttontext' },
+                                    '\u0E40\u0E1C\u0E32'
+                                )
+                            ),
+                            React.createElement(
+                                'button',
+                                { type: 'button', 'class': this.state.colorof2 == "other" ? "btn btn-success" : "btn btn-primary", id: 'otherbutton', onClick: this.changeOccasionReserve },
+                                React.createElement(
+                                    'h6',
+                                    { id: 'otherbutton', onClick: this.changeOccasionReserve, 'class': 'wabuttontext' },
+                                    '\u0E2D\u0E37\u0E48\u0E19\u0E46'
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-4' },
+                            React.createElement(
+                                'h4',
+                                { 'class': 'wa' },
+                                '\u0E17\u0E4D\u0E32\u0E43\u0E2B\u0E49 Vid \u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13\u0E19\u0E48\u0E32\u0E08\u0E14\u0E08\u0E4D\u0E32!'
+                            )
+                        ),
+                        this.state.reserve_occasion_html
                     )
                 ),
                 React.createElement(
-                    'h1',
-                    null,
-                    'Make your request memorable'
+                    'div',
+                    { 'class': 'd-flex justify-content-center mt-2' },
+                    React.createElement(
+                        'label',
+                        { 'class': 'wa' },
+                        '\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E01\u0E48\u0E2D\u0E19\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                    )
                 ),
-                this.state.reserve_occasion_html,
                 React.createElement(
-                    'label',
-                    null,
-                    'Need by when'
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement('input', { 'class': 'datechecker', equired: true, id: 'date_inputid', name: 'date_inputname', type: 'date' })
                 ),
-                React.createElement('br', null),
-                React.createElement('input', { required: true, id: 'date_inputid', name: 'date_inputname', type: 'date' }),
                 React.createElement(
-                    'h6',
-                    null,
-                    'NOTE* \u0E16\u0E49\u0E32influencer\u0E17\u0E4D\u0E32\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E44\u0E21\u0E48\u0E17\u0E31\u0E19\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E19\u0E35\u0E49\u0E04\u0E38\u0E13\u0E08\u0E30\u0E44\u0E14\u0E49\u0E40\u0E07\u0E34\u0E19\u0E04\u0E37\u0E19'
+                    'div',
+                    { 'class': 'd-flex justify-content-center mt-1' },
+                    React.createElement(
+                        'h6',
+                        null,
+                        'NOTE* \u0E16\u0E49\u0E32\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E17\u0E4D\u0E32\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E44\u0E21\u0E48\u0E17\u0E31\u0E19\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E19\u0E35\u0E49\u0E04\u0E38\u0E13\u0E08\u0E30\u0E44\u0E14\u0E49\u0E40\u0E07\u0E34\u0E19\u0E04\u0E37\u0E19'
+                    )
                 ),
-                React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: 'Reserve', 'class': 'btn btn-primary' })
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center mt-2 mb-5' },
+                    React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: 'Reserve', 'class': 'btn btn-primary' })
+                )
             );
         }
     }]);
