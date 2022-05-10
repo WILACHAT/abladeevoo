@@ -1,0 +1,29 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if user.is_superuser == 1 %}
+
+<div class="superuserclass">
+    <h1 class="mt-1">HERE ARE THE FEEDBACKS</h1>   
+    {% for w in feedbackinfo %}
+        <h6>{{w.feedback}}</h6>
+    {% endfor %}
+</div>
+
+
+{% else %}
+<h2>We might look to hire!</h2>
+<h2>waanwaanwilachat@gmail.com</h2>
+
+
+
+{% endif %}
+
+
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

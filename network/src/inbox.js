@@ -69,6 +69,10 @@ class EachReserve extends React.Component{
         this.submitReview = this.submitReview.bind(this);
         this.chooseFile = this.chooseFile.bind(this);
         this.saveUrl = this.saveUrl.bind(this);
+        this.reportButton = this.reportButton.bind(this);
+        this.overlayCancel = this.overlayCancel.bind(this);
+        this.submitReport = this.submitReport.bind(this);
+
 
 
 
@@ -78,6 +82,45 @@ class EachReserve extends React.Component{
         console.log("kaido is ded2", document.querySelector('#typeofpage'))
         console.log("bruh", this.props.data["type"])
         
+    }
+    submitReport(e)
+    {
+        console.log("very close", document.querySelector('#reportinputid').value)
+        console.log("requester", this.props.data["data"][0].username)
+        console.log("reservationid", this.props.data["data"][0].id)        
+
+
+        const getcooked = getCookie('csrftoken');
+
+        fetch(`/gotoeachreserve`, {
+            method: 'PUT',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+              value: document.querySelector('#reportinputid').value,
+              reservationid: this.props.data["data"][0].id,
+              requester:this.props.data["data"][0].username,
+              influencer: this.props.data["data"][0].username_influencer
+            })
+          })
+        
+          .then(result => {
+            console.log("this is the result", result)
+            document.querySelector('#reportinputid').value = ""
+
+            document.querySelector('#overlayreportid').hidden = true
+
+          });
+        
+    }
+    overlayCancel(e)
+    {
+        document.querySelector('#reportinputid').value = ""
+        document.querySelector('#overlayreportid').hidden = true
+    }
+    reportButton(e)
+    {
+        document.querySelector('#overlayreportid').hidden = false
+        console.log("reported!")
     }
     saveUrl(e)
     {
@@ -693,12 +736,31 @@ class EachReserve extends React.Component{
             }
         }
 
+        console.log("kaido wins", this.props.data)
+        console.log("kaido wins", this.props.data["type"])
+
 
 
         return (
             <div>
+                <div hidden id="overlayreportid" class="overlayreport">
+                    <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-center">
+                        <label>Report</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <input id="reportinputid" placeholder="Report Tummai"></input>
+                        <button onClick={this.submitReport}class="btn btn-primary">Submit</button>
+                        <button onClick={this.overlayCancel} class="btn btn-danger">Cancel</button>
+
+                    </div>
+                    </div>
+                </div>
                 <div class="d-flex justify-content-center">
                     <button class="backbutton btn btn-primary mb-3"onClick={this.goBack}>Back</button>
+                    {this.props.data["type"] == "request" ? <button class="backbutton btn btn-danger mb-3 ml-3"onClick={this.reportButton}>Report</button>:null}
+
+
                 </div>
                 
                 <div class="d-flex justify-content-center mb-5">
@@ -800,7 +862,7 @@ class InboxFeedRows extends React.Component {
         console.log("KINGDOM IS ONE OF THE BEST MANGA OF ALL TIME BUT STILL ONE PIECE IS BETTER", document.querySelector('#divtogetid').value)
         document.querySelector('#myrequesthtml').hidden = true;
 
-        console.log("clickedwork")
+        console.log("WAEARTH", this.props.type)
         const getcooked = getCookie('csrftoken');
         let paginationid = 1;
         fetch(`/gotozjguen484s9gj302g/${paginationid}`, {
@@ -808,13 +870,14 @@ class InboxFeedRows extends React.Component {
         headers:{'X-CSRFToken': getcooked},
         body: JSON.stringify({
           reservationid: this.props.id,
-          from: "eachreserve"  
+          from: "eachreserve",
+          type:this.props.type
             })
         })
         .then(response => response.json())
 
         .then(data => {
-            console.log("data", data)
+            console.log("unicornbillions", data)
             ReactDOM.render(<EachReserve data={data}/>, document.querySelector('#eachreserve'));
             });
       

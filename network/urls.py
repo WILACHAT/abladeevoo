@@ -35,6 +35,12 @@ urlpatterns = [
     path("editprofile", views.editprofile, name="editprofile"),
     path("hidepost", views.hidepost, name="hidepost"),
     path("superuser", views.superuser, name="superuser"),
+    path("superuserreport", views.superuserreport, name="superuserreport"),
+    path("superuserfeedback", views.superuserfeedback, name="superuserfeedback"),
+    path("superusermail", views.superusermail, name="superusermail"),
+
+
+
     path("dara", views.dara, name="dara"),
 
 

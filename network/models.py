@@ -161,6 +161,15 @@ class Maillistlist(models.Model):
 class FeedBack(models.Model):
     feedback = models.CharField(max_length=256, null=True)
 
+class ReportTable(models.Model):
+    reservation_foreign = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservation_foreign_report') 
+    report_value = models.CharField(max_length=256, null=True)
+    influencer = models.CharField(max_length=256, null=True)
+    requester = models.CharField(max_length=256, null=True)
+
+
+    
+
 
 
 

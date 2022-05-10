@@ -1,0 +1,33 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if user.is_superuser == 1 %}
+
+
+<h1 class="superuserclass">Reports</h1>
+{% for a in reportlist %}
+    <h6>RESERVATION ID: {{a.reservation_foreign_id}}</h6>
+    <h6>KHON T REQUEST: {{a.requester}}</h6>
+    <h6>KHON T PEN INFLUENCERA: {{a.influencer}}</h6>
+    <h6>{{a.report_value}}</h6>
+
+
+{% endfor %}
+
+
+{% else %}
+<h2>We might look to hire!</h2>
+<h2>waanwaanwilachat@gmail.com</h2>
+
+
+
+{% endif %}
+
+
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

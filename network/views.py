@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara, Views, FeedBack, Maillistlist
+from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara, Views, FeedBack, Maillistlist, ReportTable
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 import uuid
@@ -457,6 +457,10 @@ def gotozjguen484s9gj302g(request, paginationid):
         elif data["from"] == "eachreserve":
             print("data", data)
             print("ide", data["reservationid"])
+            if data["type"] == "request":
+                type = "request"
+
+
             reserveinfo = Reservation.objects.filter(id = data["reservationid"])
 
             for i in reserveinfo:
@@ -554,6 +558,18 @@ def gotoeachreserve(request):
             reviews = Reviews(review = data["value"], user_id_reviewer_id = request.user.id,
             user_id_reviewed_id = userid, reservation_foreign_id = data["reserveid"], review_stars = data["reviewstars"])
             reviews.save()
+
+    elif request.method == "PUT":
+        data = json.loads(request.body)
+       
+        reporttable = ReportTable(reservation_foreign_id = data["reservationid"], influencer = data["influencer"],
+        requester = data["requester"], report_value = data["value"])
+        reporttable.save()
+
+
+
+
+
 
 
     return_request = {"reservationid":"hi"}
@@ -714,17 +730,43 @@ def upload_files_videos(file, fileid):
     
   #  print("am i successful?", successful)
     return successful
+def superusermail(request):
+    maillist = Maillistlist.objects.filter()
+    stu = {
+        "maillistinfo":maillist
+    }
+    return render(request, "network/superusermail.html", stu)
+
+
+
+def superuserfeedback(request):
+    feedback = FeedBack.objects.filter()
+    stu = {
+        "feedbackinfo": feedback
+    }
+  
+    return render(request, "network/superuserfeedback.html", stu)
+def superuserreport(request):
+    report = ReportTable.objects.filter()
+    stu = {
+        "reportlist":report
+    }
+  
+    return render(request, "network/superuserreport.html", stu)
+
 def superuser(request):
     alltheinfo = Requesteddara.objects.filter(daradone = 0)
     feedback = FeedBack.objects.filter()
     maillist = Maillistlist.objects.filter()
+    report = ReportTable.objects.filter()
+
 
 
     print("athheinfo", alltheinfo)
     data = []
     stu = {
     "alltheinfo": alltheinfo,"feedbackinfo": feedback,
-    "maillistinfo":maillist
+    "maillistinfo":maillist, "reportlist":report
     }
   
 
@@ -737,7 +779,9 @@ def superuser(request):
     for k in stu["maillistinfo"]:
         print("this is maillist", k.mail)
 
-
+     
+    for z in stu["reportlist"]:
+        print("this is reportlist", z.report_value)
 
 
     if request.method == "POST":

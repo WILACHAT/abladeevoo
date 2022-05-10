@@ -75,6 +75,9 @@ var EachReserve = function (_React$Component) {
         _this.submitReview = _this.submitReview.bind(_this);
         _this.chooseFile = _this.chooseFile.bind(_this);
         _this.saveUrl = _this.saveUrl.bind(_this);
+        _this.reportButton = _this.reportButton.bind(_this);
+        _this.overlayCancel = _this.overlayCancel.bind(_this);
+        _this.submitReport = _this.submitReport.bind(_this);
 
         console.log("right in the constructor");
         console.log("this.props.data", _this.props.data);
@@ -86,6 +89,43 @@ var EachReserve = function (_React$Component) {
     }
 
     _createClass(EachReserve, [{
+        key: 'submitReport',
+        value: function submitReport(e) {
+            console.log("very close", document.querySelector('#reportinputid').value);
+            console.log("requester", this.props.data["data"][0].username);
+            console.log("reservationid", this.props.data["data"][0].id);
+
+            var getcooked = getCookie('csrftoken');
+
+            fetch('/gotoeachreserve', {
+                method: 'PUT',
+                headers: { 'X-CSRFToken': getcooked },
+                body: JSON.stringify({
+                    value: document.querySelector('#reportinputid').value,
+                    reservationid: this.props.data["data"][0].id,
+                    requester: this.props.data["data"][0].username,
+                    influencer: this.props.data["data"][0].username_influencer
+                })
+            }).then(function (result) {
+                console.log("this is the result", result);
+                document.querySelector('#reportinputid').value = "";
+
+                document.querySelector('#overlayreportid').hidden = true;
+            });
+        }
+    }, {
+        key: 'overlayCancel',
+        value: function overlayCancel(e) {
+            document.querySelector('#reportinputid').value = "";
+            document.querySelector('#overlayreportid').hidden = true;
+        }
+    }, {
+        key: 'reportButton',
+        value: function reportButton(e) {
+            document.querySelector('#overlayreportid').hidden = false;
+            console.log("reported!");
+        }
+    }, {
         key: 'saveUrl',
         value: function saveUrl(e) {
             var content = e.target.value;
@@ -956,9 +996,44 @@ var EachReserve = function (_React$Component) {
                 }
             }
 
+            console.log("kaido wins", this.props.data);
+            console.log("kaido wins", this.props.data["type"]);
+
             return React.createElement(
                 'div',
                 null,
+                React.createElement(
+                    'div',
+                    { hidden: true, id: 'overlayreportid', 'class': 'overlayreport' },
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex flex-column' },
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'label',
+                                null,
+                                'Report'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement('input', { id: 'reportinputid', placeholder: 'Report Tummai' }),
+                            React.createElement(
+                                'button',
+                                { onClick: this.submitReport, 'class': 'btn btn-primary' },
+                                'Submit'
+                            ),
+                            React.createElement(
+                                'button',
+                                { onClick: this.overlayCancel, 'class': 'btn btn-danger' },
+                                'Cancel'
+                            )
+                        )
+                    )
+                ),
                 React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center' },
@@ -966,7 +1041,12 @@ var EachReserve = function (_React$Component) {
                         'button',
                         { 'class': 'backbutton btn btn-primary mb-3', onClick: this.goBack },
                         'Back'
-                    )
+                    ),
+                    this.props.data["type"] == "request" ? React.createElement(
+                        'button',
+                        { 'class': 'backbutton btn btn-danger mb-3 ml-3', onClick: this.reportButton },
+                        'Report'
+                    ) : null
                 ),
                 React.createElement(
                     'div',
@@ -1142,7 +1222,7 @@ var InboxFeedRows = function (_React$Component2) {
             console.log("KINGDOM IS ONE OF THE BEST MANGA OF ALL TIME BUT STILL ONE PIECE IS BETTER", document.querySelector('#divtogetid').value);
             document.querySelector('#myrequesthtml').hidden = true;
 
-            console.log("clickedwork");
+            console.log("WAEARTH", this.props.type);
             var getcooked = getCookie('csrftoken');
             var paginationid = 1;
             fetch('/gotozjguen484s9gj302g/' + paginationid, {
@@ -1150,12 +1230,13 @@ var InboxFeedRows = function (_React$Component2) {
                 headers: { 'X-CSRFToken': getcooked },
                 body: JSON.stringify({
                     reservationid: this.props.id,
-                    from: "eachreserve"
+                    from: "eachreserve",
+                    type: this.props.type
                 })
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("data", data);
+                console.log("unicornbillions", data);
                 ReactDOM.render(React.createElement(EachReserve, { data: data }), document.querySelector('#eachreserve'));
             });
         }
