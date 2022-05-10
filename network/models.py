@@ -84,12 +84,6 @@ class Reservation(models.Model):
     realduedate = models.DateTimeField(null=True)
     completiondate = models.DateTimeField(null=True)
 
-    
-
-
-
-    
-
     def serialize(self):
        # print("checking if this is correct", self.user_id_reserver)
       #  user_username = User.objects.values('username').get(id = self.user_id_reserver)
@@ -99,10 +93,6 @@ class Reservation(models.Model):
         normalpic = User.objects.values('normal_user_pic').get(id = self.user_id_reserver.id)
         pic = pic['normal_user_pic']
         normalpic = normalpic['normal_user_pic']
-
-
-     
-
 
         return {
             "id":self.id,
@@ -129,9 +119,6 @@ class Viewing(models.Model):
     khondoo = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='khondoo') 
     influencer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerkhondoo')    
     creationtime = models.DateTimeField(auto_now_add=True, null=True)
-
-
-
 
 class Postandmessage(models.Model):
     #we need a video for database as well or maybe not entirely sure
@@ -167,6 +154,13 @@ class Requesteddara(models.Model):
     requested_user = models.OneToOneField(User, unique=True, null=True, on_delete=models.CASCADE, related_name='requested_user') 
     daradone= models.BooleanField(default=False)
     category = models.CharField(max_length=256, null=True)
+
+class Maillistlist(models.Model):
+    mail = models.CharField(max_length=256, null=True)
+
+class FeedBack(models.Model):
+    feedback = models.CharField(max_length=256, null=True)
+
 
 
 

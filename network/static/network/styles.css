@@ -22,6 +22,14 @@ body
 {
   margin-top:100px;
 }
+.superuserclass
+{
+  margin-top:100px;
+}
+.godown
+{
+  margin-top:100px;
+}
 .beginningofbook
 {
   margin-top:120px;
@@ -444,7 +452,7 @@ span .myinboxcss:after{
 }
 span .myinboxcss:before{
   color: white;
-  background: #008fff;;
+  background: #008fff;
   transform: rotateY(0deg) translateZ(25px);
 }
 span .myinboxcss:after{
@@ -1005,4 +1013,72 @@ span .completecss:hover{
   text-align: center;
   margin: auto;
 
+}
+
+input[name="new_password1"] {
+  background: red;
+  width:50%;
+}
+.footerclass
+{
+
+   padding:4%;
+   padding-left: 6%;
+   padding-right: 6%;
+
+   background-color: #02d667;
+   height:100%;
+
+}
+.vidmefooter
+{
+  color:#FF336F;
+  font-family: 'Bangers', cursive;
+  font-size:40px;
+}
+.copyrighttext
+{
+
+}
+.feedbackinputfooter
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color : #066f38; 
+  color:white;
+}
+.uploadfooter
+{
+  height:100%;
+  display: inline-block;
+  vertical-align: middle;
+  height:50px;
+
+
+}
+.divdivdiv
+{
+  justify-content: center;
+  display: inline-block;
+  vertical-align: middle;
+
+}
+
+
+@media only screen and (max-width: 750px) {
+  .letc
+  {
+    width:100%;
+  }
+ 
+  .maindivcoversfooter
+{
+  display:flex;
+  flex-wrap: wrap;
+}
 }

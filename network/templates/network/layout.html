@@ -19,6 +19,61 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Concert+One&family=Londrina+Outline&family=Luckiest+Guy&family=Orelega+One&family=Sarabun:wght@600&display=swap" rel="stylesheet">        
       <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+      <script type="text/javascript">
+        function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+            }
+            return cookieValue;
+          }
+            hrefsplit = window.location.href.split('/')
+            if (hrefsplit[3] != "inbox" && hrefsplit[3] != "superuser")
+            {
+                window.onload = function(){
+              setTimeout(loadAfterTime, 300)
+                };
+                function loadAfterTime() 
+                {  
+                  document.querySelector('#footerid').hidden = false
+                }
+
+            }
+            function uploadInfo(id) 
+            {  
+              console.log("yea lets go", id)
+              console.log("ok", document.getElementById(id).value)
+              let getcooked = getCookie('csrftoken');
+                fetch(`/feedbackmaillist`, {
+                  method: 'POST',
+                  headers: {'X-CSRFToken': getcooked
+                  },
+                  body: JSON.stringify({
+                    type: id,
+                    value: document.getElementById(id).value              
+                })
+            })
+            .then(response => response.json())
+                .then(result =>{
+                  console.log("yo", result)
+                  document.getElementById(id).value = ""
+
+                })
+
+            }
+            
+      
+      </script>
+
         {% block script %}
         {% endblock %}
    
@@ -53,7 +108,7 @@
               </li>
             {% endif %}
             {% if user.is_superuser == 1 %}
-              <li class="nav-item">
+              <li class="nav-item mt-2 ml-4">
                 <a id="navprofile" class="wa" href="{% url 'superuser' %}"><strong>Super User</strong></a>
               </li>
             {% endif %}
@@ -70,6 +125,10 @@
           <li class="nav-item mt-2 ml-4">
             <a class="wa" href="{% url 'dara' %}">สมัครเป็นสตาร์</a>
           </li> 
+        {% else %}
+        <li class="nav-item mt-2 ml-4">
+          <a id="wa" class="wa" href="{% url 'payment' %}">การเงิน</a>
+        </li>
         {% endif %}
       {% endif %}
 
@@ -106,14 +165,68 @@
   </div>
 </nav>
 
-
           <div class="body mt-5">
               {% block body %}
               {% endblock %}
           </div>
-                  
 
-       
-    
+      <footer hidden id="footerid" class="footerclass mt-5">
+        <div class="d-flex justify-content-between maindivcoversfooter">
+            <div class="d-flex flex-column">
+              <h4 class="vidmefooter">Vidme!</h4>
+              <p>What the hell is vidme?</p>
+            </div>
+
+            <div class="d-flex flex-column thistoo">
+              <div>
+                <h3 class="wa ml-1">ข้อเสนอแนะ</h3>
+                <div class="d-flex justify-content-start">
+                  <input id="feedbackinputid"class="feedbackinputfooter" placeholder="ข้อเสนอแนะ"></input>
+                  <button onclick="uploadInfo('feedbackinputid')" class="uploadfooter btn btn-primary ml-2 mt-2">Send</button>
+                </div>
+              </div>
+              <div>
+                <h3 class="wa ml-1 mt-4">เข้าร่วมรายชื่อผู้รับเมวของเรา</h3>
+                <label class="wa ml-1 mt-1">เป็นคนแรกที่รู้เกี่ยวกับสตาร์ใหม่ล่าสุดที่เข้า Vidma!</label>
+                
+                <div class="d-flex justify-content-start divdivdiv">
+                  <input id="mailinglistid" class="feedbackinputfooter" placeholder="อีเมวของคุณ"></input>  
+                  <button onclick="uploadInfo('mailinglistid')"class="uploadfooter btn btn-primary ml-2 mt-2">Send</button>
+                </div>              
+
+              </div>
+            </div>
+          
+            <div class="letc">
+              <div class="d-flex justify-content-center">
+                <h3 class="wa">ติดตามเรา</h3>
+              </div>
+              <div class="d-flex justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="transparent" stroke="#FF336F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-testid="icon-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </div>
+              
+              <div class="d-flex justify-content-center">
+                <h3 class="wa mt-3">ติดต่อเรา</h3>
+              </div>  
+              <div class="d-flex justify-content-center">
+                <h5>waanwaanwilachat@gmail.com</h5>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <h3 class="wa mt-3">เรื่องกฎหมาย</h3>
+              </div>  
+              <div class="d-flex justify-content-center">
+                <a href="/legal">เกี่ยวข้องกับกฎหมาย</a>
+              </div>
+            </div>
+        </div>
+     
+
+        <p class="copyrighttext mt-4">C 2022, Vidma App, Inc. WaEarth Company</p>
+
+        
+      </footer>
+
     </body>
+ 
 </html>

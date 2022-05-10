@@ -315,8 +315,6 @@ class EachReserve extends React.Component{
                         </div>
                         {videoandstuff}
 
-
-
                         <div class="d-flex justify-content-center mt-3">
                             <div class="orderdetails">
                                 <div class="d-flex justify-content-center">
@@ -977,8 +975,8 @@ class InboxFeedInbox extends React.Component {
         {
             type = "myrequesthtml"
             console.log("e.target.value", type)
-
         }
+     
 
         fetch(`/gotozjguen484s9gj302g/${this.state.newdata["paginationid"]}`, {
             method: 'PUT',
@@ -1301,6 +1299,11 @@ class InboxFeedTitle extends React.Component {
     constructor(props) {
       super(props);
       this.changeFeedInbox = this.changeFeedInbox.bind(this);
+      this.state = 
+      {
+        currentpage:"myinbox"
+     
+      }
 
       
     //document.querySelector('#maininfluencer').hidden = false;
@@ -1321,6 +1324,9 @@ class InboxFeedTitle extends React.Component {
             document.querySelector('#myinboxhtml').hidden = false;
 
             type = "myinboxhtml"  
+            this.setState({
+                currentpage: "myinbox"
+            })
 
         }
         else if(e.target.id == "myrequestid")
@@ -1330,8 +1336,10 @@ class InboxFeedTitle extends React.Component {
             document.querySelector('#myrequesthtml').hidden = false;
             document.querySelector('#mycompletehtml').hidden = true;
 
-
             type = "myrequesthtml"
+            this.setState({
+                currentpage: "myrequest"
+            })
         }
         else if (e.target.id == "mycompleteid")
         {
@@ -1342,6 +1350,9 @@ class InboxFeedTitle extends React.Component {
             document.querySelector('#myrequesthtml').hidden = true;
 
             type = "mycompletehtml"  
+            this.setState({
+                currentpage: "mycomplete"
+            })
 
 
         }
@@ -1355,6 +1366,9 @@ class InboxFeedTitle extends React.Component {
 
 
             type = "myinboxhtml"
+            this.setState({
+                currentpage: "myinbox"
+            })
 
         }
         let paginationid = 1
@@ -1379,13 +1393,18 @@ class InboxFeedTitle extends React.Component {
        // <option value="1">Newest</option>
        // <option value="2">Oldest</option>      
     //</select>
-  
+        console.log("shanks", this.state.currentpage)
+
+        console.log("currentpage state", this.state.currentpage)
+        //you already create and if for the thing so no need yea just decide what kind of 
+        //button you want to have
         return (
          <div class="buttonchoicesinbox d-flex justify-content-center mb-2">
+
             
-            <span class="mt-2"><a id="myinboxid" onClick={this.changeFeedInbox} class="myinboxcss"></a></span>
-            {this.props.data["checkifinfluencer"] == true ?  <span class="mt-2"><a id="myrequestid" onClick={this.changeFeedInbox} class="requestcss"></a></span>:null}
-            {this.props.data["checkifinfluencer"] == true ?  <span class="mt-2"><a id="mycompleteid" onClick={this.changeFeedInbox} class="completecss"></a></span>:null}
+            <span class="mt-2" ><a style={{background: "red"}} id="myinboxid" onClick={this.changeFeedInbox} class="myinboxcss"></a></span>
+            {this.props.data["checkifinfluencer"] == true ?  <span class="mt-2"><a id="myrequestid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myrequest" ? "requestcss btn-success"  : "requestcss"}></a></span>:null}
+            {this.props.data["checkifinfluencer"] == true ?  <span class="mt-2"><a id="mycompleteid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "mycomplete" ? "completecss btn-success"  : "completecss"}></a></span>:null}
 
 
 

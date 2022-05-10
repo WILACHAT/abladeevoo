@@ -49,6 +49,7 @@ function getCookie(name) {
 
 
   }
+  
 
   class SuggestionTable extends React.Component {
     constructor(props) {
@@ -176,6 +177,7 @@ function getCookie(name) {
 
         </a>
         <hr class="hrindex"></hr>
+   
         </div>
         )
 
@@ -189,9 +191,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("this is newdata", data["newdata"])
         console.log("this is populardata", data["populardata"])
 
-
+      
         ReactDOM.render(<SuggestionTable data={data["newdata"]} type="main"/>, document.querySelector('#suggestions_por_react'));
         ReactDOM.render(<SuggestionTable data={data["populardata"]} type="popular"/>, document.querySelector('#suggestions_por_react_popular'));
+  
 
       });
     

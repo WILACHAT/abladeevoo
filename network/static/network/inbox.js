@@ -1695,11 +1695,13 @@ var InboxFeedTitle = function (_React$Component4) {
         var _this7 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
 
         _this7.changeFeedInbox = _this7.changeFeedInbox.bind(_this7);
+        _this7.state = {
+            currentpage: "myinbox"
 
-        //document.querySelector('#maininfluencer').hidden = false;
-        //document.querySelector('#reviewsmainfluencer').hidden = true;
+            //document.querySelector('#maininfluencer').hidden = false;
+            //document.querySelector('#reviewsmainfluencer').hidden = true;
 
-        return _this7;
+        };return _this7;
     }
 
     _createClass(InboxFeedTitle, [{
@@ -1715,6 +1717,9 @@ var InboxFeedTitle = function (_React$Component4) {
                 document.querySelector('#myinboxhtml').hidden = false;
 
                 type = "myinboxhtml";
+                this.setState({
+                    currentpage: "myinbox"
+                });
             } else if (e.target.id == "myrequestid") {
                 document.querySelector('#typeofpage').value = "request";
                 document.querySelector('#myinboxhtml').hidden = true;
@@ -1722,6 +1727,9 @@ var InboxFeedTitle = function (_React$Component4) {
                 document.querySelector('#mycompletehtml').hidden = true;
 
                 type = "myrequesthtml";
+                this.setState({
+                    currentpage: "myrequest"
+                });
             } else if (e.target.id == "mycompleteid") {
                 console.log("kaido is dedd");
                 document.querySelector('#typeofpage').value = "completed";
@@ -1730,6 +1738,9 @@ var InboxFeedTitle = function (_React$Component4) {
                 document.querySelector('#myrequesthtml').hidden = true;
 
                 type = "mycompletehtml";
+                this.setState({
+                    currentpage: "mycomplete"
+                });
             } else {
                 document.querySelector('#typeofpage').value = "request";
                 document.querySelector('#myinboxhtml').hidden = false;
@@ -1737,6 +1748,9 @@ var InboxFeedTitle = function (_React$Component4) {
                 document.querySelector('#mycompletehtml').hidden = true;
 
                 type = "myinboxhtml";
+                this.setState({
+                    currentpage: "myinbox"
+                });
             }
             var paginationid = 1;
             fetch('/gotozjguen484s9gj302g/' + paginationid, {
@@ -1760,24 +1774,28 @@ var InboxFeedTitle = function (_React$Component4) {
             // <option value="1">Newest</option>
             // <option value="2">Oldest</option>      
             //</select>
+            console.log("shanks", this.state.currentpage);
 
+            console.log("currentpage state", this.state.currentpage);
+            //you already create and if for the thing so no need yea just decide what kind of 
+            //button you want to have
             return React.createElement(
                 'div',
                 { 'class': 'buttonchoicesinbox d-flex justify-content-center mb-2' },
                 React.createElement(
                     'span',
                     { 'class': 'mt-2' },
-                    React.createElement('a', { id: 'myinboxid', onClick: this.changeFeedInbox, 'class': 'myinboxcss' })
+                    React.createElement('a', { style: { background: "red" }, id: 'myinboxid', onClick: this.changeFeedInbox, 'class': 'myinboxcss' })
                 ),
                 this.props.data["checkifinfluencer"] == true ? React.createElement(
                     'span',
                     { 'class': 'mt-2' },
-                    React.createElement('a', { id: 'myrequestid', onClick: this.changeFeedInbox, 'class': 'requestcss' })
+                    React.createElement('a', { id: 'myrequestid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "myrequest" ? "requestcss btn-success" : "requestcss" })
                 ) : null,
                 this.props.data["checkifinfluencer"] == true ? React.createElement(
                     'span',
                     { 'class': 'mt-2' },
-                    React.createElement('a', { id: 'mycompleteid', onClick: this.changeFeedInbox, 'class': 'completecss' })
+                    React.createElement('a', { id: 'mycompleteid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "mycomplete" ? "completecss btn-success" : "completecss" })
                 ) : null
             );
         }

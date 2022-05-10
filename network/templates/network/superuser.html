@@ -4,10 +4,12 @@
 {% block body %}
 
 {% if user.is_superuser == 1 %}
-
-{% for i in alltheinfo %}
+<div class="d-flex justify-content-between superuserclass">
+<div>
+    {% for i in alltheinfo %}
     <form action="{% url 'superuser' %}" method="post">
-        {% csrf_token %}
+    {% csrf_token %}
+    
     <h6>{{i.name}}</h6>
     <h6>{{i.email}}</h6>
     <h6>{{i.phone}}</h6>
@@ -24,12 +26,30 @@
     <input class="btn btn-primary" type="submit" value="Submit">
     </form>
     {% endfor %}
+  
 
+
+
+</div>
+<div>
+    <h1 class="mt-1">HERE ARE THE FEEDBACKS</h1>   
+    {% for w in feedbackinfo %}
+        <h6>{{w.feedback}}</h6>
+    {% endfor %}
+</div>
+
+<div>
+    <h1 class="mt-1">HERE ARE THE MAILISTS</h1>   
+    {% for k in maillistinfo %}
+        <h6>{{k.mail}}</h6>
+    {% endfor %}
+</div>
 
 
 {% else %}
 <h2>We might look to hire!</h2>
 <h2>waanwaanwilachat@gmail.com</h2>
+</div>
 {% endif %}
 
 
