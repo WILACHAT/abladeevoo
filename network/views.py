@@ -277,13 +277,15 @@ def gotoinfluencer(request, username, feedtype):
 
     if feedtype == "main":
             print("this is main")
+            #postandmessage = Postandmessage.objects.filter(poster_id = influencerid)
+            
             if sameperson == 1:
-                postandmessage = Postandmessage.objects.filter(poster_id = influencerid)
+                postandmessage = Postandmessage.objects.filter(poster_id = influencerid ,reservation_ofpost__show__icontains=False)
                 for i in postandmessage:
                     alldata.append(i.video)
                     hidedata.append(i.hide)
             else:
-                postandmessage = Postandmessage.objects.filter(poster_id = influencerid, hide = 0).order_by('-id')[:9]
+                postandmessage = Postandmessage.objects.filter(poster_id = influencerid, hide = 0,reservation_ofpost__show__icontains=False).order_by('-id')[:9]
                 for i in postandmessage:
                     alldata.append(i.video)
 
@@ -370,7 +372,7 @@ def book(request, username):
         tointro=data['tointro'], fromintro=data['fromintro'], typeoccasion=data['typeoccasion'],
         firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
         thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],
-        user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid, duedate=data["datetime"])
+        user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid, duedate=data["datetime"], show=data["inputcheck"])
         
         bookrequest.save()
   

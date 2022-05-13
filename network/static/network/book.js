@@ -118,7 +118,7 @@ var BookPage = function (_React$Component) {
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { 'class': 'inputheho', name: 'occa4', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                        React.createElement('input', { id: 'optional/occa4', 'class': 'inputheho', name: 'occa4', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
                     )
                 )
             ),
@@ -144,19 +144,21 @@ var BookPage = function (_React$Component) {
 
             var checkblank = 0;
 
+            var inputcheck = document.querySelector('#inputcheckid').checked;
+
             var checkerintro = document.getElementsByName("introname")[0].id;
             tointro = document.querySelector('#to_intro').value;
 
             typeintro = checkerintro;
 
             if (intro == "") {
-                checkblank = 1;
+                checkblank = 10;
             }
 
             if (checkerintro == "someoneelse_html_id") {
                 fromintro = document.querySelector('#from_intro').value;
                 if (fromintro == "") {
-                    checkblank = 1;
+                    checkblank = 9;
                 }
             }
 
@@ -165,31 +167,39 @@ var BookPage = function (_React$Component) {
 
             firstinputocca = document.getElementsByName("occa1")[0].value;
             if (firstinputocca == "") {
-                checkblank = 1;
+                checkblank = 8;
             }
+
             secondinputocca = document.getElementsByName("occa2")[0].value;
-            if (secondinputocca == "") {
-                checkblank = 1;
+            if (document.getElementsByName("occa2")[0].id == "") {
+                if (secondinputocca == "") {
+                    checkblank = 7;
+                }
             }
 
             if (document.getElementsByName("occa3").length != 0) {
-                thirdinputocca = document.getElementsByName("occa3")[0].value;
-                if (thirdinputocca == "") {
-                    checkblank = 1;
+                if (document.getElementsByName("occa3")[0].id == "") {
+                    thirdinputocca = document.getElementsByName("occa3")[0].value;
+                    if (thirdinputocca == "") {
+                        checkblank = 6;
+                    }
                 }
             }
 
             if (document.getElementsByName("occa4").length != 0) {
-                fourthinputocca = document.getElementsByName("occa4")[0].value;
-                if (fourthinputocca == "") {
-                    checkblank = 1;
+                if (document.getElementsByName("occa4")[0].id == "") {
+                    fourthinputocca = document.getElementsByName("occa4")[0].value;
+                    console.log("ok what is going on", document.getElementsByName("occa4")[0].id);
+                    if (fourthinputocca == "") {
+                        checkblank = 5;
+                    }
                 }
             }
 
             var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
             datetime = document.getElementById('date_inputid').value;
             if (datetime == "") {
-                checkblank = 1;
+                checkblank = 4;
             }
 
             var today = new Date().toISOString().slice(0, 10);
@@ -204,13 +214,30 @@ var BookPage = function (_React$Component) {
 
             if (checkblank == 1) {
                 alert("Forgot to fill in at least one form");
+            } else if (checkblank == 10) {
+                alert("luem tueng");
+            } else if (checkblank == 9) {
+                alert("luem jark");
+            } else if (checkblank == 8) {
+                alert("luem chong raek");
+            } else if (checkblank == 7) {
+                alert("luem chong sorng");
+            } else if (checkblank == 6) {
+                alert("luem chong sarm");
+            } else if (checkblank == 5) {
+                alert("luem chong seeh");
+            } else if (checkblank == 4) {
+                alert("luem sai date");
             } else if (checkblank == 2) {
                 alert("Time must be atleast 1 day ahead");
-            } else {
-                var getcooked = getCookie('csrftoken');
-                fetch('/book/' + influencerusername, {
+            }
+
+            /*else
+            {
+                    const getcooked = getCookie('csrftoken')
+                    fetch(`/book/${influencerusername}`, {
                     method: 'POST',
-                    headers: { 'X-CSRFToken': getcooked },
+                    headers:{'X-CSRFToken': getcooked},
                     body: JSON.stringify({
                         typeintro: typeintro,
                         tointro: tointro,
@@ -220,12 +247,15 @@ var BookPage = function (_React$Component) {
                         secondinputocca: secondinputocca,
                         thirdinputocca: thirdinputocca,
                         fourthinputocca: fourthinputocca,
-                        datetime: datetime
+                        datetime: datetime,
+                        inputcheck: inputcheck
                     })
-                }).then(function (data) {
-                    window.location.href = "/";
-                });
+                    })
+                    .then(data => {
+                        window.location.href = "/";
+                    });
             }
+            */
         }
     }, {
         key: 'changeIntroReserve',
@@ -333,7 +363,7 @@ var BookPage = function (_React$Component) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', name: 'occa4', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                                React.createElement('input', { id: 'optional/occa4', ame: 'occa4', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
                             )
                         )
                     ),
@@ -391,7 +421,7 @@ var BookPage = function (_React$Component) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' }),
+                                React.createElement('input', { id: 'optional/occa3', 'class': 'inputheho', name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' }),
                                 React.createElement('br', null)
                             )
                         )
@@ -434,7 +464,7 @@ var BookPage = function (_React$Component) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', name: 'occa2', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                                React.createElement('input', { id: 'optional/occa2', 'class': 'inputheho', name: 'occa2', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
                             )
                         )
                     ),
@@ -489,7 +519,7 @@ var BookPage = function (_React$Component) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                                React.createElement('input', { id: 'optional/occa3', 'class': 'inputheho', name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
                             )
                         )
                     ),
@@ -654,6 +684,16 @@ var BookPage = function (_React$Component) {
                         null,
                         'NOTE* \u0E16\u0E49\u0E32\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E17\u0E4D\u0E32\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E44\u0E21\u0E48\u0E17\u0E31\u0E19\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E19\u0E35\u0E49\u0E04\u0E38\u0E13\u0E08\u0E30\u0E44\u0E14\u0E49\u0E40\u0E07\u0E34\u0E19\u0E04\u0E37\u0E19'
                     )
+                ),
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'label',
+                        { 'class': 'wa mr-2' },
+                        '\u0E0B\u0E48\u0E2D\u0E19\u0E08\u0E32\u0E01\u0E42\u0E1E\u0E23\u0E44\u0E1F\u0E25\u0E4C\u0E02\u0E2D\u0E07\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                    ),
+                    React.createElement('input', { id: 'inputcheckid', 'class': 'inputcheckbox', type: 'checkbox' })
                 ),
                 React.createElement(
                     'div',

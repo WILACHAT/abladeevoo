@@ -809,13 +809,13 @@ class EachReserve extends React.Component{
                         <div class="d-flex justify-content-center mb-5">
                             <div class="d-flex flex-column mt-3">
                                 <div class="d-flex justify-content-center">
-                                    <h4 class="wa">จาก: {this.props.data["data"][0].tointro}</h4>
+                                    <h4 class="wa">ถึง: {this.props.data["data"][0].tointro}</h4>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <h4 class="wa">ถึง: {this.props.data["data"][0].fromintro}</h4>
+                                    <h4 class="wa">จาก: {this.props.data["data"][0].fromintro}</h4>
                                 </div>
-                              
                                 
+                              
                                 {occasion}
                             </div>
 

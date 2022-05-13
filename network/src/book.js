@@ -67,7 +67,7 @@ class BookPage extends React.Component {
                         <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์:</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" name="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                        <input id="optional/occa4" class="inputheho" name="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
                     </div>
 
                 </div>
@@ -91,6 +91,13 @@ class BookPage extends React.Component {
 
     let checkblank = 0
 
+  
+    
+    let inputcheck = document.querySelector('#inputcheckid').checked
+
+    
+
+
 
     var checkerintro = document.getElementsByName("introname")[0].id
     tointro = document.querySelector('#to_intro').value;
@@ -99,56 +106,70 @@ class BookPage extends React.Component {
 
     if (intro == "")
     {
-        checkblank = 1
+        checkblank = 10
     }
-    
     
     if (checkerintro == "someoneelse_html_id")
     {
        fromintro =  document.querySelector('#from_intro').value;
        if (fromintro == "")
        {
-           checkblank = 1
+           checkblank = 9
        }
     }
-    
+     
     var checkeroccasion = document.getElementsByName("occasionname")[0].id
     typeoccasion = checkeroccasion
 
     firstinputocca = document.getElementsByName("occa1")[0].value
     if (firstinputocca == "")
     {
-        checkblank = 1
+        checkblank = 8
     }
+
     secondinputocca = document.getElementsByName("occa2")[0].value
-    if (secondinputocca == "")
+    if (document.getElementsByName("occa2")[0].id == "")
     {
-        checkblank = 1
+        if (secondinputocca == "")
+        {
+            checkblank = 7
+        }
     }
+   
    
     if (document.getElementsByName("occa3").length != 0)
     {
-        thirdinputocca = document.getElementsByName("occa3")[0].value
-        if (thirdinputocca == "")
+        if (document.getElementsByName("occa3")[0].id == "")
         {
-            checkblank = 1
+            thirdinputocca = document.getElementsByName("occa3")[0].value
+            if (thirdinputocca == "")
+            {
+                checkblank = 6
+            }
         }
+
+     
     }
    
     if (document.getElementsByName("occa4").length != 0)
     {
-        fourthinputocca = document.getElementsByName("occa4")[0].value
-        if (fourthinputocca == "")
+        if (document.getElementsByName("occa4")[0].id == "")
         {
-            checkblank = 1
+            fourthinputocca = document.getElementsByName("occa4")[0].value
+            console.log("ok what is going on", document.getElementsByName("occa4")[0].id)
+            if (fourthinputocca == "")
+            {
+                checkblank = 5
+            }
         }
+       
     }
 
     var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
     datetime = document.getElementById('date_inputid').value
     if (datetime == "")
     {
-        checkblank = 1
+        checkblank = 4
     }
 
     let today = new Date().toISOString().slice(0, 10)
@@ -167,11 +188,38 @@ class BookPage extends React.Component {
     {
         alert("Forgot to fill in at least one form")
     }
+    else if (checkblank == 10)
+    {
+        alert("luem tueng")
+    }
+    else if (checkblank == 9)
+    {
+        alert("luem jark")
+    }
+    else if (checkblank == 8)
+    {
+        alert("luem chong raek")
+    }
+    else if (checkblank == 7)
+    {
+        alert("luem chong sorng")
+    }  else if (checkblank == 6)
+    {
+        alert("luem chong sarm")
+    }  else if (checkblank == 5)
+    {
+        alert("luem chong seeh")
+    }
+    else if (checkblank == 4)
+    {
+        alert("luem sai date")
+    }
     else if (checkblank == 2)
     {
         alert("Time must be atleast 1 day ahead")
     }
-    else
+    
+    /*else
     {
             const getcooked = getCookie('csrftoken')
             fetch(`/book/${influencerusername}`, {
@@ -186,13 +234,15 @@ class BookPage extends React.Component {
                 secondinputocca: secondinputocca,
                 thirdinputocca: thirdinputocca,
                 fourthinputocca: fourthinputocca,
-                datetime: datetime
+                datetime: datetime,
+                inputcheck: inputcheck
             })
             })
             .then(data => {
                 window.location.href = "/";
             });
     }
+    */
 
 
     
@@ -266,7 +316,7 @@ class BookPage extends React.Component {
                         <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์:</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" name="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                        <input id="optional/occa4" ame="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
                     </div>
 
                 </div>
@@ -300,7 +350,7 @@ class BookPage extends React.Component {
                                 <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" name="occa3" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input><br></br>
+                                <input id="optional/occa3" class="inputheho" name="occa3" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input><br></br>
                             </div>
                            
                         </div>
@@ -330,7 +380,7 @@ class BookPage extends React.Component {
                             </div>
 
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" name="occa2" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                                <input id="optional/occa2" class="inputheho" name="occa2" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
                             </div>
                         </div>
                     </div>,
@@ -363,7 +413,7 @@ class BookPage extends React.Component {
                                 <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" name="occa3" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"/>
+                                <input id="optional/occa3" class="inputheho" name="occa3" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"/>
                             </div>
                         </div>
                     </div>,
@@ -438,10 +488,17 @@ class BookPage extends React.Component {
             <div class="d-flex justify-content-center mt-1">
                 <h6>NOTE* ถ้าสตาร์ทําเสร็จไม่ทันวันที่นี้คุณจะได้เงินคืน</h6>
             </div>
+
+            <div class="d-flex justify-content-center">
+                <label class="wa mr-2">ซ่อนจากโพรไฟล์ของสตาร์</label>
+                <input id="inputcheckid" class="inputcheckbox" type="checkbox"></input>
+            </div>
             
             <div class="d-flex justify-content-center mt-2 mb-5">
                 <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="Reserve"class="btn btn-primary"/>
             </div>
+
+           
 
          </div>
         )

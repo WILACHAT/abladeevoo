@@ -222,7 +222,7 @@ var InfluencerFeedTable = function (_React$Component2) {
             React.createElement(
               'h6',
               { 'class': 'wanopostyet' },
-              '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E42\u0E1E\u0E2A'
+              '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E23\u0E35\u0E27\u0E34\u0E27'
             )
           ) : React.createElement(
             'div',
@@ -863,6 +863,15 @@ var InfluencerFeedTitle = function (_React$Component4) {
       return React.createElement(
         'div',
         null,
+        React.createElement(
+          'div',
+          { 'class': 'd-flex justify-content-center mb-3' },
+          React.createElement(
+            'a',
+            { href: '/', 'class': 'btn btn-primary' },
+            'Back'
+          )
+        ),
         React.createElement(
           'div',
           null,

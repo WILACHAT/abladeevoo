@@ -166,7 +166,7 @@ class InfluencerFeedTable extends React.Component {
                   {this.props.data["alldata"] == "" ? 
                   
                   <div class="d-flex justify-content-center mt-3 mb-5">
-                  <h6 class="wanopostyet">ยังไม่มีโพส</h6>
+                  <h6 class="wanopostyet">ยังไม่มีรีวิว</h6>
                 </div>: 
 
                   <div class="row d-flex justify-content-center">
@@ -710,7 +710,10 @@ class InfluencerFeedTitle extends React.Component {
       console.log("daijoubu dayou", this.props.data)
         return (
          <div>
-        
+                <div class="d-flex justify-content-center mb-3">
+                  <a href="/"class="btn btn-primary">Back</a>
+                </div>
+
                 <div>
                         <div class="controlininfluencer d-flex justify-content-between"> 
                           <div class="hihi d-flex flex-column">

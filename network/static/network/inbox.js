@@ -1150,7 +1150,7 @@ var EachReserve = function (_React$Component) {
                                     React.createElement(
                                         'h4',
                                         { 'class': 'wa' },
-                                        '\u0E08\u0E32\u0E01: ',
+                                        '\u0E16\u0E36\u0E07: ',
                                         this.props.data["data"][0].tointro
                                     )
                                 ),
@@ -1160,7 +1160,7 @@ var EachReserve = function (_React$Component) {
                                     React.createElement(
                                         'h4',
                                         { 'class': 'wa' },
-                                        '\u0E16\u0E36\u0E07: ',
+                                        '\u0E08\u0E32\u0E01: ',
                                         this.props.data["data"][0].fromintro
                                     )
                                 ),

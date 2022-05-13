@@ -80,9 +80,10 @@ class Reservation(models.Model):
     user_id_influencerreserve = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerreserve')
     duedate = models.CharField(max_length=256, null=True)
     expired = models.BooleanField(default=False)
-    
     realduedate = models.DateTimeField(null=True)
     completiondate = models.DateTimeField(null=True)
+    show = models.BooleanField(default=False)
+
 
     def serialize(self):
        # print("checking if this is correct", self.user_id_reserver)
@@ -111,7 +112,8 @@ class Reservation(models.Model):
             "username_influencer":str(self.user_id_influencerreserve),
             "duedate":self.duedate,
             "influencer_pic":pic,
-            "normal_pic":normalpic
+            "normal_pic":normalpic,
+            "show":self.show
         } 
 
 #Recently viewed + Most popular
