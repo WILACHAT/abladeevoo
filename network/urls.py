@@ -38,6 +38,11 @@ urlpatterns = [
     path("superuserreport", views.superuserreport, name="superuserreport"),
     path("superuserfeedback", views.superuserfeedback, name="superuserfeedback"),
     path("superusermail", views.superusermail, name="superusermail"),
+    path("paymentapi", views.paymentapi, name="paymentapi"),
+
+    path("payment", views.payment, name="payment"),
+    path("paymentsetupapi", views.paymentsetupapi, name="paymentsetupapi"),
+
 
 
 
@@ -50,7 +55,6 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
-    path("payment", views.payment, name="payment"),
     path("feedbackmaillist", views.feedbackmaillist, name="feedbackmaillist"),
 
 

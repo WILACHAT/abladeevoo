@@ -22,20 +22,174 @@ function getCookie(name) {
     return cookieValue;
 }
 
-var BookPage = function (_React$Component) {
-    _inherits(BookPage, _React$Component);
+var PaymentPage = function (_React$Component) {
+    _inherits(PaymentPage, _React$Component);
+
+    function PaymentPage(props) {
+        _classCallCheck(this, PaymentPage);
+
+        var _this = _possibleConstructorReturn(this, (PaymentPage.__proto__ || Object.getPrototypeOf(PaymentPage)).call(this, props));
+
+        _this.backPage = _this.backPage.bind(_this);
+        _this.submitCc = _this.submitCc.bind(_this);
+
+        return _this;
+    }
+
+    _createClass(PaymentPage, [{
+        key: 'submitCc',
+        value: function submitCc(e) {
+            Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
+
+            console.log("yo wassup submit CC");
+            console.log("yo wassup submit CC");
+
+            document.querySelector('#create_token').disabled = true;
+
+            var card = {
+                "name": document.querySelector('[data-omise=holder_name]').value,
+                "number": document.querySelector('[data-omise=number]').value,
+                "expiration_month": document.querySelector('[data-omise=expiration_month]').value,
+                "expiration_year": document.querySelector('[data-omise=expiration_year]').value,
+                "security_code": document.querySelector('[data-omise=security_code]').value
+            };
+
+            console.log("this is card", card);
+            Omise.createToken("card", card, function (statusCode, response) {
+                console.log("inside the create token");
+
+                if (response.object == "error" || !response.card.security_code_check) {
+                    // Display an error message.
+                    var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
+                    if (response.object == "error") {
+                        message_text = response.message;
+                    }
+                    $("#token_errors").html(message_text);
+
+                    // Re-enable the submit button.
+                    document.querySelector('#create_token').disabled = true;
+                } else {
+                    // Then fill the omise_token.
+                    document.querySelector('[name=omise_token]').value = response.id;
+
+                    // Remove card number from form before submiting to server.
+                    document.querySelector('[data-omise=number]').value = "";
+                    document.querySelector('[data-omise=security_code]').value = "";
+                    console.log("this is the response", response);
+                    console.log("this is the response token id", response["id"]);
+
+                    var getcooked = getCookie('csrftoken');
+
+                    fetch('/paymentapi', {
+                        method: 'POST',
+                        headers: { 'X-CSRFToken': getcooked },
+                        body: JSON.stringify({
+                            token: response["id"]
+                        })
+                    }).then(function (response) {
+                        return response.json();
+                    }).then(function (data) {
+                        //if data returns successful show beautiful success stuff
+                        //if not show failed html
+                        console.log(data);
+                    });
+                };
+            });
+        }
+    }, {
+        key: 'backPage',
+        value: function backPage(e) {
+            document.querySelector('#paymentpage').hidden = true;
+            document.querySelector('#wholereservepage').hidden = false;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'button',
+                        { 'class': 'btn btn-primary', onClick: this.backPage },
+                        'Back'
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'h1',
+                        null,
+                        'yo wassup this is the payment page'
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'div',
+                        null,
+                        React.createElement('div', { id: 'token_errors' }),
+                        React.createElement('input', { type: 'hidden', name: 'omise_token' }),
+                        React.createElement(
+                            'div',
+                            null,
+                            'Name',
+                            React.createElement('br', null),
+                            React.createElement('input', { type: 'text', 'data-omise': 'holder_name' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            'Number',
+                            React.createElement('br', null),
+                            React.createElement('input', { type: 'text', 'data-omise': 'number' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            'Date',
+                            React.createElement('br', null),
+                            React.createElement('input', { type: 'text', 'data-omise': 'expiration_month', size: '4' }),
+                            React.createElement('input', { type: 'text', 'data-omise': 'expiration_year', size: '8' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            'Security Code',
+                            React.createElement('br', null),
+                            React.createElement('input', { type: 'text', 'data-omise': 'security_code', size: '8' })
+                        ),
+                        React.createElement('input', { type: 'submit', onClick: this.submitCc, id: 'create_token' })
+                    )
+                )
+            );
+        }
+    }]);
+
+    return PaymentPage;
+}(React.Component);
+
+var BookPage = function (_React$Component2) {
+    _inherits(BookPage, _React$Component2);
 
     function BookPage(props) {
         _classCallCheck(this, BookPage);
 
-        var _this = _possibleConstructorReturn(this, (BookPage.__proto__ || Object.getPrototypeOf(BookPage)).call(this, props));
+        var _this2 = _possibleConstructorReturn(this, (BookPage.__proto__ || Object.getPrototypeOf(BookPage)).call(this, props));
 
-        _this.changeIntroReserve = _this.changeIntroReserve.bind(_this);
-        _this.changeOccasionReserve = _this.changeOccasionReserve.bind(_this);
-        _this.saveReserve = _this.saveReserve.bind(_this);
+        _this2.changeIntroReserve = _this2.changeIntroReserve.bind(_this2);
+        _this2.changeOccasionReserve = _this2.changeOccasionReserve.bind(_this2);
+        _this2.saveReserve = _this2.saveReserve.bind(_this2);
+        _this2.nextPage = _this2.nextPage.bind(_this2);
+        document.querySelector('#paymentpage').hidden = true;
 
         //the number of steps can be state as well i believe
-        _this.state = {
+        _this2.state = {
             reserve_into_html: React.createElement(
                 'div',
                 { name: 'introname', id: 'someoneelse_html_id' },
@@ -126,10 +280,18 @@ var BookPage = function (_React$Component) {
             colorof2: "birthday"
         };
 
-        return _this;
+        return _this2;
     }
 
     _createClass(BookPage, [{
+        key: 'nextPage',
+        value: function nextPage(e) {
+            console.log("this is nextpage");
+            document.querySelector('#paymentpage').hidden = false;
+            document.querySelector('#wholereservepage').hidden = true;
+            ReactDOM.render(React.createElement(PaymentPage, null), document.querySelector('#paymentpage'));
+        }
+    }, {
         key: 'saveReserve',
         value: function saveReserve(e) {
             var typeintro = "";
@@ -230,14 +392,11 @@ var BookPage = function (_React$Component) {
                 alert("luem sai date");
             } else if (checkblank == 2) {
                 alert("Time must be atleast 1 day ahead");
-            }
-
-            /*else
-            {
-                    const getcooked = getCookie('csrftoken')
-                    fetch(`/book/${influencerusername}`, {
+            } else {
+                var getcooked = getCookie('csrftoken');
+                fetch('/book/' + influencerusername, {
                     method: 'POST',
-                    headers:{'X-CSRFToken': getcooked},
+                    headers: { 'X-CSRFToken': getcooked },
                     body: JSON.stringify({
                         typeintro: typeintro,
                         tointro: tointro,
@@ -250,12 +409,10 @@ var BookPage = function (_React$Component) {
                         datetime: datetime,
                         inputcheck: inputcheck
                     })
-                    })
-                    .then(data => {
-                        window.location.href = "/";
-                    });
+                }).then(function (data) {
+                    window.location.href = "/";
+                });
             }
-            */
         }
     }, {
         key: 'changeIntroReserve',
@@ -698,6 +855,11 @@ var BookPage = function (_React$Component) {
                 React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center mt-2 mb-5' },
+                    React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.nextPage, value: 'Payment', 'class': 'btn btn-primary' })
+                ),
+                React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center mt-2 mb-5' },
                     React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: 'Reserve', 'class': 'btn btn-primary' })
                 )
             );
@@ -708,6 +870,7 @@ var BookPage = function (_React$Component) {
 }(React.Component);
 
 document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('#paymentpage').hidden = true;
     var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
     fetch('/gotobook/' + influencerusername).then(function (response) {
         return response.json();

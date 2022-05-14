@@ -1,8 +1,20 @@
 {% extends "network/layout.html" %}
+{% load static %}
+
 
 {% block body %}
 
-    <h2 class="godown">Payment</h2>
-   
+
+    <div id="paymentpay"></div>
+
+
 
 {% endblock %}
+
+
+{% block script %}
+<script type="module" src="{% static 'network/paymentsetup.js' %}"></script>
+{% endblock %}
+
+
+

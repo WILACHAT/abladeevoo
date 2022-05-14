@@ -67,6 +67,11 @@ from cloudinary import CloudinaryVideo
 from cloudinary.utils import cloudinary_url
 import subprocess
 import os
+import omise
+
+omise.api_secret = 'skey_test_5rsxnq9a82ys6gtgf92'
+
+
 
 
 def current_milli_time():
@@ -95,6 +100,8 @@ def index(request):
     return render(request, "network/index.html", {"portalshown": influencers})
 
 def usersetting(request):
+
+  
 
 
     return render(request, "network/usersetting.html")
@@ -839,7 +846,14 @@ def feedbackmaillist(request):
     return JsonResponse(return_response, safe=False)
 
 def payment(request):
+
     return render(request, "network/payment.html")
+
+def paymentsetupapi(request):
+    return_response = "hi"
+    if request.method == "POST":
+        print("yey posted")
+    return JsonResponse(return_response, safe=False)
 
 
 class PasswordContextMixin:
@@ -987,3 +1001,23 @@ class PasswordResetCompleteView(PasswordContextMixin, TemplateView):
         context["login_url"] = resolve_url(settings.LOGIN_URL)
         return context
 
+
+def paymentapi(request):
+    return_request = "hi"
+    print("ypyp")
+    if request.method == "POST":
+        data = json.loads(request.body)
+        print("this is id of token", data["token"])
+        charge = omise.Charge.create(
+            amount=100000,
+            currency="thb",
+            card=data["token"]
+        )
+
+        print(charge.status)
+        #failed, expired, pending, reversed or successful
+        print(charge)
+
+
+
+    return JsonResponse(charge.status, safe=False)
