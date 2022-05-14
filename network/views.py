@@ -846,13 +846,49 @@ def feedbackmaillist(request):
     return JsonResponse(return_response, safe=False)
 
 def payment(request):
+    
+    checker = Userinfo.objects.values('omiserecipent').get(influencer_id = request.user.id)
+    
+    if checker['omiserecipent'] == None:
+       print("nice")
+    
+    else:
+        print("unlucky")
+        print(checker['omiserecipent'])
+        recipient = omise.Recipient.retrieve(checker['omiserecipent'])
+
+
+
 
     return render(request, "network/payment.html")
 
 def paymentsetupapi(request):
     return_response = "hi"
+
     if request.method == "POST":
-        print("yey posted")
+        data = json.loads(request.body)
+       
+
+        recipient = omise.Recipient.create(
+            name= data["fullname"],
+            email= data["email"],
+            type="individual",
+            bank_account=dict(brand=data["bank"], number=data["accountnumber"], name=data["fullname"]),
+        )
+        print("this is id", recipient.id)
+        checker = Userinfo.objects.filter(influencer_id = request.user.id)
+        checker.update(omiserecipent = recipient.id)
+        
+        #recipient = omise.Recipient.retrieve("recp_test_5rt1fvq3k1mm2tww382")
+
+       # print("this is recipient", recipient)
+       # print("this is recipient id", recipient.id)
+
+       # print("this is recipient", recipient.name)
+
+
+       # print("yey posted")
+        #recp_test_5rt1fvq3k1mm2tww382
     return JsonResponse(return_response, safe=False)
 
 

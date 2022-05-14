@@ -35,6 +35,8 @@ class Userinfo(models.Model):
     third_url = models.URLField(max_length=256, null=True)
     influencer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencer_userinfo') 
     category = models.CharField(max_length=256, null=True)
+    omiserecipent = models.CharField(max_length=256, null=True)
+
 
 
 

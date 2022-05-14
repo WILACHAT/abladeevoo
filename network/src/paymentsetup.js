@@ -21,8 +21,31 @@ class PaymentSetup extends React.Component {
   }
   onSubmit(e)
   {
+      console.log(document.querySelector('#selectbankid').value)
+      document.querySelector('#fullnamebankid').value
+      document.querySelector('#accountnumberid').value
+      document.querySelector('#emailid').value
+
       console.log("yoooo")
       //send the info here to python
+      const getcooked = getCookie('csrftoken')
+      fetch(`/paymentsetupapi`, {
+        method: 'POST',
+        headers:{'X-CSRFToken': getcooked},
+        body: JSON.stringify({
+            bank: document.querySelector('#selectbankid').value,
+            fullname: document.querySelector('#fullnamebankid').value,
+            accountnumber: document.querySelector('#accountnumberid').value,
+            email: document.querySelector('#emailid').value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            //if data returns successful show beautiful success stuff
+            //if not show failed html
+            console.log(data)
+        });
+        
   }
   
   render() {
