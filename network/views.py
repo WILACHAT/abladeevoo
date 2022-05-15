@@ -1062,17 +1062,46 @@ class PasswordResetCompleteView(PasswordContextMixin, TemplateView):
         return context
 
 
-def paymentapi(request):
+def paymentapi(request, username):
     return_request = "hi"
     print("ypyp")
     if request.method == "POST":
+        influencerid = User.objects.values('id').get(username=username)
+        influencerid = influencerid["id"]
+        checker = Userinfo.objects.values('omiserecipent', 'price').get(influencer_id = influencerid)
+
+        recipientinfluencer = omise.Recipient.retrieve(checker['omiserecipent'])
+        
+        price = int(checker['price'])
+        priceforme = (price * (7/100))
+        priceforme = priceforme * 100
+        price = int(price - priceforme) 
+        price = price * 100
+        #Transfer to our bank account
+       # transfer = omise.Transfer.create(amount=price)
+
+        
+       # Userinfo.objects.filter()
         data = json.loads(request.body)
         print("this is id of token", data["token"])
+       
         charge = omise.Charge.create(
-            amount=100000,
+            amount=10000,
             currency="thb",
             card=data["token"]
         )
+        print("this is the charge id", charge.id)
+
+
+        #THIS IS HOW YOU REFUND
+        #charge = omise.Charge.retrieve("chrg_test_no1t4tnemucod0e51mo")
+        #refund = charge.refund(amount=10000)
+
+        #Transfer to influencer's account
+       # transfer = omise.Transfer.create(
+       # amount=price, recipient=recipientinfluencer
+       # )
+
 
         print(charge.status)
         #failed, expired, pending, reversed or successful

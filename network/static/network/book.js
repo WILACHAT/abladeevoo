@@ -52,6 +52,7 @@ var PaymentPage = function (_React$Component) {
                 "expiration_month": document.querySelector('[data-omise=expiration_month]').value,
                 "expiration_year": document.querySelector('[data-omise=expiration_year]').value,
                 "security_code": document.querySelector('[data-omise=security_code]').value
+
             };
 
             console.log("this is card", card);
@@ -78,9 +79,11 @@ var PaymentPage = function (_React$Component) {
                     console.log("this is the response", response);
                     console.log("this is the response token id", response["id"]);
 
+                    var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+
                     var getcooked = getCookie('csrftoken');
 
-                    fetch('/paymentapi', {
+                    fetch('/paymentapi/' + influencerusername, {
                         method: 'POST',
                         headers: { 'X-CSRFToken': getcooked },
                         body: JSON.stringify({

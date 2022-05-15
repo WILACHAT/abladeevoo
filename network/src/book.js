@@ -39,6 +39,7 @@ class PaymentPage extends React.Component {
           "expiration_month": document.querySelector('[data-omise=expiration_month]').value,
           "expiration_year": document.querySelector('[data-omise=expiration_year]').value,
           "security_code": document.querySelector('[data-omise=security_code]').value 
+          
       }
       
       console.log("this is card", card)
@@ -66,9 +67,12 @@ class PaymentPage extends React.Component {
             console.log("this is the response", response)
             console.log("this is the response token id", response["id"])
 
+            let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+
+
             const getcooked = getCookie('csrftoken')
             
-            fetch(`/paymentapi`, {
+            fetch(`/paymentapi/${influencerusername}`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
             body: JSON.stringify({
@@ -231,9 +235,6 @@ class BookPage extends React.Component {
     let inputcheck = document.querySelector('#inputcheckid').checked
 
     
-
-
-
     var checkerintro = document.getElementsByName("introname")[0].id
     tointro = document.querySelector('#to_intro').value;
  

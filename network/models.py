@@ -87,6 +87,7 @@ class Reservation(models.Model):
     realduedate = models.DateTimeField(null=True)
     completiondate = models.DateTimeField(null=True)
     show = models.BooleanField(default=False)
+    omisecharge = models.CharField(max_length=256, null=True)
 
 
     def serialize(self):
@@ -117,7 +118,8 @@ class Reservation(models.Model):
             "duedate":self.duedate,
             "influencer_pic":pic,
             "normal_pic":normalpic,
-            "show":self.show
+            "show":self.show,
+            "omisecharge":self.omisecharge
         } 
 
 #Recently viewed + Most popular
