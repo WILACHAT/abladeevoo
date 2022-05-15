@@ -60,7 +60,6 @@ function getCookie(name) {
       {
         searchtext:"",
         newdata: this.props.data
-
       }
      
     }

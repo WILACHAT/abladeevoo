@@ -36,6 +36,8 @@ class Userinfo(models.Model):
     influencer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencer_userinfo') 
     category = models.CharField(max_length=256, null=True)
     omiserecipent = models.CharField(max_length=256, null=True)
+    price = models.IntegerField(null=True)
+
 
 
 

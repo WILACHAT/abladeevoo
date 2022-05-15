@@ -86,7 +86,6 @@ var SuggestionTable = function (_React$Component2) {
     _this2.state = {
       searchtext: "",
       newdata: _this2.props.data
-
     };
 
     return _this2;

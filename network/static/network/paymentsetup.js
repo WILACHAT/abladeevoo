@@ -31,16 +31,285 @@ var PaymentSetup = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (PaymentSetup.__proto__ || Object.getPrototypeOf(PaymentSetup)).call(this, props));
 
         _this.onSubmit = _this.onSubmit.bind(_this);
+        _this.changePayment = _this.changePayment.bind(_this);
+        _this.changePrice = _this.changePrice.bind(_this);
+
+        _this.cancelChange = _this.cancelChange.bind(_this);
+        _this.cancelPriceChange = _this.cancelPriceChange.bind(_this);
+
+        _this.setPrice = _this.setPrice.bind(_this);
+
+        if (document.querySelector('#checkexistid').value != "exist") {
+            _this.state = {
+                innerpricediv: React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'label',
+                            null,
+                            'Set Price (THB)'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('input', { id: 'setpriceid' })
+                    )
+                ),
+
+                innerpaymentdiv: React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'label',
+                            null,
+                            'Select Bank'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'select',
+                            { name: 'selectbank', id: 'selectbankid' },
+                            React.createElement('option', { value: 'nothing' }),
+                            React.createElement(
+                                'option',
+                                { value: 'bbl' },
+                                'Bangkok Bank'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'bay' },
+                                'Krungsri Bank'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'kbank' },
+                                'Kasikorn Bank'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'ktb' },
+                                'Krungthai Bank'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'scv' },
+                                'Siam Commercial Bank'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'ttb' },
+                                'Thanachart Bank'
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                            'label',
+                            null,
+                            'Full Name'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('input', { id: 'fullnamebankid' })
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                            'label',
+                            null,
+                            'Account Number'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('input', { id: 'accountnumberid' })
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                            'label',
+                            null,
+                            'Email'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('input', { id: 'emailid' })
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                            'button',
+                            { 'class': 'btn btn-primary', onClick: function onClick() {
+                                    return _this.onSubmit("new");
+                                } },
+                            'Submit'
+                        )
+                    )
+                )
+            };
+        } else {
+            _this.state = {
+                price: _this.props.data["price"],
+                innerpricediv: React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                        'label',
+                        null,
+                        'Set Price (THB)'
+                    ),
+                    React.createElement(
+                        'h2',
+                        null,
+                        _this.props.data["price"]
+                    ),
+                    React.createElement(
+                        'button',
+                        { onClick: _this.changePrice },
+                        'Change Price'
+                    )
+                ),
+
+                brand: _this.props.data["brand"],
+                name: _this.props.data["name"],
+                number: _this.props.data["number"],
+                email: _this.props.data["email"],
+
+                innerpaymentdiv: React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                        'label',
+                        null,
+                        'Current Bank'
+                    ),
+                    React.createElement(
+                        'h2',
+                        null,
+                        _this.props.data["brand"]
+                    ),
+                    React.createElement(
+                        'label',
+                        null,
+                        'Full Name'
+                    ),
+                    React.createElement(
+                        'h2',
+                        null,
+                        _this.props.data["name"]
+                    ),
+                    React.createElement(
+                        'label',
+                        null,
+                        'Account Number'
+                    ),
+                    React.createElement(
+                        'h2',
+                        null,
+                        _this.props.data["number"]
+                    ),
+                    React.createElement(
+                        'label',
+                        null,
+                        'Email'
+                    ),
+                    React.createElement(
+                        'h2',
+                        null,
+                        _this.props.data["email"]
+                    ),
+                    React.createElement(
+                        'button',
+                        { onClick: _this.changePayment },
+                        'Change Banking'
+                    )
+                )
+            };
+        }
         return _this;
     }
 
     _createClass(PaymentSetup, [{
+        key: 'setPrice',
+        value: function setPrice(e) {
+            var _this2 = this;
+
+            var price = document.querySelector('#setpriceid').value;
+            var type = "paymentchange";
+            price = document.querySelector('#setpriceid').value;
+            var getcooked = getCookie('csrftoken');
+
+            fetch('/paymentsetupapi', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getcooked },
+                body: JSON.stringify({
+                    price: price,
+                    type: type
+                })
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                _this2.setState({
+                    price: data["price"],
+                    innerpricediv: React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'label',
+                            null,
+                            'Set Price (THB)'
+                        ),
+                        React.createElement(
+                            'h2',
+                            null,
+                            data["price"]
+                        ),
+                        React.createElement(
+                            'button',
+                            { onClick: _this2.changePrice },
+                            'Change Price'
+                        )
+                    ) });
+
+                //if data returns successful show beautiful success stuff
+                //if not show failed html
+                console.log(data);
+            });
+        }
+    }, {
         key: 'onSubmit',
-        value: function onSubmit(e) {
-            console.log(document.querySelector('#selectbankid').value);
-            document.querySelector('#fullnamebankid').value;
-            document.querySelector('#accountnumberid').value;
-            document.querySelector('#emailid').value;
+        value: function onSubmit(status) {
+            var _this3 = this;
+
+            console.log("this is status", status);
+            var type = "";
+            var price = "";
+            console.log("what is the status");
+            if (status == "change") {
+                type = "existpostupdate";
+            } else {
+                type = "notexistpost";
+                price = document.querySelector('#setpriceid').value;
+            }
 
             console.log("yoooo");
             //send the info here to python
@@ -52,19 +321,383 @@ var PaymentSetup = function (_React$Component) {
                     bank: document.querySelector('#selectbankid').value,
                     fullname: document.querySelector('#fullnamebankid').value,
                     accountnumber: document.querySelector('#accountnumberid').value,
-                    email: document.querySelector('#emailid').value
+                    email: document.querySelector('#emailid').value,
+                    price: price,
+                    type: type
+
                 })
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
+                console.log("suk mah dik", data);
+                console.log("suk mah dik", data["brand"]);
+                console.log("suk mah dik", data["number"]);
+                console.log("suk mah dik", data["email"]);
+                console.log("suk mah dik", data["number"]);
+                document.querySelector('#checkexistid').value = "exist";
+
                 //if data returns successful show beautiful success stuff
                 //if not show failed html
-                console.log(data);
+                console.log();
+
+                if (data["lol"] == "dumb" || data["lol"] != null) {
+                    console.log("is this in here wtf pls dont be in here");
+                    _this3.setState({
+                        price: data["price"],
+                        innerpricediv: React.createElement(
+                            'div',
+                            null,
+                            React.createElement(
+                                'label',
+                                null,
+                                'Set Price (THB)'
+                            ),
+                            React.createElement(
+                                'h2',
+                                null,
+                                data["price"]
+                            ),
+                            React.createElement(
+                                'button',
+                                { onClick: _this3.changePrice },
+                                'Change Price'
+                            )
+                        )
+                    });
+                }
+                _this3.setState({
+
+                    brand: data["brand"],
+                    name: data["name"],
+                    number: data["number"],
+                    email: data["email"],
+
+                    innerpaymentdiv: React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'label',
+                            null,
+                            'Current Bank'
+                        ),
+                        React.createElement(
+                            'h2',
+                            null,
+                            data["brand"]
+                        ),
+                        React.createElement(
+                            'label',
+                            null,
+                            'Full Name'
+                        ),
+                        React.createElement(
+                            'h2',
+                            null,
+                            data["name"]
+                        ),
+                        React.createElement(
+                            'label',
+                            null,
+                            'Account Number'
+                        ),
+                        React.createElement(
+                            'h2',
+                            null,
+                            data["number"]
+                        ),
+                        React.createElement(
+                            'label',
+                            null,
+                            'Email'
+                        ),
+                        React.createElement(
+                            'h2',
+                            null,
+                            data["email"]
+                        ),
+                        React.createElement(
+                            'button',
+                            { onClick: _this3.changePayment },
+                            'Change Payment'
+                        )
+                    )
+
+                });
             });
+        }
+    }, {
+        key: 'cancelPriceChange',
+        value: function cancelPriceChange(e) {
+            this.setState({
+                innerpricediv: React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                        'label',
+                        null,
+                        'Set Price (THB)'
+                    ),
+                    React.createElement(
+                        'h2',
+                        null,
+                        this.state.price
+                    ),
+                    React.createElement(
+                        'button',
+                        { onClick: this.changePrice },
+                        'Change Price'
+                    )
+                ) });
+        }
+    }, {
+        key: 'cancelChange',
+        value: function cancelChange(e) {
+
+            this.setState({
+
+                innerpaymentdiv: React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                        'label',
+                        null,
+                        'Current Bank'
+                    ),
+                    React.createElement(
+                        'h2',
+                        null,
+                        this.state.brand
+                    ),
+                    React.createElement(
+                        'label',
+                        null,
+                        'Full Name'
+                    ),
+                    React.createElement(
+                        'h2',
+                        null,
+                        this.state.name
+                    ),
+                    React.createElement(
+                        'label',
+                        null,
+                        'Account Number'
+                    ),
+                    React.createElement(
+                        'h2',
+                        null,
+                        this.state.number
+                    ),
+                    React.createElement(
+                        'label',
+                        null,
+                        'Email'
+                    ),
+                    React.createElement(
+                        'h2',
+                        null,
+                        this.state.email
+                    ),
+                    React.createElement(
+                        'button',
+                        { onClick: this.changePayment },
+                        'Change Payment'
+                    )
+                )
+            });
+        }
+    }, {
+        key: 'changePrice',
+        value: function changePrice(e) {
+            console.log("this is in changeprice");
+            if (document.querySelector('#checkexistid').value == "exist") {
+                this.setState({
+                    innerpricediv: React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'label',
+                                null,
+                                'Set Price (THB)'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement('input', { id: 'setpriceid' })
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-1' },
+                            React.createElement(
+                                'button',
+                                { 'class': 'btn btn-primary', onClick: this.setPrice },
+                                'Set Price'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-1' },
+                            React.createElement(
+                                'button',
+                                { 'class': 'btn btn-primary', onClick: this.cancelPriceChange },
+                                'Cancel'
+                            )
+                        )
+                    )
+                });
+            }
+        }
+    }, {
+        key: 'changePayment',
+        value: function changePayment(e) {
+            var _this4 = this;
+
+            console.log("this is in changepayment");
+
+            if (document.querySelector('#checkexistid').value == "exist") {
+                this.setState({
+
+                    innerpaymentdiv: React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'label',
+                                null,
+                                'Select Bank'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'select',
+                                { name: 'selectbank', id: 'selectbankid' },
+                                React.createElement('option', { value: 'nothing' }),
+                                React.createElement(
+                                    'option',
+                                    { value: 'bbl' },
+                                    'Bangkok Bank'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'bay' },
+                                    'Krungsri Bank'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'kbank' },
+                                    'Kasikorn Bank'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'ktb' },
+                                    'Krungthai Bank'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'scv' },
+                                    'Siam Commercial Bank'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'ttb' },
+                                    'Thanachart Bank'
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'label',
+                                null,
+                                'Full Name'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement('input', { id: 'fullnamebankid' })
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'label',
+                                null,
+                                'Account Number'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement('input', { id: 'accountnumberid' })
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'label',
+                                null,
+                                'Email'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement('input', { id: 'emailid' })
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'button',
+                                { 'class': 'btn btn-primary', onClick: function onClick() {
+                                        return _this4.onSubmit("change");
+                                    } },
+                                'Change Payment'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'button',
+                                { 'class': 'btn btn-primary', onClick: this.cancelChange },
+                                'Cancel'
+                            )
+                        )
+                    )
+                });
+            }
         }
     }, {
         key: 'render',
         value: function render() {
+            console.log("what the fuck is this", this.props.data);
+            console.log("what the fuck is this", this.props.data["brand"]);
+            console.log("what the fuck is this", this.props.data["name"]);
+            console.log("what the fuck is this", this.props.data["number"]);
+            console.log("what the fuck is this", this.props.data["price"]);
+            console.log("exists?", document.querySelector('#checkexistid').value);
+            /* <div class="d-flex justify-content-center">
+                              <label>Set Price (THB)</label>
+                          </div>
+                          <div class="d-flex justify-content-center">
+                              <input id="setpriceid"></input>
+                          </div>
+                          <div class="d-flex justify-content-center mt-1">
+                              <button class="btn btn-primary" onClick={this.setPrice}>Change Price</button>
+                          </div>
+              */
+
             return React.createElement(
                 'div',
                 null,
@@ -73,104 +706,12 @@ var PaymentSetup = function (_React$Component) {
                     { 'class': 'godown' },
                     'Payment'
                 ),
+                this.state.innerpricediv,
+                this.state.innerpaymentdiv,
                 React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement(
-                        'label',
-                        null,
-                        'Select Bank'
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement(
-                        'select',
-                        { name: 'selectbank', id: 'selectbankid' },
-                        React.createElement('option', { value: 'nothing' }),
-                        React.createElement(
-                            'option',
-                            { value: 'bbl' },
-                            'Bangkok Bank'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'bay' },
-                            'Krungsri Bank'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'kbank' },
-                            'Kasikorn Bank'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'ktb' },
-                            'Krungthai Bank'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'scv' },
-                            'Siam Commercial Bank'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: 'ttb' },
-                            'Thanachart Bank'
-                        )
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center mt-2' },
-                    React.createElement(
-                        'label',
-                        null,
-                        'Full Name'
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement('input', { id: 'fullnamebankid' })
-                ),
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center mt-2' },
-                    React.createElement(
-                        'label',
-                        null,
-                        'Account Number'
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement('input', { id: 'accountnumberid' })
-                ),
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center mt-2' },
-                    React.createElement(
-                        'label',
-                        null,
-                        'Email'
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement('input', { id: 'emailid' })
-                ),
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center mt-2' },
-                    React.createElement(
-                        'button',
-                        { 'class': 'btn btn-primary', onClick: this.onSubmit },
-                        'Submit'
-                    )
+                    'p',
+                    null,
+                    '*Note Khun samard mee dai kae 1 account'
                 )
             );
         }
@@ -180,11 +721,29 @@ var PaymentSetup = function (_React$Component) {
 }(React.Component);
 
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('/paymentsetupapi').then(function (response) {
+
+    var type = "notexist";
+    if (document.querySelector('#checkexistid').value == "exist") {
+        type = "exist";
+    } else {
+        type = "notexistnotpost";
+    }
+
+    var getcooked = getCookie('csrftoken');
+    fetch('/paymentsetupapi', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': getcooked },
+        body: JSON.stringify({
+            type: type
+
+        })
+    }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log("data", data);
+        console.log("sscary", data);
 
-        ReactDOM.render(React.createElement(PaymentSetup, null), document.querySelector('#paymentpay'));
+        //if data returns successful show beautiful success stuff
+        //if not show failed html
+        ReactDOM.render(React.createElement(PaymentSetup, { data: data }), document.querySelector('#paymentpay'));
     });
 });
