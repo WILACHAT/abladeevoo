@@ -1063,7 +1063,7 @@ class PasswordResetCompleteView(PasswordContextMixin, TemplateView):
 
 
 def paymentapi(request, username):
-    return_request = "hi"
+    return_response = "hi"
     print("ypyp")
     if request.method == "POST":
         influencerid = User.objects.values('id').get(username=username)
@@ -1084,29 +1084,89 @@ def paymentapi(request, username):
        # Userinfo.objects.filter()
         data = json.loads(request.body)
         print("this is id of token", data["token"])
-       
-        charge = omise.Charge.create(
-            amount=10000,
+        if data["type"] == "creditcardpayment":
+            charge = omise.Charge.create(
+            amount=1000000,
             currency="thb",
-            card=data["token"]
-        )
-        print("this is the charge id", charge.id)
+            card=data["token"])
+
+        elif data["type"] == "internetbankingpayment":
+            print("is the shit in here")
+            omise.api_version = "2019-05-29"
+            charge = omise.Charge.create(
+            amount=1000000,
+            currency="thb",
+            return_uri = "http://127.0.0.1:8000/",
+            source=data["token"]
+            )
+            return_response = {"url":charge.authorize_uri}
+
+        elif data["type"] == "promptpaypayment":
+            print("is the shit in promptpay")
+            omise.api_version = "2019-05-29"
+            charge = omise.Charge.create(
+            amount=1000000,
+            currency="thb",
+            return_uri = "http://127.0.0.1:8000/",
+            source=data["token"]
+            )
+            return_response = {"url":charge.authorize_uri}
+
+
+        print("this is charge.id", charge.id)
+        print(charge.authorize_uri)
+        print(charge.status)
+        print(charge.source)
+
+
+        #go to a successpage smth like that if successful
+        #go to unsuccessful page!
+
+        #needs to ao charge id charge.id
+      #  print("this is the charge id", charge.id)
+        #chrg_test_5rtm4r4uygzmoz6teo8
+        #chrg_test_5rtn2uvl5pit5ab2td9
 
 
         #THIS IS HOW YOU REFUND
-        #charge = omise.Charge.retrieve("chrg_test_no1t4tnemucod0e51mo")
-        #refund = charge.refund(amount=10000)
+       # charge = omise.Charge.retrieve("chrg_test_5rtm4r4uygzmoz6teo8")
+       # refund = charge.refund(amount=1000000)
+       # print(refund.id)
+       # print(refund.amount)
+       # print(refund.charge)
 
-        #Transfer to influencer's account
+
+
+       # Transfer to influencer's account
        # transfer = omise.Transfer.create(
        # amount=price, recipient=recipientinfluencer
        # )
+       
+       # transfer = omise.Transfer.create(
+       # amount=100000, recipient="recp_test_5rt1s1k1wunrfeumb9n",paid=True, sent=True)
+       # newtransfer = omise.Transfer.retrieve("trsf_test_5rtny2k5sw0ba8kkb1s")
+       # newtransfer.update(sent=True, paid=True)
+
+       # print(transfer.id)
+       # print(transfer.bank_account)
+       # print(transfer.paid)
+       # print(transfer.sent)
+
+        #transaction = omise.Transfer.retrieve("trsf_test_5rtnswjv09i8f39weqa")
+        ##print("this is transaction paid", transaction.paid)
+        #print("this is transaction sent", transaction.sent)
+        #print("this is transaction sent", type(transaction.sent))
 
 
-        print(charge.status)
+
+
+        #recp_test_5rt1s1k1wunrfeumb9n
+
+
+       # print(charge.status)
         #failed, expired, pending, reversed or successful
-        print(charge)
+      #  print(charge)
 
 
 
-    return JsonResponse(charge.status, safe=False)
+    return JsonResponse(return_response, safe=False)

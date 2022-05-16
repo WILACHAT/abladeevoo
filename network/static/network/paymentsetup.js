@@ -101,7 +101,7 @@ var PaymentSetup = function (_React$Component) {
                             ),
                             React.createElement(
                                 'option',
-                                { value: 'scv' },
+                                { value: 'scb' },
                                 'Siam Commercial Bank'
                             ),
                             React.createElement(

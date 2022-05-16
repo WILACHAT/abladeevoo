@@ -54,7 +54,7 @@ class PaymentSetup extends React.Component {
                           <option value="bay">Krungsri Bank</option>
                           <option value="kbank">Kasikorn Bank</option>
                           <option value="ktb">Krungthai Bank</option>
-                          <option value="scv">Siam Commercial Bank</option>
+                          <option value="scb">Siam Commercial Bank</option>
                           <option value="ttb">Thanachart Bank</option>
                       </select>
                   </div>

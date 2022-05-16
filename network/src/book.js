@@ -19,8 +19,205 @@ class PaymentPage extends React.Component {
     super(props);
     this.backPage = this.backPage.bind(this);
     this.submitCc = this.submitCc.bind(this);
+    this.changePage = this.changePage.bind(this);
+    this.submitIb = this.submitIb.bind(this);
+    this.submitPp = this.submitPp.bind(this);
 
 
+
+    this.state = {
+        statusib: "ksbtnid",
+        divofpaymentpage: 
+        <div class="d-flex justify-content-center">
+        <div>
+            <div id="token_errors"></div>
+        
+            <input type="hidden" name="omise_token"></input>
+        
+            <div>
+            Name<br></br>
+            <input type="text" data-omise="holder_name"></input>
+            </div>
+            <div>
+            Number<br></br>
+            <input type="text" data-omise="number"></input>
+            </div>
+            <div>
+            Date<br></br>
+            <input type="text" data-omise="expiration_month" size="4"></input>
+            <input type="text" data-omise="expiration_year" size="8"></input>
+            </div>
+            <div>
+            Security Code<br></br>
+            <input type="text" data-omise="security_code" size="8"></input>
+            </div>
+        
+            <input type="submit" onClick={this.submitCc} id="create_token"></input>
+
+        </div>
+    </div>                 
+    }
+  }
+  
+  submitPp(e)
+  {
+    console.log("yay promptpay")
+    Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
+
+    Omise.createSource('promptpay', {
+    "amount": 1000000,
+    "currency": "THB"
+    }, function(statusCode, response) {
+    console.log("ftw", response['id'])
+    const getcooked = getCookie('csrftoken')
+    let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+
+    
+    fetch(`/paymentapi/${influencerusername}`, {
+    method: 'POST',
+    headers:{'X-CSRFToken': getcooked},
+    body: JSON.stringify({
+        token: response["id"],
+        type: "promptpaypayment"
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        //if data returns successful show beautiful success stuff
+        //if not show failed html
+        //window.location.href = data['url'];
+
+        console.log(data)
+    });
+    });
+  }
+
+
+
+  submitIb(id)
+  {
+    Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
+
+      console.log("what what")
+      Omise.createSource(document.querySelector('#selectbankid').value,
+        {
+            "amount": 1000000,
+            "currency": "THB"
+        },
+        function(statusCode, response) {
+            console.log("this is the fucking respones", response["id"])
+            const getcooked = getCookie('csrftoken')
+            let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+
+            
+            fetch(`/paymentapi/${influencerusername}`, {
+            method: 'POST',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+                token: response["id"],
+                type: "internetbankingpayment"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                //if data returns successful show beautiful success stuff
+                //if not show failed html
+                window.location.href = data['url'];
+
+                console.log(data)
+            });
+        });
+  }
+
+  changePage(id)
+  {
+ 
+    if (id == "creditcardbtnid")
+    {
+        this.setState({
+            divofpaymentpage: 
+            <div class="d-flex justify-content-center">
+            <div>
+            <div id="token_errors"></div>
+        
+            <input type="hidden" name="omise_token"></input>
+        
+            <div>
+            Name<br></br>
+            <input type="text" data-omise="holder_name"></input>
+            </div>
+            <div>
+            Number<br></br>
+            <input type="text" data-omise="number"></input>
+            </div>
+            <div>
+            Date<br></br>
+            <input type="text" data-omise="expiration_month" size="4"></input>
+            <input type="text" data-omise="expiration_year" size="8"></input>
+            </div>
+            <div>
+            Security Code<br></br>
+            <input type="text" data-omise="security_code" size="8"></input>
+            </div>
+        
+            <input type="submit" onClick={this.submitCc} id="create_token"></input>
+
+        </div>
+    </div>           
+        })
+
+    }
+    else if (id == "truemoneybtnid")
+    {
+        this.setState({
+            divofpaymentpage: 
+            <div>
+                <h1>truemoney</h1>
+            </div>
+
+            
+        })
+    }
+    else if (id == "internetbankingbtnid")
+    {
+        
+        console.log("state", this.state.statusib)
+        this.setState({
+            divofpaymentpage: 
+            <div>
+                <h1>internetbanking</h1>
+                <div class="d-flex justify-content-center">
+                      <select name="selectbank" id="selectbankid">
+                          <option value="nothing"></option>
+                          <option value="internet_banking_bbl">Bangkok Bank</option>
+                          <option value="internet_banking_bay">Krungsri Bank</option>
+                          <option value="internet_banking_ktb">Krungthai Bank</option>
+                          <option value="internet_banking_scb">Siam Commercial Bank</option>
+                      </select>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <button onClick={this.submitIb} class="btn btn-primary">Submit</button>
+                  </div>
+
+            </div>
+
+            
+        })
+    }
+    else if (id == "promptpaybtnid")
+    {
+        this.setState({
+            divofpaymentpage: 
+            <div>
+                 <h1>internetbanking</h1>
+                  <div class="d-flex justify-content-center">
+                    <button onClick={this.submitPp} class="btn btn-primary">Promptpay</button>
+                  </div>
+            </div>
+
+            
+        })
+    }
   }
   submitCc(e)
   {
@@ -77,6 +274,7 @@ class PaymentPage extends React.Component {
             headers:{'X-CSRFToken': getcooked},
             body: JSON.stringify({
                 token: response["id"],
+                type: "creditcardpayment"
                 })
             })
             .then(response => response.json())
@@ -107,36 +305,14 @@ class PaymentPage extends React.Component {
         </div>
 
         <div class="d-flex justify-content-center">
-            <div>
-                <div id="token_errors"></div>
-            
-                <input type="hidden" name="omise_token"></input>
-            
-                <div>
-                Name<br></br>
-                <input type="text" data-omise="holder_name"></input>
-                </div>
-                <div>
-                Number<br></br>
-                <input type="text" data-omise="number"></input>
-                </div>
-                <div>
-                Date<br></br>
-                <input type="text" data-omise="expiration_month" size="4"></input>
-                <input type="text" data-omise="expiration_year" size="8"></input>
-                </div>
-                <div>
-                Security Code<br></br>
-                <input type="text" data-omise="security_code" size="8"></input>
-                </div>
-            
-                <input type="submit" onClick={this.submitCc} id="create_token"></input>
-
-            </div>
+            <button onClick={() => this.changePage("creditcardbtnid")} id="creditcardbtnid" class="btn btn-primary">Credit Card</button>
+            <button onClick={() => this.changePage("truemoneybtnid")} id="truemoneybtnid" class="btn btn-primary">True Money</button>
+            <button onClick={() => this.changePage("internetbankingbtnid")} id="internetbankingbtnid"class="btn btn-primary">Internet Banking</button>
+            <button onClick={() => this.changePage("promptpaybtnid")} id="promptpaybtnid"class="btn btn-primary">PromptPay</button>
         </div>
-        
-        
- 
+
+        {this.state.divofpaymentpage}
+   
     </div>
     )
 

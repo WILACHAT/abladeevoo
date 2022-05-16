@@ -32,11 +32,258 @@ var PaymentPage = function (_React$Component) {
 
         _this.backPage = _this.backPage.bind(_this);
         _this.submitCc = _this.submitCc.bind(_this);
+        _this.changePage = _this.changePage.bind(_this);
+        _this.submitIb = _this.submitIb.bind(_this);
+        _this.submitPp = _this.submitPp.bind(_this);
 
+        _this.state = {
+            statusib: "ksbtnid",
+            divofpaymentpage: React.createElement(
+                'div',
+                { 'class': 'd-flex justify-content-center' },
+                React.createElement(
+                    'div',
+                    null,
+                    React.createElement('div', { id: 'token_errors' }),
+                    React.createElement('input', { type: 'hidden', name: 'omise_token' }),
+                    React.createElement(
+                        'div',
+                        null,
+                        'Name',
+                        React.createElement('br', null),
+                        React.createElement('input', { type: 'text', 'data-omise': 'holder_name' })
+                    ),
+                    React.createElement(
+                        'div',
+                        null,
+                        'Number',
+                        React.createElement('br', null),
+                        React.createElement('input', { type: 'text', 'data-omise': 'number' })
+                    ),
+                    React.createElement(
+                        'div',
+                        null,
+                        'Date',
+                        React.createElement('br', null),
+                        React.createElement('input', { type: 'text', 'data-omise': 'expiration_month', size: '4' }),
+                        React.createElement('input', { type: 'text', 'data-omise': 'expiration_year', size: '8' })
+                    ),
+                    React.createElement(
+                        'div',
+                        null,
+                        'Security Code',
+                        React.createElement('br', null),
+                        React.createElement('input', { type: 'text', 'data-omise': 'security_code', size: '8' })
+                    ),
+                    React.createElement('input', { type: 'submit', onClick: _this.submitCc, id: 'create_token' })
+                )
+            )
+        };
         return _this;
     }
 
     _createClass(PaymentPage, [{
+        key: 'submitPp',
+        value: function submitPp(e) {
+            console.log("yay promptpay");
+            Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
+
+            Omise.createSource('promptpay', {
+                "amount": 1000000,
+                "currency": "THB"
+            }, function (statusCode, response) {
+                console.log("ftw", response['id']);
+                var getcooked = getCookie('csrftoken');
+                var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+
+                fetch('/paymentapi/' + influencerusername, {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': getcooked },
+                    body: JSON.stringify({
+                        token: response["id"],
+                        type: "promptpaypayment"
+                    })
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    //if data returns successful show beautiful success stuff
+                    //if not show failed html
+                    //window.location.href = data['url'];
+
+                    console.log(data);
+                });
+            });
+        }
+    }, {
+        key: 'submitIb',
+        value: function submitIb(id) {
+            Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
+
+            console.log("what what");
+            Omise.createSource(document.querySelector('#selectbankid').value, {
+                "amount": 1000000,
+                "currency": "THB"
+            }, function (statusCode, response) {
+                console.log("this is the fucking respones", response["id"]);
+                var getcooked = getCookie('csrftoken');
+                var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+
+                fetch('/paymentapi/' + influencerusername, {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': getcooked },
+                    body: JSON.stringify({
+                        token: response["id"],
+                        type: "internetbankingpayment"
+                    })
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    //if data returns successful show beautiful success stuff
+                    //if not show failed html
+                    window.location.href = data['url'];
+
+                    console.log(data);
+                });
+            });
+        }
+    }, {
+        key: 'changePage',
+        value: function changePage(id) {
+
+            if (id == "creditcardbtnid") {
+                this.setState({
+                    divofpaymentpage: React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement('div', { id: 'token_errors' }),
+                            React.createElement('input', { type: 'hidden', name: 'omise_token' }),
+                            React.createElement(
+                                'div',
+                                null,
+                                'Name',
+                                React.createElement('br', null),
+                                React.createElement('input', { type: 'text', 'data-omise': 'holder_name' })
+                            ),
+                            React.createElement(
+                                'div',
+                                null,
+                                'Number',
+                                React.createElement('br', null),
+                                React.createElement('input', { type: 'text', 'data-omise': 'number' })
+                            ),
+                            React.createElement(
+                                'div',
+                                null,
+                                'Date',
+                                React.createElement('br', null),
+                                React.createElement('input', { type: 'text', 'data-omise': 'expiration_month', size: '4' }),
+                                React.createElement('input', { type: 'text', 'data-omise': 'expiration_year', size: '8' })
+                            ),
+                            React.createElement(
+                                'div',
+                                null,
+                                'Security Code',
+                                React.createElement('br', null),
+                                React.createElement('input', { type: 'text', 'data-omise': 'security_code', size: '8' })
+                            ),
+                            React.createElement('input', { type: 'submit', onClick: this.submitCc, id: 'create_token' })
+                        )
+                    )
+                });
+            } else if (id == "truemoneybtnid") {
+                this.setState({
+                    divofpaymentpage: React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'h1',
+                            null,
+                            'truemoney'
+                        )
+                    )
+
+                });
+            } else if (id == "internetbankingbtnid") {
+
+                console.log("state", this.state.statusib);
+                this.setState({
+                    divofpaymentpage: React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'h1',
+                            null,
+                            'internetbanking'
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'select',
+                                { name: 'selectbank', id: 'selectbankid' },
+                                React.createElement('option', { value: 'nothing' }),
+                                React.createElement(
+                                    'option',
+                                    { value: 'internet_banking_bbl' },
+                                    'Bangkok Bank'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'internet_banking_bay' },
+                                    'Krungsri Bank'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'internet_banking_ktb' },
+                                    'Krungthai Bank'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'internet_banking_scb' },
+                                    'Siam Commercial Bank'
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'button',
+                                { onClick: this.submitIb, 'class': 'btn btn-primary' },
+                                'Submit'
+                            )
+                        )
+                    )
+
+                });
+            } else if (id == "promptpaybtnid") {
+                this.setState({
+                    divofpaymentpage: React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'h1',
+                            null,
+                            'internetbanking'
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'button',
+                                { onClick: this.submitPp, 'class': 'btn btn-primary' },
+                                'Promptpay'
+                            )
+                        )
+                    )
+
+                });
+            }
+        }
+    }, {
         key: 'submitCc',
         value: function submitCc(e) {
             Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
@@ -87,7 +334,8 @@ var PaymentPage = function (_React$Component) {
                         method: 'POST',
                         headers: { 'X-CSRFToken': getcooked },
                         body: JSON.stringify({
-                            token: response["id"]
+                            token: response["id"],
+                            type: "creditcardpayment"
                         })
                     }).then(function (response) {
                         return response.json();
@@ -108,6 +356,7 @@ var PaymentPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
 
             return React.createElement(
                 'div',
@@ -134,42 +383,35 @@ var PaymentPage = function (_React$Component) {
                     'div',
                     { 'class': 'd-flex justify-content-center' },
                     React.createElement(
-                        'div',
-                        null,
-                        React.createElement('div', { id: 'token_errors' }),
-                        React.createElement('input', { type: 'hidden', name: 'omise_token' }),
-                        React.createElement(
-                            'div',
-                            null,
-                            'Name',
-                            React.createElement('br', null),
-                            React.createElement('input', { type: 'text', 'data-omise': 'holder_name' })
-                        ),
-                        React.createElement(
-                            'div',
-                            null,
-                            'Number',
-                            React.createElement('br', null),
-                            React.createElement('input', { type: 'text', 'data-omise': 'number' })
-                        ),
-                        React.createElement(
-                            'div',
-                            null,
-                            'Date',
-                            React.createElement('br', null),
-                            React.createElement('input', { type: 'text', 'data-omise': 'expiration_month', size: '4' }),
-                            React.createElement('input', { type: 'text', 'data-omise': 'expiration_year', size: '8' })
-                        ),
-                        React.createElement(
-                            'div',
-                            null,
-                            'Security Code',
-                            React.createElement('br', null),
-                            React.createElement('input', { type: 'text', 'data-omise': 'security_code', size: '8' })
-                        ),
-                        React.createElement('input', { type: 'submit', onClick: this.submitCc, id: 'create_token' })
+                        'button',
+                        { onClick: function onClick() {
+                                return _this2.changePage("creditcardbtnid");
+                            }, id: 'creditcardbtnid', 'class': 'btn btn-primary' },
+                        'Credit Card'
+                    ),
+                    React.createElement(
+                        'button',
+                        { onClick: function onClick() {
+                                return _this2.changePage("truemoneybtnid");
+                            }, id: 'truemoneybtnid', 'class': 'btn btn-primary' },
+                        'True Money'
+                    ),
+                    React.createElement(
+                        'button',
+                        { onClick: function onClick() {
+                                return _this2.changePage("internetbankingbtnid");
+                            }, id: 'internetbankingbtnid', 'class': 'btn btn-primary' },
+                        'Internet Banking'
+                    ),
+                    React.createElement(
+                        'button',
+                        { onClick: function onClick() {
+                                return _this2.changePage("promptpaybtnid");
+                            }, id: 'promptpaybtnid', 'class': 'btn btn-primary' },
+                        'PromptPay'
                     )
-                )
+                ),
+                this.state.divofpaymentpage
             );
         }
     }]);
@@ -183,16 +425,16 @@ var BookPage = function (_React$Component2) {
     function BookPage(props) {
         _classCallCheck(this, BookPage);
 
-        var _this2 = _possibleConstructorReturn(this, (BookPage.__proto__ || Object.getPrototypeOf(BookPage)).call(this, props));
+        var _this3 = _possibleConstructorReturn(this, (BookPage.__proto__ || Object.getPrototypeOf(BookPage)).call(this, props));
 
-        _this2.changeIntroReserve = _this2.changeIntroReserve.bind(_this2);
-        _this2.changeOccasionReserve = _this2.changeOccasionReserve.bind(_this2);
-        _this2.saveReserve = _this2.saveReserve.bind(_this2);
-        _this2.nextPage = _this2.nextPage.bind(_this2);
+        _this3.changeIntroReserve = _this3.changeIntroReserve.bind(_this3);
+        _this3.changeOccasionReserve = _this3.changeOccasionReserve.bind(_this3);
+        _this3.saveReserve = _this3.saveReserve.bind(_this3);
+        _this3.nextPage = _this3.nextPage.bind(_this3);
         document.querySelector('#paymentpage').hidden = true;
 
         //the number of steps can be state as well i believe
-        _this2.state = {
+        _this3.state = {
             reserve_into_html: React.createElement(
                 'div',
                 { name: 'introname', id: 'someoneelse_html_id' },
@@ -283,7 +525,7 @@ var BookPage = function (_React$Component2) {
             colorof2: "birthday"
         };
 
-        return _this2;
+        return _this3;
     }
 
     _createClass(BookPage, [{
