@@ -22,6 +22,11 @@ class PaymentPage extends React.Component {
     this.changePage = this.changePage.bind(this);
     this.submitIb = this.submitIb.bind(this);
     this.submitPp = this.submitPp.bind(this);
+    this.submitTm = this.submitTm.bind(this);
+    
+    this.saveInfo = this.saveInfo.bind(this);
+    this.getccToken = this.getccToken.bind(this);
+
 
 
 
@@ -51,6 +56,10 @@ class PaymentPage extends React.Component {
             Security Code<br></br>
             <input type="text" data-omise="security_code" size="8"></input>
             </div>
+            <input id="tokenhiddenid"type="hidden" data-tokenid=""></input>
+            
+            <label for="vehicle1">Are you sure you want to use this Credit Card</label><br></br>
+            <input onClick={this.getccToken} type="checkbox" id="cccheckid"></input>
         
             <input type="submit" onClick={this.submitCc} id="create_token"></input>
 
@@ -58,6 +67,102 @@ class PaymentPage extends React.Component {
     </div>                 
     }
   }
+  getccToken(e)
+  {
+     Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
+
+      console.log("what the fuck")
+
+      let card = {
+        "name": document.querySelector('[data-omise=holder_name]').value,
+        "number": document.querySelector('[data-omise=number]').value,
+        "expiration_month": document.querySelector('[data-omise=expiration_month]').value,
+        "expiration_year": document.querySelector('[data-omise=expiration_year]').value,
+        "security_code": document.querySelector('[data-omise=security_code]').value 
+        
+    }
+    let status = ""
+    
+    console.log("this is card", card)
+    let tokenn = Omise.createToken("card", card, function (statusCode, response) {
+      console.log("inside the create token")
+      console.log("inside the create lol")
+
+
+      if (response.object == "error" || !response.card.security_code_check) {
+          // Display an error message.
+          var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
+          if(response.object == "error") {
+          message_text = response.message;
+          }
+          $("#token_errors").html(message_text);
+
+          // Re-enable the submit button.
+          document.querySelector('#create_token').disabled = true
+      } else {
+          // Then fill the omise_token.
+          document.querySelector('[name=omise_token]').value = response.id
+
+
+          // Remove card number from form before submiting to server.
+          document.querySelector('[data-omise=number]').value = ""
+          document.querySelector('[data-omise=security_code]').value = ""
+          console.log("this is the response", response)
+          console.log("this is the response token id", response["id"])
+          document.querySelector('#tokenhiddenid').value = response["id"]
+
+          document.querySelector('#tokenhiddenid').dataset.tokenid = response["id"]
+          console.log("sadge")
+
+          console.log(document.querySelector('#tokenhiddenid').dataset.tokenid)
+
+      }
+    })
+          
+
+  }
+  submitTm(e)
+  {
+    Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
+    console.log("ok lets go")
+    //console.log(document.querySelector('#getinfluencerprice').dataset.price)
+   // console.log(parseInt(document.querySelector('#getinfluencerusername').dataset.username))
+    //console.log("value awkward", parseInt(document.querySelector('#getinfluencerprice').value))
+
+    console.log(document.querySelector('#getinfluencerusername').dataset.username)
+
+    console.log(parseInt(document.querySelector('#getinfluencerprice').dataset.price))
+
+
+    Omise.createSource('truemoney', {
+        "amount":parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
+        "currency": "THB",
+        "phone_number": "0812345679"
+    }, function(statusCode, response) {
+    console.log("ftw", response['id'])
+    console.log("this is the amount i have to fucking pay", document.querySelector('#getinfluencerprice').dataset.price)
+
+    const getcooked = getCookie('csrftoken')
+    let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+
+    
+    fetch(`/paymentapi/${influencerusername}`, {
+    method: 'POST',
+    headers:{'X-CSRFToken': getcooked},
+    body: JSON.stringify({
+        token: response["id"],
+        type: "truemoneypayment"
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        //if data returns successful show beautiful success stuff
+        window.location.href = data['url']
+        
+        })
+    });
+  }
+
   
   submitPp(e)
   {
@@ -65,7 +170,7 @@ class PaymentPage extends React.Component {
     Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
 
     Omise.createSource('promptpay', {
-    "amount": 1000000,
+    "amount": parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
     "currency": "THB"
     }, function(statusCode, response) {
     console.log("ftw", response['id'])
@@ -84,11 +189,9 @@ class PaymentPage extends React.Component {
     .then(response => response.json())
     .then(data => {
         //if data returns successful show beautiful success stuff
-        //if not show failed html
-        //window.location.href = data['url'];
-
-        console.log(data)
-    });
+        window.location.href = data['url']
+        
+        })
     });
   }
 
@@ -101,7 +204,7 @@ class PaymentPage extends React.Component {
       console.log("what what")
       Omise.createSource(document.querySelector('#selectbankid').value,
         {
-            "amount": 1000000,
+            "amount": parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
             "currency": "THB"
         },
         function(statusCode, response) {
@@ -109,7 +212,6 @@ class PaymentPage extends React.Component {
             const getcooked = getCookie('csrftoken')
             let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
 
-            
             fetch(`/paymentapi/${influencerusername}`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
@@ -159,7 +261,6 @@ class PaymentPage extends React.Component {
             Security Code<br></br>
             <input type="text" data-omise="security_code" size="8"></input>
             </div>
-        
             <input type="submit" onClick={this.submitCc} id="create_token"></input>
 
         </div>
@@ -172,15 +273,17 @@ class PaymentPage extends React.Component {
         this.setState({
             divofpaymentpage: 
             <div>
-                <h1>truemoney</h1>
-            </div>
+            <h1>True Money</h1>
+             <div class="d-flex justify-content-center">
+               <button onClick={this.submitTm} class="btn btn-primary">True Money</button>
+             </div>
+       </div>
 
             
         })
     }
     else if (id == "internetbankingbtnid")
     {
-        
         console.log("state", this.state.statusib)
         this.setState({
             divofpaymentpage: 
@@ -209,7 +312,7 @@ class PaymentPage extends React.Component {
         this.setState({
             divofpaymentpage: 
             <div>
-                 <h1>internetbanking</h1>
+                 <h1>PromptPay</h1>
                   <div class="d-flex justify-content-center">
                     <button onClick={this.submitPp} class="btn btn-primary">Promptpay</button>
                   </div>
@@ -221,51 +324,9 @@ class PaymentPage extends React.Component {
   }
   submitCc(e)
   {
-      Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
-
-      console.log("yo wassup submit CC")
-      console.log("yo wassup submit CC")
-
-
-      document.querySelector('#create_token').disabled = true
-     
-
-      let card = {
-          "name": document.querySelector('[data-omise=holder_name]').value,
-          "number": document.querySelector('[data-omise=number]').value,
-          "expiration_month": document.querySelector('[data-omise=expiration_month]').value,
-          "expiration_year": document.querySelector('[data-omise=expiration_year]').value,
-          "security_code": document.querySelector('[data-omise=security_code]').value 
-          
-      }
       
-      console.log("this is card", card)
-      Omise.createToken("card", card, function (statusCode, response) {
-        console.log("inside the create token")
-
-        if (response.object == "error" || !response.card.security_code_check) {
-            // Display an error message.
-            var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
-            if(response.object == "error") {
-            message_text = response.message;
-            }
-            $("#token_errors").html(message_text);
-
-            // Re-enable the submit button.
-            document.querySelector('#create_token').disabled = true
-        } else {
-            // Then fill the omise_token.
-            document.querySelector('[name=omise_token]').value = response.id
-
-
-            // Remove card number from form before submiting to server.
-            document.querySelector('[data-omise=number]').value = ""
-            document.querySelector('[data-omise=security_code]').value = ""
-            console.log("this is the response", response)
-            console.log("this is the response token id", response["id"])
-
             let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
+            let response = document.querySelector('#tokenhiddenid').dataset.tokenid
 
             const getcooked = getCookie('csrftoken')
             
@@ -273,26 +334,76 @@ class PaymentPage extends React.Component {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
             body: JSON.stringify({
-                token: response["id"],
+                token: response,
                 type: "creditcardpayment"
                 })
             })
+    
             .then(response => response.json())
             .then(data => {
                 //if data returns successful show beautiful success stuff
                 //if not show failed html
-                console.log(data)
+                console.log(data["status"])
+
+                if (data["status"] == "successful")
+                {
+                    console.log("ok ngong in saveinfo")
+                    this.saveInfo(data)
+                }
+    
             });
-            };
-        });
-      
+            
+            
+        
+         
+
   }
   backPage(e)
   {
     document.querySelector('#paymentpage').hidden = true
     document.querySelector('#wholereservepage').hidden = false
   }
-  
+  saveInfo(data)
+  {
+        console.log(data)
+        console.log("ma gee rorb")
+        console.log("all the data in the world", this.props.data)
+        let chargeid = data["chargeid"]
+        let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+
+        if (data["status"] == "successful")
+        {
+            const getcooked = getCookie('csrftoken')
+            fetch(`/book/${influencerusername}`, {
+            method: 'POST',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+                typeintro: this.props.data["typeintro"],
+                tointro: this.props.data["tointro"],
+                fromintro: this.props.data["fromintro"],
+                typeoccasion: this.props.data["typeoccasion"],
+                firstinputocca: this.props.data["firstinputocca"],
+                secondinputocca: this.props.data["secondinputocca"],
+                thirdinputocca: this.props.data["thirdinputocca"],
+                fourthinputocca: this.props.data["fourthinputocca"],
+                datetime: this.props.data["datetime"],
+                inputcheck: this.props.data["inputcheck"],
+                chargeid: chargeid
+            })
+            })
+            .then(data => {
+                window.location.href = "/";
+            });
+            
+        }
+        else
+        {
+            //go to error page
+            //either pending or successful
+            window.location.href = "/";
+        }
+  }
+
   render() {
     
     return (
@@ -305,6 +416,7 @@ class PaymentPage extends React.Component {
         </div>
 
         <div class="d-flex justify-content-center">
+
             <button onClick={() => this.changePage("creditcardbtnid")} id="creditcardbtnid" class="btn btn-primary">Credit Card</button>
             <button onClick={() => this.changePage("truemoneybtnid")} id="truemoneybtnid" class="btn btn-primary">True Money</button>
             <button onClick={() => this.changePage("internetbankingbtnid")} id="internetbankingbtnid"class="btn btn-primary">Internet Banking</button>
@@ -316,15 +428,16 @@ class PaymentPage extends React.Component {
     </div>
     )
 
-    }
+    
   }
+}
+
 class BookPage extends React.Component {
     constructor(props) {
       super(props);
       this.changeIntroReserve = this.changeIntroReserve.bind(this);
       this.changeOccasionReserve = this.changeOccasionReserve.bind(this);
       this.saveReserve = this.saveReserve.bind(this);
-      this.nextPage = this.nextPage.bind(this);
       document.querySelector('#paymentpage').hidden = true
 
 
@@ -384,14 +497,7 @@ class BookPage extends React.Component {
       }
 
     }
-    nextPage(e)
-    {
-        console.log("this is nextpage")
-        document.querySelector('#paymentpage').hidden = false
-        document.querySelector('#wholereservepage').hidden = true
-        ReactDOM.render(<PaymentPage />, document.querySelector('#paymentpage'));
 
-    }
     saveReserve(e)
     {
     var typeintro = "";
@@ -459,20 +565,28 @@ class BookPage extends React.Component {
                 checkblank = 6
             }
         }
-
-     
+        else
+        {
+            thirdinputocca = document.getElementsByName("occa3")[0].value
+        }
     }
    
     if (document.getElementsByName("occa4").length != 0)
     {
+        console.log("fuck this in 4")
         if (document.getElementsByName("occa4")[0].id == "")
         {
             fourthinputocca = document.getElementsByName("occa4")[0].value
+            console.log("fourstinputocca", fourthinputocca)
             console.log("ok what is going on", document.getElementsByName("occa4")[0].id)
             if (fourthinputocca == "")
             {
                 checkblank = 5
             }
+        }
+        else
+        {
+            fourthinputocca = document.getElementsByName("occa4")[0].value
         }
        
     }
@@ -533,26 +647,15 @@ class BookPage extends React.Component {
     
     else
     {
-            const getcooked = getCookie('csrftoken')
-            fetch(`/book/${influencerusername}`, {
-            method: 'POST',
-            headers:{'X-CSRFToken': getcooked},
-            body: JSON.stringify({
-                typeintro: typeintro,
-                tointro: tointro,
-                fromintro: fromintro,
-                typeoccasion: typeoccasion,
-                firstinputocca: firstinputocca,
-                secondinputocca: secondinputocca,
-                thirdinputocca: thirdinputocca,
-                fourthinputocca: fourthinputocca,
-                datetime: datetime,
-                inputcheck: inputcheck
-            })
-            })
-            .then(data => {
-                window.location.href = "/";
-            });
+            let data = {"typeintro":typeintro, "tointro":tointro, "fromintro":fromintro, "typeoccasion": typeoccasion, 
+            "firstinputocca":firstinputocca, "secondinputocca":secondinputocca, "thirdinputocca":thirdinputocca,
+            "fourthinputocca": fourthinputocca, "datetime":datetime, "inputcheck":inputcheck}
+
+            document.querySelector('#paymentpage').hidden = false
+            document.querySelector('#wholereservepage').hidden = true
+            ReactDOM.render(<PaymentPage data={data}/>, document.querySelector('#paymentpage'));
+           
+           
     }
     
 
@@ -807,12 +910,15 @@ class BookPage extends React.Component {
             </div>
 
             <div class="d-flex justify-content-center mt-2 mb-5">
-                <input required id="submitreservation" type="submit" onClick={this.nextPage} value="Payment"class="btn btn-primary"/>
-            </div>
-            
-            <div class="d-flex justify-content-center mt-2 mb-5">
                 <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="Reserve"class="btn btn-primary"/>
             </div>
+
+
+            <div>
+                <h1>what the fuck is going on luv u</h1>
+            </div>
+            <image src="qrcode_test.svg"></image>
+            <image src="https://api.omise.co/charges/chrg_test_5ru1sxuskpswn2uq7pp/documents/docu_test_5ru1sxx1mmeh32yimit/downloads/7F1B365DFF8A5643"></image>
 
            
 

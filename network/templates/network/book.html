@@ -2,14 +2,18 @@
 {% load static %}
 
 {% block body %}
-<input id="getinfluencerusername"type="hidden"data-username="{{ username }}">
+<input id="getinfluencerusername"type="hidden" data-username="{{ username }}">
+<input id="getinfluencerprice"type="hidden" data-price="{{ price }}">
+
+
 
 <div class="beginningofbook d-flex justify-content-center ">
         <h4 class="wa">รีเควสใหม่ถึง {{ username }}</h4>
 </div>
 
 <div id="wholereservepage"></div>
-<div id="paymentpage">
+<div id="paymentpage"></div>
+<div id="status"></div>
         
 </div>
 

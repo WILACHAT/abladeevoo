@@ -19,6 +19,9 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
+from celery.schedules import crontab
+from celery.task import periodic_task
+from celery import Celery
 UserModel = get_user_model()
 
 import datetime
@@ -68,10 +71,39 @@ from cloudinary.utils import cloudinary_url
 import subprocess
 import os
 import omise
+from django.conf import settings
+
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project4.settings')
+
+app = Celery('project4')
+app.conf.enable_utc = False
+
+app.conf.update(timezone = 'Asia/Bangkok')
+app.config_from_object(settings)
+
+
+app.autodiscover_tasks()
+
+@app.task(bind=True)
+def debug_task(self):
+    print(f'Request: {self.request!r}')
+
 
 omise.api_secret = 'skey_test_5rsxnq9a82ys6gtgf92'
 
 
+##CELERYBEAT_SCHEDULE = {
+  #  "runs-every-30-seconds": {
+      #  "task": "tasks.add",
+       # "schedule": timedelta(seconds=30),
+       # "args": (16, 16)
+   # },
+#}
+
+@periodic_task(run_every=crontab(hour=22, minute=57))
+def every_monday_morning():
+    print("This is run every Monday morning at 7:30")
 
 
 def current_milli_time():
@@ -81,6 +113,8 @@ def aboutus(request):
     return render(request, "network/aboutus.html")
 
 def index(request):
+    seconds = time.time()
+    print("Time in seconds since the epoch:", seconds)  
     '''OK, so how was the react show suggestion portal done???? 
     essentially first you go to index html here essentially to access index html
     then after that in index html it links to a javascript/react page/ from that js 
@@ -367,6 +401,10 @@ def book(request, username):
     currentuserid = request.user.id
     influencerid = User.objects.values('id').get(username=username)
     influencerid = influencerid["id"]
+    checker = Userinfo.objects.values('price').get(influencer_id = influencerid)
+    price = int(checker['price'])
+
+    
 
     if request.method == "POST":
         data = json.loads(request.body)
@@ -374,16 +412,16 @@ def book(request, username):
         print("this is datetime", data["datetime"])
         #date_time_obj = datetime.strptime(data["datetime"], '%Y-%m-%d')
 
-
         bookrequest =  Reservation(typeintro=data['typeintro'],
         tointro=data['tointro'], fromintro=data['fromintro'], typeoccasion=data['typeoccasion'],
         firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
         thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],
-        user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid, duedate=data["datetime"], show=data["inputcheck"])
+        user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid, duedate=data["datetime"], 
+        show=data["inputcheck"], omisecharge=data["chargeid"])
         
         bookrequest.save()
   
-    return render(request, "network/book.html", {'username': username})
+    return render(request, "network/book.html", {'username': username, "price": price})
 
 def gotobook(request, username):
     return_request = {"username":username}
@@ -554,9 +592,17 @@ def gotoeachreserve(request):
             postandmessage = Postandmessage(post_info = data["value"], 
             reservation_ofpost_id = data["reserveid"], video = data["videoid"], poster_id = request.user.id)
             postandmessage.save()
-
             today = date.today()
+            
+            checker = Userinfo.objects.values('omiserecipent', 'price').get(influencer_id = request.user.id)
+
+            price = (int(checker['price']) * 0.85)  * 100
+            recipientinfluencer = omise.Recipient.retrieve(checker['omiserecipent'])
+            transfer = omise.Transfer.create(
+            amount=price, recipient="recp_test_5rt1s1k1wunrfeumb9n",paid=True, sent=True)
+            
             Reservation.objects.filter(id=data["reserveid"]).update(completed = True, completiondate = today)
+        
         elif data["type"] == "submitreview":
             print("is it in submitreview?")
 
@@ -926,7 +972,6 @@ class PasswordContextMixin:
         )
         return context
 
-
 class PasswordResetView(PasswordContextMixin, FormView):
     email_template_name = "registration/password_reset_email.html"
     extra_email_context = None
@@ -1073,9 +1118,11 @@ def paymentapi(request, username):
         recipientinfluencer = omise.Recipient.retrieve(checker['omiserecipent'])
         
         price = int(checker['price'])
-        priceforme = (price * (7/100))
-        priceforme = priceforme * 100
-        price = int(price - priceforme) 
+
+
+       # priceforme = (price * (7/100))
+       # priceforme = priceforme * 100
+      #  price = int(price - priceforme) 
         price = price * 100
         #Transfer to our bank account
        # transfer = omise.Transfer.create(amount=price)
@@ -1086,15 +1133,16 @@ def paymentapi(request, username):
         print("this is id of token", data["token"])
         if data["type"] == "creditcardpayment":
             charge = omise.Charge.create(
-            amount=1000000,
+            amount=price,
             currency="thb",
             card=data["token"])
+            return_response = {"status":charge.status, "chargeid":charge.id}
 
         elif data["type"] == "internetbankingpayment":
             print("is the shit in here")
             omise.api_version = "2019-05-29"
             charge = omise.Charge.create(
-            amount=1000000,
+            amount=price,
             currency="thb",
             return_uri = "http://127.0.0.1:8000/",
             source=data["token"]
@@ -1105,14 +1153,37 @@ def paymentapi(request, username):
             print("is the shit in promptpay")
             omise.api_version = "2019-05-29"
             charge = omise.Charge.create(
-            amount=1000000,
+            amount=price,
             currency="thb",
             return_uri = "http://127.0.0.1:8000/",
             source=data["token"]
             )
             return_response = {"url":charge.authorize_uri}
+            print("this is source of charge", charge.source)
+            ye = charge.source
+            lol = ye.scannable_code 
+            print("this is image", lol.image)
+            hehe = lol.image
+            print(hehe.download_uri)
+
+            return_response = {"url":hehe.download_uri}
 
 
+            #https://api.omise.co/charges/chrg_test_5ru1r2mtx3spoe6udyl/documents/docu_test_5ru1r2pbhjq0z7gw32i/downloads/10A1780DBA73BF02
+
+        elif data["type"] == "truemoneypayment":
+            print("this is in fucking true money")
+            print("this is money", price)
+            charge = omise.Charge.create(
+            amount=price,
+            currency="thb",
+            return_uri = "http://127.0.0.1:8000/",
+            source=data["token"]
+            )
+            return_response = {"url":charge.authorize_uri}
+            print("this is source of charge", charge.source)
+
+        
         print("this is charge.id", charge.id)
         print(charge.authorize_uri)
         print(charge.status)
