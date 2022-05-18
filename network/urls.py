@@ -39,6 +39,8 @@ urlpatterns = [
     path("superuserfeedback", views.superuserfeedback, name="superuserfeedback"),
     path("superusermail", views.superusermail, name="superusermail"),
     path("paymentapi/<str:username>", views.paymentapi, name="paymentapi"),
+    path("paymentresponse", views.paymentresponse, name="paymentresponse"),
+
 
     path("payment", views.payment, name="payment"),
     path("paymentsetupapi", views.paymentsetupapi, name="paymentsetupapi"),

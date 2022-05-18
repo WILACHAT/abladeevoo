@@ -19,9 +19,11 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
-from celery.schedules import crontab
-from celery.task import periodic_task
+
 from celery import Celery
+from celery.schedules import crontab
+
+
 UserModel = get_user_model()
 
 import datetime
@@ -42,7 +44,7 @@ from django.http import HttpResponseRedirect, QueryDict
 from django.shortcuts import resolve_url
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.utils.deprecation import RemovedInDjango50Warning
+#from django.utils.deprecation import RemovedInDjango50Warning
 from django.utils.http import url_has_allowed_host_and_scheme, urlsafe_base64_decode
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
@@ -74,20 +76,6 @@ import omise
 from django.conf import settings
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project4.settings')
-
-app = Celery('project4')
-app.conf.enable_utc = False
-
-app.conf.update(timezone = 'Asia/Bangkok')
-app.config_from_object(settings)
-
-
-app.autodiscover_tasks()
-
-@app.task(bind=True)
-def debug_task(self):
-    print(f'Request: {self.request!r}')
 
 
 omise.api_secret = 'skey_test_5rsxnq9a82ys6gtgf92'
@@ -101,7 +89,7 @@ omise.api_secret = 'skey_test_5rsxnq9a82ys6gtgf92'
    # },
 #}
 
-@periodic_task(run_every=crontab(hour=22, minute=57))
+#@periodic_task(run_every=crontab(hour=22, minute=57))
 def every_monday_morning():
     print("This is run every Monday morning at 7:30")
 
@@ -404,7 +392,6 @@ def book(request, username):
     checker = Userinfo.objects.values('price').get(influencer_id = influencerid)
     price = int(checker['price'])
 
-    
 
     if request.method == "POST":
         data = json.loads(request.body)
@@ -417,7 +404,7 @@ def book(request, username):
         firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
         thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],
         user_id_reserver_id=currentuserid,user_id_influencerreserve_id=influencerid, duedate=data["datetime"], 
-        show=data["inputcheck"], omisecharge=data["chargeid"])
+        show=data["inputcheck"])
         
         bookrequest.save()
   
@@ -450,13 +437,13 @@ def gotozjguen484s9gj302g(request, paginationid):
     
     print("I FUCKING HATE QUERIES")
 
-    ngongdaek = Reservation.objects.filter(typeintro=Case(When(completed=False, duedate__gte=day)), user_id_reserver = currentuser)
-    for w in ngongdaek:
-        print("I FUCKING HATE QUERIES", w)
+  #  ngongdaek = Reservation.objects.filter(typeintro=Case(When(completed=False, duedate__gte=day, chargestatus = True)), user_id_reserver = currentuser)
+   # for w in ngongdaek:
+      #  print("I FUCKING HATE QUERIES", w)
 
     
-    what = When(completed=False, then='Reservation', duedate__gte=day)
-    reserveinfo = Reservation.objects.filter(Q(completed=True) | Q(duedate__gte=day), user_id_reserver = currentuser)
+   # what = When(completed=False, then='Reservation', duedate__gte=day)
+    reserveinfo = Reservation.objects.filter(Q(completed=True) | Q(duedate__gte=day), user_id_reserver = currentuser, chargestatus = True)
 
 
     type = "inbox"
@@ -471,35 +458,31 @@ def gotozjguen484s9gj302g(request, paginationid):
             print("cehck data type", data["type"])
             if data["type"] == "myrequesthtml":
                 type= "request"
-                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False, duedate__gte=date.today())
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False, duedate__gte=date.today(), chargestatus = True)
                 hide = 0
             #some of this will have to change so yea
             elif data["type"] == "mycompletehtml":
                 type= "complete"
-                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = True)
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = True, chargestatus = True)
                 hide = 0
 
-                
             elif data["type"] == "hidecompleted":
                 print("what is it in hidecomltejkldnfljkasdnfkljnasdfkjnd")
                 type= "inbox"
                 hide = 1
 
-                reserveinfo = Reservation.objects.filter(user_id_reserver = currentuser, completed = False, duedate__gte=day)
+                reserveinfo = Reservation.objects.filter(user_id_reserver = currentuser, completed = False, duedate__gte=day, chargestatus = True)
                 for i in reserveinfo:
                     print(i.id)
                     print(i.reviewcompleted)
 
             elif data["type"] == "mysorttime":
-                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False, duedate__gte=date.today()).order_by('duedate')
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False, duedate__gte=date.today(), chargestatus = True).order_by('duedate')
                 type = "request"
                 for i in reserveinfo:
                     print(i.duedate)
                     hide = 0
                     sort = 1
-
-
-
 
         elif data["from"] == "eachreserve":
             print("data", data)
@@ -508,7 +491,7 @@ def gotozjguen484s9gj302g(request, paginationid):
                 type = "request"
 
 
-            reserveinfo = Reservation.objects.filter(id = data["reservationid"])
+            reserveinfo = Reservation.objects.filter(id = data["reservationid"], chargestatus = True)
 
             for i in reserveinfo:
             #print("reserveeeeeeeeeeeeeeeee;leme;lme;lme;emleeeeeee", reserveinfo.user_id_reserver_id)
@@ -1106,6 +1089,25 @@ class PasswordResetCompleteView(PasswordContextMixin, TemplateView):
         context["login_url"] = resolve_url(settings.LOGIN_URL)
         return context
 
+def paymentresponse(request):
+    chargestuff = Reservation.objects.filter(user_id_reserver_id=request.user.id).order_by('-user_id_reserver_id')[:1]
+    for i in chargestuff:
+        print("another chargestuff", i.omisecharge)
+
+
+        chargeid = i.omisecharge
+        print("thanks the lord of christ", chargeid)
+    
+
+    charge = omise.Charge.retrieve(chargeid)
+    if charge.status == "successful":
+        status = "successful"
+        Reservation.objects.filter(user_id_reserver_id=request.user.id).update(chargestatus = True)
+
+    else:
+        status = "fail"
+
+    return render(request, "network/paymentresponse.html", {"status":status})
 
 def paymentapi(request, username):
     return_response = "hi"
@@ -1135,6 +1137,7 @@ def paymentapi(request, username):
             charge = omise.Charge.create(
             amount=price,
             currency="thb",
+            capture=True,
             card=data["token"])
             return_response = {"status":charge.status, "chargeid":charge.id}
 
@@ -1144,9 +1147,12 @@ def paymentapi(request, username):
             charge = omise.Charge.create(
             amount=price,
             currency="thb",
-            return_uri = "http://127.0.0.1:8000/",
-            source=data["token"]
+            capture=True,
+            source=data["token"],
+            return_uri = "http://127.0.0.1:8000/paymentresponse"
             )
+            print("kaido yung glua loey ai sus")
+
             return_response = {"url":charge.authorize_uri}
 
         elif data["type"] == "promptpaypayment":
@@ -1155,7 +1161,8 @@ def paymentapi(request, username):
             charge = omise.Charge.create(
             amount=price,
             currency="thb",
-            return_uri = "http://127.0.0.1:8000/",
+            capture=True,
+            return_uri = "http://127.0.0.1:8000/paymentresponse",
             source=data["token"]
             )
             return_response = {"url":charge.authorize_uri}
@@ -1177,12 +1184,14 @@ def paymentapi(request, username):
             charge = omise.Charge.create(
             amount=price,
             currency="thb",
-            return_uri = "http://127.0.0.1:8000/",
+            return_uri = "http://127.0.0.1:8000/paymentresponse",
             source=data["token"]
             )
             return_response = {"url":charge.authorize_uri}
             print("this is source of charge", charge.source)
+            print("this is source of charge", charge.status)
 
+        Reservation.objects.filter(user_id_reserver_id=request.user.id, omisecharge=None).update(omisecharge = charge.id)
         
         print("this is charge.id", charge.id)
         print(charge.authorize_uri)

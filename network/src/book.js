@@ -25,7 +25,6 @@ class PaymentPage extends React.Component {
     this.submitTm = this.submitTm.bind(this);
     
     this.saveInfo = this.saveInfo.bind(this);
-    this.getccToken = this.getccToken.bind(this);
 
 
 
@@ -57,73 +56,19 @@ class PaymentPage extends React.Component {
             <input type="text" data-omise="security_code" size="8"></input>
             </div>
             <input id="tokenhiddenid"type="hidden" data-tokenid=""></input>
-            
-            <label for="vehicle1">Are you sure you want to use this Credit Card</label><br></br>
-            <input onClick={this.getccToken} type="checkbox" id="cccheckid"></input>
-        
+          
             <input type="submit" onClick={this.submitCc} id="create_token"></input>
 
         </div>
     </div>                 
     }
   }
-  getccToken(e)
-  {
-     Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
 
-      console.log("what the fuck")
-
-      let card = {
-        "name": document.querySelector('[data-omise=holder_name]').value,
-        "number": document.querySelector('[data-omise=number]').value,
-        "expiration_month": document.querySelector('[data-omise=expiration_month]').value,
-        "expiration_year": document.querySelector('[data-omise=expiration_year]').value,
-        "security_code": document.querySelector('[data-omise=security_code]').value 
-        
-    }
-    let status = ""
-    
-    console.log("this is card", card)
-    let tokenn = Omise.createToken("card", card, function (statusCode, response) {
-      console.log("inside the create token")
-      console.log("inside the create lol")
-
-
-      if (response.object == "error" || !response.card.security_code_check) {
-          // Display an error message.
-          var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
-          if(response.object == "error") {
-          message_text = response.message;
-          }
-          $("#token_errors").html(message_text);
-
-          // Re-enable the submit button.
-          document.querySelector('#create_token').disabled = true
-      } else {
-          // Then fill the omise_token.
-          document.querySelector('[name=omise_token]').value = response.id
-
-
-          // Remove card number from form before submiting to server.
-          document.querySelector('[data-omise=number]').value = ""
-          document.querySelector('[data-omise=security_code]').value = ""
-          console.log("this is the response", response)
-          console.log("this is the response token id", response["id"])
-          document.querySelector('#tokenhiddenid').value = response["id"]
-
-          document.querySelector('#tokenhiddenid').dataset.tokenid = response["id"]
-          console.log("sadge")
-
-          console.log(document.querySelector('#tokenhiddenid').dataset.tokenid)
-
-      }
-    })
-          
-
-  }
   submitTm(e)
   {
     Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
+    this.saveInfo()
+
     console.log("ok lets go")
     //console.log(document.querySelector('#getinfluencerprice').dataset.price)
    // console.log(parseInt(document.querySelector('#getinfluencerusername').dataset.username))
@@ -167,6 +112,8 @@ class PaymentPage extends React.Component {
   submitPp(e)
   {
     console.log("yay promptpay")
+    this.saveInfo()
+
     Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
 
     Omise.createSource('promptpay', {
@@ -195,10 +142,10 @@ class PaymentPage extends React.Component {
     });
   }
 
-
-
   submitIb(id)
   {
+
+    this.saveInfo()
     Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
 
       console.log("what what")
@@ -222,9 +169,10 @@ class PaymentPage extends React.Component {
             })
             .then(response => response.json())
             .then(data => {
+                console.log("bacl here or nah?")
                 //if data returns successful show beautiful success stuff
                 //if not show failed html
-                window.location.href = data['url'];
+                window.location.href = data['url']
 
                 console.log(data)
             });
@@ -239,7 +187,7 @@ class PaymentPage extends React.Component {
         this.setState({
             divofpaymentpage: 
             <div class="d-flex justify-content-center">
-            <div>
+        <div>
             <div id="token_errors"></div>
         
             <input type="hidden" name="omise_token"></input>
@@ -261,10 +209,14 @@ class PaymentPage extends React.Component {
             Security Code<br></br>
             <input type="text" data-omise="security_code" size="8"></input>
             </div>
+            <input id="tokenhiddenid"type="hidden" data-tokenid=""></input>
+            
+
+        
             <input type="submit" onClick={this.submitCc} id="create_token"></input>
 
         </div>
-    </div>           
+    </div>            
         })
 
     }
@@ -324,35 +276,72 @@ class PaymentPage extends React.Component {
   }
   submitCc(e)
   {
-      
-            let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-            let response = document.querySelector('#tokenhiddenid').dataset.tokenid
+    this.saveInfo()
 
-            const getcooked = getCookie('csrftoken')
-            
-            fetch(`/paymentapi/${influencerusername}`, {
-            method: 'POST',
-            headers:{'X-CSRFToken': getcooked},
-            body: JSON.stringify({
-                token: response,
-                type: "creditcardpayment"
-                })
-            })
-    
-            .then(response => response.json())
-            .then(data => {
-                //if data returns successful show beautiful success stuff
-                //if not show failed html
-                console.log(data["status"])
+    Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
 
-                if (data["status"] == "successful")
-                {
-                    console.log("ok ngong in saveinfo")
-                    this.saveInfo(data)
-                }
+      console.log("what the fuck")
+
+      let card = {
+        "name": document.querySelector('[data-omise=holder_name]').value,
+        "number": document.querySelector('[data-omise=number]').value,
+        "expiration_month": document.querySelector('[data-omise=expiration_month]').value,
+        "expiration_year": document.querySelector('[data-omise=expiration_year]').value,
+        "security_code": document.querySelector('[data-omise=security_code]').value 
+        
+    }
+    let status = ""
     
-            });
-            
+    console.log("this is card", card)
+    let tokenn = Omise.createToken("card", card, function (statusCode, response) {
+      console.log("inside the create token")
+      console.log("inside the create lol")
+
+
+      if (response.object == "error" || !response.card.security_code_check) {
+          // Display an error message.
+          var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
+          if(response.object == "error") {
+          message_text = response.message;
+          }
+          $("#token_errors").html(message_text);
+
+          // Re-enable the submit button.
+          document.querySelector('#create_token').disabled = true
+      } else {
+          // Then fill the omise_token.
+          document.querySelector('[name=omise_token]').value = response.id
+
+
+          // Remove card number from form before submiting to server.
+          document.querySelector('[data-omise=number]').value = ""
+          document.querySelector('[data-omise=security_code]').value = ""
+    
+          let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+
+          const getcooked = getCookie('csrftoken')
+          
+          fetch(`/paymentapi/${influencerusername}`, {
+          method: 'POST',
+          headers:{'X-CSRFToken': getcooked},
+          body: JSON.stringify({
+              token: response["id"],
+              type: "creditcardpayment"
+              })
+          })
+  
+          .then(response => response.json())
+          .then(data => {
+              //if data returns successful show beautiful success stuff
+              //if not show failed html
+              console.log(data["status"])
+              window.location.href = "http://127.0.0.1:8000/paymentresponse"
+  
+          });
+          
+      }
+    })  
+           
             
         
          
@@ -365,43 +354,27 @@ class PaymentPage extends React.Component {
   }
   saveInfo(data)
   {
-        console.log(data)
-        console.log("ma gee rorb")
-        console.log("all the data in the world", this.props.data)
-        let chargeid = data["chargeid"]
+
         let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
 
-        if (data["status"] == "successful")
-        {
-            const getcooked = getCookie('csrftoken')
-            fetch(`/book/${influencerusername}`, {
-            method: 'POST',
-            headers:{'X-CSRFToken': getcooked},
-            body: JSON.stringify({
-                typeintro: this.props.data["typeintro"],
-                tointro: this.props.data["tointro"],
-                fromintro: this.props.data["fromintro"],
-                typeoccasion: this.props.data["typeoccasion"],
-                firstinputocca: this.props.data["firstinputocca"],
-                secondinputocca: this.props.data["secondinputocca"],
-                thirdinputocca: this.props.data["thirdinputocca"],
-                fourthinputocca: this.props.data["fourthinputocca"],
-                datetime: this.props.data["datetime"],
-                inputcheck: this.props.data["inputcheck"],
-                chargeid: chargeid
+        const getcooked = getCookie('csrftoken')
+        fetch(`/book/${influencerusername}`, {
+        method: 'POST',
+        headers:{'X-CSRFToken': getcooked},
+        body: JSON.stringify({
+            typeintro: this.props.data["typeintro"],
+            tointro: this.props.data["tointro"],
+            fromintro: this.props.data["fromintro"],
+            typeoccasion: this.props.data["typeoccasion"],
+            firstinputocca: this.props.data["firstinputocca"],
+            secondinputocca: this.props.data["secondinputocca"],
+            thirdinputocca: this.props.data["thirdinputocca"],
+            fourthinputocca: this.props.data["fourthinputocca"],
+            datetime: this.props.data["datetime"],
+            inputcheck: this.props.data["inputcheck"]
             })
-            })
-            .then(data => {
-                window.location.href = "/";
-            });
-            
-        }
-        else
-        {
-            //go to error page
-            //either pending or successful
-            window.location.href = "/";
-        }
+        })
+          
   }
 
   render() {
@@ -416,7 +389,6 @@ class PaymentPage extends React.Component {
         </div>
 
         <div class="d-flex justify-content-center">
-
             <button onClick={() => this.changePage("creditcardbtnid")} id="creditcardbtnid" class="btn btn-primary">Credit Card</button>
             <button onClick={() => this.changePage("truemoneybtnid")} id="truemoneybtnid" class="btn btn-primary">True Money</button>
             <button onClick={() => this.changePage("internetbankingbtnid")} id="internetbankingbtnid"class="btn btn-primary">Internet Banking</button>
@@ -439,10 +411,6 @@ class BookPage extends React.Component {
       this.changeOccasionReserve = this.changeOccasionReserve.bind(this);
       this.saveReserve = this.saveReserve.bind(this);
       document.querySelector('#paymentpage').hidden = true
-
-
-
-
 
       //the number of steps can be state as well i believe
       this.state = {
@@ -731,7 +699,7 @@ class BookPage extends React.Component {
                         <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์:</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input id="optional/occa4" ame="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                        <input id="optional/occa4" name="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
                     </div>
 
                 </div>

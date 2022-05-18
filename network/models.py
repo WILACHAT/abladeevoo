@@ -67,8 +67,9 @@ class Views(models.Model):
 def now():
      return timezone.now()
 
-
 class Reservation(models.Model):
+    #you can and should add bai sed and stuff here
+
     typeintro = models.CharField(max_length=256, null=True)
     tointro = models.CharField(max_length=256, null=True)
     fromintro = models.CharField(max_length=256, null=True)
@@ -88,6 +89,7 @@ class Reservation(models.Model):
     completiondate = models.DateTimeField(null=True)
     show = models.BooleanField(default=False)
     omisecharge = models.CharField(max_length=256, null=True)
+    chargestatus = models.BooleanField(default=False)
 
 
     def serialize(self):
@@ -121,6 +123,8 @@ class Reservation(models.Model):
             "show":self.show,
             "omisecharge":self.omisecharge
         } 
+
+
 
 #Recently viewed + Most popular
 class Viewing(models.Model):
