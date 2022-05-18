@@ -8,6 +8,7 @@ from datetime import datetime
 from celery.schedules import crontab
 
 BROKER_URL = 'django://'
+timezone = 'Asia/Bangkok'
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project4.settings')
@@ -19,9 +20,10 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.beat_schedule = {
     'add-every-5-seconds': {
-        'task': 'network.tasks.send_email',
-        'schedule': 1.0,
-        'args': ('hpatel@aaravtech.com','This is sample message.')
+        'task': 'network.tasks.refund_user',
+       # 'schedule': 10.0
+       #utc thai time -8
+        'schedule': crontab(minute=2, hour=16)
     }
 }
 

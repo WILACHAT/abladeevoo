@@ -68,21 +68,18 @@ class PaymentPage extends React.Component {
   {
     Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
     this.saveInfo()
-
-    console.log("ok lets go")
-    //console.log(document.querySelector('#getinfluencerprice').dataset.price)
-   // console.log(parseInt(document.querySelector('#getinfluencerusername').dataset.username))
-    //console.log("value awkward", parseInt(document.querySelector('#getinfluencerprice').value))
-
-    console.log(document.querySelector('#getinfluencerusername').dataset.username)
-
-    console.log(parseInt(document.querySelector('#getinfluencerprice').dataset.price))
+    console.log("lenght", document.querySelector('#phonenumberid').value.length)
+    console.log("[0]", document.querySelector('#phonenumberid').value[0])
 
 
+    if (document.querySelector('#phonenumberid').value[0] == "0" && document.querySelector('#phonenumberid').value.length == 10)
+    {
+        console.log("correct")
+/*
     Omise.createSource('truemoney', {
         "amount":parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
         "currency": "THB",
-        "phone_number": "0812345679"
+        "phone_number": document.querySelector('#phonenumberid').value
     }, function(statusCode, response) {
     console.log("ftw", response['id'])
     console.log("this is the amount i have to fucking pay", document.querySelector('#getinfluencerprice').dataset.price)
@@ -106,7 +103,15 @@ class PaymentPage extends React.Component {
         
         })
     });
-  }
+  */
+    }
+
+    else
+    {
+        alert("Invalid Phone Number")
+    }
+    
+}
 
   
   submitPp(e)
@@ -226,6 +231,7 @@ class PaymentPage extends React.Component {
             divofpaymentpage: 
             <div>
             <h1>True Money</h1>
+            <input id="phonenumberid"></input>
              <div class="d-flex justify-content-center">
                <button onClick={this.submitTm} class="btn btn-primary">True Money</button>
              </div>

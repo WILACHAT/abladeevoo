@@ -91,41 +91,43 @@ var PaymentPage = function (_React$Component) {
         value: function submitTm(e) {
             Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
             this.saveInfo();
+            console.log("lenght", document.querySelector('#phonenumberid').value.length);
+            console.log("[0]", document.querySelector('#phonenumberid').value[0]);
 
-            console.log("ok lets go");
-            //console.log(document.querySelector('#getinfluencerprice').dataset.price)
-            // console.log(parseInt(document.querySelector('#getinfluencerusername').dataset.username))
-            //console.log("value awkward", parseInt(document.querySelector('#getinfluencerprice').value))
-
-            console.log(document.querySelector('#getinfluencerusername').dataset.username);
-
-            console.log(parseInt(document.querySelector('#getinfluencerprice').dataset.price));
-
-            Omise.createSource('truemoney', {
-                "amount": parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
-                "currency": "THB",
-                "phone_number": "0812345679"
-            }, function (statusCode, response) {
-                console.log("ftw", response['id']);
-                console.log("this is the amount i have to fucking pay", document.querySelector('#getinfluencerprice').dataset.price);
-
-                var getcooked = getCookie('csrftoken');
-                var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
-                fetch('/paymentapi/' + influencerusername, {
+            if (document.querySelector('#phonenumberid').value[0] == "0" && document.querySelector('#phonenumberid').value.length == 10) {
+                console.log("correct");
+                /*
+                    Omise.createSource('truemoney', {
+                        "amount":parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
+                        "currency": "THB",
+                        "phone_number": document.querySelector('#phonenumberid').value
+                    }, function(statusCode, response) {
+                    console.log("ftw", response['id'])
+                    console.log("this is the amount i have to fucking pay", document.querySelector('#getinfluencerprice').dataset.price)
+                
+                    const getcooked = getCookie('csrftoken')
+                    let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
+                
+                    
+                    fetch(`/paymentapi/${influencerusername}`, {
                     method: 'POST',
-                    headers: { 'X-CSRFToken': getcooked },
+                    headers:{'X-CSRFToken': getcooked},
                     body: JSON.stringify({
                         token: response["id"],
                         type: "truemoneypayment"
+                        })
                     })
-                }).then(function (response) {
-                    return response.json();
-                }).then(function (data) {
-                    //if data returns successful show beautiful success stuff
-                    window.location.href = data['url'];
-                });
-            });
+                    .then(response => response.json())
+                    .then(data => {
+                        //if data returns successful show beautiful success stuff
+                        window.location.href = data['url']
+                        
+                        })
+                    });
+                  */
+            } else {
+                alert("Invalid Phone Number");
+            }
         }
     }, {
         key: 'submitPp',
@@ -251,6 +253,7 @@ var PaymentPage = function (_React$Component) {
                             null,
                             'True Money'
                         ),
+                        React.createElement('input', { id: 'phonenumberid' }),
                         React.createElement(
                             'div',
                             { 'class': 'd-flex justify-content-center' },

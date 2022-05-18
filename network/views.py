@@ -15,7 +15,7 @@ from datetime import datetime
 import time
 from datetime import timedelta  
 from django.conf import settings
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as authd_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
@@ -102,6 +102,14 @@ def aboutus(request):
 
 def index(request):
     seconds = time.time()
+    #internet banking
+    #chrg_test_5rum3y82hqozzcladoc
+    #chrg_test_5rumbtxocxkiobgb6m8
+
+    charge = omise.Charge.retrieve('chrg_test_5rumbtxocxkiobgb6m8')
+    refund = charge.refund(amount=charge.amount)
+    #chrg_test_5rumavrji0q0vxmlyq5
+   # 
     print("Time in seconds since the epoch:", seconds)  
     '''OK, so how was the react show suggestion portal done???? 
     essentially first you go to index html here essentially to access index html
@@ -1175,7 +1183,6 @@ def paymentapi(request, username):
 
             return_response = {"url":hehe.download_uri}
 
-
             #https://api.omise.co/charges/chrg_test_5ru1r2mtx3spoe6udyl/documents/docu_test_5ru1r2pbhjq0z7gw32i/downloads/10A1780DBA73BF02
 
         elif data["type"] == "truemoneypayment":
@@ -1198,7 +1205,6 @@ def paymentapi(request, username):
         print(charge.status)
         print(charge.source)
 
-
         #go to a successpage smth like that if successful
         #go to unsuccessful page!
 
@@ -1206,7 +1212,6 @@ def paymentapi(request, username):
       #  print("this is the charge id", charge.id)
         #chrg_test_5rtm4r4uygzmoz6teo8
         #chrg_test_5rtn2uvl5pit5ab2td9
-
 
         #THIS IS HOW YOU REFUND
        # charge = omise.Charge.retrieve("chrg_test_5rtm4r4uygzmoz6teo8")
