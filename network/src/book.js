@@ -26,25 +26,29 @@ class PaymentPage extends React.Component {
     
     this.saveInfo = this.saveInfo.bind(this);
 
-
-
-
     this.state = {
         statusib: "ksbtnid",
         divofpaymentpage: 
         <div class="d-flex justify-content-center">
+      
+
         <div>
             <div id="token_errors"></div>
         
             <input type="hidden" name="omise_token"></input>
         
             <div>
-            Name<br></br>
-            <input type="text" data-omise="holder_name"></input>
+                <div class="d-flex justify-content-start">
+                    <label class="labelpayment">Name</label>
+                </div>
+                <div>
+                    <input class="paymentinput" type="text" data-omise="holder_name"></input>
+                </div>
             </div>
+            
             <div>
             Number<br></br>
-            <input type="text" data-omise="number"></input>
+            <input class="paymentinput" type="text" data-omise="number"></input>
             </div>
             <div>
             Date<br></br>
@@ -53,7 +57,7 @@ class PaymentPage extends React.Component {
             </div>
             <div>
             Security Code<br></br>
-            <input type="text" data-omise="security_code" size="8"></input>
+            <input class="paymentinput" type="text" data-omise="security_code" size="8"></input>
             </div>
             <input id="tokenhiddenid"type="hidden" data-tokenid=""></input>
           
@@ -215,7 +219,11 @@ class PaymentPage extends React.Component {
             <input type="text" data-omise="security_code" size="8"></input>
             </div>
             <input id="tokenhiddenid"type="hidden" data-tokenid=""></input>
-            
+
+            <div class="field-container">
+            <label for="name">Name</label>
+            <input id="name" maxlength="20" type="text"></input>
+            </div>            
 
         
             <input type="submit" onClick={this.submitCc} id="create_token"></input>
@@ -402,6 +410,8 @@ class PaymentPage extends React.Component {
         </div>
 
         {this.state.divofpaymentpage}
+     
+        <h1></h1>
    
     </div>
     )
@@ -417,6 +427,7 @@ class BookPage extends React.Component {
       this.changeOccasionReserve = this.changeOccasionReserve.bind(this);
       this.saveReserve = this.saveReserve.bind(this);
       document.querySelector('#paymentpage').hidden = true
+
 
       //the number of steps can be state as well i believe
       this.state = {
@@ -621,19 +632,24 @@ class BookPage extends React.Component {
     
     else
     {
-            let data = {"typeintro":typeintro, "tointro":tointro, "fromintro":fromintro, "typeoccasion": typeoccasion, 
-            "firstinputocca":firstinputocca, "secondinputocca":secondinputocca, "thirdinputocca":thirdinputocca,
-            "fourthinputocca": fourthinputocca, "datetime":datetime, "inputcheck":inputcheck}
-
             document.querySelector('#paymentpage').hidden = false
             document.querySelector('#wholereservepage').hidden = true
-            ReactDOM.render(<PaymentPage data={data}/>, document.querySelector('#paymentpage'));
-           
-           
+            document.querySelector('#realpayment').hidden = false
+            
+            document.querySelector('#storevalueid').value = JSON.stringify({
+                typeintro: typeintro,
+                tointro: tointro,
+                fromintro: fromintro,
+                typeoccasion: typeoccasion,
+                firstinputocca: firstinputocca,
+                secondinputocca: secondinputocca,
+                thirdinputocca: thirdinputocca,
+                fourthinputocca: fourthinputocca,
+                datetime: datetime,
+                inputcheck: inputcheck
+            })
+           // ReactDOM.render(<PaymentPage data={data}/>, document.querySelector('#paymentpage'));
     }
-    
-
-
     
     }
     
@@ -815,6 +831,17 @@ class BookPage extends React.Component {
     
     render() {
         console.log("this.state.colorof1", this.state.colorof1)
+        let waan = {name:"val", name2:"val"}
+        waan = JSON.stringify(waan);
+        console.log(waan)
+
+        //document.getElementById('dicttest').value = "waan"
+        //console.log("checkery checkcheck", document.getElementById('dicttest').value)
+        //console.log(Object.values(document.getElementById('dicttest').value))
+        //console.log(Object.keys(document.getElementById('dicttest').value))
+
+
+
 
         return (
          <div>
@@ -865,8 +892,6 @@ class BookPage extends React.Component {
 
             </div>
 
-              
-
             <div class="d-flex justify-content-center mt-2">
                 <label class="wa">ต้องการก่อนวันที่เท่าไหร่</label>
             </div>
@@ -884,17 +909,8 @@ class BookPage extends React.Component {
             </div>
 
             <div class="d-flex justify-content-center mt-2 mb-5">
-                <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="Reserve"class="btn btn-primary"/>
+                <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="Payment"class="btn btn-primary"/>
             </div>
-
-
-            <div>
-                <h1>what the fuck is going on luv u</h1>
-            </div>
-            <image src="qrcode_test.svg"></image>
-            <image src="https://api.omise.co/charges/chrg_test_5ru1sxuskpswn2uq7pp/documents/docu_test_5ru1sxx1mmeh32yimit/downloads/7F1B365DFF8A5643"></image>
-
-           
 
          </div>
         )
@@ -904,10 +920,14 @@ class BookPage extends React.Component {
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#paymentpage').hidden = true
+    document.querySelector('#realpayment').hidden = true
+
     var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
     fetch(`/gotobook/${influencerusername}`)
     .then(response => response.json())
     .then(data => {
+       // ReactDOM.render(<PaymentPage/>, document.querySelector('#paymentpage'));
+
         ReactDOM.render(<BookPage data={data}/>, document.querySelector('#wholereservepage'));
 
   });

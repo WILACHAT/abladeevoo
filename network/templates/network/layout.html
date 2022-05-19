@@ -20,6 +20,8 @@
       <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Concert+One&family=Londrina+Outline&family=Luckiest+Guy&family=Orelega+One&family=Sarabun:wght@600&display=swap" rel="stylesheet">        
       <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
       <script type="text/javascript" src="https://cdn.omise.co/omise.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 
       <script type="text/javascript">
@@ -163,8 +165,8 @@
           อื่นๆ
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="nav-link" href="{% url 'setting' %}">Settings</a>
           <a class="nav-link" href="{% url 'legal' %}">Legal</a>
-          <a class="nav-link" href="{% url 'helpcenter' %}">Help Center</a>
           <a class="nav-link" href="{% url 'aboutus' %}">About Us</a>
           <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
         </div>

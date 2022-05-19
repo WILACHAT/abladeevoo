@@ -8,9 +8,11 @@ from cloudinary.models import CloudinaryField
 
 #what is going on here
 class User(AbstractUser):
+    #1 active #2 "deleted" #3 hide
     influencer_ornot = models.BooleanField(default=False)
     freeze_account = models.BooleanField(default=True)
     normal_user_pic = models.CharField(max_length=256, null=True)
+
     pass
     def serialize(self):
         return {

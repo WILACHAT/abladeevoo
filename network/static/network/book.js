@@ -52,16 +52,27 @@ var PaymentPage = function (_React$Component) {
                     React.createElement(
                         'div',
                         null,
-                        'Name',
-                        React.createElement('br', null),
-                        React.createElement('input', { type: 'text', 'data-omise': 'holder_name' })
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-start' },
+                            React.createElement(
+                                'label',
+                                { 'class': 'labelpayment' },
+                                'Name'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement('input', { 'class': 'paymentinput', type: 'text', 'data-omise': 'holder_name' })
+                        )
                     ),
                     React.createElement(
                         'div',
                         null,
                         'Number',
                         React.createElement('br', null),
-                        React.createElement('input', { type: 'text', 'data-omise': 'number' })
+                        React.createElement('input', { 'class': 'paymentinput', type: 'text', 'data-omise': 'number' })
                     ),
                     React.createElement(
                         'div',
@@ -76,7 +87,7 @@ var PaymentPage = function (_React$Component) {
                         null,
                         'Security Code',
                         React.createElement('br', null),
-                        React.createElement('input', { type: 'text', 'data-omise': 'security_code', size: '8' })
+                        React.createElement('input', { 'class': 'paymentinput', type: 'text', 'data-omise': 'security_code', size: '8' })
                     ),
                     React.createElement('input', { id: 'tokenhiddenid', type: 'hidden', 'data-tokenid': '' }),
                     React.createElement('input', { type: 'submit', onClick: _this.submitCc, id: 'create_token' })
@@ -239,6 +250,16 @@ var PaymentPage = function (_React$Component) {
                                 React.createElement('input', { type: 'text', 'data-omise': 'security_code', size: '8' })
                             ),
                             React.createElement('input', { id: 'tokenhiddenid', type: 'hidden', 'data-tokenid': '' }),
+                            React.createElement(
+                                'div',
+                                { 'class': 'field-container' },
+                                React.createElement(
+                                    'label',
+                                    { 'for': 'name' },
+                                    'Name'
+                                ),
+                                React.createElement('input', { id: 'name', maxlength: '20', type: 'text' })
+                            ),
                             React.createElement('input', { type: 'submit', onClick: this.submitCc, id: 'create_token' })
                         )
                     )
@@ -494,7 +515,8 @@ var PaymentPage = function (_React$Component) {
                         'PromptPay'
                     )
                 ),
-                this.state.divofpaymentpage
+                this.state.divofpaymentpage,
+                React.createElement('h1', null)
             );
         }
     }]);
@@ -718,13 +740,23 @@ var BookPage = function (_React$Component2) {
             } else if (checkblank == 2) {
                 alert("Time must be atleast 1 day ahead");
             } else {
-                var data = { "typeintro": typeintro, "tointro": tointro, "fromintro": fromintro, "typeoccasion": typeoccasion,
-                    "firstinputocca": firstinputocca, "secondinputocca": secondinputocca, "thirdinputocca": thirdinputocca,
-                    "fourthinputocca": fourthinputocca, "datetime": datetime, "inputcheck": inputcheck };
-
                 document.querySelector('#paymentpage').hidden = false;
                 document.querySelector('#wholereservepage').hidden = true;
-                ReactDOM.render(React.createElement(PaymentPage, { data: data }), document.querySelector('#paymentpage'));
+                document.querySelector('#realpayment').hidden = false;
+
+                document.querySelector('#storevalueid').value = JSON.stringify({
+                    typeintro: typeintro,
+                    tointro: tointro,
+                    fromintro: fromintro,
+                    typeoccasion: typeoccasion,
+                    firstinputocca: firstinputocca,
+                    secondinputocca: secondinputocca,
+                    thirdinputocca: thirdinputocca,
+                    fourthinputocca: fourthinputocca,
+                    datetime: datetime,
+                    inputcheck: inputcheck
+                });
+                // ReactDOM.render(<PaymentPage data={data}/>, document.querySelector('#paymentpage'));
             }
         }
     }, {
@@ -1001,6 +1033,15 @@ var BookPage = function (_React$Component2) {
         key: 'render',
         value: function render() {
             console.log("this.state.colorof1", this.state.colorof1);
+            var waan = { name: "val", name2: "val" };
+            waan = JSON.stringify(waan);
+            console.log(waan);
+
+            //document.getElementById('dicttest').value = "waan"
+            //console.log("checkery checkcheck", document.getElementById('dicttest').value)
+            //console.log(Object.values(document.getElementById('dicttest').value))
+            //console.log(Object.keys(document.getElementById('dicttest').value))
+
 
             return React.createElement(
                 'div',
@@ -1168,19 +1209,8 @@ var BookPage = function (_React$Component2) {
                 React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center mt-2 mb-5' },
-                    React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: 'Reserve', 'class': 'btn btn-primary' })
-                ),
-                React.createElement(
-                    'div',
-                    null,
-                    React.createElement(
-                        'h1',
-                        null,
-                        'what the fuck is going on luv u'
-                    )
-                ),
-                React.createElement('image', { src: 'qrcode_test.svg' }),
-                React.createElement('image', { src: 'https://api.omise.co/charges/chrg_test_5ru1sxuskpswn2uq7pp/documents/docu_test_5ru1sxx1mmeh32yimit/downloads/7F1B365DFF8A5643' })
+                    React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: 'Payment', 'class': 'btn btn-primary' })
+                )
             );
         }
     }]);
@@ -1190,10 +1220,14 @@ var BookPage = function (_React$Component2) {
 
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#paymentpage').hidden = true;
+    document.querySelector('#realpayment').hidden = true;
+
     var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
     fetch('/gotobook/' + influencerusername).then(function (response) {
         return response.json();
     }).then(function (data) {
+        // ReactDOM.render(<PaymentPage/>, document.querySelector('#paymentpage'));
+
         ReactDOM.render(React.createElement(BookPage, { data: data }), document.querySelector('#wholereservepage'));
     });
 });

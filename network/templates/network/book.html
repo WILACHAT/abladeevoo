@@ -11,14 +11,43 @@
         <h4 class="wa">รีเควสใหม่ถึง {{ username }}</h4>
 </div>
 
+
 <div id="wholereservepage"></div>
-<div id="paymentpage"></div>
 <div id="status"></div>
-        
+
+
+
+<div id="paymentpage"></div>
+<div id="realpayment">
+        <form id="checkoutForm" method="POST" action="/paymentapi/{{ username }}" >
+                {% csrf_token %}
+                <script type="text/javascript" src="https://cdn.omise.co/omise.js"
+                        data-key="pkey_test_5rsv5lm4gxeb5fc9i2k"
+                        data-amount= "{{ price }}"
+                        data-currency="THB"
+                        data-default-payment-method="credit_card"
+                        data-other-payment-methods="truemoney, internet_banking, promptpay"
+                        data-button-label="จ่ายเงิน">
+                        
+                </script>
+                <input id="storevalueid" name="storevalue" id="dicttest"type="hidden" value="waandictionary"></input>
+
+        </form> 
 </div>
+        
 
 
 
+ <!--
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgIHhtbG5zOnY9Imh0dHBzOi8vdmVjdGEuaW8vbmFubyI+PHBhdGggZD0iTTkuOTU3IDcuNzY4QTEuMTIgMS4xMiAwIDAgMCA4Ljk1NiA3SDEuNTdjLS40MjUgMC0uNjYzLjM0NS0uNTM2Ljc2OGw0LjE3IDEzLjk5NmExLjEyIDEuMTIgMCAwIDAgLjk5OS43NjhoNi4wNjVjLjQ3MS0uMDMzLjg4My0uMzMgMS4wNjctLjc2OGwuNDQ4LTEuMTYzTDkuOTU3IDcuNzY4eiIgZmlsbD0iI2VkMWMyNCIvPjxwYXRoIGQ9Ik0xOC42OTIgMTEuMjI1aC03LjI5NWMtLjQ4MiAwLS42ODguMzQ1LS44MzkuNzY4bC0zLjQwMiA5Ljc2NWExLjIgMS4yIDAgMCAxLTEuMDM3Ljc2OGg4LjYyOWExLjIgMS4yIDAgMCAwIDEuMDM5LS43NjhsMy40MDQtOS43NjVjLjE0Ny0uNDIyLS4wNzYtLjc2OC0uNDk5LS43Njh6IiBmaWxsPSIjOWUwYjBmIi8+PHBhdGggZD0iTTE5Ljc1NiAxMS45OTNhMS4xMiAxLjEyIDAgMCAwLS45OTktLjc2OGgtNy4zODhjLS40MjMgMC0uNjYzLjM0Ny0uNTM2Ljc2OGwzLjQ2NSAxMS43MDVjLjE0Ni40MzcuNTQxLjc0MS45OTkuNzY4aDYuMDY1YTEuMjYgMS4yNiAwIDAgMCAxLjA2Ny0uNzY4bC40NDgtMS4xNjMtMy4xMjItMTAuNTQyeiIgZmlsbD0iI2ZmY2UwMSIvPjxwYXRoIGQ9Ik0zMC4xOTcgOC43NWgtNy44NGMtLjQ3LjAzNC0uODgyLjMzLTEuMDY1Ljc2OEwxNi4zNSAyMy42OTljLS4xODMuNDM2LS41OTMuNzMzLTEuMDYyLjc2OGg5LjM3NGMuNDctLjAzNC44ODItLjMzIDEuMDY1LS43NjhMMzAuNjcgOS41MjNjLjE2Mi0uNDI4LS4wNS0uNzczLS40NzMtLjc3M3oiIGZpbGw9IiNmZjgzMDAiLz48L3N2Zz4=" alt="TrueMoney Wallet" class="__image__">
+creditcard
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgIGZpbGwtcnVsZT0iZXZlbm9kZCIgeG1sbnM6dj0iaHR0cHM6Ly92ZWN0YS5pby9uYW5vIj48cGF0aCBkPSJNNC41NjQgN2gyMi44NzJjLjg5MiAwIDEuMjE1LjA5MyAxLjU0MS4yNjdzLjU4Mi40My43NTYuNzU2LjI2Ny42NDkuMjY3IDEuNTQxdjE0Ljg3MmMwIC44OTItLjA5MyAxLjIxNS0uMjY3IDEuNTQxcy0uNDMuNTgyLS43NTYuNzU2LS42NDkuMjY3LTEuNTQxLjI2N0g0LjU2NGMtLjg5MiAwLTEuMjE1LS4wOTMtMS41NDEtLjI2N3MtLjU4Mi0uNDMtLjc1Ni0uNzU2UzIgMjUuMzI4IDIgMjQuNDM2VjkuNTY0YzAtLjg5Mi4wOTMtMS4yMTUuMjY3LTEuNTQxcy40My0uNTgyLjc1Ni0uNzU2UzMuNjcyIDcgNC41NjQgN3oiIGZpbGw9IiNkMGQ2ZTIiLz48cGF0aCBkPSJNMTEgMjJ2Mkg1di0yaDZ6bTEwLTR2Mkg1di0yaDE2eiIgZmlsbD0iI2ZmZiIvPjxyZWN0IGZpbGw9IiMyMTc2ZmYiIHg9IjUiIHk9IjEwIiB3aWR0aD0iNSIgaGVpZ2h0PSI0IiByeD0iMSIvPjwvc3ZnPg==" alt="Credit / Debit" class="__image__">
+
+promptpay
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgIGZpbGwtcnVsZT0iZXZlbm9kZCIgeG1sbnM6dj0iaHR0cHM6Ly92ZWN0YS5pby9uYW5vIj48cGF0aCBkPSJNNC41NjQgN2gyMi44NzJjLjg5MiAwIDEuMjE1LjA5MyAxLjU0MS4yNjdzLjU4Mi40My43NTYuNzU2LjI2Ny42NDkuMjY3IDEuNTQxdjE0Ljg3MmMwIC44OTItLjA5MyAxLjIxNS0uMjY3IDEuNTQxcy0uNDMuNTgyLS43NTYuNzU2LS42NDkuMjY3LTEuNTQxLjI2N0g0LjU2NGMtLjg5MiAwLTEuMjE1LS4wOTMtMS41NDEtLjI2N3MtLjU4Mi0uNDMtLjc1Ni0uNzU2UzIgMjUuMzI4IDIgMjQuNDM2VjkuNTY0YzAtLjg5Mi4wOTMtMS4yMTUuMjY3LTEuNTQxcy40My0uNTgyLjc1Ni0uNzU2UzMuNjcyIDcgNC41NjQgN3oiIGZpbGw9IiNkMGQ2ZTIiLz48cGF0aCBkPSJNMTEgMjJ2Mkg1di0yaDZ6bTEwLTR2Mkg1di0yaDE2eiIgZmlsbD0iI2ZmZiIvPjxyZWN0IGZpbGw9IiMyMTc2ZmYiIHg9IjUiIHk9IjEwIiB3aWR0aD0iNSIgaGVpZ2h0PSI0IiByeD0iMSIvPjwvc3ZnPg==" alt="Credit / Debit" class="__image__">
+
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgIGZpbGwtcnVsZT0iZXZlbm9kZCIgeG1sbnM6dj0iaHR0cHM6Ly92ZWN0YS5pby9uYW5vIj48cGF0aCBkPSJNMTggMTN2MTNoNVYxM2gtNXptLTkgMHYxM2g1VjEzSDl6bTE4IDEzaDN2NEgydi00aDNWMTNIMlY5bDE0LTcgMTQgN3Y0aC0zdjEzeiIgZmlsbD0iI2QwZDZlMiIvPjxjaXJjbGUgZmlsbD0iIzIxNzZmZiIgY3g9IjE2IiBjeT0iOCIgcj0iMiIvPjwvc3ZnPg==" alt="Internet Banking" class="__image__">
+internetbanking-->
 
 {% endblock %}
 {% block script %}

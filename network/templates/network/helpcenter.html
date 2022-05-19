@@ -1,5 +1,105 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    help center
+    <script>
+        function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+        function accountfunc(todo)
+        {
+            if (todo == "delete")
+            {
+                Swal.fire({
+        title: '<strong>HTML <u>example</u></strong>',
+        icon: 'info',
+        html:
+                    
+            'Are you <b>certain</b> that you want to delete the account. Everything will be deleted from the database and you will not be able to access your account again.',
+      
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+            '<i class="fa fa-thumbs-up"></i> Delete Account',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        cancelButtonText:
+        'No',
+        cancelButtonAriaLabel: 'Thumbs down '
+        })
+        .then((result) => { 
+            console.log(result) 
+            const getcooked = getCookie('csrftoken')
+            if (result["isConfirmed"] == true)
+            {
+                fetch(`/setting`, {
+                method: 'POST',
+                headers:{'X-CSRFToken': getcooked},
+                body: "delete"
+                })
+            }
+            
+        
+        })
+            }
+        else
+        {
+            Swal.fire({
+        title: '<strong>HTML <u>example</u></strong>',
+        icon: 'info',
+        html:
+                    
+            'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
+      
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+            '<i class="fa fa-thumbs-up"></i> Pause Account',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        cancelButtonText:
+        '<i class="fa fa-thumbs-up"></i> No',
+        cancelButtonAriaLabel: 'Thumbs down'
+        })
+        .then((result) => { 
+            console.log(result) 
+            const getcooked = getCookie('csrftoken')
+            if (result["isConfirmed"] == true)
+            {
+                fetch(`/setting`, {
+                method: 'POST',
+                headers:{'X-CSRFToken': getcooked},
+                body: "pause"
+                })
+            }
+        
+        })
+            
+    
+    }
+        }
+           
+    
+    </script>
+   
+    <h1 class="godown">Account</h1>
+    {% if user.influencer_ornot == 1 %}
+        <button onclick="accountfunc('pause')">Pause Account</button>
+        <button onclick="accountfunc('delete')">Delete Account</button>
+    {% else %}
+        <button onclick="accountfunc('delete')">Delete Account</button>
+    {% endif %}
+    <h1>Help Center</h1>
+
 {% endblock %}

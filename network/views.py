@@ -106,8 +106,8 @@ def index(request):
     #chrg_test_5rum3y82hqozzcladoc
     #chrg_test_5rumbtxocxkiobgb6m8
 
-    charge = omise.Charge.retrieve('chrg_test_5rumbtxocxkiobgb6m8')
-    refund = charge.refund(amount=charge.amount)
+   # charge = omise.Charge.retrieve('chrg_test_5rumbtxocxkiobgb6m8')
+    #refund = charge.refund(amount=charge.amount)
     #chrg_test_5rumavrji0q0vxmlyq5
    # 
     print("Time in seconds since the epoch:", seconds)  
@@ -142,7 +142,7 @@ def usersettingapi(request):
         User.objects.filter(id = request.user.id).update(normal_user_pic = data["profilepic"], first_name = data["firstname"], last_name = data["lastname"]
         ,email = data["email"], username = data["username"])
     return_request = {"what":"ngong"}
-    normal_user_info = User.objects.filter(id = request.user.id)
+    normal_user_info = User.objects.filter(id = request.user.id, is_active = True)
 
     
     data = []
@@ -172,7 +172,7 @@ def inzwerg4jgnsd9aadif67(request):
             popularpuller = w.serialize()
             popularpuller["profile_picture"] = w.profile_picture
             popularpuller["fullname"] = w.profile_fullname
-            users = User.objects.filter(id=i["influencer_id"])
+            users = User.objects.filter(id=i["influencer_id"], is_active = True)
             for user in users:
                 popularpuller["username"] = user.username
 
@@ -226,7 +226,7 @@ def inzwerg4jgnsd9aadif67(request):
 
             
             
-            influencers = User.objects.filter(id__in = listofcloseuser)
+            influencers = User.objects.filter(id__in = listofcloseuser, is_active = True)
             
        
     newdata = []
@@ -333,7 +333,7 @@ def gotoinfluencer(request, username, feedtype):
         #can be fixed somehow??
         reviews = Reviews.objects.filter(user_id_reviewed_id = influencerid)
         for i in reviews:
-            userreviewer= User.objects.filter(id = i.user_id_reviewer_id)
+            userreviewer= User.objects.filter(id = i.user_id_reviewer_id,is_active = True)
             for w in userreviewer:
                 w.username
                 w.normal_user_pic
@@ -400,7 +400,7 @@ def book(request, username):
     checker = Userinfo.objects.values('price').get(influencer_id = influencerid)
     price = int(checker['price'])
 
-
+    '''
     if request.method == "POST":
         data = json.loads(request.body)
         print(data)
@@ -415,8 +415,9 @@ def book(request, username):
         show=data["inputcheck"])
         
         bookrequest.save()
+    '''
   
-    return render(request, "network/book.html", {'username': username, "price": price})
+    return render(request, "network/book.html", {'username': username, "price": price * 100})
 
 def gotobook(request, username):
     return_request = {"username":username}
@@ -503,7 +504,7 @@ def gotozjguen484s9gj302g(request, paginationid):
 
             for i in reserveinfo:
             #print("reserveeeeeeeeeeeeeeeee;leme;lme;lme;emleeeeeee", reserveinfo.user_id_reserver_id)
-                userreviewer= User.objects.filter(id = i.user_id_reserver_id)
+                userreviewer= User.objects.filter(id = i.user_id_reserver_id ,is_active = True)
             
                 for w in userreviewer:
                     propicandusername.append(w.username)
@@ -590,7 +591,7 @@ def gotoeachreserve(request):
             price = (int(checker['price']) * 0.85)  * 100
             recipientinfluencer = omise.Recipient.retrieve(checker['omiserecipent'])
             transfer = omise.Transfer.create(
-            amount=price, recipient="recp_test_5rt1s1k1wunrfeumb9n",paid=True, sent=True)
+            amount=price, recipient=recipientinfluencer.id,paid=True, sent=True)
             
             Reservation.objects.filter(id=data["reserveid"]).update(completed = True, completiondate = today)
         
@@ -629,7 +630,19 @@ def gotoeachreserve(request):
 def legal(request):
     return render(request, "network/legal.html")
 
-def helpcenter(request):
+def setting(request):
+    if request.method == "POST":
+        print(request.body)
+        print(request.body)
+        what = str(request.body)
+        if what == "b'delete'":
+            print("delete")
+            #User.objects.filter(id = request.user.id).delete()
+        
+        else:
+            print("hide")
+            User.objects.filter(id = request.user.id).update(is_active = False)
+
     return render(request, "network/helpcenter.html")
 
 #TWO BUTTONS WHICH IS TWO DIFFERENT FUNCTION IN THE REACT WAY
@@ -903,6 +916,7 @@ def payment(request):
 
 def paymentsetupapi(request):
     return_response = "hi"
+    
 
     if request.method == "POST":
         data = json.loads(request.body)
@@ -1098,16 +1112,13 @@ class PasswordResetCompleteView(PasswordContextMixin, TemplateView):
         return context
 
 def paymentresponse(request):
-    chargestuff = Reservation.objects.filter(user_id_reserver_id=request.user.id).order_by('-user_id_reserver_id')[:1]
-    for i in chargestuff:
-        print("another chargestuff", i.omisecharge)
+    chargestuff = Reservation.objects.filter(user_id_reserver_id=request.user.id).order_by('-user_id_reserver_id')[0]
+    chargo = chargestuff.omisecharge
+    print(chargo)
 
+    charge = omise.Charge.retrieve(chargo)
+    print(charge.status)
 
-        chargeid = i.omisecharge
-        print("thanks the lord of christ", chargeid)
-    
-
-    charge = omise.Charge.retrieve(chargeid)
     if charge.status == "successful":
         status = "successful"
         Reservation.objects.filter(user_id_reserver_id=request.user.id).update(chargestatus = True)
@@ -1121,11 +1132,74 @@ def paymentapi(request, username):
     return_response = "hi"
     print("ypyp")
     if request.method == "POST":
+        
+        influencerid = User.objects.values('id').get(username=username)
+        influencerid = influencerid["id"]
+        checker = Userinfo.objects.values('omiserecipent', 'price').get(influencer_id = influencerid)
+        price = int(checker['price'])
+        price = price * 100
+        data = json.loads(request.POST["storevalue"])
+
+        print("wawa", request.POST["storevalue"])
+
+        if request.POST['omiseToken'] == "":
+            token = request.POST['omiseSource']
+            print("this is token", token)
+
+            omise.api_version = "2019-05-29"
+            charge = omise.Charge.create(
+            amount=price,
+            currency="thb",
+            capture=True,
+            return_uri = "http://127.0.0.1:8000/paymentresponse",
+            source=token
+            )
+
+        else:
+            token = request.POST['omiseToken']
+            print("this is token", token)
+            
+            charge = omise.Charge.create(
+            amount=price,
+            currency="thb",
+            capture=True,
+            card=token)
+
+        bookrequest =  Reservation(typeintro=data['typeintro'],
+        tointro=data['tointro'], fromintro=data['fromintro'], typeoccasion=data['typeoccasion'],
+        firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
+        thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],
+        user_id_reserver_id=request.user.id,user_id_influencerreserve_id=influencerid, duedate=data["datetime"], 
+        show=data["inputcheck"], omisecharge = charge.id)
+        
+        bookrequest.save()
+
+
+
+        if request.POST['omiseToken'] == "":
+
+            return redirect(charge.authorize_uri)
+        else:
+
+            return redirect("paymentresponse")
+
+
+        print("this is fucking token lets go", token)
+
+        HttpResponseRedirect(reverse("paymentresponse"))
+
+
+
+        
+        
+       # print(request.omiseToken)
+       # print(request.body)
+
+
         influencerid = User.objects.values('id').get(username=username)
         influencerid = influencerid["id"]
         checker = Userinfo.objects.values('omiserecipent', 'price').get(influencer_id = influencerid)
 
-        recipientinfluencer = omise.Recipient.retrieve(checker['omiserecipent'])
         
         price = int(checker['price'])
 
@@ -1137,7 +1211,6 @@ def paymentapi(request, username):
         #Transfer to our bank account
        # transfer = omise.Transfer.create(amount=price)
 
-        
        # Userinfo.objects.filter()
         data = json.loads(request.body)
         print("this is id of token", data["token"])
@@ -1173,6 +1246,8 @@ def paymentapi(request, username):
             return_uri = "http://127.0.0.1:8000/paymentresponse",
             source=data["token"]
             )
+
+            '''
             return_response = {"url":charge.authorize_uri}
             print("this is source of charge", charge.source)
             ye = charge.source
@@ -1182,6 +1257,7 @@ def paymentapi(request, username):
             print(hehe.download_uri)
 
             return_response = {"url":hehe.download_uri}
+            '''
 
             #https://api.omise.co/charges/chrg_test_5ru1r2mtx3spoe6udyl/documents/docu_test_5ru1r2pbhjq0z7gw32i/downloads/10A1780DBA73BF02
 
@@ -1205,53 +1281,7 @@ def paymentapi(request, username):
         print(charge.status)
         print(charge.source)
 
-        #go to a successpage smth like that if successful
-        #go to unsuccessful page!
+    
 
-        #needs to ao charge id charge.id
-      #  print("this is the charge id", charge.id)
-        #chrg_test_5rtm4r4uygzmoz6teo8
-        #chrg_test_5rtn2uvl5pit5ab2td9
+    return redirect("paymentresponse")
 
-        #THIS IS HOW YOU REFUND
-       # charge = omise.Charge.retrieve("chrg_test_5rtm4r4uygzmoz6teo8")
-       # refund = charge.refund(amount=1000000)
-       # print(refund.id)
-       # print(refund.amount)
-       # print(refund.charge)
-
-
-
-       # Transfer to influencer's account
-       # transfer = omise.Transfer.create(
-       # amount=price, recipient=recipientinfluencer
-       # )
-       
-       # transfer = omise.Transfer.create(
-       # amount=100000, recipient="recp_test_5rt1s1k1wunrfeumb9n",paid=True, sent=True)
-       # newtransfer = omise.Transfer.retrieve("trsf_test_5rtny2k5sw0ba8kkb1s")
-       # newtransfer.update(sent=True, paid=True)
-
-       # print(transfer.id)
-       # print(transfer.bank_account)
-       # print(transfer.paid)
-       # print(transfer.sent)
-
-        #transaction = omise.Transfer.retrieve("trsf_test_5rtnswjv09i8f39weqa")
-        ##print("this is transaction paid", transaction.paid)
-        #print("this is transaction sent", transaction.sent)
-        #print("this is transaction sent", type(transaction.sent))
-
-
-
-
-        #recp_test_5rt1s1k1wunrfeumb9n
-
-
-       # print(charge.status)
-        #failed, expired, pending, reversed or successful
-      #  print(charge)
-
-
-
-    return JsonResponse(return_response, safe=False)
