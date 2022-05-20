@@ -12,6 +12,7 @@ class User(AbstractUser):
     influencer_ornot = models.BooleanField(default=False)
     freeze_account = models.BooleanField(default=True)
     normal_user_pic = models.CharField(max_length=256, null=True)
+    accountstatus = models.CharField(max_length=256, default="1")
 
     pass
     def serialize(self):

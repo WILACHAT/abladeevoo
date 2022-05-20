@@ -3,7 +3,7 @@
 }
 body
 {
-  background: linear-gradient(#00C9FF, #92FE9D);
+  background-color:#e6e9ee;
   
 }
 
@@ -176,17 +176,29 @@ html, body {
 .secondintrodiv
 {
   width: 100%;
-  padding: 6rem 3rem;
-  justify-content: center;
-  background-color:#02d667  ;
+  background-color:#094FCB;
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+
   display: flex;
   height:625px;
+}
+.okokok
+{
+  margin-top: 50px;
 }
 
 .content {
   flex: 1;
   display: flex;
   overflow: auto;
+  background-color: white;
+  border-radius:15px;
+  padding-right:3%;
+  padding-left:3%;
+
+  padding-top: 3%;
+
+
 }
 
 .box {
@@ -237,6 +249,7 @@ html, body {
     min-height: min-content; /* needs vendor prefixes */
     flex-direction: column;
     justify-content: center;
+  
     
   }
   .goodmorning
@@ -278,8 +291,8 @@ html, body {
 }
 .introwords2
 {
-  color:#094FCB;
-  font-size: 150%;
+  color:white;
+  font-size: 225%;
   font-family: 'Sarabun';
 }
 .introwordsseconddiv
@@ -290,13 +303,58 @@ html, body {
   --animate-duration: 3s;
 
 }
+.forbox
+{
+  margin-top:100px;
+}
+.boxsug1
+{
+  width:15%;
+  background-color: white;
+  height:150px;
+  opacity: 0.5;
+  border-radius: 10px;
+  padding:10px;
+  font-family: 'Sarabun';
+
+
+}
+
+.inboxsugnumber
+{
+  background-color: red;
+  opacity: 2;
+
+  border-radius: 100%;
+  width:20%;
+  
+}
+.inboxsugn
+{
+  color:white;
+  margin-top:8px;
+  font-size:125%;
+}
+.inboxsugt
+{
+  font-family: 'Sarabun';
+  font-size:110%;
+  color:black;
+
+}
+.inboxsugtitle
+{
+  margin-top:12px;
+}
+
+
 
 /* CSS */
 .button-53 {
-  background-color: #0d19a3;;
+  background-color: #FFEF00;;
   border: 0 solid #E5E7EB;
   box-sizing: border-box;
-  color: white;
+  color: black;
   display: flex;
   font-family: 'Sarabun';
   font-size: 1rem;
@@ -1125,5 +1183,169 @@ margin-bottom: 0px;
   display: inline-block;
   font-size: 100%;
   border-radius: 5px;
+
+}
+ *:before, *:after {
+  box-sizing: inherit;
+}
+
+.firstrow{
+  color:white;
+  text-align:center;
+  font-family:sarabun;
+  padding-bottom:200px;
+  padding-top:50px;
+  background-image: linear-gradient( #000099,#094FCB,#62EE1E,#66ff33, white);
+}
+
+.vidmaaboutus{
+  font-family: 'Bangers';
+  color:whitesmoke;
+  text-shadow: 6px 6px #FF336F;
+  font-size:140px;
+  margin-bottom:5px;
+}
+
+#description{
+font-size:20px;
+}
+
+.part2{
+  margin-top:100px;
+}
+
+.firstpara{
+  float:left;
+  font-size:25px;
+  margin-left:200px;
+  margin-right:1000px;
+  display:flex;
+  background-color: white;
+}
+
+#secondpart{
+ 
+  text-align:center;
+  color:#094FCB;
+  text-shadow: 2px 2px #62EE1E;
+  font-size:50px;
+}
+
+.video1{
+
+ float:right;
+ 
+}
+
+.boxbtn{
+  height: 200px;
+  position: relative;
+  margin-left:200px;
+}
+
+.buttonaboutus{
+  margin:left;
+  width: 150px;
+  font-size:17px;
+  text-align:center;
+  padding-top:5px;
+  padding-bottom:5px;
+  border-radius: 15px;
+  background-color: #FF336F;
+  color:white;
+  border:2px solid #FF336F;
+  transition-duration: 0.45s;
+}
+
+.button:hover{
+  background-color: #470000;
+  color: white;
+  border: 2px solid #470000;
+}
+
+
+
+#title2{
+  text-align:center;
+  color:#094FCB;
+  text-shadow: 2px 2px #62EE1E;
+  font-family: 'Bangers';
+  font-style:oblique;
+  padding-top:50px;
+  font-size:50px;
+}
+
+video{
+ border:12px #e0e0e0;
+}
+
+.fa-instagram {
+  background: radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%);
+  color: white;
+  border-radius:10px;
+  font-size:30px;
+ padding:5px;
+ width:39;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+  border-radius:10px;
+  font-size:30px;
+ padding:5px;
+ width:37px;
+ text-align:center;
+}
+
+.earthpic{
+  width:159px;
+}
+
+.waanpic{
+  width:159px;
+}
+
+.columnaboutus {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  margin-left: 200px;
+  padding-top:30px;
+  padding-right: 30px;
+  padding-left:50px;
+  padding-bottom:30px;
+  border:2px solid black;
+  border-radius:8px;
+}
+
+.containeraboutus{
+  font-size:25px;
+  float:right;
+}
+
+.title {
+  color: grey;
+}
+
+#title2{
+  color:whitesmoke;
+  text-shadow: 4px 4px #FF336F;
+  font-size:70px;
+  font-family: 'Bangers';
+  text-align:center;
+}
+
+#textbox1
+{
+  background-color: white;
+}
+.indexusername
+{
+  color:#353535
+}
+.indexfullname
+{
+  color:#353535
 
 }

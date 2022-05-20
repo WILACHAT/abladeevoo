@@ -53,7 +53,7 @@
         
         })
             }
-        else
+        else if (todo == "pause")
         {
             Swal.fire({
         title: '<strong>HTML <u>example</u></strong>',
@@ -88,14 +88,52 @@
             
     
     }
+        else
+        {
+            Swal.fire({
+        title: '<strong>HTML <u>example</u></strong>',
+        icon: 'info',
+        html:
+                    
+            'Are you <b>certain</b> that you want to unpause the account?',
+      
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+            '<i class="fa fa-thumbs-up"></i> Unpause Account',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        cancelButtonText:
+        '<i class="fa fa-thumbs-up"></i> No',
+        cancelButtonAriaLabel: 'Thumbs down'
+        })
+        .then((result) => { 
+            console.log(result) 
+            const getcooked = getCookie('csrftoken')
+            if (result["isConfirmed"] == true)
+            {
+                fetch(`/setting`, {
+                method: 'POST',
+                headers:{'X-CSRFToken': getcooked},
+                body: "unpause"
+                })
+            }
+        
+        })
         }
+        }
+        
            
     
     </script>
    
     <h1 class="godown">Account</h1>
     {% if user.influencer_ornot == 1 %}
+        {% if user.accountstatus == 1 %}
         <button onclick="accountfunc('pause')">Pause Account</button>
+        {% else %}
+        <button onclick="accountfunc('unpause')">Unpause Account</button>
+        {% endif %}
         <button onclick="accountfunc('delete')">Delete Account</button>
     {% else %}
         <button onclick="accountfunc('delete')">Delete Account</button>

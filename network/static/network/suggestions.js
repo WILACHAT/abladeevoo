@@ -212,7 +212,7 @@ var SuggestionsRow = function (_React$Component3) {
       //<h5>{this.props.freeze_account}</h5>
       return React.createElement(
         'div',
-        null,
+        { 'class': 'perbox' },
         React.createElement(
           'a',
           { name: 'goodmorning', 'class': 'goodmorning d-flex justify-content-center mb-3', href: ininfluencer_link },
@@ -221,13 +221,13 @@ var SuggestionsRow = function (_React$Component3) {
             { 'class': 'd-flex flex-column' },
             React.createElement('img', { 'class': 'imgindex', width: '240', height: '300', src: link }),
             React.createElement(
-              'a',
-              { name: 'posterr', 'class': 'h4 colorstyle' },
+              'h5',
+              { name: 'posterr', 'class': 'indexusername' },
               this.props.username
             ),
             React.createElement(
               'h5',
-              null,
+              { 'class': 'indexfullname' },
               this.props.fullname
             )
           )

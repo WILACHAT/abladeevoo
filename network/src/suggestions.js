@@ -166,12 +166,12 @@ function getCookie(name) {
       //<h5>{this.props.influencer_ornot}</h5>
       //<h5>{this.props.freeze_account}</h5>
         return (
-          <div>
+          <div class="perbox">
         <a name="goodmorning" class="goodmorning d-flex justify-content-center mb-3" href={ininfluencer_link}> 
           <div class="d-flex flex-column">
             <img class="imgindex" width="240" height="300" src={link}></img>
-            <a name="posterr" class="h4 colorstyle">{this.props.username}</a> 
-            <h5>{this.props.fullname}</h5>
+            <h5 name="posterr" class="indexusername">{this.props.username}</h5> 
+            <h5 class="indexfullname">{this.props.fullname}</h5>
           </div>
 
         </a>

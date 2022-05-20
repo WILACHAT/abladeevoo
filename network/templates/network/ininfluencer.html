@@ -2,24 +2,28 @@
 {% load static %}
 
 {% block body %}
-<input id="getinfluencerusername"type="hidden"data-username="{{ username }}">
-<div id="toppart">
 
-</div>
+{% if user.accountstatus == "1" %}
 
+    <input id="getinfluencerusername"type="hidden"data-username="{{ username }}">
+    <div id="toppart">
 
-<!-- introductions = name, profile page, div, links -->
-
-
-    <div id="maininfluencer">
-        <div id="introductionvdo"></div>
-        <div id="postsshown"></div>
     </div>
 
-    <div id="reviewsmainfluencer">
-        <div id="reviews">
+
+    <!-- introductions = name, profile page, div, links -->
+        <div id="maininfluencer">
+            <div id="introductionvdo"></div>
+            <div id="postsshown"></div>
         </div>
-    </div>
+
+        <div id="reviewsmainfluencer">
+            <div id="reviews">
+            </div>
+        </div>
+{% else %}
+<h1 class="godown">User {{username}} paused their account</h1>
+{% endif %}
 
 
 {% endblock %}

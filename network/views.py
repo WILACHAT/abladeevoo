@@ -142,7 +142,7 @@ def usersettingapi(request):
         User.objects.filter(id = request.user.id).update(normal_user_pic = data["profilepic"], first_name = data["firstname"], last_name = data["lastname"]
         ,email = data["email"], username = data["username"])
     return_request = {"what":"ngong"}
-    normal_user_info = User.objects.filter(id = request.user.id, is_active = True)
+    normal_user_info = User.objects.filter(id = request.user.id, accountstatus = "1")
 
     
     data = []
@@ -172,7 +172,7 @@ def inzwerg4jgnsd9aadif67(request):
             popularpuller = w.serialize()
             popularpuller["profile_picture"] = w.profile_picture
             popularpuller["fullname"] = w.profile_fullname
-            users = User.objects.filter(id=i["influencer_id"], is_active = True)
+            users = User.objects.filter(id=i["influencer_id"], accountstatus = "1")
             for user in users:
                 popularpuller["username"] = user.username
 
@@ -226,7 +226,7 @@ def inzwerg4jgnsd9aadif67(request):
 
             
             
-            influencers = User.objects.filter(id__in = listofcloseuser, is_active = True)
+            influencers = User.objects.filter(id__in = listofcloseuser, accountstatus = "1")
             
        
     newdata = []
@@ -638,10 +638,12 @@ def setting(request):
         if what == "b'delete'":
             print("delete")
             #User.objects.filter(id = request.user.id).delete()
-        
-        else:
+        elif what == "b'hide'":
             print("hide")
-            User.objects.filter(id = request.user.id).update(is_active = False)
+            User.objects.filter(id = request.user.id).update(accountstatus = "3")
+        else:
+            User.objects.filter(id = request.user.id).update(accountstatus = "1")
+
 
     return render(request, "network/helpcenter.html")
 
