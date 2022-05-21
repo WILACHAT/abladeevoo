@@ -82,6 +82,15 @@
                 headers:{'X-CSRFToken': getcooked},
                 body: "pause"
                 })
+                .then(response => response.json())
+                .then(data => {
+                    //if data returns successful show beautiful success stuff
+                    //if not show failed html
+                    console.log(data["status"])
+                    window.location.href = "http://127.0.0.1:8000/setting"
+        
+                });
+
             }
         
         })
@@ -117,6 +126,13 @@
                 headers:{'X-CSRFToken': getcooked},
                 body: "unpause"
                 })
+                .then(response => response.json())
+                .then(data => {
+                //if data returns successful show beautiful success stuff
+                //if not show failed html
+                console.log(data["status"])
+                window.location.href = "http://127.0.0.1:8000/setting"    
+          });
             }
         
         })
@@ -129,7 +145,7 @@
    
     <h1 class="godown">Account</h1>
     {% if user.influencer_ornot == 1 %}
-        {% if user.accountstatus == 1 %}
+        {% if user.accountstatus == "1" %}
         <button onclick="accountfunc('pause')">Pause Account</button>
         {% else %}
         <button onclick="accountfunc('unpause')">Unpause Account</button>

@@ -635,12 +635,13 @@ def setting(request):
         print(request.body)
         print(request.body)
         what = str(request.body)
+        print("important", what)
         if what == "b'delete'":
             print("delete")
             #User.objects.filter(id = request.user.id).delete()
-        elif what == "b'hide'":
-            print("hide")
+        elif what == "b'pause'":
             User.objects.filter(id = request.user.id).update(accountstatus = "3")
+        
         else:
             User.objects.filter(id = request.user.id).update(accountstatus = "1")
 
@@ -1114,11 +1115,19 @@ class PasswordResetCompleteView(PasswordContextMixin, TemplateView):
         return context
 
 def paymentresponse(request):
-    chargestuff = Reservation.objects.filter(user_id_reserver_id=request.user.id).order_by('-user_id_reserver_id')[0]
-    chargo = chargestuff.omisecharge
-    print(chargo)
+    chargestuff = Reservation.objects.filter(user_id_reserver_id=request.user.id).order_by('-creationtime')[0]
 
+    print(chargestuff.id)
+    print(chargestuff.omisecharge)
+
+   
+    chargo = chargestuff.omisecharge
+
+    
     charge = omise.Charge.retrieve(chargo)
+    print("what is charge", charge)
+    print("what is charge id", charge.id)
+
     print(charge.status)
 
     if charge.status == "successful":
