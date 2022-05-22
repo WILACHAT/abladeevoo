@@ -1328,7 +1328,7 @@ var InboxFeedRows = function (_React$Component2) {
                             React.createElement(
                                 'a',
                                 { 'class': 'letsgo', href: '#' },
-                                'Watch'
+                                '\u0E40\u0E02\u0E49\u0E32\u0E0A\u0E21'
                             )
                         )
                     )
@@ -1403,8 +1403,8 @@ var InboxFeedInbox = function (_React$Component3) {
 
         _this3.state = {
             newdata: _this3.props.data,
-            hide: "Hide Completed",
-            sort: "Sort Closest to Due Date"
+            hide: "ซ่อนเสร็จสิ้น",
+            sort: "เรียงตามวันครบกําหนด"
 
         };
         return _this3;
@@ -1419,7 +1419,7 @@ var InboxFeedInbox = function (_React$Component3) {
             var csrftoken = getCookie('csrftoken');
             console.log("e.target.value", e.target.value);
 
-            if (e.target.value == "Sort Closest to Due Date") {
+            if (e.target.value == "เรียงตามวันครบกําหนด") {
                 type = "mysorttime";
             } else {
                 type = "myrequesthtml";
@@ -1441,9 +1441,9 @@ var InboxFeedInbox = function (_React$Component3) {
                 var sort = "";
 
                 if (data["sort"] == 0) {
-                    sort = "Sort Closest to Due Date";
+                    sort = "เรียงตามวันครบกําหนด";
                 } else {
-                    sort = "Unsort";
+                    sort = "เลิกเรียงลัาดับ";
                 }
 
                 console.log("e.target.value", sort);
@@ -1465,7 +1465,7 @@ var InboxFeedInbox = function (_React$Component3) {
 
             var csrftoken = getCookie('csrftoken');
 
-            if (e.target.value == "Unhide Completed") {
+            if (e.target.value == "เลิกซ่อน") {
                 type = "myinboxhtml";
             } else {
                 console.log("is it in hidecompleted yohohoho");
@@ -1493,9 +1493,9 @@ var InboxFeedInbox = function (_React$Component3) {
 
                 var hide = "";
                 if (data["hide"] == 0) {
-                    hide = "Hide Completed";
+                    hide = "ซ่อนเสร็จสิ้น";
                 } else {
-                    hide = "Unhide Completed";
+                    hide = "เลิกซ่อน";
                 }
                 console.log("sentback", data);
                 console.log("sentback", data["paginationid"]);
@@ -1535,7 +1535,7 @@ var InboxFeedInbox = function (_React$Component3) {
 
             var type = "";
             if (this.props.data["type"] == "request") {
-                if (this.state.sort == "Sort Closest to Due Date") {
+                if (this.state.sort == "เรียงตามวันครบกําหนด") {
                     type = "myrequesthtml";
                 } else {
                     type = "mysorttime";
@@ -1543,7 +1543,7 @@ var InboxFeedInbox = function (_React$Component3) {
             } else if (this.props.data["type"] == "complete") {
                 type = "mycompletehtml";
             } else {
-                if (this.state.hide == "Hide Completed") {
+                if (this.state.hide == "ซ่อนเสร็จสิ้น") {
                     type = "myinboxhtml";
                 } else {
                     type = "hidecompleted";
@@ -1596,7 +1596,7 @@ var InboxFeedInbox = function (_React$Component3) {
                 var thej = j + 1;
                 button.push(React.createElement(
                     'a',
-                    { onClick: this.changePage, 'class': this.state.pagination == thej ? "paginationcolor btn btn-primary" : "paginationnocolor btn" },
+                    { onClick: this.changePage, 'class': this.state.pagination == thej ? "paginationcolor btn" : "paginationnocolor btn" },
                     thej
                 ));
             }
@@ -1640,18 +1640,18 @@ var InboxFeedInbox = function (_React$Component3) {
 
             return React.createElement(
                 'div',
-                null,
+                { 'class': 'coversalldiv' },
                 React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center mb-5' },
+                    { 'class': 'd-flex justify-content-center mb-3' },
                     this.state.newdata["type"] == "inbox" ? React.createElement(
                         'button',
-                        { id: 'hidecompletedid', value: this.state.hide, 'class': 'btn btn-primary', onClick: this.hideCompleted },
+                        { id: 'hidecompletedid', value: this.state.hide, 'class': 'sortbutton btn mt-4', onClick: this.hideCompleted },
                         this.state.hide
                     ) : null,
                     this.state.newdata["type"] == "request" ? React.createElement(
                         'button',
-                        { 'class': 'btn btn-primary', value: this.state.sort, onClick: this.sortTime },
+                        { 'class': 'sortbutton btn mt-4', value: this.state.sort, onClick: this.sortTime },
                         this.state.sort
                     ) : null
                 ),

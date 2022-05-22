@@ -127,6 +127,7 @@ render()
 class InfluencerFeedTable extends React.Component {
   constructor(props) {
     super(props);
+    console.log("accountstatus", this.props.data.accountstatus)
   }
     render()
     {
@@ -737,7 +738,8 @@ class InfluencerFeedTitle extends React.Component {
                                 <h1 >{this.props.data['username']}</h1>
                                 {this.props.data["sameperson"] == 1 ? <div><button type="button" class="btn editbutton" onClick={this.editProfile}>Edit</button></div>: null}
                                 <div>
-                                {this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>Reserve</a>: <div></div>}
+                                {this.props.data.accountstatus == 1 ? 
+                                this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>Reserve</a>: <div></div>:<div>Account Paused</div>}
                                 </div>
                               </div>                              
                               <div class="forfont d-flex justify-content-center">

@@ -158,7 +158,10 @@ var InfluencerFeedTable = function (_React$Component2) {
   function InfluencerFeedTable(props) {
     _classCallCheck(this, InfluencerFeedTable);
 
-    return _possibleConstructorReturn(this, (InfluencerFeedTable.__proto__ || Object.getPrototypeOf(InfluencerFeedTable)).call(this, props));
+    var _this3 = _possibleConstructorReturn(this, (InfluencerFeedTable.__proto__ || Object.getPrototypeOf(InfluencerFeedTable)).call(this, props));
+
+    console.log("accountstatus", _this3.props.data.accountstatus);
+    return _this3;
   }
 
   _createClass(InfluencerFeedTable, [{
@@ -924,11 +927,15 @@ var InfluencerFeedTitle = function (_React$Component4) {
                 React.createElement(
                   'div',
                   null,
-                  this.props.data["sameperson"] != 1 ? React.createElement(
+                  this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
                     'a',
                     { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
                     'Reserve'
-                  ) : React.createElement('div', null)
+                  ) : React.createElement('div', null) : React.createElement(
+                    'div',
+                    null,
+                    'Account Paused'
+                  )
                 )
               ),
               React.createElement(

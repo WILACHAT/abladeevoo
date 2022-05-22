@@ -82,7 +82,7 @@ var SuggestionTable = function (_React$Component2) {
     var _this2 = _possibleConstructorReturn(this, (SuggestionTable.__proto__ || Object.getPrototypeOf(SuggestionTable)).call(this, props));
 
     _this2.mainSearch = _this2.mainSearch.bind(_this2);
-    console.log("this.props.dat", _this2.props.data);
+
     _this2.state = {
       searchtext: "",
       newdata: _this2.props.data
@@ -156,7 +156,7 @@ var SuggestionTable = function (_React$Component2) {
           React.createElement(
             'h3',
             { 'class': 'startitleindex mt-3' },
-            this.props.type == "main" ? "สตาร์" : "ป๊อปปูล่า"
+            this.props.type == "main" ? "สตาร์" : "ที่นิยม"
           )
         ),
         React.createElement(

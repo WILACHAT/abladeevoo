@@ -55,7 +55,7 @@ function getCookie(name) {
     constructor(props) {
       super(props);
       this.mainSearch = this.mainSearch.bind(this)
-      console.log("this.props.dat", this.props.data)
+
       this.state = 
       {
         searchtext:"",
@@ -123,7 +123,7 @@ function getCookie(name) {
           </div>:<null></null>}
           
           <div class="divofstartitle">
-              <h3 class="startitleindex mt-3">{this.props.type == "main" ? "สตาร์":"ป๊อปปูล่า"}</h3>
+              <h3 class="startitleindex mt-3">{this.props.type == "main" ? "สตาร์":"ที่นิยม"}</h3>
           </div>
 
           <div class="content mt-3 mb-5">

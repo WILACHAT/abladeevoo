@@ -2,26 +2,207 @@
 {% load static %}
 
 {% block body %}
-about us
-<img src="network/static/network/Untitled_Artwork.jpg"></img>
+<script>
+  document.querySelector("#firstrowid").onscroll = function(){myFunction};
 
-<div class="godown">
+  console.log("fuck")
+  function myFunction()
+  {
+    console.log("in my function")
+  }
+
+  function animatePls()
+  {
+    console.log("waan")
+  }
+
+</script>
+
+
+<div class="introdiv d-flex flex-column">
+  <div class="d-flex justify-content-center">
+      <p class="introwords d-flex justify-content-center">ยินดีต้อนรับเข้าสู่</p>
+    </div>
+    <div class="d-flex flex-column">
+      <h1 class="introwordsseconddiv d-flex justify-content-center animate__bounceIn ">VIDMA!</h1>
+      <p class="vidmaslogan d-flex justify-content-center" id="description">มิติใหม่ทีสามารถเชื่อมโยงคุณให้ใกล้ชิดกับสตาร์ที่คุณชื่นชอบ</p>
+
+    </div>
+
+</div>
+
+<div>
+   
     <div class="firstrow">
-        <h1 class="vidmaaboutus">VIDMA</h1>
-        <p id="description">มิติใหม่ที่จะทำให้คุณสามารถใกล้ชิดกับสตาร์ที่คุณชื่นชอบ</p>
+      <div class="d-flex justify-content-center">
+        <p class="whatisvidma d-flex justify-content-center">อะไรคือ</p>
       </div>
+        <h1 id="firstrowid" class="vidmaaboutus">VIDMA?</h1>
+    </div>
        
-        <div class="part2">
-          <h2 id="secondpart">ขั้นตอนการซื้อ</h2>
-        <div id="textbox1">
-            <p class="firstpara">เสิร์ชหาบุคคลสาธารณะชนมี่คุณชื่นชอบเป็นพิเศษไม่ว่าจะเป็นนักแสดง,นักร้อง,นักกีฬาหรือเกมเมอร์และจ่ายเพื่อสิทธิพิเศษในการเข้าถึงและได้รับวีดิโอต่างๆจากคนที่คุณชื่นชอบโดยตรง</p>
-        </div>
-         <!---<iframe class="video1"  width="560" height="315" src="https://www.youtube-nocookie.com/embed/LQ60Mkle4FY" title="YouTube video player" =\</iframe>-->
-        </div>
-          <div class ="boxbtn">
-            <div>
-          <input class="buttonaboutus" type="Shop Now" value="ซื้อวีดีโอของตัวเอง">
+ 
+            <div class="divsecondpart d-flex justify-content-between">
+              <div>
+              <div class="boxcoverwvd1">
+                <div class="d-flex flex-column">
+                  <h6 class="whatisvidmadet2">เราสามารถ</h6>
+                  <h6 class="whatisvidmadet2">ให้คุณเชื่อมต่อกับ</h6>
+
+                  <h6 class="whatisvidmadet2">บุคคลสาธารณะที่</h6>  
+                  <h6 class="whatisvidmadet2">คุณชื่นชอบรวมถึง</h6>  
+                  <h6 class="whatisvidmadet2">นักร้องเกมเมอร์</h6>  
+                  <h6 class="whatisvidmadet2">หรืออินฟลูเอนเซอร์</h6>
+
+                </div>
+              </div>
+            </div>  
+
+              <div>
+              <div class="boxcoverwvd2 align-middle">
+                <div class="d-flex flex-column">
+                  <h6 class="whatisvidmadet2">กดจองคลิปสั้นๆที่</h6>
+                  <h6 class="whatisvidmadet2">สตาร์ตั้งใจถ่ายให้</h6>  
+                  <h6 class="whatisvidmadet2">เป็นพิเศษ</h6>  
+                  <h6 class="whatisvidmadet2">โดยเฉพาะคุณ</h6>  
+                  <h6 class="whatisvidmadet2">เพียงคนเดียว</h6>
+                 </div>
+
+
+              </div>
             </div>
+
+            <div>
+              <div class="boxcoverwvd3">
+                <div class="d-flex flex-column">
+                  <h6 class="whatisvidmadet2">เช่น วีดีโอสุขสันต์</h6>
+                  <h6 class="whatisvidmadet2">วันเกิด วีดีโอแสดง</h6>  
+                  <h6 class="whatisvidmadet2">ความยินดี หรือ</h6>  
+                  <h6 class="whatisvidmadet2">วีดีโอเผาหรือ</h6>  
+                  <h6 class="whatisvidmadet2">ล้อเลียนตลกๆ</h6>
+                 </div>
+
+              </div>
+            </div>  
+
+            <div>
+              <div class="boxcoverwvd3">
+                <div class="d-flex flex-column">
+                  <h6 class="whatisvidmadet2">ที่คุณสามารถ</h6>
+                  <h6 class="whatisvidmadet2">เก็บไว้เป็น</h6>  
+                  <h6 class="whatisvidmadet2">ความทรงจําที่ดี</h6>  
+                  <h6 class="whatisvidmadet2">หรือส่งต่อให้</h6>  
+                  <h6 class="whatisvidmadet2">คนที่คุณรัก</h6>
+                 </div>
+              </div>
+            </div>  
+
+            </div>
+
+            <div class="staywhite">
+              <h2 class="staywhite">Wanna Hire vidma@vidma.tv</h2>
+            </div>
+            
+
+        <div class="divsecondpartt">
+          <div class="titlehowtobuy">
+            <p id="secondpart">ขั้นตอนการซื้อ</p>
+          </div>
+  
+            <div class="forbox d-flex justify-content-between">
+              <div class="d-flex flex-column">
+                <div class="d-flex justify-content-center">
+                  <div class="boxsug2">
+                      <div class="d-flex justify-content-start">
+                          <div class="inboxsugnumber">
+                              <div class="d-flex justify-content-center">
+                                  <h6 class="inboxsugn">1</h6>
+                              </div>
+                          </div>
+                          <div></div>
+                          <div class="inboxsugtitle ml-3">
+                              <h6 class="inboxsugt">ค้นหาสตาร์</h6>
+                          </div>
+                      </div>
+                      <div class="mt-2">
+                          <p class="wa">
+                              เพื่อที่จะสร้างวีดีโอให้คุนคน  เดียวโดยเฉพาะ
+                          </p>
+                      </div>
+                  </div>
+                  <div class="boxsug2 ml-5">
+                      <div class="d-flex justify-content-start">
+                      <div class="inboxsugnumber">
+                          <div class="d-flex justify-content-center">
+                              <h6 class="inboxsugn">2</h6>
+                          </div>
+                      </div>
+                      <div></div>
+                      <div class="inboxsugtitle ml-3">
+                          <h6 class="inboxsugt">จองวีดีโอ</h6>
+                      </div>
+                  </div>
+                  <div class="mt-2">
+                      <p class="wa">
+                          เลือกหมวดหมู่ที่คนต้องการเช่นคลิปสุขสันต์วันเกิด
+                      </p>
+                  </div>
+               </div>
+              </div>
+
+
+              <div class="d-flex justify-content-center mt-5">
+                <div class="boxsug2">
+                    <div class="d-flex justify-content-start">
+                    <div class="inboxsugnumber">
+                        <div class="d-flex justify-content-center">
+                            <h6 class="inboxsugn">3</h6>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div class="inboxsugtitle ml-3">
+                        <h6 class="inboxsugt">รับวีดีโอ</h6>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <p class="wa">
+                        รับคลิบวีดีโอส่วนตัวของคูณจากสตาร์สตาร์
+                    </p>
+                </div>
+            </div>
+        
+                <div class="boxsug2 ml-5">
+                    <div class="d-flex justify-content-start">
+                    <div class="inboxsugnumber">
+                        <div class="d-flex justify-content-center">
+                            <h6 class="inboxsugn">4</h6>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div class="inboxsugtitle ml-3">
+                        <h6 class="inboxsugt">แชร์ความสุข</h6>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <p class="wa">
+                        มอบวีดีโอเป็นของขวัญให้คนที่คุณรักไม่มีวันลืม
+                    </p>
+                </div>
+            </div>
+            </div>
+            <div class ="boxbtn d-flex justify-content-around">
+            <a href="/"class="buttonaboutus">ซื้อวีดีโอของตัวเอง</a>
+          </div>
+
+              </div>
+              <div class="aboutusvidvid d-flex justify-content-end">
+                <video class="aboutusvid"  controls>
+                  <source src="https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/761e2c9c-d9c1-11ec-a75d-3af9d3ce8c1e1.mp4" type="video/mp4">
+                </video>
+              </div>
+
+          </div>  
+        
+         
           </div>
 
         <h3 id="title2">พบกับผู้ก่อตั้งของเรา!</h3>
@@ -30,11 +211,11 @@ about us
   <div>
   <div class="columnaboutus">
    
-      <img class="earthpic" src="C:\Users\User\Downloads\earrth.jpg" alt="earth">
+      <img class="earthpic" src="" alt="earth">
       <div class="containeraboutus">
         <h6 class="text1">Earth Thurachon</h6>
         <p class="title">Co-Founder</p>
-        <a href="https://www.instagram.com/earth_thurachon/" class="fa fa-instagram"></a>
+        <a href="" class="fa fa-instagram"></a>
         <a href="#" class="fa fa-facebook"></a>
        
        
@@ -52,7 +233,7 @@ about us
       <div class="container">
         <h5 class="text2">Waan Weesakul</h5>
         <p class="title">Co-Founderr</p>
-        <a href="https://www.instagram.com/waan_weesakul/" class="fa fa-instagram"></a>
+        <a href="" class="fa fa-instagram"></a>
         <a href="#" class="fa fa-facebook"></a>
        
      
@@ -66,6 +247,3 @@ about us
 
 {% endblock %}
 
-{% block script %}
-<script type="module" src="{% static 'network/tester.js' %}"></script>
-{% endblock %}

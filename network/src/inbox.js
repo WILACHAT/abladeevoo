@@ -961,7 +961,7 @@ class InboxFeedRows extends React.Component {
                     <div value={this.props.id}  class="dub-arrow">
                         <img src="https://github.com/atloomer/atloomer.github.io/blob/master/img/iconmonstr-arrow-48-240.png?raw=true" alt="" />
                     </div>
-                    <a class="letsgo" href="#">Watch</a>
+                    <a class="letsgo" href="#">เข้าชม</a>
                 </div>
                 
             </div>
@@ -1016,8 +1016,8 @@ class InboxFeedInbox extends React.Component {
         this.state = 
         {
           newdata: this.props.data,
-          hide: "Hide Completed",
-          sort: "Sort Closest to Due Date"
+          hide: "ซ่อนเสร็จสิ้น",
+          sort: "เรียงตามวันครบกําหนด"
 
         }
     }
@@ -1030,7 +1030,7 @@ class InboxFeedInbox extends React.Component {
         console.log("e.target.value", e.target.value)
 
 
-        if (e.target.value == "Sort Closest to Due Date")
+        if (e.target.value == "เรียงตามวันครบกําหนด")
         {
             type = "mysorttime"
         }
@@ -1057,11 +1057,11 @@ class InboxFeedInbox extends React.Component {
 
             if (data["sort"] == 0)
             {
-                sort = "Sort Closest to Due Date"               
+                sort = "เรียงตามวันครบกําหนด"               
             }
             else
             {
-                sort = "Unsort"
+                sort = "เลิกเรียงลัาดับ"
             }
 
             console.log("e.target.value", sort)
@@ -1084,7 +1084,7 @@ class InboxFeedInbox extends React.Component {
        
         
         
-        if (e.target.value == "Unhide Completed")
+        if (e.target.value == "เลิกซ่อน")
         {
             type = "myinboxhtml"
         }
@@ -1117,11 +1117,11 @@ class InboxFeedInbox extends React.Component {
             let hide = ""
             if (data["hide"] == 0)
             {
-                hide = "Hide Completed"
+                hide = "ซ่อนเสร็จสิ้น"
             }
             else
             {
-                hide = "Unhide Completed"
+                hide = "เลิกซ่อน"
             }
             console.log("sentback", data)
             console.log("sentback", data["paginationid"])
@@ -1169,7 +1169,7 @@ class InboxFeedInbox extends React.Component {
         let type=""
         if (this.props.data["type"] == "request")
         {
-            if (this.state.sort == "Sort Closest to Due Date")
+            if (this.state.sort == "เรียงตามวันครบกําหนด")
             {
                 type = "myrequesthtml"
 
@@ -1187,7 +1187,7 @@ class InboxFeedInbox extends React.Component {
         }
         else 
         {
-            if (this.state.hide == "Hide Completed")
+            if (this.state.hide == "ซ่อนเสร็จสิ้น")
             {
                 type = "myinboxhtml"
             }
@@ -1249,7 +1249,7 @@ class InboxFeedInbox extends React.Component {
       let thej = j + 1
       button.push
       (
-        <a onClick={this.changePage} class={this.state.pagination == thej ? "paginationcolor btn btn-primary":"paginationnocolor btn"}>{thej}</a>
+        <a onClick={this.changePage} class={this.state.pagination == thej ? "paginationcolor btn":"paginationnocolor btn"}>{thej}</a>
       )
 
     }
@@ -1300,10 +1300,10 @@ class InboxFeedInbox extends React.Component {
 
 
         return(
-            <div>      
-                <div class="d-flex justify-content-center mb-5">    
-                    {this.state.newdata["type"] == "inbox" ? <button id="hidecompletedid" value={this.state.hide}class="btn btn-primary" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
-                    {this.state.newdata["type"] == "request" ? <button class="btn btn-primary" value={this.state.sort}onClick={this.sortTime}>{this.state.sort}</button>:null}
+            <div class="coversalldiv">      
+                <div class="d-flex justify-content-center mb-3">    
+                    {this.state.newdata["type"] == "inbox" ? <button id="hidecompletedid" value={this.state.hide}class="sortbutton btn mt-4" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
+                    {this.state.newdata["type"] == "request" ? <button class="sortbutton btn mt-4" value={this.state.sort}onClick={this.sortTime}>{this.state.sort}</button>:null}
                </div> 
                 {this.state.newdata["data"] != "" ? 
             

@@ -2,39 +2,44 @@
 {% load static %}
 
 {% block body %}
-<input id="getinfluencerusername"type="hidden" data-username="{{ username }}">
-<input id="getinfluencerprice"type="hidden" data-price="{{ price }}">
+{% if accountstatus == 1 %}
+        <input id="getinfluencerusername"type="hidden" data-username="{{ username }}">
+        <input id="getinfluencerprice"type="hidden" data-price="{{ price }}">
 
 
 
-<div class="beginningofbook d-flex justify-content-center ">
-        <h4 class="wa">รีเควสใหม่ถึง {{ username }}</h4>
-</div>
+        <div class="beginningofbook d-flex justify-content-center ">
+                <h4 class="wa">รีเควสใหม่ถึง {{ username }}</h4>
+        </div>
 
 
-<div id="wholereservepage"></div>
-<div id="status"></div>
+        <div id="wholereservepage"></div>
+        <div id="status"></div>
 
 
 
-<div id="paymentpage"></div>
-<div id="realpayment">
-        <form id="checkoutForm" method="POST" action="/paymentapi/{{ username }}" >
-                {% csrf_token %}
-                <script type="text/javascript" src="https://cdn.omise.co/omise.js"
-                        data-key="pkey_test_5rsv5lm4gxeb5fc9i2k"
-                        data-amount= "{{ price }}"
-                        data-currency="THB"
-                        data-default-payment-method="credit_card"
-                        data-other-payment-methods="truemoney, internet_banking, promptpay"
-                        data-button-label="จ่ายเงิน">
-                        
-                </script>
-                <input id="storevalueid" name="storevalue" id="dicttest"type="hidden" value="waandictionary"></input>
+        <div id="paymentpage"></div>
+        <div id="realpayment">
+                <form id="checkoutForm" method="POST" action="/paymentapi/{{ username }}" >
+                        {% csrf_token %}
+                        <script type="text/javascript" src="https://cdn.omise.co/omise.js"
+                                data-key="pkey_test_5rsv5lm4gxeb5fc9i2k"
+                                data-amount= "{{ price }}"
+                                data-currency="THB"
+                                data-default-payment-method="credit_card"
+                                data-other-payment-methods="truemoney, internet_banking, promptpay"
+                                data-button-label="จ่ายเงิน">
+                                
+                        </script>
+                        <input id="storevalueid" name="storevalue" id="dicttest"type="hidden" value="waandictionary"></input>
 
-        </form> 
-</div>
+                </form> 
+        </div>
+{% else %}
+
+        <h6 class="godown">Account is paused</h6>
         
+{% endif %}
 
 
 

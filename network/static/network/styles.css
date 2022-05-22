@@ -93,6 +93,19 @@ html, body {
   font-family: 'Sarabun';
   
 }
+.wafooter
+{
+  color:#212121;
+
+  font-family: 'Sarabun';
+  
+}
+.walegal
+{
+  color:#FFEF00;
+
+  font-family: 'Sarabun';
+}
 .waoccasion
 {
   color:#203354;
@@ -213,7 +226,7 @@ html, body {
 {
   font-size: 350%;
   font-family: 'Sarabun';
-  color: #FF336F;
+  color: #212121;
 }
 
 .imgindex
@@ -239,6 +252,7 @@ html, body {
     display: flex;
     overflow: auto;
     justify-content: center;
+    
   
     
   }
@@ -302,10 +316,15 @@ html, body {
   color:#FF336F;
   --animate-duration: 3s;
 
+
 }
 .forbox
 {
   margin-top:100px;
+}
+.covers4box
+{
+
 }
 .boxsug1
 {
@@ -313,6 +332,18 @@ html, body {
   background-color: white;
   height:150px;
   opacity: 0.5;
+  border-radius: 10px;
+  padding:10px;
+  font-family: 'Sarabun';
+
+
+
+}
+.boxsug2
+{
+  width:35%;
+  background-color: white;
+  height:150px;
   border-radius: 10px;
   padding:10px;
   font-family: 'Sarabun';
@@ -339,7 +370,9 @@ html, body {
 {
   font-family: 'Sarabun';
   font-size:110%;
-  color:black;
+  color: #000000;
+  font-weight: bold;
+
 
 }
 .inboxsugtitle
@@ -470,7 +503,7 @@ span .requestcss:after{
 }
 span .requestcss:before{
   color: white;;
-  background: #008fff;;
+  background: #094FCB;;
   transform: rotateY(0deg) translateZ(25px);
 }
 span .requestcss:after{
@@ -510,7 +543,7 @@ span .myinboxcss:after{
 }
 span .myinboxcss:before{
   color: white;
-  background: #008fff;
+  background: #094FCB;
   transform: rotateY(0deg) translateZ(25px);
 }
 span .myinboxcss:after{
@@ -533,7 +566,6 @@ span .myinboxcss:hover{
   padding:2%;
 
   justify-content: center;
-  background: #008fff;
 }
 
 
@@ -545,7 +577,7 @@ span .myinboxcss:hover{
   justify-content: center;
   width:50%;
   height:210px;
-  background-color: #ffc500;
+  background-color: #f2f2f2;
   border-radius: 1.5em;
 
 }
@@ -567,7 +599,7 @@ span .myinboxcss:hover{
 }
 .randomdesign
 {
-  background-color: #02d667;
+  background-color: #e2e5de;
   padding:7px;
   border-radius: 10px;
 }
@@ -589,9 +621,12 @@ span .myinboxcss:hover{
   
 }
 
+.sortbutton
+{
+  background-color: #e2e5de;
+  font-family: 'Sarabun';
+}
 
-
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
 
 
 /* Button Styles */
@@ -600,7 +635,6 @@ span .myinboxcss:hover{
   display: inline-flex;
   height: 40px;
   width: 150px;
-  border: 2px solid #BFC0C0;
   margin: 20px 20px 20px 20px;
   color: #BFC0C0;
   text-transform: uppercase;
@@ -610,16 +644,23 @@ span .myinboxcss:hover{
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  border-radius: 40px;
 }
 .letsgo {
-  color: #008fff;
+  font-family: 'Sarabun';
+  color: #212121;
   text-decoration: none;
   letter-spacing: 1px;
+  font-size: 120%;
+  font-weight: 900;
+
 }
 #button-7 {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  background-color:#ffc500;
+  
 }
 
 #button-7 a {
@@ -631,7 +672,7 @@ span .myinboxcss:hover{
 .dub-arrow {
   width: 100%;
   height: 100%;
-  background: #008fff;
+  background: #ffc500;
   left: -200px;
   position: absolute;
   padding: 0;
@@ -825,9 +866,9 @@ span .myinboxcss:hover{
 {
   width:70%;
   height:30%;
-  background-color: #ffc500;
+  background-color: #f2f2f2;
   border-radius: 15px;
-  box-shadow: 5px 10px #008fff;
+  box-shadow: 5px 10px #e2e5de;
   padding:15px;
 }
 .waka
@@ -969,6 +1010,7 @@ span .myinboxcss:hover{
   height:10%;
   border: 0.5px solid grey;
   text-align: center;
+  background-color: #e2e5de;
 
 
 
@@ -1018,7 +1060,7 @@ span .completecss:after{
 }
 span .completecss:before{
   color: white;;
-  background: #008fff;;
+  background: #094FCB;;
   transform: rotateY(0deg) translateZ(25px);
 }
 span .completecss:after{
@@ -1047,12 +1089,18 @@ span .completecss:hover{
   font-family: 'Sarabun';
 
 }
+.coversalldiv
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+
+}
 .buttonchoicesinbox
 {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  height:100px;
 }
 .wanopostyet
 {
@@ -1090,9 +1138,14 @@ input[name="new_password1"] {
    padding-left: 6%;
    padding-right: 6%;
 
-   background-color: #02d667;
+   background-image: linear-gradient(90deg, #094FCB,#FF336F);
+
    height:100%;
 
+}
+.coverfootertext
+{
+  width:350px;
 }
 .vidmefooter
 {
@@ -1110,11 +1163,14 @@ input[name="new_password1"] {
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid black;
+  border: 1px solid #FFEF00;
   border-radius: 4px;
   box-sizing: border-box;
-  background-color : #066f38; 
+  background: transparent;
   color:white;
+
+  
+
 }
 .uploadfooter
 {
@@ -1122,6 +1178,7 @@ input[name="new_password1"] {
   display: inline-block;
   vertical-align: middle;
   height:50px;
+  background-color: #FFEF00;
 
 
 }
@@ -1190,29 +1247,40 @@ margin-bottom: 0px;
 }
 
 .firstrow{
-  color:white;
+  width:100%;
+  height:800px;
   text-align:center;
-  font-family:sarabun;
-  padding-bottom:200px;
+  font-family:'Sarabun';
   padding-top:50px;
-  background-image: linear-gradient( #000099,#094FCB,#62EE1E,#66ff33, white);
+  background-image: linear-gradient( #094FCB, #FF336F, #FF336F, #FF336F,white);
 }
+.vidmaslogan
+{
 
+  font-size:100%;
+  color:white;
+  font-size:125%;
+}
+.whatisvidma
+{
+  margin-top: 225px;
+  font-size:300%;
+  color:white;
+
+}
 .vidmaaboutus{
   font-family: 'Bangers';
-  color:whitesmoke;
-  text-shadow: 6px 6px #FF336F;
-  font-size:140px;
+  color:#FFEF00;
+  text-shadow: 3px 3px #FF336F;
+  font-size:1000%;
   margin-bottom:5px;
+
 }
 
-#description{
-font-size:20px;
-}
 
-.part2{
-  margin-top:100px;
-}
+
+
+
 
 .firstpara{
   float:left;
@@ -1222,13 +1290,138 @@ font-size:20px;
   display:flex;
   background-color: white;
 }
+.divsecondpartbefore
+{
+  color:white;
+}
+.beforeboxcover
+{
+  margin-top:200px;
+}
 
+.divsecondpart
+{
+  background-color:white;
+  width:100%;
+  height:100%;
+
+  padding:5%;
+}
+.divsecondpartt
+{
+  
+  background-color: #FF336F;
+  width:100%;
+  height:100vh;
+  padding-left: 5%;
+  padding-top:5%;
+  padding-bottom:5%;
+  padding-right:5%;
+}
+.aboutusvidvid
+{
+  width:60%;
+  margin-bottom:85px;
+}
+.aboutusvid
+{
+  
+ width:80%;
+}
 #secondpart{
  
   text-align:center;
-  color:#094FCB;
-  text-shadow: 2px 2px #62EE1E;
-  font-size:50px;
+  color:white;
+  font-size:350%;
+  
+}
+.boxcoverwvd1
+{
+  background-color: #008fff;
+  padding:7%;
+  width:300px;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 15px 15px #273f87;
+  vertical-align: middle;
+
+
+}
+.boxcoverwvd2
+{
+  background-color: #008fff;
+  padding:7%;
+  width:300px;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 15px 15px #273f87;
+  vertical-align: middle;
+  text-align: center;
+  margin:auto;
+  justify-content: center;
+  line-height : 100px;
+
+
+
+}
+.boxcoverwvd3
+{
+  background-color: #008fff;
+  padding:7%;
+  width:300px;
+  height:100%;
+  border-radius: 10px;
+  box-shadow: 15px 15px #273f87;
+  vertical-align: middle;
+  text-align: center;
+
+
+  
+
+}
+.staywhite
+{
+  background-color: white;
+  color: white;
+  height:50px;
+}
+.titlehowtobuy
+{
+  
+  height:100px;
+}
+.whatisvidmadet1
+{ 
+  text-align:center;
+  color:white;
+  font-size:200%;
+  font-family: 'Sarabun';
+  margin-top:5%;
+
+}
+.whatisvidmadet2
+{ 
+  text-align:center;
+  color:white;
+  font-size:200%;
+  font-family: 'Sarabun';
+
+}.whatisvidmadet3
+{ 
+  text-align:center;
+  color:white;
+  font-size:200%;
+  font-family: 'Sarabun';
+  margin-top:15%;
+
+}.whatisvidmadet4
+{ 
+  text-align:center;
+  color:white;
+  font-size:200%;
+  font-family: 'Sarabun';
+  margin-top:15%;
+
 }
 
 .video1{
@@ -1236,25 +1429,25 @@ font-size:20px;
  float:right;
  
 }
-
-.boxbtn{
-  height: 200px;
-  position: relative;
-  margin-left:200px;
+.boxbtn
+{
+  margin-top:50px;
+  
 }
+
 
 .buttonaboutus{
   margin:left;
-  width: 150px;
-  font-size:17px;
+  width: 200px;
+  font-size:120%;
   text-align:center;
-  padding-top:5px;
-  padding-bottom:5px;
-  border-radius: 15px;
-  background-color: #FF336F;
-  color:white;
+
+  padding:1.5%;
+
+  border-radius: 40px;
+  background-color: #FFEF00;
+  color:black;
   border:2px solid #FF336F;
-  transition-duration: 0.45s;
 }
 
 .button:hover{

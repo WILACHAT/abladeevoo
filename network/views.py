@@ -142,7 +142,7 @@ def usersettingapi(request):
         User.objects.filter(id = request.user.id).update(normal_user_pic = data["profilepic"], first_name = data["firstname"], last_name = data["lastname"]
         ,email = data["email"], username = data["username"])
     return_request = {"what":"ngong"}
-    normal_user_info = User.objects.filter(id = request.user.id, accountstatus = "1")
+    normal_user_info = User.objects.filter(id = request.user.id)
 
     
     data = []
@@ -172,7 +172,7 @@ def inzwerg4jgnsd9aadif67(request):
             popularpuller = w.serialize()
             popularpuller["profile_picture"] = w.profile_picture
             popularpuller["fullname"] = w.profile_fullname
-            users = User.objects.filter(id=i["influencer_id"], accountstatus = "1")
+            users = User.objects.filter(id=i["influencer_id"])
             for user in users:
                 popularpuller["username"] = user.username
 
@@ -226,7 +226,7 @@ def inzwerg4jgnsd9aadif67(request):
 
             
             
-            influencers = User.objects.filter(id__in = listofcloseuser, accountstatus = "1")
+            influencers = User.objects.filter(id__in = listofcloseuser)
             
        
     newdata = []
@@ -262,12 +262,15 @@ def gotoinfluencer(request, username, feedtype):
     alldata = []
     hidedata = []
     userinfodata = []
-    influencerid = User.objects.values('id').get(username=username)  
+    influencerid = User.objects.values('id', 'accountstatus').get(username=username)  
 
    
 
+    accountstatus = influencerid.get('accountstatus')
 
-    influencerid = influencerid["id"]
+    influencerid = influencerid['id']
+
+
     viewcheck = Views.objects.filter(viewer_id = request.user.id, influencer_id = influencerid)
     
     print("here it comes")
@@ -345,7 +348,7 @@ def gotoinfluencer(request, username, feedtype):
    
     print("this is alldata", alldata)
     
-    return_request = {"username":username, "sameperson": sameperson, "alldata":alldata, "feedtype":feedtype, "userinfodata":userinfodata, "hidedata":hidedata,
+    return_request = {"username":username, "sameperson": sameperson, "accountstatus": accountstatus, "alldata":alldata, "feedtype":feedtype, "userinfodata":userinfodata, "hidedata":hidedata,
     "reviewnum":reviewnum, "averagestars":averagestars}
         
     
@@ -395,7 +398,8 @@ def hidepost(request):
 def book(request, username):
     print("tell me that the thing came here or not")
     currentuserid = request.user.id
-    influencerid = User.objects.values('id').get(username=username)
+    influencerid = User.objects.values('id', 'accountstatus').get(username=username)
+    accountstatus = influencerid.get('accountstatus')
     influencerid = influencerid["id"]
     checker = Userinfo.objects.values('price').get(influencer_id = influencerid)
     price = int(checker['price'])
@@ -417,7 +421,7 @@ def book(request, username):
         bookrequest.save()
     '''
   
-    return render(request, "network/book.html", {'username': username, "price": price * 100})
+    return render(request, "network/book.html", {'username': username, "price": price * 100, "accountstatus":accountstatus})
 
 def gotobook(request, username):
     return_request = {"username":username}
@@ -632,6 +636,7 @@ def legal(request):
 
 def setting(request):
     if request.method == "POST":
+        return_response = 1
         print(request.body)
         print(request.body)
         what = str(request.body)
@@ -640,10 +645,14 @@ def setting(request):
             print("delete")
             #User.objects.filter(id = request.user.id).delete()
         elif what == "b'pause'":
-            User.objects.filter(id = request.user.id).update(accountstatus = "3")
+            User.objects.filter(id = request.user.id).update(accountstatus = 3)
+            return JsonResponse(return_response, safe=False)
+
         
         else:
-            User.objects.filter(id = request.user.id).update(accountstatus = "1")
+            User.objects.filter(id = request.user.id).update(accountstatus = 1)
+            return JsonResponse(return_response, safe=False)
+
 
 
     return render(request, "network/helpcenter.html")
