@@ -3,6 +3,14 @@
 
 {% block body %}
 {% if accountstatus == 1 %}
+        <script>
+                function backFunction()
+                {
+                        document.querySelector('#wholereservepage').hidden = true
+                        document.querySelector('#paymentpage').hidden = true
+                        document.querySelector('#wholereservepage').hidden = false
+                }   
+        </script>
         <input id="getinfluencerusername"type="hidden" data-username="{{ username }}">
         <input id="getinfluencerprice"type="hidden" data-price="{{ price }}">
 
@@ -18,7 +26,9 @@
 
 
 
-        <div id="paymentpage"></div>
+        <div id="paymentpage">
+                <button onclick="backFunction()"class="btn">Back</button>
+        </div>
         <div id="realpayment">
                 <form id="checkoutForm" method="POST" action="/paymentapi/{{ username }}" >
                         {% csrf_token %}

@@ -44,9 +44,6 @@ class Userinfo(models.Model):
     price = models.IntegerField(null=True)
 
 
-
-
-
     def serialize(self):
         return {
             "id":self.id,
@@ -58,7 +55,8 @@ class Userinfo(models.Model):
             "second_url":self.second_url,
             "third_url":self.third_url,
             "influencer":str(self.influencer),
-            "category":self.category
+            "category":self.category,
+            "price": self.price
         } 
 class Views(models.Model):
     viewer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='viewer') 

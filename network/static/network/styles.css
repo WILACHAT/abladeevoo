@@ -95,7 +95,7 @@ html, body {
 }
 .wafooter
 {
-  color:#212121;
+  color:#e2e5de;
 
   font-family: 'Sarabun';
   
@@ -709,14 +709,34 @@ span .myinboxcss:hover{
   font-size:15px;
 }
 
+.beforehihi
+{
+  background-image: linear-gradient(45deg, #094FCB,#FF336F);
+  padding:0.3%;
+  margin-left:100px;
+
+  border-radius: 50px; 
+
+  width:2200px;
+
+
+}
 .hihi
 {
-  background-color: #FFBE00;
+  background-color: white;
   padding:20px;
-  border-radius: 15px;
   width:100%;
-  margin-left:100px;
+  border-radius: 50px; 
 }
+.publicbutton
+{
+  font-family: 'Sarabun';
+  background-color: #ffc500;
+  width:125px;
+  height:50px;
+  border-radius: 40px;
+}
+
 .controlininfluencer
 {
   width:100%;
@@ -758,6 +778,13 @@ span .myinboxcss:hover{
   .hihi
   {
     margin-left:0px;
+    
+  }
+  .beforehihi
+  {
+    
+    width:100%;
+    margin-left: 0px;
   }
   .videomaincover
   {
@@ -783,8 +810,13 @@ span .myinboxcss:hover{
 
 .reservebutton
 {
-  background-color: #008fff;
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  width:100%;
   color:white;
+  border-radius: 20px;
+  padding-top: 3%;
+  padding-bottom: 3%;
+
 }
 .forfont
 {
@@ -945,19 +977,26 @@ span .myinboxcss:hover{
 .bookdetails
 {
   width:70%;
-  background-color: #ffc500;
+  background-color: white;
   border-radius: 15px;
   padding:15px;
+  border: 2px solid #dbdcdc;
+
 }
 .datechecker{
   width: 45%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #008fff;
+  border: 1px solid #094FCB;
   border-radius: 4px;
   box-sizing: border-box;
-  background-color : #ffc500; 
+  background: transparent; 
+}
+#submitreservation
+{
+  background-color: #FF336F;
+  color:white;
 }
 .inputcheckbox
 {
@@ -1115,16 +1154,25 @@ span .completecss:hover{
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #008fff;
+  border: 1px solid #094FCB;
   border-radius: 4px;
   box-sizing: border-box;
-  background-color : #ffc500; 
+  background:transparent;
 }
 .wabuttontext
 {
   text-align: center;
   margin: auto;
+  color:white;
 
+}
+.successbutton
+{
+  background-color: #FF336F;
+}
+.failbutton
+{
+  background-color: #094FCB;
 }
 
 input[name="new_password1"] {
@@ -1541,4 +1589,15 @@ video{
 {
   color:#353535
 
+}
+.parallax
+{
+  background-image: url('https://res.cloudinary.com/ablaze-project/image/upload/v1651002804/8842d4b2-c59a-11ec-8fd4-acde480011225.png');
+  height: 100%; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

@@ -38,6 +38,7 @@ var PaymentPage = function (_React$Component) {
         _this.submitTm = _this.submitTm.bind(_this);
 
         _this.saveInfo = _this.saveInfo.bind(_this);
+        _this.backButton = _this.backButton.bind(_this);
 
         _this.state = {
             statusib: "ksbtnid",
@@ -98,6 +99,12 @@ var PaymentPage = function (_React$Component) {
     }
 
     _createClass(PaymentPage, [{
+        key: 'backButton',
+        value: function backButton(e) {
+            document.querySelector('#paymentpage').hidden = true;
+            document.querySelector('#wholereservepage').hidden = false;
+        }
+    }, {
         key: 'submitTm',
         value: function submitTm(e) {
             Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
@@ -865,7 +872,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { id: 'optional/occa4', name: 'occa4', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                                React.createElement('input', { 'class': 'inputheho', id: 'optional/occa4', name: 'occa4', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
                             )
                         )
                     ),
@@ -1064,10 +1071,10 @@ var BookPage = function (_React$Component2) {
                         React.createElement('hr', { 'class': 'hr' }),
                         React.createElement(
                             'div',
-                            { 'class': 'd-flex justify-content-center mt-2' },
+                            { 'class': 'd-flex justify-content-center mt-4 mb-5' },
                             React.createElement(
                                 'button',
-                                { type: 'button', 'class': this.state.colorof1 == "someoneelsehtml" ? "btn btn-success mr-3" : "btn btn-primary mr-3", id: 'someoneelsehtml', onClick: this.changeIntroReserve },
+                                { type: 'button', 'class': this.state.colorof1 == "someoneelsehtml" ? "btn successbutton mr-3" : "btn failbutton mr-3", id: 'someoneelsehtml', onClick: this.changeIntroReserve },
                                 React.createElement(
                                     'h6',
                                     { id: 'someoneelsehtml', onClick: this.changeIntroReserve, 'class': 'wabuttontext' },
@@ -1076,7 +1083,7 @@ var BookPage = function (_React$Component2) {
                             ),
                             React.createElement(
                                 'button',
-                                { type: 'button', 'class': this.state.colorof1 == "myselfhtml" ? "btn btn-success" : "btn btn-primary", id: 'myselfhtml', onClick: this.changeIntroReserve },
+                                { type: 'button', 'class': this.state.colorof1 == "myselfhtml" ? "btn successbutton" : "btn failbutton", id: 'myselfhtml', onClick: this.changeIntroReserve },
                                 React.createElement(
                                     'h6',
                                     { id: 'myselfhtml', onClick: this.changeIntroReserve, 'class': 'wabuttontext' },
@@ -1123,10 +1130,10 @@ var BookPage = function (_React$Component2) {
                         React.createElement('hr', { 'class': 'hr' }),
                         React.createElement(
                             'div',
-                            { 'class': 'd-flex justify-content-center mt-2' },
+                            { 'class': 'd-flex justify-content-center mt-4 mb-5' },
                             React.createElement(
                                 'button',
-                                { type: 'button', 'class': this.state.colorof2 == "birthday" ? "btn btn-success mr-3" : "btn btn-primary mr-3", id: 'birthdaybutton', onClick: this.changeOccasionReserve },
+                                { type: 'button', 'class': this.state.colorof2 == "birthday" ? "btn successbutton mr-3" : "btn failbutton mr-3", id: 'birthdaybutton', onClick: this.changeOccasionReserve },
                                 React.createElement(
                                     'h6',
                                     { id: 'birthdaybutton', onClick: this.changeOccasionReserve, 'class': 'wabuttontext' },
@@ -1135,7 +1142,7 @@ var BookPage = function (_React$Component2) {
                             ),
                             React.createElement(
                                 'button',
-                                { type: 'button', 'class': this.state.colorof2 == "peptalk" ? "btn btn-success mr-3" : "btn btn-primary mr-3", id: 'peptalkbutton', onClick: this.changeOccasionReserve },
+                                { type: 'button', 'class': this.state.colorof2 == "peptalk" ? "btn successbutton mr-3" : "btn failbutton mr-3", id: 'peptalkbutton', onClick: this.changeOccasionReserve },
                                 React.createElement(
                                     'h6',
                                     { id: 'peptalkbutton', onClick: this.changeOccasionReserve, 'class': 'wabuttontext' },
@@ -1144,7 +1151,7 @@ var BookPage = function (_React$Component2) {
                             ),
                             React.createElement(
                                 'button',
-                                { type: 'button', 'class': this.state.colorof2 == "roast" ? "btn btn-success mr-3" : "btn btn-primary mr-3", id: 'roastbutton', onClick: this.changeOccasionReserve },
+                                { type: 'button', 'class': this.state.colorof2 == "roast" ? "btn successbutton mr-3" : "btn failbutton mr-3", id: 'roastbutton', onClick: this.changeOccasionReserve },
                                 React.createElement(
                                     'h6',
                                     { id: 'roastbutton', onClick: this.changeOccasionReserve, 'class': 'wabuttontext' },
@@ -1153,7 +1160,7 @@ var BookPage = function (_React$Component2) {
                             ),
                             React.createElement(
                                 'button',
-                                { type: 'button', 'class': this.state.colorof2 == "other" ? "btn btn-success" : "btn btn-primary", id: 'otherbutton', onClick: this.changeOccasionReserve },
+                                { type: 'button', 'class': this.state.colorof2 == "other" ? "btn successbutton" : "btn failbutton", id: 'otherbutton', onClick: this.changeOccasionReserve },
                                 React.createElement(
                                     'h6',
                                     { id: 'otherbutton', onClick: this.changeOccasionReserve, 'class': 'wabuttontext' },
@@ -1209,7 +1216,7 @@ var BookPage = function (_React$Component2) {
                 React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center mt-2 mb-5' },
-                    React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: 'Payment', 'class': 'btn btn-primary' })
+                    React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: 'Payment', 'class': 'btn' })
                 )
             );
         }

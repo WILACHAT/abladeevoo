@@ -330,6 +330,7 @@ class InfluencerFeedTitle extends React.Component {
   
       document.querySelector('#maininfluencer').hidden = false;
       document.querySelector('#reviewsmainfluencer').hidden = true;
+      console.log("waearth", this.props.data)
 
       let fullname = ""
       let description = ""
@@ -706,17 +707,16 @@ class InfluencerFeedTitle extends React.Component {
           }
       }
 
-  
+      console.log("earthwa", this.props.data["userinfodata"][0]["price"])
 
       console.log("daijoubu dayou", this.props.data)
         return (
          <div>
-                <div class="d-flex justify-content-center mb-3">
-                  <a href="/"class="btn btn-primary">Back</a>
-                </div>
+   
 
                 <div>
                         <div class="controlininfluencer d-flex justify-content-between"> 
+                         <div class="beforehihi">
                           <div class="hihi d-flex flex-column">
                               <div class="d-flex justify-content-center">
                                 <img class="imgnoedit" src={link}></img>
@@ -736,11 +736,8 @@ class InfluencerFeedTitle extends React.Component {
                       :null}
                               <div class="d-flex justify-content-between mt-3">
                                 <h1 >{this.props.data['username']}</h1>
-                                {this.props.data["sameperson"] == 1 ? <div><button type="button" class="btn editbutton" onClick={this.editProfile}>Edit</button></div>: null}
-                                <div>
-                                {this.props.data.accountstatus == 1 ? 
-                                this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>Reserve</a>: <div></div>:<div>Account Paused</div>}
-                                </div>
+                                {this.props.data["sameperson"] == 1 ? <div><button type="button" class="btn editbutton" onClick={this.editProfile}>Edit</button></div>:null}
+                                <h4 class="wa">{this.props.data["userinfodata"][0]["price"]}฿</h4>
                               </div>                              
                               <div class="forfont d-flex justify-content-center">
                                   <div class="mr-3">
@@ -756,6 +753,7 @@ class InfluencerFeedTitle extends React.Component {
 
                                   {this.state.edit}
 
+                              </div>
                               </div>
                             <div class="coversvdointro d-flex justify-content-center">
                                 <div class="d-flex flex-column ">
@@ -782,7 +780,11 @@ class InfluencerFeedTitle extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    :null}
+                                    : 
+                                    <div class="d-flex justify-content-center mt-3">
+                                    {this.props.data.accountstatus == 1 ? 
+                                    this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>Reserve</a>: <div></div>:<div>Account Paused</div>}
+                                    </div>}
                                 </div>
                             </div>
                     </div>
@@ -790,8 +792,8 @@ class InfluencerFeedTitle extends React.Component {
 
 
             <div class="enough d-flex justify-content-center mb-3">
-              <button type="button" class="btn btn-primary mr-5" id="publicfeedbutid" onClick={this.changeFeedPortal}>Public Feed</button>
-              <button type="button" class="btn btn-primary" id="reviewfeedbutid" onClick={this.changeFeedPortal}>Reviews</button>
+              <button type="button" class="publicbutton mr-5 btn " id="publicfeedbutid" onClick={this.changeFeedPortal}>วีดีโอตัวอย่าง</button>
+              <button type="button" class="btn publicbutton" id="reviewfeedbutid" onClick={this.changeFeedPortal}>รีวิว</button>
             </div>
             {this.props.data["sameperson"] == 1 ?
               <div class="d-flex justify-content-center">

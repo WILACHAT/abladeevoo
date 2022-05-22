@@ -25,6 +25,7 @@ class PaymentPage extends React.Component {
     this.submitTm = this.submitTm.bind(this);
     
     this.saveInfo = this.saveInfo.bind(this);
+    this.backButton = this.backButton.bind(this);
 
     this.state = {
         statusib: "ksbtnid",
@@ -68,6 +69,11 @@ class PaymentPage extends React.Component {
     }
   }
 
+  backButton(e)
+  {
+      document.querySelector('#paymentpage').hidden = true
+      document.querySelector('#wholereservepage').hidden = false
+  }
   submitTm(e)
   {
     Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
@@ -721,7 +727,7 @@ class BookPage extends React.Component {
                         <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์:</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input id="optional/occa4" name="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                        <input class="inputheho" id="optional/occa4" name="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
                     </div>
 
                 </div>
@@ -853,9 +859,9 @@ class BookPage extends React.Component {
                     </div>
                 
                     <hr class="hr"/>
-                    <div class="d-flex justify-content-center mt-2">
-                        <button type="button" class= {this.state.colorof1 == "someoneelsehtml" ? "btn btn-success mr-3": "btn btn-primary mr-3"} id="someoneelsehtml" onClick={this.changeIntroReserve}><h6 id="someoneelsehtml" onClick={this.changeIntroReserve} class="wabuttontext">คนอื่น</h6></button>
-                        <button type="button" class={this.state.colorof1 == "myselfhtml" ? "btn btn-success": "btn btn-primary"} id="myselfhtml" onClick={this.changeIntroReserve}><h6 id="myselfhtml" onClick={this.changeIntroReserve} class="wabuttontext">ตัวเอง</h6></button>                    
+                    <div class="d-flex justify-content-center mt-4 mb-5">
+                        <button type="button" class= {this.state.colorof1 == "someoneelsehtml" ? "btn successbutton mr-3": "btn failbutton mr-3"} id="someoneelsehtml" onClick={this.changeIntroReserve}><h6 id="someoneelsehtml" onClick={this.changeIntroReserve} class="wabuttontext">คนอื่น</h6></button>
+                        <button type="button" class={this.state.colorof1 == "myselfhtml" ? "btn successbutton": "btn failbutton"} id="myselfhtml" onClick={this.changeIntroReserve}><h6 id="myselfhtml" onClick={this.changeIntroReserve} class="wabuttontext">ตัวเอง</h6></button>                    
                     </div>
                     <div>
                         <div class="d-flex justify-content-center mt-2">
@@ -878,11 +884,11 @@ class BookPage extends React.Component {
                     </div>
                 
                     <hr class="hr"/>
-                    <div class="d-flex justify-content-center mt-2">
-                        <button type="button" class= {this.state.colorof2 == "birthday" ? "btn btn-success mr-3": "btn btn-primary mr-3"} id="birthdaybutton" onClick={this.changeOccasionReserve}><h6 id="birthdaybutton" onClick={this.changeOccasionReserve} class="wabuttontext">วันเกิด</h6></button>
-                        <button type="button" class= {this.state.colorof2 == "peptalk" ? "btn btn-success mr-3": "btn btn-primary mr-3"} id="peptalkbutton" onClick={this.changeOccasionReserve}><h6 id="peptalkbutton" onClick={this.changeOccasionReserve} class="wabuttontext">กําลังใจ</h6></button>
-                        <button type="button" class= {this.state.colorof2 == "roast" ? "btn btn-success mr-3": "btn btn-primary mr-3"} id="roastbutton" onClick={this.changeOccasionReserve}><h6 id="roastbutton" onClick={this.changeOccasionReserve} class="wabuttontext">เผา</h6></button>
-                        <button type="button" class= {this.state.colorof2 == "other" ? "btn btn-success": "btn btn-primary"} id="otherbutton" onClick={this.changeOccasionReserve}><h6 id="otherbutton" onClick={this.changeOccasionReserve} class="wabuttontext">อื่นๆ</h6></button>              
+                    <div class="d-flex justify-content-center mt-4 mb-5">
+                        <button type="button" class= {this.state.colorof2 == "birthday" ? "btn successbutton mr-3": "btn failbutton mr-3"} id="birthdaybutton" onClick={this.changeOccasionReserve}><h6 id="birthdaybutton" onClick={this.changeOccasionReserve} class="wabuttontext">วันเกิด</h6></button>
+                        <button type="button" class= {this.state.colorof2 == "peptalk" ? "btn successbutton mr-3": "btn failbutton mr-3"} id="peptalkbutton" onClick={this.changeOccasionReserve}><h6 id="peptalkbutton" onClick={this.changeOccasionReserve} class="wabuttontext">กําลังใจ</h6></button>
+                        <button type="button" class= {this.state.colorof2 == "roast" ? "btn successbutton mr-3": "btn failbutton mr-3"} id="roastbutton" onClick={this.changeOccasionReserve}><h6 id="roastbutton" onClick={this.changeOccasionReserve} class="wabuttontext">เผา</h6></button>
+                        <button type="button" class= {this.state.colorof2 == "other" ? "btn successbutton": "btn failbutton"} id="otherbutton" onClick={this.changeOccasionReserve}><h6 id="otherbutton" onClick={this.changeOccasionReserve} class="wabuttontext">อื่นๆ</h6></button>              
                     </div>
                     <div class="d-flex justify-content-center mt-4">
                         <h4 class="wa">ทําให้ Vid ของคุณน่าจดจํา!</h4>
@@ -909,7 +915,7 @@ class BookPage extends React.Component {
             </div>
 
             <div class="d-flex justify-content-center mt-2 mb-5">
-                <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="Payment"class="btn btn-primary"/>
+                <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="Payment"class="btn"/>
             </div>
 
          </div>

@@ -440,6 +440,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
 
     document.querySelector('#maininfluencer').hidden = false;
     document.querySelector('#reviewsmainfluencer').hidden = true;
+    console.log("waearth", _this5.props.data);
 
     var fullname = "";
     var description = "";
@@ -862,19 +863,12 @@ var InfluencerFeedTitle = function (_React$Component4) {
         }
       }
 
+      console.log("earthwa", this.props.data["userinfodata"][0]["price"]);
+
       console.log("daijoubu dayou", this.props.data);
       return React.createElement(
         'div',
         null,
-        React.createElement(
-          'div',
-          { 'class': 'd-flex justify-content-center mb-3' },
-          React.createElement(
-            'a',
-            { href: '/', 'class': 'btn btn-primary' },
-            'Back'
-          )
-        ),
         React.createElement(
           'div',
           null,
@@ -883,95 +877,92 @@ var InfluencerFeedTitle = function (_React$Component4) {
             { 'class': 'controlininfluencer d-flex justify-content-between' },
             React.createElement(
               'div',
-              { 'class': 'hihi d-flex flex-column' },
+              { 'class': 'beforehihi' },
               React.createElement(
                 'div',
-                { 'class': 'd-flex justify-content-center' },
-                React.createElement('img', { 'class': 'imgnoedit', src: link })
-              ),
-              this.props.data["sameperson"] == 1 ? React.createElement(
-                'div',
-                { 'class': 'd-flex flex-column mt-3' },
+                { 'class': 'hihi d-flex flex-column' },
                 React.createElement(
                   'div',
                   { 'class': 'd-flex justify-content-center' },
-                  React.createElement(
-                    'label',
-                    { htmlFor: 'edit_post_txt' },
-                    'Click to change profile picture: '
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { 'class': 'd-flex justify-content-end' },
-                  React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
-                )
-              ) : null,
-              React.createElement(
-                'div',
-                { 'class': 'd-flex justify-content-between mt-3' },
-                React.createElement(
-                  'h1',
-                  null,
-                  this.props.data['username']
+                  React.createElement('img', { 'class': 'imgnoedit', src: link })
                 ),
                 this.props.data["sameperson"] == 1 ? React.createElement(
                   'div',
-                  null,
+                  { 'class': 'd-flex flex-column mt-3' },
                   React.createElement(
-                    'button',
-                    { type: 'button', 'class': 'btn editbutton', onClick: this.editProfile },
-                    'Edit'
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                      'label',
+                      { htmlFor: 'edit_post_txt' },
+                      'Click to change profile picture: '
+                    )
+                  ),
+                  React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-end' },
+                    React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
                   )
                 ) : null,
                 React.createElement(
                   'div',
-                  null,
-                  this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
-                    'a',
-                    { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
-                    'Reserve'
-                  ) : React.createElement('div', null) : React.createElement(
+                  { 'class': 'd-flex justify-content-between mt-3' },
+                  React.createElement(
+                    'h1',
+                    null,
+                    this.props.data['username']
+                  ),
+                  this.props.data["sameperson"] == 1 ? React.createElement(
                     'div',
                     null,
-                    'Account Paused'
-                  )
-                )
-              ),
-              React.createElement(
-                'div',
-                { 'class': 'forfont d-flex justify-content-center' },
-                React.createElement(
-                  'div',
-                  { 'class': 'mr-3' },
+                    React.createElement(
+                      'button',
+                      { type: 'button', 'class': 'btn editbutton', onClick: this.editProfile },
+                      'Edit'
+                    )
+                  ) : null,
                   React.createElement(
-                    'h5',
-                    { 'class': 'forfont ml-3' },
-                    this.props.data["reviewnum"],
-                    ' \u0E23\u0E35\u0E27\u0E34\u0E27'
+                    'h4',
+                    { 'class': 'wa' },
+                    this.props.data["userinfodata"][0]["price"],
+                    '\u0E3F'
                   )
                 ),
                 React.createElement(
                   'div',
-                  null,
+                  { 'class': 'forfont d-flex justify-content-center' },
                   React.createElement(
+                    'div',
+                    { 'class': 'mr-3' },
+                    React.createElement(
+                      'h5',
+                      { 'class': 'forfont ml-3' },
+                      this.props.data["reviewnum"],
+                      ' \u0E23\u0E35\u0E27\u0E34\u0E27'
+                    )
+                  ),
+                  React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                      'h5',
+                      null,
+                      averagestars,
+                      ' \u0E14\u0E32\u0E27\u0E40\u0E09\u0E25\u0E35\u0E48\u0E22'
+                    )
+                  )
+                ),
+                React.createElement(
+                  'div',
+                  { 'class': 'd-flex justify-content-center mt-1' },
+                  this.props.data["userinfodata"] != "" ? React.createElement(
                     'h5',
                     null,
-                    averagestars,
-                    ' \u0E14\u0E32\u0E27\u0E40\u0E09\u0E25\u0E35\u0E48\u0E22'
-                  )
-                )
-              ),
-              React.createElement(
-                'div',
-                { 'class': 'd-flex justify-content-center mt-1' },
-                this.props.data["userinfodata"] != "" ? React.createElement(
-                  'h5',
-                  null,
-                  categoryname
-                ) : null
-              ),
-              this.state.edit
+                    categoryname
+                  ) : null
+                ),
+                this.state.edit
+              )
             ),
             React.createElement(
               'div',
@@ -1022,7 +1013,19 @@ var InfluencerFeedTitle = function (_React$Component4) {
                       )
                     )
                   )
-                ) : null
+                ) : React.createElement(
+                  'div',
+                  { 'class': 'd-flex justify-content-center mt-3' },
+                  this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
+                    'a',
+                    { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
+                    'Reserve'
+                  ) : React.createElement('div', null) : React.createElement(
+                    'div',
+                    null,
+                    'Account Paused'
+                  )
+                )
               )
             )
           )
@@ -1032,13 +1035,13 @@ var InfluencerFeedTitle = function (_React$Component4) {
           { 'class': 'enough d-flex justify-content-center mb-3' },
           React.createElement(
             'button',
-            { type: 'button', 'class': 'btn btn-primary mr-5', id: 'publicfeedbutid', onClick: this.changeFeedPortal },
-            'Public Feed'
+            { type: 'button', 'class': 'publicbutton mr-5 btn ', id: 'publicfeedbutid', onClick: this.changeFeedPortal },
+            '\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07'
           ),
           React.createElement(
             'button',
-            { type: 'button', 'class': 'btn btn-primary', id: 'reviewfeedbutid', onClick: this.changeFeedPortal },
-            'Reviews'
+            { type: 'button', 'class': 'btn publicbutton', id: 'reviewfeedbutid', onClick: this.changeFeedPortal },
+            '\u0E23\u0E35\u0E27\u0E34\u0E27'
           )
         ),
         this.props.data["sameperson"] == 1 ? React.createElement(
