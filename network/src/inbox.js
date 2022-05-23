@@ -411,6 +411,7 @@ class EachReserve extends React.Component{
                 <div class="mb-5 d-flex justify-content-center">
                     <div class="waitingforstar">
                         <h4 class="wa">สตาร์กําลังดําเนินการทําวีดีโอที่น่าจดจําของท่านอยู่</h4>
+                        
                     </div>
                 </div>
             }
