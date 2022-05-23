@@ -1651,15 +1651,15 @@ var InboxFeedInbox = function (_React$Component3) {
                 { 'class': 'coversalldiv' },
                 React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center mb-3' },
+                    { 'class': 'd-flex justify-content-center' },
                     this.state.newdata["type"] == "inbox" ? React.createElement(
                         'button',
-                        { id: 'hidecompletedid', value: this.state.hide, 'class': 'sortbutton btn mt-4', onClick: this.hideCompleted },
+                        { id: 'hidecompletedid', value: this.state.hide, 'class': 'sortbutton btn', onClick: this.hideCompleted },
                         this.state.hide
                     ) : null,
                     this.state.newdata["type"] == "request" ? React.createElement(
                         'button',
-                        { 'class': 'sortbutton btn mt-4', value: this.state.sort, onClick: this.sortTime },
+                        { 'class': 'sortbutton btn', value: this.state.sort, onClick: this.sortTime },
                         this.state.sort
                     ) : null
                 ),
@@ -1870,22 +1870,34 @@ var InboxFeedTitle = function (_React$Component4) {
             //button you want to have
             return React.createElement(
                 'div',
-                { 'class': 'buttonchoicesinbox d-flex justify-content-center mb-2' },
+                { 'class': 'buttonchoicesinbox mb-2' },
                 React.createElement(
-                    'button',
-                    { id: 'myinboxid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "myinbox" ? "myinboxclicked" : "myinboxcss" },
-                    '\u0E2D\u0E34\u0E19\u0E1A\u0E47\u0E2D\u0E01\u0E0B\u0E4C'
+                    'div',
+                    { 'class': 'wangong' },
+                    React.createElement(
+                        'button',
+                        { id: 'myinboxid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "myinbox" ? "myinboxclicked" : "myinboxcss" },
+                        '\u0E2D\u0E34\u0E19\u0E1A\u0E47\u0E2D\u0E01\u0E0B\u0E4C'
+                    )
                 ),
-                this.props.data["checkifinfluencer"] == true ? React.createElement(
-                    'button',
-                    { id: 'myrequestid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "myrequest" ? "requestcssclicked  ml-5" : "requestcss ml-5" },
-                    '\u0E23\u0E35\u0E40\u0E04\u0E27\u0E2A'
-                ) : null,
-                this.props.data["checkifinfluencer"] == true ? React.createElement(
-                    'button',
-                    { id: 'mycompleteid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "mycomplete" ? "completecssclicked ml-5" : "completecss ml-5" },
-                    '\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E17\u0E35\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
-                ) : null
+                React.createElement(
+                    'div',
+                    { 'class': 'wangong' },
+                    this.props.data["checkifinfluencer"] == true ? React.createElement(
+                        'button',
+                        { id: 'myrequestid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "myrequest" ? "requestcssclicked" : "requestcss" },
+                        '\u0E23\u0E35\u0E40\u0E04\u0E27\u0E2A'
+                    ) : null
+                ),
+                React.createElement(
+                    'div',
+                    { 'class': 'wangong' },
+                    this.props.data["checkifinfluencer"] == true ? React.createElement(
+                        'button',
+                        { id: 'mycompleteid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "mycomplete" ? "completecssclicked" : "completecss" },
+                        '\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E17\u0E35\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
+                    ) : null
+                )
             );
         }
     }]);

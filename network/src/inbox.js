@@ -411,7 +411,7 @@ class EachReserve extends React.Component{
                 <div class="mb-5 d-flex justify-content-center">
                     <div class="waitingforstar">
                         <h4 class="wa">สตาร์กําลังดําเนินการทําวีดีโอที่น่าจดจําของท่านอยู่</h4>
-                        
+
                     </div>
                 </div>
             }
@@ -1302,9 +1302,9 @@ class InboxFeedInbox extends React.Component {
 
         return(
             <div class="coversalldiv">      
-                <div class="d-flex justify-content-center mb-3">    
-                    {this.state.newdata["type"] == "inbox" ? <button id="hidecompletedid" value={this.state.hide}class="sortbutton btn mt-4" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
-                    {this.state.newdata["type"] == "request" ? <button class="sortbutton btn mt-4" value={this.state.sort}onClick={this.sortTime}>{this.state.sort}</button>:null}
+                <div class="d-flex justify-content-center">    
+                    {this.state.newdata["type"] == "inbox" ? <button id="hidecompletedid" value={this.state.hide}class="sortbutton btn" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
+                    {this.state.newdata["type"] == "request" ? <button class="sortbutton btn" value={this.state.sort}onClick={this.sortTime}>{this.state.sort}</button>:null}
                </div> 
                 {this.state.newdata["data"] != "" ? 
             
@@ -1463,15 +1463,16 @@ class InboxFeedTitle extends React.Component {
         //you already create and if for the thing so no need yea just decide what kind of 
         //button you want to have
         return (
-         <div class="buttonchoicesinbox d-flex justify-content-center mb-2">
-
-            
-            <button id="myinboxid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myinbox" ? "myinboxclicked"  : "myinboxcss"}>อินบ็อกซ์</button>
-            {this.props.data["checkifinfluencer"] == true ?  <button id="myrequestid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myrequest" ? "requestcssclicked  ml-5"  : "requestcss ml-5"}>รีเควส</button>:null}
-            {this.props.data["checkifinfluencer"] == true ?  <button id="mycompleteid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "mycomplete" ? "completecssclicked ml-5"  : "completecss ml-5"}>วีดีโอที่เสร็จสิ้น</button>:null}
-
-
-
+         <div class="buttonchoicesinbox mb-2">
+             <div class="wangong">
+                <button id="myinboxid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myinbox" ? "myinboxclicked"  : "myinboxcss"}>อินบ็อกซ์</button>
+            </div>
+            <div class="wangong">
+                {this.props.data["checkifinfluencer"] == true ?  <button id="myrequestid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myrequest" ? "requestcssclicked"  : "requestcss"}>รีเควส</button>:null}
+            </div>
+            <div class="wangong">
+                {this.props.data["checkifinfluencer"] == true ?  <button id="mycompleteid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "mycomplete" ? "completecssclicked"  : "completecss"}>วีดีโอที่เสร็จสิ้น</button>:null}
+            </div>
          </div>
         )
 

@@ -60,17 +60,17 @@ class Information extends React.Component{
               this.setState({username: e.target.value});
           }
           else {
-              this.setState({first_url: ""});
+              this.setState({username: ""});
           }
       }
-      if (e.target.id == "lastname")
+      if (e.target.id == "email")
       {
           if (e.target.value.length > 0) {
               console.log(e.target.value)
-              this.setState({lastname: e.target.value});
+              this.setState({email: e.target.value});
           }
           else {
-              this.setState({lastname: ""});
+              this.setState({email: ""});
           }
       }
      
@@ -106,11 +106,14 @@ class Information extends React.Component{
     saveChanges(e) 
     {      
 
+      
       let profilepic = document.querySelector('#profilepicture').value
       let firstname = document.querySelector('#firstname').value
       let lastname = document.querySelector('#lastname').value
       let email = document.querySelector('#email').value
       let username = document.querySelector('#username').value
+      console.log("something wrong in profilepic", profilepic)
+
       
         let getcooked = getCookie('csrftoken');
         fetch(`/usersettingapi`, {
@@ -118,7 +121,7 @@ class Information extends React.Component{
           headers: {'X-CSRFToken': getcooked
           },
           body: JSON.stringify({
-            profilepic: profilepic,
+            profilepic: this.state.profilepic,
             firstname: firstname,
             lastname: lastname,
             email: email,
@@ -127,7 +130,53 @@ class Information extends React.Component{
     })
     .then(response => response.json())
         .then(result =>{
-          window.location.href = "/";
+          if (result["error"] != null)
+          {
+            if (result["error"] = "mail")
+            {
+              Swal.fire({
+                title: '<strong>HTML <u>example</u></strong>',
+                icon: 'info',
+                html:
+                            
+                    'Are you <b>certain</b> that you want to delete the account. Everything will be deleted from the database and you will not be able to access your account again.',
+              
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText:
+                    '<i class="fa fa-thumbs-up"></i> Delete Account',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText:
+                'No',
+                cancelButtonAriaLabel: 'Thumbs down '
+                })
+            }
+            else
+            {
+              Swal.fire({
+                title: '<strong>HTML <u>example</u></strong>',
+                icon: 'info',
+                html:
+                            
+                    'Are you <b>certain</b> that you want to delete the account. Everything will be deleted from the database and you will not be able to access your account again.',
+              
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText:
+                    '<i class="fa fa-thumbs-up"></i> Delete Account',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText:
+                'No',
+                cancelButtonAriaLabel: 'Thumbs down '
+                })
+            }
+          }
+          else
+          {
+            window.location.href = "/";
+          }
 
         })
 

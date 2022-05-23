@@ -68,15 +68,15 @@ var Information = function (_React$Component) {
                     console.log(e.target.value);
                     this.setState({ username: e.target.value });
                 } else {
-                    this.setState({ first_url: "" });
+                    this.setState({ username: "" });
                 }
             }
-            if (e.target.id == "lastname") {
+            if (e.target.id == "email") {
                 if (e.target.value.length > 0) {
                     console.log(e.target.value);
-                    this.setState({ lastname: e.target.value });
+                    this.setState({ email: e.target.value });
                 } else {
-                    this.setState({ lastname: "" });
+                    this.setState({ email: "" });
                 }
             }
         }
@@ -114,6 +114,7 @@ var Information = function (_React$Component) {
             var lastname = document.querySelector('#lastname').value;
             var email = document.querySelector('#email').value;
             var username = document.querySelector('#username').value;
+            console.log("something wrong in profilepic", profilepic);
 
             var getcooked = getCookie('csrftoken');
             fetch('/usersettingapi', {
@@ -121,7 +122,7 @@ var Information = function (_React$Component) {
                 headers: { 'X-CSRFToken': getcooked
                 },
                 body: JSON.stringify({
-                    profilepic: profilepic,
+                    profilepic: this.state.profilepic,
                     firstname: firstname,
                     lastname: lastname,
                     email: email,
@@ -130,7 +131,39 @@ var Information = function (_React$Component) {
             }).then(function (response) {
                 return response.json();
             }).then(function (result) {
-                window.location.href = "/";
+                if (result["error"] != null) {
+                    if (result["error"] = "mail") {
+                        Swal.fire({
+                            title: '<strong>HTML <u>example</u></strong>',
+                            icon: 'info',
+                            html: 'Are you <b>certain</b> that you want to delete the account. Everything will be deleted from the database and you will not be able to access your account again.',
+
+                            showCloseButton: true,
+                            showCancelButton: true,
+                            focusConfirm: false,
+                            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Delete Account',
+                            confirmButtonAriaLabel: 'Thumbs up, great!',
+                            cancelButtonText: 'No',
+                            cancelButtonAriaLabel: 'Thumbs down '
+                        });
+                    } else {
+                        Swal.fire({
+                            title: '<strong>HTML <u>example</u></strong>',
+                            icon: 'info',
+                            html: 'Are you <b>certain</b> that you want to delete the account. Everything will be deleted from the database and you will not be able to access your account again.',
+
+                            showCloseButton: true,
+                            showCancelButton: true,
+                            focusConfirm: false,
+                            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Delete Account',
+                            confirmButtonAriaLabel: 'Thumbs up, great!',
+                            cancelButtonText: 'No',
+                            cancelButtonAriaLabel: 'Thumbs down '
+                        });
+                    }
+                } else {
+                    window.location.href = "/";
+                }
             });
         }
     }, {

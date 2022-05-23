@@ -138,9 +138,30 @@ def usersetting(request):
 def usersettingapi(request):
     if request.method == "POST":
         data = json.loads(request.body)
+
+        try:
+            print("does it even comes in here")
+            User.objects.filter(id = request.user.id).update(normal_user_pic = data["profilepic"], first_name = data["firstname"], last_name = data["lastname"]
+            ,email = data["email"], username = data["username"])
+
+        except IntegrityError as e:
+            error_message = e.__cause__
+            error_message = str(error_message)
+            print(error_message)
+            if "Key (e" in error_message:
+                print("in the error")
+                return_request = {"error":"mail"}
+
+                return JsonResponse(return_request, safe=False)
+
+            else:
+                return_request = {"error":"username"}
+
+                return JsonResponse(return_request, safe=False)
+
         
-        User.objects.filter(id = request.user.id).update(normal_user_pic = data["profilepic"], first_name = data["firstname"], last_name = data["lastname"]
-        ,email = data["email"], username = data["username"])
+ 
+    
     return_request = {"what":"ngong"}
     normal_user_info = User.objects.filter(id = request.user.id)
 
