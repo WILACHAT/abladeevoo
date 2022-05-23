@@ -148,51 +148,80 @@ var Information = function (_React$Component) {
                 'div',
                 null,
                 React.createElement(
-                    'label',
-                    null,
-                    'Change your settings or add stuff! (If you want to)'
-                ),
-                React.createElement('br', null),
-                React.createElement(
-                    'label',
-                    null,
-                    'Change Profile Picture'
-                ),
-                React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' }),
-                React.createElement('img', { id: 'profilepicture', 'class': 'imgnoedit', value: '', src: link }),
-                React.createElement('br', null),
-                React.createElement(
-                    'label',
-                    null,
-                    'First Name'
-                ),
-                React.createElement('input', { type: 'text', onChange: this.checkTxtArea, id: 'firstname', value: this.state.firstname != "" ? this.state.firstname : "" }),
-                React.createElement('br', null),
-                React.createElement(
-                    'label',
-                    null,
-                    'Last Name'
-                ),
-                React.createElement('input', { type: 'text', onChange: this.checkTxtArea, id: 'lastname', value: this.state.lastname != "" ? this.state.lastname : "" }),
-                React.createElement('br', null),
-                React.createElement(
-                    'label',
-                    null,
-                    'Email'
-                ),
-                React.createElement('input', { type: 'text', onChange: this.checkTxtArea, id: 'email', value: this.state.email }),
-                React.createElement('br', null),
-                React.createElement(
-                    'label',
-                    null,
-                    'Username'
-                ),
-                React.createElement('input', { type: 'text', onChange: this.checkTxtArea, id: 'username', value: this.state.username }),
-                React.createElement('br', null),
-                React.createElement(
-                    'button',
-                    { 'class': 'btn btn-primary', onClick: this.saveChanges },
-                    'Save Changes'
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                        'div',
+                        { 'class': 'settingbackground' },
+                        React.createElement(
+                            'label',
+                            { 'class': 'headingsetting' },
+                            '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E01\u0E32\u0E23\u0E15\u0E31\u0E49\u0E07\u0E04\u0E48\u0E32\u0E2B\u0E23\u0E37\u0E2D\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25'
+                        ),
+                        React.createElement('br', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex flex-column' },
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement(
+                                    'label',
+                                    { 'class': 'labelsetting' },
+                                    '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E39\u0E1B\u0E42\u0E1B\u0E23\u0E44\u0E1F\u0E25\u0E4C'
+                                ),
+                                React.createElement('br', null)
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-1' },
+                                React.createElement('img', { id: 'profilepicture', 'class': 'imgnoedit', value: '', src: link })
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mt-3' },
+                                React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
+                            )
+                        ),
+                        React.createElement('br', null),
+                        React.createElement(
+                            'label',
+                            { 'class': 'labelsetting' },
+                            '\u0E0A\u0E37\u0E48\u0E2D\u0E08\u0E23\u0E34\u0E07'
+                        ),
+                        React.createElement('br', null),
+                        React.createElement('input', { type: 'text', onChange: this.checkTxtArea, 'class': 'settinginput', id: 'firstname', value: this.state.firstname != "" ? this.state.firstname : "" }),
+                        React.createElement('br', null),
+                        React.createElement(
+                            'label',
+                            { 'class': 'labelsetting' },
+                            '\u0E19\u0E32\u0E21\u0E2A\u0E01\u0E38\u0E25'
+                        ),
+                        React.createElement('br', null),
+                        React.createElement('input', { type: 'text', onChange: this.checkTxtArea, 'class': 'settinginput', id: 'lastname', value: this.state.lastname != "" ? this.state.lastname : "" }),
+                        React.createElement('br', null),
+                        React.createElement(
+                            'label',
+                            { 'class': 'labelsetting' },
+                            '\u0E2D\u0E35\u0E40\u0E21\u0E25'
+                        ),
+                        React.createElement('br', null),
+                        React.createElement('input', { type: 'text', onChange: this.checkTxtArea, 'class': 'settinginput', id: 'email', value: this.state.email }),
+                        React.createElement('br', null),
+                        React.createElement(
+                            'label',
+                            { 'class': 'labelsetting' },
+                            '\u0E0A\u0E37\u0E48\u0E2D\u0E1C\u0E39\u0E49\u0E43\u0E0A\u0E49'
+                        ),
+                        React.createElement('br', null),
+                        React.createElement('input', { type: 'text', onChange: this.checkTxtArea, 'class': 'settinginput', id: 'username', value: this.state.username }),
+                        React.createElement('br', null),
+                        React.createElement(
+                            'button',
+                            { 'class': 'btn registerbtn mt-3', onClick: this.saveChanges },
+                            '\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01\u0E01\u0E32\u0E23\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E41\u0E1B\u0E25\u0E07'
+                        )
+                    )
                 )
             );
         }

@@ -190,8 +190,8 @@ var InfluencerFeedTable = function (_React$Component2) {
             { 'class': 'd-flex justify-content-center' },
             React.createElement(
               'h1',
-              null,
-              'Example Posts'
+              { 'class': 'wa mt-3' },
+              '\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07'
             )
           ),
           this.props.data["alldata"] == "" ? React.createElement(
@@ -215,7 +215,7 @@ var InfluencerFeedTable = function (_React$Component2) {
             { 'class': 'd-flex justify-content-center' },
             React.createElement(
               'h1',
-              null,
+              { 'class': 'wa mt-3' },
               '\u0E23\u0E34\u0E27\u0E34\u0E27'
             )
           ),
@@ -979,7 +979,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
                     React.createElement(
                       'h6',
                       { 'class': 'wanopostyet' },
-                      'No Introduction Video yet'
+                      '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27'
                     )
                   ) : React.createElement(
                     'video',
@@ -1019,11 +1019,11 @@ var InfluencerFeedTitle = function (_React$Component4) {
                   this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
                     'a',
                     { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
-                    'Reserve'
+                    '\u0E08\u0E2D\u0E07\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49'
                   ) : React.createElement('div', null) : React.createElement(
                     'div',
                     null,
-                    'Account Paused'
+                    '\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E2B\u0E22\u0E38\u0E14\u0E0A\u0E31\u0E48\u0E27\u0E04\u0E23\u0E32\u0E27'
                   )
                 )
               )

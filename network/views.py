@@ -703,10 +703,20 @@ def register(request):
             print("does it even comes in here")
             user = User.objects.create_user(username, email, password)
             user.save()
-        except IntegrityError:
-            return render(request, "network/register.html", {
+        except IntegrityError as e:
+            error_message = e.__cause__
+            error_message = str(error_message)
+            if "Key (e" in error_message:
+                return render(request, "network/register.html", {
+                "message": "Email already taken."
+            })
+
+            else:
+                return render(request, "network/register.html", {
                 "message": "Username already taken."
             })
+
+           
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
@@ -909,20 +919,17 @@ def feedbackmaillist(request):
 
 def payment(request):
     
-    checker = Userinfo.objects.values('omiserecipent').get(influencer_id = request.user.id)
-    
-    if checker['omiserecipent'] == None:
-       print("nice")
-       type = "notexist"
-    
-    else:
-        print("unlucky")
-        print(checker['omiserecipent'])
+    try:
+        Userinfo.objects.values('omiserecipent').get(influencer_id = request.user.id)
         type = "exist"
 
+    except Userinfo.DoesNotExist:
+        type = "notexist"
+
+    print("this is the type", type)
 
 
-    print("this is the type before", type)
+
 
     return render(request, "network/payment.html", {"type": type})
 
@@ -932,7 +939,11 @@ def paymentsetupapi(request):
 
     if request.method == "POST":
         data = json.loads(request.body)
-        checker = Userinfo.objects.values('omiserecipent', 'price').get(influencer_id = request.user.id)
+        try:
+            checker = Userinfo.objects.values('omiserecipent', 'price').get(influencer_id = request.user.id)
+        except Userinfo.DoesNotExist:
+            checker = "new"
+
 
         if data["type"] == "exist":
             recipient = omise.Recipient.retrieve(checker['omiserecipent'])
@@ -940,7 +951,7 @@ def paymentsetupapi(request):
             bankinfo = recipient.bank_account
        
 
-            return_response = {"name" : bankinfo.name, "brand" : bankinfo.brand, "number":bankinfo.last_digits, "price": checker['price']}
+            return_response = {"name" : bankinfo.name, "brand" : bankinfo.brand, "number":bankinfo.last_digits, "price": checker['price'], "email": recipient.email}
 
         elif data["type"] == "notexistpost":
             print("is the shit came in here")
@@ -952,6 +963,17 @@ def paymentsetupapi(request):
             )
             print("this is id", recipient.id)
             bankinfo = recipient.bank_account
+
+            print("WILACHAT WEESAKUL IS ON FIRE")
+            print(request.user.id)
+
+            if Userinfo.objects.filter(influencer_id=request.user.id).exists():
+                Userinfo.objects.filter(id = request.user.id).update(omiserecipent = recipient.id)
+            else:
+                userinfo = Userinfo(influencer_id = request.user.id, omiserecipent = recipient.id)
+                userinfo.save()
+
+  
 
             return_response = {"name" : bankinfo.name, "brand" : bankinfo.brand, "number":bankinfo.last_digits, "email": recipient.email, "price":data["price"], "lol":"dumb"}
 
@@ -975,7 +997,8 @@ def paymentsetupapi(request):
             return_response = {"price" : data["price"]}
             Userinfo.objects.filter(influencer_id = request.user.id).update(price = data["price"])
 
-
+        else:
+            return_response = {"new":checker}
     return JsonResponse(return_response, safe=False)
 
 
@@ -1193,6 +1216,17 @@ def paymentapi(request, username):
         show=data["inputcheck"], omisecharge = charge.id)
         
         bookrequest.save()
+        '''
+        return_response = {"url":charge.authorize_uri}
+        print("this is source of charge", charge.source)
+        ye = charge.source
+        lol = ye.scannable_code 
+        print("this is image", lol.image)
+        hehe = lol.image
+        print(hehe.download_uri)
+
+        return_response = {"url":hehe.download_uri}
+        '''
 
 
 
@@ -1204,104 +1238,9 @@ def paymentapi(request, username):
             return redirect("paymentresponse")
 
 
-        print("this is fucking token lets go", token)
-
-        HttpResponseRedirect(reverse("paymentresponse"))
-
-
-
-        
-        
-       # print(request.omiseToken)
-       # print(request.body)
-
-
-        influencerid = User.objects.values('id').get(username=username)
-        influencerid = influencerid["id"]
-        checker = Userinfo.objects.values('omiserecipent', 'price').get(influencer_id = influencerid)
-
-        
-        price = int(checker['price'])
-
-
-       # priceforme = (price * (7/100))
-       # priceforme = priceforme * 100
-      #  price = int(price - priceforme) 
-        price = price * 100
-        #Transfer to our bank account
-       # transfer = omise.Transfer.create(amount=price)
-
-       # Userinfo.objects.filter()
-        data = json.loads(request.body)
-        print("this is id of token", data["token"])
-        if data["type"] == "creditcardpayment":
-            charge = omise.Charge.create(
-            amount=price,
-            currency="thb",
-            capture=True,
-            card=data["token"])
-            return_response = {"status":charge.status, "chargeid":charge.id}
-
-        elif data["type"] == "internetbankingpayment":
-            print("is the shit in here")
-            omise.api_version = "2019-05-29"
-            charge = omise.Charge.create(
-            amount=price,
-            currency="thb",
-            capture=True,
-            source=data["token"],
-            return_uri = "http://127.0.0.1:8000/paymentresponse"
-            )
-            print("kaido yung glua loey ai sus")
-
-            return_response = {"url":charge.authorize_uri}
-
-        elif data["type"] == "promptpaypayment":
-            print("is the shit in promptpay")
-            omise.api_version = "2019-05-29"
-            charge = omise.Charge.create(
-            amount=price,
-            currency="thb",
-            capture=True,
-            return_uri = "http://127.0.0.1:8000/paymentresponse",
-            source=data["token"]
-            )
-
-            '''
-            return_response = {"url":charge.authorize_uri}
-            print("this is source of charge", charge.source)
-            ye = charge.source
-            lol = ye.scannable_code 
-            print("this is image", lol.image)
-            hehe = lol.image
-            print(hehe.download_uri)
-
-            return_response = {"url":hehe.download_uri}
-            '''
-
-            #https://api.omise.co/charges/chrg_test_5ru1r2mtx3spoe6udyl/documents/docu_test_5ru1r2pbhjq0z7gw32i/downloads/10A1780DBA73BF02
-
-        elif data["type"] == "truemoneypayment":
-            print("this is in fucking true money")
-            print("this is money", price)
-            charge = omise.Charge.create(
-            amount=price,
-            currency="thb",
-            return_uri = "http://127.0.0.1:8000/paymentresponse",
-            source=data["token"]
-            )
-            return_response = {"url":charge.authorize_uri}
-            print("this is source of charge", charge.source)
-            print("this is source of charge", charge.status)
-
-        Reservation.objects.filter(user_id_reserver_id=request.user.id, omisecharge=None).update(omisecharge = charge.id)
-        
-        print("this is charge.id", charge.id)
-        print(charge.authorize_uri)
-        print(charge.status)
-        print(charge.source)
-
-    
-
     return redirect("paymentresponse")
+
+def errorpage(request):
+    return render(request, "network/errorpage.html")
+
 

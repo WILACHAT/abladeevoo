@@ -1,32 +1,46 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
+    <div class="godown"></div>
 
-    <h2 class="godown">Register</h2>
+    <div class="d-flex justify-content-center">
+        <h3 class="registertitle">สร้างบัญชีใหม่</h3>
+    </div>
 
     {% if message %}
         <div>{{ message }}</div>
     {% endif %}
 
+    
+
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
-        <div class="form-group">
-            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="email" name="email" placeholder="Email Address">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-        </div>
-        <input class="btn btn-primary" type="submit" value="Register">
-    </form>
+        <div class="d-flex justify-content-center">
 
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
-    Forgot Password? <a href="{% url 'password_reset' %}">Reset Password here.</a>
+            <input class="inputhehore" minlength="3" autofocus type="text" name="username" placeholder="ยูสเซ่อเนม">
+        </div>
+        <div class="d-flex justify-content-center">
+            <input class="inputhehore" type="email" name="email" placeholder="อีเมล">
+        </div>
+        <div class="d-flex justify-content-center">
+            <input class="inputhehore" type="password" name="password" placeholder="รหัสผ่าน" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="ต้องมีเลขอย่างน้อยหนึ่งตัว ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวใหญ่อย่างน้อยหนึ่งตัว และ ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวเล็กอย่างน้อยหนึ่งตัว, สุดท้ายต้องมีความยาวมากกว่า 8 ตัวอักษร Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+        </div>
+        <div class="d-flex justify-content-center">
+            <input class="inputhehore" type="password" name="confirmation" placeholder="ยืนยันรหัสผ่าน">
+        </div>
+        <label class="wa d-flex justify-content-center mt-2">*อีเมลของท่านจะถูกใช้ในกรณีที่ลืมรหัสผ่าน*</label>
+
+        <div class="d-flex justify-content-center mt-3">
+             <input id="registerid" class="btn registerbtn" type="submit"  value="สมัคร">
+        </div>
+
+    </form>
+    <div class="d-flex justify-content-center mt-2">
+        <a href="{% url 'login' %}">มีบัญชีแล้ว</a>
+    </div>
+    <div class="d-flex justify-content-center mt-2">
+        <a href="{% url 'password_reset' %}">ลืมรหัสผ่านใช่หรือไม่</a>
+    </div>
 
 
 {% endblock %}

@@ -38,6 +38,7 @@ var PaymentSetup = function (_React$Component) {
         _this.cancelPriceChange = _this.cancelPriceChange.bind(_this);
 
         _this.setPrice = _this.setPrice.bind(_this);
+        console.log("printplease", _this.props.data);
 
         if (document.querySelector('#checkexistid').value != "exist") {
             _this.state = {
@@ -50,13 +51,13 @@ var PaymentSetup = function (_React$Component) {
                         React.createElement(
                             'label',
                             null,
-                            'Set Price (THB)'
+                            '\u0E15\u0E31\u0E49\u0E07\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D (THB)'
                         )
                     ),
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { id: 'setpriceid' })
+                        React.createElement('input', { type: 'number', 'class': 'inputhehore', id: 'setpriceid', placeholder: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07: 500' })
                     )
                 ),
 
@@ -69,7 +70,7 @@ var PaymentSetup = function (_React$Component) {
                         React.createElement(
                             'label',
                             null,
-                            'Select Bank'
+                            '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E18\u0E19\u0E32\u0E04\u0E32\u0E23\u0E01\u0E32\u0E23\u0E23\u0E31\u0E1A\u0E40\u0E07\u0E34\u0E19'
                         )
                     ),
                     React.createElement(
@@ -77,7 +78,7 @@ var PaymentSetup = function (_React$Component) {
                         { 'class': 'd-flex justify-content-center' },
                         React.createElement(
                             'select',
-                            { name: 'selectbank', id: 'selectbankid' },
+                            { 'class': 'inputhehore', name: 'selectbank', id: 'selectbankid' },
                             React.createElement('option', { value: 'nothing' }),
                             React.createElement(
                                 'option',
@@ -117,13 +118,13 @@ var PaymentSetup = function (_React$Component) {
                         React.createElement(
                             'label',
                             null,
-                            'Full Name'
+                            '\u0E0A\u0E37\u0E48\u0E2D\u0E41\u0E25\u0E30\u0E19\u0E32\u0E21\u0E2A\u0E01\u0E38\u0E25 (\u0E20\u0E32\u0E29\u0E32\u0E44\u0E17\u0E22)'
                         )
                     ),
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { id: 'fullnamebankid' })
+                        React.createElement('input', { 'class': 'inputhehore', id: 'fullnamebankid', placeholder: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07: \u0E27\u0E34\u0E23\u0E0A\u0E31\u0E0A \u0E27\u0E35\u0E2A\u0E01\u0E38\u0E25' })
                     ),
                     React.createElement(
                         'div',
@@ -131,13 +132,13 @@ var PaymentSetup = function (_React$Component) {
                         React.createElement(
                             'label',
                             null,
-                            'Account Number'
+                            '\u0E40\u0E25\u0E02\u0E17\u0E35\u0E48\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E18\u0E19\u0E32\u0E04\u0E32\u0E23'
                         )
                     ),
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { id: 'accountnumberid' })
+                        React.createElement('input', { 'class': 'inputhehore', id: 'accountnumberid', type: 'number', placeholder: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07: 0384683978' })
                     ),
                     React.createElement(
                         'div',
@@ -145,23 +146,32 @@ var PaymentSetup = function (_React$Component) {
                         React.createElement(
                             'label',
                             null,
-                            'Email'
+                            '\u0E2D\u0E35\u0E40\u0E21\u0E27'
                         )
                     ),
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { id: 'emailid' })
+                        React.createElement('input', { 'class': 'inputhehore', id: 'emailid', placeholder: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07: araisukyarng@gmail.com' })
                     ),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-center mt-2' },
+                        { 'class': 'd-flex justify-content-center mt-3' },
+                        React.createElement(
+                            'p',
+                            null,
+                            '*\u0E43\u0E19\u0E02\u0E13\u0E30\u0E19\u0E35\u0E49\u0E44\u0E21\u0E48\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E01\u0E32\u0E23\u0E40\u0E07\u0E34\u0E19\u0E44\u0E14\u0E49\u0E21\u0E32\u0E01\u0E01\u0E27\u0E48\u0E32\u0E2B\u0E19\u0E36\u0E48\u0E07\u0E2D\u0E31\u0E19  \u0E41\u0E15\u0E48\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E02\u0E2D\u0E07\u0E17\u0E48\u0E32\u0E19\u0E44\u0E14\u0E49*'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
                         React.createElement(
                             'button',
-                            { 'class': 'btn btn-primary', onClick: function onClick() {
+                            { 'class': 'btn registerbtn', onClick: function onClick() {
                                     return _this.onSubmit("new");
                                 } },
-                            'Submit'
+                            '\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E01\u0E32\u0E23\u0E40\u0E07\u0E34\u0E19'
                         )
                     )
                 )
@@ -171,21 +181,39 @@ var PaymentSetup = function (_React$Component) {
                 price: _this.props.data["price"],
                 innerpricediv: React.createElement(
                     'div',
-                    null,
+                    { 'class': 'd-flex justify-content-center' },
                     React.createElement(
-                        'label',
-                        null,
-                        'Set Price (THB)'
-                    ),
-                    React.createElement(
-                        'h2',
-                        null,
-                        _this.props.data["price"]
-                    ),
-                    React.createElement(
-                        'button',
-                        { onClick: _this.changePrice },
-                        'Change Price'
+                        'div',
+                        { 'class': 'coversprice' },
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'label',
+                                null,
+                                '\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D (THB)'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h5',
+                                { 'class': 'registertitleprice' },
+                                _this.props.data["price"],
+                                ' \u0E3F'
+                            )
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'button',
+                                { 'class': 'btn registerbtn', onClick: _this.changePrice },
+                                '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E32\u0E04\u0E32'
+                            )
+                        )
                     )
                 ),
 
@@ -196,51 +224,96 @@ var PaymentSetup = function (_React$Component) {
 
                 innerpaymentdiv: React.createElement(
                     'div',
-                    null,
+                    { 'class': 'd-flex justify-content-center mt-5' },
                     React.createElement(
-                        'label',
-                        null,
-                        'Current Bank'
-                    ),
-                    React.createElement(
-                        'h2',
-                        null,
-                        _this.props.data["brand"]
-                    ),
-                    React.createElement(
-                        'label',
-                        null,
-                        'Full Name'
-                    ),
-                    React.createElement(
-                        'h2',
-                        null,
-                        _this.props.data["name"]
-                    ),
-                    React.createElement(
-                        'label',
-                        null,
-                        'Account Number'
-                    ),
-                    React.createElement(
-                        'h2',
-                        null,
-                        _this.props.data["number"]
-                    ),
-                    React.createElement(
-                        'label',
-                        null,
-                        'Email'
-                    ),
-                    React.createElement(
-                        'h2',
-                        null,
-                        _this.props.data["email"]
-                    ),
-                    React.createElement(
-                        'button',
-                        { onClick: _this.changePayment },
-                        'Change Banking'
+                        'div',
+                        { 'class': 'coversbank' },
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'label',
+                                null,
+                                '\u0E18\u0E19\u0E32\u0E04\u0E32\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E2D\u0E22\u0E39\u0E48'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h5',
+                                null,
+                                _this.props.data["brand"]
+                            )
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'label',
+                                null,
+                                '\u0E0A\u0E37\u0E48\u0E2D\u0E08\u0E23\u0E34\u0E07\u0E41\u0E25\u0E30\u0E19\u0E32\u0E21\u0E2A\u0E01\u0E38\u0E25'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h5',
+                                null,
+                                _this.props.data["name"]
+                            )
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'label',
+                                null,
+                                '\u0E40\u0E25\u0E02\u0E17\u0E35\u0E48\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E25\u0E07\u0E17\u0E49\u0E32\u0E22 4\u0E15\u0E31\u0E27'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h5',
+                                null,
+                                '******',
+                                _this.props.data["number"]
+                            )
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'label',
+                                null,
+                                '\u0E2D\u0E35\u0E40\u0E21\u0E27\u0E22\u0E4C'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h5',
+                                null,
+                                _this.props.data["email"]
+                            )
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'button',
+                                { 'class': 'btn registerbtn', onClick: _this.changePayment },
+                                '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E18\u0E19\u0E32\u0E04\u0E32\u0E23'
+                            )
+                        )
                     )
                 )
             };
@@ -272,21 +345,39 @@ var PaymentSetup = function (_React$Component) {
                     price: data["price"],
                     innerpricediv: React.createElement(
                         'div',
-                        null,
+                        { 'class': 'd-flex justify-content-center' },
                         React.createElement(
-                            'label',
-                            null,
-                            'Set Price (THB)'
-                        ),
-                        React.createElement(
-                            'h2',
-                            null,
-                            data["price"]
-                        ),
-                        React.createElement(
-                            'button',
-                            { onClick: _this2.changePrice },
-                            'Change Price'
+                            'div',
+                            { 'class': 'coversprice' },
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement(
+                                    'label',
+                                    null,
+                                    '\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D (THB)'
+                                )
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement(
+                                    'h5',
+                                    { 'class': 'registertitleprice' },
+                                    data["price"],
+                                    ' \u0E3F'
+                                )
+                            ),
+                            React.createElement('hr', null),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement(
+                                    'button',
+                                    { 'class': 'btn registerbtn', onClick: _this2.changePrice },
+                                    '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E32\u0E04\u0E32'
+                                )
+                            )
                         )
                     ) });
 
@@ -309,121 +400,204 @@ var PaymentSetup = function (_React$Component) {
             } else {
                 type = "notexistpost";
                 price = document.querySelector('#setpriceid').value;
+                if (price == "") {
+                    price = 1;
+                }
             }
 
-            console.log("yoooo");
-            //send the info here to python
-            var getcooked = getCookie('csrftoken');
-            fetch('/paymentsetupapi', {
-                method: 'POST',
-                headers: { 'X-CSRFToken': getcooked },
-                body: JSON.stringify({
-                    bank: document.querySelector('#selectbankid').value,
-                    fullname: document.querySelector('#fullnamebankid').value,
-                    accountnumber: document.querySelector('#accountnumberid').value,
-                    email: document.querySelector('#emailid').value,
-                    price: price,
-                    type: type
+            var checker = 0;
+            console.log("bank value", document.querySelector('#selectbankid').value);
+            if (document.querySelector('#selectbankid').value == "nothing") {
+                checker = 1;
+            } else if (document.querySelector('#accountnumberid').value == "") {
+                checker = 1;
+            } else if (document.querySelector('#fullnamebankid').value == "") {
+                checker = 1;
+            } else if (document.querySelector('#emailid').value == "") {
+                checker = 1;
+            }
 
-                })
-            }).then(function (response) {
-                return response.json();
-            }).then(function (data) {
-                console.log("suk mah dik", data);
-                console.log("suk mah dik", data["brand"]);
-                console.log("suk mah dik", data["number"]);
-                console.log("suk mah dik", data["email"]);
-                console.log("suk mah dik", data["number"]);
-                document.querySelector('#checkexistid').value = "exist";
+            if (checker == 0) {
+                console.log("yoooo");
+                //send the info here to python
+                var getcooked = getCookie('csrftoken');
+                fetch('/paymentsetupapi', {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': getcooked },
+                    body: JSON.stringify({
+                        bank: document.querySelector('#selectbankid').value,
+                        fullname: document.querySelector('#fullnamebankid').value,
+                        accountnumber: document.querySelector('#accountnumberid').value,
+                        email: document.querySelector('#emailid').value,
+                        price: price,
+                        type: type
 
-                //if data returns successful show beautiful success stuff
-                //if not show failed html
-                console.log();
+                    })
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    console.log("suk mah dik", data);
+                    console.log("suk mah dik", data["brand"]);
+                    console.log("suk mah dik", data["number"]);
+                    console.log("suk mah dik", data["email"]);
+                    console.log("suk mah dik", data["number"]);
+                    console.log("pricey", data["price"]);
+                    document.querySelector('#checkexistid').value = "exist";
 
-                if (data["lol"] == "dumb" || data["lol"] != null) {
-                    console.log("is this in here wtf pls dont be in here");
+                    //if data returns successful show beautiful success stuff
+                    //if not show failed html
+                    console.log();
+
+                    if (data["lol"] == "dumb" || data["lol"] != null) {
+                        console.log("is this in here wtf pls dont be in here");
+                        _this3.setState({
+                            price: data["price"],
+                            innerpricediv: React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'coversprice' },
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'label',
+                                            null,
+                                            '\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D (THB)'
+                                        )
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'h5',
+                                            { 'class': 'registertitleprice' },
+                                            price,
+                                            ' \u0E3F'
+                                        )
+                                    ),
+                                    React.createElement('hr', null),
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'button',
+                                            { 'class': 'btn registerbtn', onClick: _this3.changePrice },
+                                            '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E32\u0E04\u0E32'
+                                        )
+                                    )
+                                )
+                            )
+                        });
+                    }
                     _this3.setState({
-                        price: data["price"],
-                        innerpricediv: React.createElement(
+
+                        brand: data["brand"],
+                        name: data["name"],
+                        number: data["number"],
+                        email: data["email"],
+
+                        innerpaymentdiv: React.createElement(
                             'div',
-                            null,
+                            { 'class': 'd-flex justify-content-center mt-5' },
                             React.createElement(
-                                'label',
-                                null,
-                                'Set Price (THB)'
-                            ),
-                            React.createElement(
-                                'h2',
-                                null,
-                                data["price"]
-                            ),
-                            React.createElement(
-                                'button',
-                                { onClick: _this3.changePrice },
-                                'Change Price'
+                                'div',
+                                { 'class': 'coversbank' },
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'label',
+                                        null,
+                                        '\u0E18\u0E19\u0E32\u0E04\u0E32\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E2D\u0E22\u0E39\u0E48'
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h5',
+                                        null,
+                                        data["brand"]
+                                    )
+                                ),
+                                React.createElement('hr', null),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center mt-2' },
+                                    React.createElement(
+                                        'label',
+                                        null,
+                                        '\u0E0A\u0E37\u0E48\u0E2D\u0E08\u0E23\u0E34\u0E07\u0E41\u0E25\u0E30\u0E19\u0E32\u0E21\u0E2A\u0E01\u0E38\u0E25'
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h5',
+                                        null,
+                                        data["name"]
+                                    )
+                                ),
+                                React.createElement('hr', null),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center mt-2' },
+                                    React.createElement(
+                                        'label',
+                                        null,
+                                        '\u0E40\u0E25\u0E02\u0E17\u0E35\u0E48\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E25\u0E07\u0E17\u0E49\u0E32\u0E22 4\u0E15\u0E31\u0E27'
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h5',
+                                        null,
+                                        '******',
+                                        data["number"]
+                                    )
+                                ),
+                                React.createElement('hr', null),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center mt-2' },
+                                    React.createElement(
+                                        'label',
+                                        null,
+                                        '\u0E2D\u0E35\u0E40\u0E21\u0E27\u0E22\u0E4C'
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h5',
+                                        null,
+                                        data["email"]
+                                    )
+                                ),
+                                React.createElement('hr', null),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'button',
+                                        { 'class': 'btn registerbtn', onClick: _this3.changePayment },
+                                        '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E18\u0E19\u0E32\u0E04\u0E32\u0E23'
+                                    )
+                                )
                             )
                         )
+
                     });
-                }
-                _this3.setState({
-
-                    brand: data["brand"],
-                    name: data["name"],
-                    number: data["number"],
-                    email: data["email"],
-
-                    innerpaymentdiv: React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'label',
-                            null,
-                            'Current Bank'
-                        ),
-                        React.createElement(
-                            'h2',
-                            null,
-                            data["brand"]
-                        ),
-                        React.createElement(
-                            'label',
-                            null,
-                            'Full Name'
-                        ),
-                        React.createElement(
-                            'h2',
-                            null,
-                            data["name"]
-                        ),
-                        React.createElement(
-                            'label',
-                            null,
-                            'Account Number'
-                        ),
-                        React.createElement(
-                            'h2',
-                            null,
-                            data["number"]
-                        ),
-                        React.createElement(
-                            'label',
-                            null,
-                            'Email'
-                        ),
-                        React.createElement(
-                            'h2',
-                            null,
-                            data["email"]
-                        ),
-                        React.createElement(
-                            'button',
-                            { onClick: _this3.changePayment },
-                            'Change Payment'
-                        )
-                    )
-
                 });
-            });
+            } else {
+                alert("ฟอร์มถูกกรอกไม่ครบ");
+            }
         }
     }, {
         key: 'cancelPriceChange',
@@ -431,23 +605,42 @@ var PaymentSetup = function (_React$Component) {
             this.setState({
                 innerpricediv: React.createElement(
                     'div',
-                    null,
+                    { 'class': 'd-flex justify-content-center' },
                     React.createElement(
-                        'label',
-                        null,
-                        'Set Price (THB)'
-                    ),
-                    React.createElement(
-                        'h2',
-                        null,
-                        this.state.price
-                    ),
-                    React.createElement(
-                        'button',
-                        { onClick: this.changePrice },
-                        'Change Price'
+                        'div',
+                        { 'class': 'coversprice' },
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'label',
+                                null,
+                                '\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D (THB)'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h5',
+                                { 'class': 'registertitleprice' },
+                                this.props.data["price"],
+                                ' \u0E3F'
+                            )
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'button',
+                                { 'class': 'btn registerbtn', onClick: this.changePrice },
+                                '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E32\u0E04\u0E32'
+                            )
+                        )
                     )
-                ) });
+                )
+            });
         }
     }, {
         key: 'cancelChange',
@@ -457,51 +650,96 @@ var PaymentSetup = function (_React$Component) {
 
                 innerpaymentdiv: React.createElement(
                     'div',
-                    null,
+                    { 'class': 'd-flex justify-content-center mt-5' },
                     React.createElement(
-                        'label',
-                        null,
-                        'Current Bank'
-                    ),
-                    React.createElement(
-                        'h2',
-                        null,
-                        this.state.brand
-                    ),
-                    React.createElement(
-                        'label',
-                        null,
-                        'Full Name'
-                    ),
-                    React.createElement(
-                        'h2',
-                        null,
-                        this.state.name
-                    ),
-                    React.createElement(
-                        'label',
-                        null,
-                        'Account Number'
-                    ),
-                    React.createElement(
-                        'h2',
-                        null,
-                        this.state.number
-                    ),
-                    React.createElement(
-                        'label',
-                        null,
-                        'Email'
-                    ),
-                    React.createElement(
-                        'h2',
-                        null,
-                        this.state.email
-                    ),
-                    React.createElement(
-                        'button',
-                        { onClick: this.changePayment },
-                        'Change Payment'
+                        'div',
+                        { 'class': 'coversbank' },
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'label',
+                                null,
+                                '\u0E18\u0E19\u0E32\u0E04\u0E32\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E2D\u0E22\u0E39\u0E48'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h5',
+                                null,
+                                this.props.data["brand"]
+                            )
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'label',
+                                null,
+                                '\u0E0A\u0E37\u0E48\u0E2D\u0E08\u0E23\u0E34\u0E07\u0E41\u0E25\u0E30\u0E19\u0E32\u0E21\u0E2A\u0E01\u0E38\u0E25'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h5',
+                                null,
+                                this.props.data["name"]
+                            )
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'label',
+                                null,
+                                '\u0E40\u0E25\u0E02\u0E17\u0E35\u0E48\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E25\u0E07\u0E17\u0E49\u0E32\u0E22 4\u0E15\u0E31\u0E27'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h5',
+                                null,
+                                '******',
+                                this.props.data["number"]
+                            )
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            React.createElement(
+                                'label',
+                                null,
+                                '\u0E2D\u0E35\u0E40\u0E21\u0E27\u0E22\u0E4C'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'h5',
+                                null,
+                                this.props.data["email"]
+                            )
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                                'button',
+                                { 'class': 'btn registerbtn', onClick: this.changePayment },
+                                '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E18\u0E19\u0E32\u0E04\u0E32\u0E23'
+                            )
+                        )
                     )
                 )
             });
@@ -701,18 +939,18 @@ var PaymentSetup = function (_React$Component) {
             return React.createElement(
                 'div',
                 null,
+                React.createElement('div', { 'class': 'godown' }),
                 React.createElement(
-                    'h2',
-                    { 'class': 'godown' },
-                    'Payment'
+                    'div',
+                    { 'class': 'd-flex justify-content-center mb-4' },
+                    React.createElement(
+                        'h2',
+                        { 'class': 'registertitle' },
+                        '\u0E01\u0E32\u0E23\u0E40\u0E07\u0E34\u0E19'
+                    )
                 ),
                 this.state.innerpricediv,
-                this.state.innerpaymentdiv,
-                React.createElement(
-                    'p',
-                    null,
-                    '*Note Khun samard mee dai kae 1 account'
-                )
+                this.state.innerpaymentdiv
             );
         }
     }]);
@@ -729,6 +967,7 @@ document.addEventListener('DOMContentLoaded', function () {
         type = "notexistnotpost";
     }
 
+    console.log("this is type", type);
     var getcooked = getCookie('csrftoken');
     fetch('/paymentsetupapi', {
         method: 'POST',

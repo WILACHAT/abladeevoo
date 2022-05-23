@@ -152,7 +152,7 @@ class InfluencerFeedTable extends React.Component {
       return (
         <div>
       
-            {this.props.data["feedtype"] == "main" ? <div><div class="d-flex justify-content-center"><h1>Example Posts</h1></div>{this.props.data["alldata"] == "" ? 
+            {this.props.data["feedtype"] == "main" ? <div><div class="d-flex justify-content-center"><h1 class="wa mt-3">วีดีโอตัวอย่าง</h1></div>{this.props.data["alldata"] == "" ? 
             <div class="d-flex justify-content-center mt-3 mb-5">
               <h6 class="wanopostyet">ยังไม่มีโพส</h6>
             </div>: 
@@ -162,7 +162,7 @@ class InfluencerFeedTable extends React.Component {
            
            <div>
                   <div class="d-flex justify-content-center">
-                    <h1>ริวิว</h1>
+                    <h1 class="wa mt-3">ริวิว</h1>
                   </div> 
                   {this.props.data["alldata"] == "" ? 
                   
@@ -759,7 +759,7 @@ class InfluencerFeedTitle extends React.Component {
                                 <div class="d-flex flex-column ">
                                     <div class="d-flex justify-content-center">
                                    {videolink == "" ? <div>
-                                     <h6 class="wanopostyet">No Introduction Video yet</h6>
+                                     <h6 class="wanopostyet">ยังไม่มีวีดีโอแนะนําตัว</h6>
                                    </div>:
                                       <video class="almostvideovideowhenget" id="introvideo" controls>
                                       <source src={videolink}></source>
@@ -783,7 +783,7 @@ class InfluencerFeedTitle extends React.Component {
                                     : 
                                     <div class="d-flex justify-content-center mt-3">
                                     {this.props.data.accountstatus == 1 ? 
-                                    this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>Reserve</a>: <div></div>:<div>Account Paused</div>}
+                                    this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>จองตอนนี้</a>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>}
                                     </div>}
                                 </div>
                             </div>

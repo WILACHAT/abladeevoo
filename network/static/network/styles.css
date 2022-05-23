@@ -63,6 +63,11 @@ html, body {
   object-fit: cover;
 
 }
+.staygrey
+{
+  font-size:2px;
+  color:#F8F9FA
+}
 .sadul {
   list-style-type: none;
   margin: 0;
@@ -74,16 +79,19 @@ html, body {
   margin-top: 2px;
 }
 
-.navbar
-{
-  background-color:white;
-}
+
 
 .videme
 {
   color:#FF336F;
   font-family: 'Bangers', cursive;
   font-size:40px;
+}
+.videmedara
+{
+  color:#FF336F;
+  font-family: 'Bangers', cursive;
+  font-size:30px;
 }
 
 .wa
@@ -108,21 +116,24 @@ html, body {
 }
 .waoccasion
 {
-  color:#203354;
+  color:#212121;
 
   font-family: 'Sarabun';
   font-size:25px;
 }
 .nameininbox
 {
-  color:#203354;
+  color:#212121;
   font-family: 'Sarabun';
   display:flex;
   flex-direction: column;
   flex-wrap: wrap;
 
-
-
+}
+.wanameinbox
+{
+  font-family: 'Sarabun';
+  color:#212121;
 }
 .yeathename
 {
@@ -134,6 +145,75 @@ html, body {
   font-family: 'Sarabun';
   font-size:15px;
 }
+
+.myinboxcss
+{
+  background-color: #0275d8;
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+}
+.myinboxclicked
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+
+
+}
+.completecss
+{
+  background-color: #0275d8;
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+
+}
+.completecssclicked
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+
+}
+.requestcss
+{
+  background-color: #0275d8;
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+
+}
+.requestcssclicked
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+
+}
+
+
 
 .waduedatecomplete
 {
@@ -464,101 +544,6 @@ padding: 10px;
 
 }
 
-.goodmorning:hover
-{
-
-}
-@import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
-
-span{
-  position: relative;
-  display: inline-flex;
-  width: 180px;
-  height: 55px;
-  margin: 0 15px;
-  perspective: 1000px;
-}
-span .requestcss{
-  font-size: 19px;
-  letter-spacing: 1px;
-  transform-style: preserve-3d;
-  transform: translateZ(-25px);
-  transition: transform .1s;
-  font-family: 'Montserrat', sans-serif;
-   
-}
-span .requestcss:before,
-span .requestcss:after{
-  position: absolute;
-  content: "My Requests";
-  height: 55px;
-  width: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffc500;
-
-  box-sizing: border-box;
-  border-radius: 5px;
-}
-span .requestcss:before{
-  color: white;;
-  background: #094FCB;;
-  transform: rotateY(0deg) translateZ(25px);
-}
-span .requestcss:after{
-  color: #000;
-  transform: rotateX(90deg) translateZ(25px);
-}
-span .requestcss:hover{
-  transform: translateZ(-25px) rotateX(-90deg);
-}
-
-
-
-
-
-span .myinboxcss{
-  font-size: 19px;
-  letter-spacing: 1px;
-  transform-style: preserve-3d;
-  transform: translateZ(-25px);
-  transition: transform .1s;
-  font-family: 'Montserrat', sans-serif;
-   
-}
-span .myinboxcss:before,
-span .myinboxcss:after{
-  position: absolute;
-  content: "My Inbox";
-  height: 55px;
-  width: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border-radius: 5px;
-  background: #ffc500;
-
-}
-span .myinboxcss:before{
-  color: white;
-  background: #094FCB;
-  transform: rotateY(0deg) translateZ(25px);
-}
-span .myinboxcss:after{
-  color: #000;
-  transform: rotateX(90deg) translateZ(25px);
-}
-span .myinboxcss:hover{
-  transform: translateZ(-25px) rotateX(-90deg);
-}
-.myinboxcss:hover{
-  cursor: pointer;
-}
-.requestcss:hover{
-  cursor: pointer;
-}
 
 .columninbox
 {
@@ -577,8 +562,10 @@ span .myinboxcss:hover{
   justify-content: center;
   width:50%;
   height:210px;
-  background-color: #f2f2f2;
+  background-color: white;
   border-radius: 1.5em;
+
+  border: 1px solid #dbdcdc;
 
 }
 
@@ -599,9 +586,9 @@ span .myinboxcss:hover{
 }
 .randomdesign
 {
-  background-color: #e2e5de;
+  background-color: #f7efe9;
   padding:7px;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -623,7 +610,7 @@ span .myinboxcss:hover{
 
 .sortbutton
 {
-  background-color: #e2e5de;
+  background-color: #ffc500;
   font-family: 'Sarabun';
 }
 
@@ -645,21 +632,21 @@ span .myinboxcss:hover{
   justify-content: center;
   overflow: hidden;
   border-radius: 40px;
+  font-family:'Sarabun';
 }
 .letsgo {
   font-family: 'Sarabun';
-  color: #212121;
-  text-decoration: none;
+  color: white;
   letter-spacing: 1px;
-  font-size: 120%;
-  font-weight: 900;
+ 
 
 }
 #button-7 {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  background-color:#ffc500;
+  color:white;
+  background-color:#FF336F;
   
 }
 
@@ -711,6 +698,7 @@ span .myinboxcss:hover{
 
 .beforehihi
 {
+  height:100%;
   background-image: linear-gradient(45deg, #094FCB,#FF336F);
   padding:0.3%;
   margin-left:100px;
@@ -854,10 +842,11 @@ span .myinboxcss:hover{
 
 .orderdetails
 {
-  width:70%;
-  background-color: #ffc500;
+  width:50%;
+  background-color: white;
   border-radius: 15px;
-  box-shadow: 5px 10px #008fff;
+  box-shadow: 10px 15px #FF336F;
+  ;
   padding:15px;
 }
 .wraparoundimgandusername
@@ -875,11 +864,11 @@ span .myinboxcss:hover{
 }
 .orderfrom
 {
-  width:70%;
+  width:50%;
   height:30%;
-  background-color: #ffc500;
+  background-color: white;
   border-radius: 15px;
-  box-shadow: 5px 10px #008fff;
+  box-shadow: 10px 15px #FF336F;
   padding:15px;
 }
 
@@ -896,20 +885,20 @@ span .myinboxcss:hover{
 
 .orderorder
 {
-  width:70%;
+  width:50%;
   height:30%;
-  background-color: #f2f2f2;
+  background-color: white;
   border-radius: 15px;
-  box-shadow: 5px 10px #e2e5de;
+  box-shadow: 10px 15px #FF336F;
   padding:15px;
 }
 .waka
 {
   width:70%;
   height:30%;
-  background-color: #ffc500;
+  background-color: white;
   border-radius: 15px;
-  box-shadow: 5px 10px #008fff;
+  box-shadow: 5px 10px #e2e5de;
   padding:15px;
 }
 .watitle
@@ -918,11 +907,23 @@ span .myinboxcss:hover{
   font-family: 'Sarabun';
   font-size: 20px;
 }
-.waingo
+.beforewainfo
 {
-  color:#203354;
+  width:50%;
+}
+.wainfo
+{
+  color:#212121;
   font-family: 'Sarabun';
-  font-size: 30px;
+  font-size: 25px;
+}
+.wainfosaywhat
+{
+  text-align: center;
+  width:75%;
+  color:#212121;
+  font-family: 'Sarabun';
+  font-size: 25px;
 }
 .videowhenget
 {
@@ -1074,44 +1075,6 @@ span .myinboxcss:hover{
 }
 
 
-span .completecss{
-  font-size: 19px;
-  letter-spacing: 1px;
-  transform-style: preserve-3d;
-  transform: translateZ(-25px);
-  transition: transform .1s;
-  font-family: 'Montserrat', sans-serif;
-   
-}
-span .completecss:before,
-span .completecss:after{
-  position: absolute;
-  content: "Completed";
-  height: 55px;
-  width: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffc500;
-
-  box-sizing: border-box;
-  border-radius: 5px;
-}
-span .completecss:before{
-  color: white;;
-  background: #094FCB;;
-  transform: rotateY(0deg) translateZ(25px);
-}
-span .completecss:after{
-  color: #000;
-  transform: rotateX(90deg) translateZ(25px);
-}
-span .completecss:hover{
-  transform: translateZ(-25px) rotateX(-90deg);
-}
-.completecss:hover{
-  cursor: pointer;
-}
 .norequestdiv
 {
   align-content: center;
@@ -1130,8 +1093,7 @@ span .completecss:hover{
 }
 .coversalldiv
 {
-  background-image: linear-gradient(90deg, #094FCB,#FF336F);
-
+  background-color: #e6e9ee;
 }
 .buttonchoicesinbox
 {
@@ -1175,10 +1137,6 @@ span .completecss:hover{
   background-color: #094FCB;
 }
 
-input[name="new_password1"] {
-  background: red;
-  width:50%;
-}
 .footerclass
 {
 
@@ -1600,4 +1558,245 @@ video{
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.registerbtn
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:200px;
+  height:60px;
+  border-radius: 45px;
+}
+.registertitle
+{
+  font-family: 'Sarabun';
+}
+.registertitleprice
+{
+  font-family: 'Sarabun';
+  font-size:200%;
+
+}
+.coversprice
+{
+  width:400px;
+  height:100%;
+  padding:2%;
+  background-color:white;
+  border-radius: 10px;
+}
+
+.coversbank
+{
+  width:400px;
+  height:100%;
+  padding:2%;
+  background-color:white;
+  border-radius: 10px;
+}
+.inputhehore
+{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+#wilachatrocks
+{
+  width:100%;
+}
+.settingbackground{
+  margin-top:100px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:5%;
+  padding-bottom:5%;
+  width:800px;
+  border-radius:20px;
+
+}
+
+.headingsetting{
+  font-size:25px;
+  font-family:'Sarabun';
+
+}
+
+.labelsetting{
+  font-size:18px;
+  color:#00002a;
+  
+}
+.settinginput{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+
+.godownmore
+{
+  margin-top:147px;
+}
+.godownmiddle
+{
+  margin-top:120px;
+}
+.biggestdivdara{ 
+  width:800px;
+  margin:auto;
+  background-color: white;
+  padding:7%;
+  border: 2px solid #dbdcdc;
+  border-radius:20px;
+}
+@media only screen and (max-width: 800px) {
+  .biggestdivdara {
+    width:100%;
+
+  }
+}
+
+.h2dara{ 
+  text-align: center;
+  font-size: 20px;
+  color:black;
+  font-family:'Sarabun'
+
+}
+
+.inputdara{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:transparent;
+
+}
+
+
+.inputdara:focus{
+  border:1px solid #FF336F;
+}
+.labeldara{
+  color:black;
+  font-family: 'Sarabun';
+}
+
+
+.buttondara:hover{
+  background-color: #470000;
+  color: white;
+  border: 2px solid #470000;
+}
+
+.background12345{
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:30px;
+  width:800px;
+  border-radius:20px;
+}
+
+#id_submit_btn{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:105px;
+  height:35px;
+  border-radius: 45px;
+}
+
+.h3{
+  font-size:20px;
+  color:#00002a;
+  font-family: 'Sarabun';
+}
+
+#id_email{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+.resetpasswordpage{
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding:5%;
+  padding-bottom:30px;
+  width:800px;
+  border-radius:20px;
+}
+.newpasswordbackground{
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:15px;
+  padding-bottom:30px;
+  width:800px;
+  border-radius:20px;
+}
+
+.setnewpwbutton{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:105px;
+  height:35px;
+  border-radius: 45px;
+}
+
+.godownnewrahus{
+  font-size:25px;
+  font-family: 'Sarabun';
+  margin-top:80px;
+}
+
+ul{
+  list-style-type: circle;
+  text-align:left;
+}
+
+.newpasswodwholesec{
+  text-align:left;
+}
+
+#formnewpassword{
+  margin-left:50px;
+}
+
+.newpasswordinput{
+  width: 90%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+
+.newpasswordtext{
+  font-size:18px;
+  color:#00002a;
 }

@@ -25,6 +25,7 @@ class PaymentSetup extends React.Component {
     this.cancelPriceChange = this.cancelPriceChange.bind(this);
 
     this.setPrice = this.setPrice.bind(this);
+    console.log("printplease", this.props.data)
 
 
     if (document.querySelector('#checkexistid').value != "exist")
@@ -34,21 +35,21 @@ class PaymentSetup extends React.Component {
             innerpricediv: 
             <div>
                 <div class="d-flex justify-content-center">
-                        <label>Set Price (THB)</label>
+                        <label>ตั้งราคาต่อวีดีโอ (THB)</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input id="setpriceid"></input>
-                </div>
+                        <input type="number" class="inputhehore"id="setpriceid" placeholder="ตัวอย่าง: 500"></input>
+                    </div>
             </div>,
        
             innerpaymentdiv: 
             <div>
                   <div class="d-flex justify-content-center">
-                      <label>Select Bank</label>
+                      <label>เลือกบัญชีธนาคารการรับเงิน</label>
                   </div>
                   
                   <div class="d-flex justify-content-center">
-                      <select name="selectbank" id="selectbankid">
+                      <select class="inputhehore" name="selectbank" id="selectbankid">
                           <option value="nothing"></option>
                           <option value="bbl">Bangkok Bank</option>
                           <option value="bay">Krungsri Bank</option>
@@ -60,28 +61,31 @@ class PaymentSetup extends React.Component {
                   </div>
       
                   <div class="d-flex justify-content-center mt-2">
-                      <label>Full Name</label>
+                      <label>ชื่อและนามสกุล (ภาษาไทย)</label>
                   </div>
                   <div class="d-flex justify-content-center">
-                      <input id="fullnamebankid"></input>
+                      <input class="inputhehore" id="fullnamebankid" placeholder="ตัวอย่าง: วิรชัช วีสกุล"></input>
                   </div>
               
                   <div class="d-flex justify-content-center mt-2">
-                      <label>Account Number</label>
+                      <label>เลขที่บัญชีธนาคาร</label>
                   </div>    
                   <div class="d-flex justify-content-center">
-                      <input id="accountnumberid"></input>
+                      <input class="inputhehore" id="accountnumberid" type="number" placeholder="ตัวอย่าง: 0384683978"></input>
                   </div>
                   
                   <div class="d-flex justify-content-center mt-2">
-                      <label>Email</label>
+                      <label>อีเมว</label>
                   </div>
                   <div class="d-flex justify-content-center">
-                      <input id="emailid"></input>
+                      <input class="inputhehore" id="emailid" placeholder="ตัวอย่าง: araisukyarng@gmail.com"></input>
                   </div>
-      
-                  <div class="d-flex justify-content-center mt-2">
-                      <button class="btn btn-primary" onClick={() => this.onSubmit("new")}>Submit</button>
+                  <div class="d-flex justify-content-center mt-3">
+                    <p>*ในขณะนี้ไม่สามารถสร้างบัญชีการเงินได้มากกว่าหนึ่งอัน  แต่สามารถเปลี่ยนข้อมูลบัญชีของท่านได้*</p>
+                  </div>
+
+                  <div class="d-flex justify-content-center">
+                      <button class="btn registerbtn" onClick={() => this.onSubmit("new")}>สร้างบัญชีการเงิน</button>
                   </div>
             </div>
         }
@@ -92,10 +96,20 @@ class PaymentSetup extends React.Component {
         {
             price:this.props.data["price"],
             innerpricediv: 
-            <div>
-                <label>Set Price (THB)</label>
-                <h2>{this.props.data["price"]}</h2>
-                <button onClick={this.changePrice}>Change Price</button>
+            <div class="d-flex justify-content-center">
+                <div class="coversprice">
+                    <div class="d-flex justify-content-center">
+                        <label>ราคาต่อวีดีโอ (THB)</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h5 class="registertitleprice">{this.props.data["price"]} ฿</h5>
+                    </div>
+                    <hr></hr>
+
+                    <div class="d-flex justify-content-center">
+                        <button class="btn registerbtn" onClick={this.changePrice}>เปลี่ยนราคา</button>
+                    </div>
+                </div>
             </div>,
 
             brand:this.props.data["brand"],
@@ -104,21 +118,51 @@ class PaymentSetup extends React.Component {
             email:this.props.data["email"],
            
             innerpaymentdiv: 
-            <div>
-    
-                <label>Current Bank</label>
-                <h2>{this.props.data["brand"]}</h2>
-    
-                <label>Full Name</label>
-                <h2>{this.props.data["name"]}</h2>
-    
-                <label>Account Number</label>
-                <h2>{this.props.data["number"]}</h2>
-    
-                <label>Email</label>
-                <h2>{this.props.data["email"]}</h2>
-    
-                <button onClick={this.changePayment}>Change Banking</button>
+            <div class="d-flex justify-content-center mt-5">
+                <div class="coversbank">
+                    <div class="d-flex justify-content-center">
+                        <label>ธนาคารที่ใช้อยู่</label>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <h5>{this.props.data["brand"]}</h5>
+                    </div>
+                    <hr></hr>
+
+        
+                    <div class="d-flex justify-content-center mt-2">
+                        <label>ชื่อจริงและนามสกุล</label>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <h5>{this.props.data["name"]}</h5>
+                    </div>
+                    <hr></hr>
+
+                    <div class="d-flex justify-content-center mt-2">
+                        <label>เลขที่บัญชีลงท้าย 4ตัว</label>
+                    </div>
+
+
+                    <div class="d-flex justify-content-center">
+                        <h5>******{this.props.data["number"]}</h5>
+                    </div>
+                    <hr></hr>
+
+        
+                    <div class="d-flex justify-content-center mt-2">
+                        <label>อีเมวย์</label>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <h5>{this.props.data["email"]}</h5> 
+                    </div>
+                    <hr></hr>
+
+                    <div class="d-flex justify-content-center">
+                        <button class="btn registerbtn" onClick={this.changePayment}>เปลี่ยนธนาคาร</button>
+                    </div>
+                </div>
             </div>
             }
         }
@@ -143,11 +187,21 @@ class PaymentSetup extends React.Component {
             this.setState({
                 price:data["price"],
                 innerpricediv: 
-                <div>
-                    <label>Set Price (THB)</label>
-                    <h2>{data["price"]}</h2>
-                    <button onClick={this.changePrice}>Change Price</button>
-                </div>})
+                <div class="d-flex justify-content-center">
+                <div class="coversprice">
+                    <div class="d-flex justify-content-center">
+                        <label>ราคาต่อวีดีโอ (THB)</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h5 class="registertitleprice">{data["price"]} ฿</h5>
+                    </div>
+                    <hr></hr>
+
+                    <div class="d-flex justify-content-center">
+                        <button class="btn registerbtn" onClick={this.changePrice}>เปลี่ยนราคา</button>
+                    </div>
+                </div>
+            </div>})
               
               //if data returns successful show beautiful success stuff
               //if not show failed html
@@ -169,90 +223,173 @@ class PaymentSetup extends React.Component {
       {
         type = "notexistpost"
         price = document.querySelector('#setpriceid').value
+        if (price == "")
+        {
+            price = 1
+        }
       }
-      
-      console.log("yoooo")
-      //send the info here to python
-      const getcooked = getCookie('csrftoken')
-      fetch(`/paymentsetupapi`, {
-        method: 'POST',
-        headers:{'X-CSRFToken': getcooked},
-        body: JSON.stringify({
-            bank: document.querySelector('#selectbankid').value,
-            fullname: document.querySelector('#fullnamebankid').value,
-            accountnumber: document.querySelector('#accountnumberid').value,
-            email: document.querySelector('#emailid').value,
-            price: price,
-            type: type
 
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("suk mah dik", data)
-            console.log("suk mah dik", data["brand"])
-            console.log("suk mah dik", data["number"])
-            console.log("suk mah dik", data["email"])
-            console.log("suk mah dik", data["number"])
-            document.querySelector('#checkexistid').value = "exist"
+      let checker = 0
+      console.log("bank value", document.querySelector('#selectbankid').value)
+      if (document.querySelector('#selectbankid').value == "nothing")
+      {
+        checker = 1
+      }
+      else if (document.querySelector('#accountnumberid').value == "")
+      {
+        checker = 1
+      }
+      else if (document.querySelector('#fullnamebankid').value == "")
+      {
+        checker = 1
 
-            //if data returns successful show beautiful success stuff
-            //if not show failed html
-            console.log()
+      }
+      else if (document.querySelector('#emailid').value == "")
+      {
+          checker = 1
+      }
 
-            if (data["lol"] == "dumb" || data["lol"] != null)
-            {
-                console.log("is this in here wtf pls dont be in here")
-                this.setState({
-                    price : data["price"],
-                    innerpricediv: 
-                    <div>
-                        <label>Set Price (THB)</label>
-                        <h2>{data["price"]}</h2>
-                        <button onClick={this.changePrice}>Change Price</button>
-                    </div>
+      if (checker == 0)
+      {
+            console.log("yoooo")
+            //send the info here to python
+            const getcooked = getCookie('csrftoken')
+            fetch(`/paymentsetupapi`, {
+            method: 'POST',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+                bank: document.querySelector('#selectbankid').value,
+                fullname: document.querySelector('#fullnamebankid').value,
+                accountnumber: document.querySelector('#accountnumberid').value,
+                email: document.querySelector('#emailid').value,
+                price: price,
+                type: type
+    
                 })
-            }
-            this.setState({
-                
-                
-
-                brand: data["brand"],
-                name: data["name"],
-                number: data["number"],
-                email: data["email"],
-
-                innerpaymentdiv: 
-            <div>
-                <label>Current Bank</label>
-                <h2>{data["brand"]}</h2>
-    
-                <label>Full Name</label>
-                <h2>{data["name"]}</h2>
-    
-                <label>Account Number</label>
-                <h2>{data["number"]}</h2>
-    
-                <label>Email</label>
-                <h2>{data["email"]}</h2>
-    
-                <button onClick={this.changePayment}>Change Payment</button>
-            </div>
-
             })
-
-        });
+            .then(response => response.json())
+            .then(data => {
+                console.log("suk mah dik", data)
+                console.log("suk mah dik", data["brand"])
+                console.log("suk mah dik", data["number"])
+                console.log("suk mah dik", data["email"])
+                console.log("suk mah dik", data["number"])
+                console.log("pricey", data["price"])
+                document.querySelector('#checkexistid').value = "exist"
+    
+                //if data returns successful show beautiful success stuff
+                //if not show failed html
+                console.log()
+    
+                if (data["lol"] == "dumb" || data["lol"] != null)
+                {
+                    console.log("is this in here wtf pls dont be in here")
+                    this.setState({
+                        price : data["price"],
+                        innerpricediv: 
+                        <div class="d-flex justify-content-center">
+                        <div class="coversprice">
+                            <div class="d-flex justify-content-center">
+                                <label>ราคาต่อวีดีโอ (THB)</label>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <h5 class="registertitleprice">{price} ฿</h5>
+                            </div>
+                            <hr></hr>
+        
+                            <div class="d-flex justify-content-center">
+                                <button class="btn registerbtn" onClick={this.changePrice}>เปลี่ยนราคา</button>
+                            </div>
+                        </div>
+                    </div>
+                    })
+                }
+                this.setState({
+                    
+                    brand: data["brand"],
+                    name: data["name"],
+                    number: data["number"],
+                    email: data["email"],
+    
+                    innerpaymentdiv: 
+                    <div class="d-flex justify-content-center mt-5">
+                    <div class="coversbank">
+                        <div class="d-flex justify-content-center">
+                            <label>ธนาคารที่ใช้อยู่</label>
+                        </div>
+    
+                        <div class="d-flex justify-content-center">
+                            <h5>{data["brand"]}</h5>
+                        </div>
+                        <hr></hr>
+    
+            
+                        <div class="d-flex justify-content-center mt-2">
+                            <label>ชื่อจริงและนามสกุล</label>
+                        </div>
+    
+                        <div class="d-flex justify-content-center">
+                            <h5>{data["name"]}</h5>
+                        </div>
+                        <hr></hr>
+    
+                        <div class="d-flex justify-content-center mt-2">
+                            <label>เลขที่บัญชีลงท้าย 4ตัว</label>
+                        </div>
+    
+    
+                        <div class="d-flex justify-content-center">
+                            <h5>******{data["number"]}</h5>
+                        </div>
+                        <hr></hr>
+    
+            
+                        <div class="d-flex justify-content-center mt-2">
+                            <label>อีเมวย์</label>
+                        </div>
+    
+                        <div class="d-flex justify-content-center">
+                            <h5>{data["email"]}</h5> 
+                        </div>
+                        <hr></hr>
+    
+                        <div class="d-flex justify-content-center">
+                            <button class="btn registerbtn" onClick={this.changePayment}>เปลี่ยนธนาคาร</button>
+                        </div>
+                    </div>
+                </div>
+    
+                })
+    
+          });
+      }
+      else
+      {
+          alert("ฟอร์มถูกกรอกไม่ครบ")
+      }
+ 
         
   }
   cancelPriceChange(e)
   {
     this.setState({
     innerpricediv: 
-    <div>
-        <label>Set Price (THB)</label>
-        <h2>{this.state.price}</h2>
-        <button onClick={this.changePrice}>Change Price</button>
-    </div>})
+    <div class="d-flex justify-content-center">
+                <div class="coversprice">
+                    <div class="d-flex justify-content-center">
+                        <label>ราคาต่อวีดีโอ (THB)</label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h5 class="registertitleprice">{this.props.data["price"]} ฿</h5>
+                    </div>
+                    <hr></hr>
+
+                    <div class="d-flex justify-content-center">
+                        <button class="btn registerbtn" onClick={this.changePrice}>เปลี่ยนราคา</button>
+                    </div>
+                </div>
+            </div>,
+    })
   }
   cancelChange(e)
   {
@@ -260,21 +397,52 @@ class PaymentSetup extends React.Component {
     this.setState({
                 
         innerpaymentdiv: 
-            <div>
-            <label>Current Bank</label>
-            <h2>{this.state.brand}</h2>
+        <div class="d-flex justify-content-center mt-5">
+        <div class="coversbank">
+            <div class="d-flex justify-content-center">
+                <label>ธนาคารที่ใช้อยู่</label>
+            </div>
 
-            <label>Full Name</label>
-            <h2>{this.state.name}</h2>
+            <div class="d-flex justify-content-center">
+                <h5>{this.props.data["brand"]}</h5>
+            </div>
+            <hr></hr>
 
-            <label>Account Number</label>
-            <h2>{this.state.number}</h2>
 
-            <label>Email</label>
-            <h2>{this.state.email}</h2>
+            <div class="d-flex justify-content-center mt-2">
+                <label>ชื่อจริงและนามสกุล</label>
+            </div>
 
-            <button onClick={this.changePayment}>Change Payment</button>
+            <div class="d-flex justify-content-center">
+                <h5>{this.props.data["name"]}</h5>
+            </div>
+            <hr></hr>
+
+            <div class="d-flex justify-content-center mt-2">
+                <label>เลขที่บัญชีลงท้าย 4ตัว</label>
+            </div>
+
+
+            <div class="d-flex justify-content-center">
+                <h5>******{this.props.data["number"]}</h5>
+            </div>
+            <hr></hr>
+
+
+            <div class="d-flex justify-content-center mt-2">
+                <label>อีเมวย์</label>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <h5>{this.props.data["email"]}</h5> 
+            </div>
+            <hr></hr>
+
+            <div class="d-flex justify-content-center">
+                <button class="btn registerbtn" onClick={this.changePayment}>เปลี่ยนธนาคาร</button>
+            </div>
         </div>
+    </div>
         })
   }
   changePrice(e)
@@ -384,10 +552,13 @@ class PaymentSetup extends React.Component {
 
       return (
         <div>
-            <h2 class="godown">Payment</h2>
+            <div class="godown">
+            </div>
+            <div class="d-flex justify-content-center mb-4">
+                <h2 class="registertitle">การเงิน</h2>
+            </div>
             {this.state.innerpricediv}
             {this.state.innerpaymentdiv}
-            <p>*Note Khun samard mee dai kae 1 account</p>
             
 
         </div>
@@ -409,7 +580,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     
-
+    console.log("this is type", type)
     const getcooked = getCookie('csrftoken')
     fetch(`/paymentsetupapi`, {
       method: 'POST',

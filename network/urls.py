@@ -57,6 +57,8 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
     path("feedbackmaillist", views.feedbackmaillist, name="feedbackmaillist"),
+    path("errorpage", views.errorpage, name="errorpage"),
+
 
 
 

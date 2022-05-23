@@ -145,35 +145,49 @@ class Information extends React.Component{
         console.log("this", this.props.data["data"][0])
         return (
           <div>
-          <label>Change your settings or add stuff! (If you want to)</label><br></br>
+          <div class="d-flex justify-content-center">
 
-          
-          <label>Change Profile Picture</label>
-          <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>
-          <img id="profilepicture" class="imgnoedit" value="" src={link}></img>
-          <br></br>
+          <div class="settingbackground">
+          <label class="headingsetting">เปลี่ยนการตั้งค่าหรือเพิ่มข้อมูล</label><br></br>
+          <div class="d-flex flex-column">
+              <div class="d-flex justify-content-center">
+                <label class="labelsetting" >เปลี่ยนรูปโปรไฟล์</label><br></br>
+              </div>
+              <div class="d-flex justify-content-center mt-1">
+                <img id="profilepicture" class="imgnoedit" value="" src={link}></img>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+              <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>
+            </div>
+          </div>
 
-         
-          <label>First Name</label>
-          <input type="text" onChange={this.checkTxtArea} id="firstname" value={this.state.firstname != "" ? this.state.firstname:""}></input>
-          <br></br>
 
-          <label>Last Name</label>
-          <input type="text" onChange={this.checkTxtArea} id="lastname" value={this.state.lastname != "" ? this.state.lastname:""}></input>
-          <br></br>
-
-
-          <label>Email</label>
-          <input type="text" onChange={this.checkTxtArea} id="email" value={this.state.email}></input>
           <br></br>
 
 
-          <label>Username</label>
-          <input type="text" onChange={this.checkTxtArea} id="username" value={this.state.username}></input>
+          <label class="labelsetting">ชื่อจริง</label><br></br>
+          <input type="text" onChange={this.checkTxtArea} class="settinginput" id="firstname" value={this.state.firstname != "" ? this.state.firstname:""}></input>
           <br></br>
-          
 
-         <button class="btn btn-primary" onClick={this.saveChanges}>Save Changes</button>
+          <label class="labelsetting">นามสกุล</label><br></br>
+          <input type="text" onChange={this.checkTxtArea} class="settinginput" id="lastname" value={this.state.lastname != "" ? this.state.lastname:""}></input>
+          <br></br>
+
+
+          <label class="labelsetting">อีเมล</label><br></br>
+          <input type="text" onChange={this.checkTxtArea} class="settinginput" id="email" value={this.state.email}></input>
+          <br></br>
+
+
+          <label class="labelsetting">ชื่อผู้ใช้</label><br></br>
+          <input type="text" onChange={this.checkTxtArea} class="settinginput" id="username" value={this.state.username}></input>
+          <br></br>
+
+
+         <button class="btn registerbtn mt-3" onClick={this.saveChanges}>บันทึกการเปลี่ยนแปลง</button>
+
+          </div>
+          </div>
 
 
           </div>

@@ -2,7 +2,12 @@
 
 {% block body %}
 
-    <h2 class="godown">Login</h2>
+    <div class="godown"></div>
+
+    <div class="d-flex justify-content-center">
+        <h3 class="registertitle">เข้าสู่ระบบ</h3>
+    </div>
+
 
     {% if message %}
         <div>{{ message }}</div>
@@ -10,17 +15,24 @@
 
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
-        <div class="form-group">
-            <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+        <div class="d-flex justify-content-center">
+            <input autofocus class="inputhehore"  type="text" name="username" placeholder="ยูสเซ่อเนม">
         </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
+        <div class="d-flex justify-content-center">
+            <input class="inputhehore" type="password" name="password" placeholder="รหัสผ่าน">
         </div>
-        <input class="btn btn-primary" type="submit" value="Login">
+
+        <div class="d-flex justify-content-center mt-3">
+            <input class="btn registerbtn" type="submit" value="เข้าสู่ระบบ">
+        </div>
     </form>
 
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
-    Forgot Password? <a href="{% url 'password_reset' %}">Reset Password here.</a>
+    <div class="d-flex justify-content-center mt-2">
+        <a href="{% url 'register' %}">ยังไม่มีบัญชี</a>
+    </div>
+    <div class="d-flex justify-content-center mt-2">
+        <a href="{% url 'password_reset' %}">ลืมรหัสผ่านใช่หรือไม่</a>
+    </div>
 
 
 {% endblock %}

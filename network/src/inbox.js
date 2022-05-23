@@ -410,7 +410,7 @@ class EachReserve extends React.Component{
                 postoption = 
                 <div class="mb-5 d-flex justify-content-center">
                     <div class="waitingforstar">
-                        <h4 class="wa">สตาร์กําลังดําเนินการทํา Vid ที่น่าจดจําของท่านอยู่</h4>
+                        <h4 class="wa">สตาร์กําลังดําเนินการทําวีดีโอที่น่าจดจําของท่านอยู่</h4>
                     </div>
                 </div>
             }
@@ -544,7 +544,7 @@ class EachReserve extends React.Component{
                         <h4 class="watitle">อยากให้สตาร์พูดอะไร: </h4>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <h4 class="wainfo">{this.props.data["data"][0].thirdinputoccasion}</h4>
+                        <h4 class="wainfosaywhat">{this.props.data["data"][0].thirdinputoccasion}</h4>
                     </div>
 
                 </div>
@@ -809,10 +809,10 @@ class EachReserve extends React.Component{
                         <div class="d-flex justify-content-center mb-5">
                             <div class="d-flex flex-column mt-3">
                                 <div class="d-flex justify-content-center">
-                                    <h4 class="wa">ถึง: {this.props.data["data"][0].tointro}</h4>
+                                    <h4 class="wa">ถึง: </h4><h4 class="wainfo">{this.props.data["data"][0].tointro}</h4>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <h4 class="wa">จาก: {this.props.data["data"][0].fromintro}</h4>
+                                    <h4 class="wa">จาก: </h4><h4 class="wainfo">{this.props.data["data"][0].fromintro}</h4>
                                 </div>
                                 
                               
@@ -944,7 +944,7 @@ class InboxFeedRows extends React.Component {
                 <img class="imgnoeditinbox mt-3 mr-5" src={link}></img>
                 <div class="d-flex flex-column yeathename mt-2">
                     <a class="nameininbox" >{this.props.name}</a> 
-                    <h4 class="wa">{this.props.giftornot == "someoneelse_html_id" ? "A gift":"For you"}</h4>
+                    <h4 class="wanameinbox">{this.props.giftornot == "someoneelse_html_id" ? "A gift":"For you"}</h4>
                     
                 </div>
                    
@@ -1465,9 +1465,9 @@ class InboxFeedTitle extends React.Component {
          <div class="buttonchoicesinbox d-flex justify-content-center mb-2">
 
             
-            <span class="mt-2" ><a style={{background: "red"}} id="myinboxid" onClick={this.changeFeedInbox} class="myinboxcss"></a></span>
-            {this.props.data["checkifinfluencer"] == true ?  <span class="mt-2"><a id="myrequestid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myrequest" ? "requestcss btn-success"  : "requestcss"}></a></span>:null}
-            {this.props.data["checkifinfluencer"] == true ?  <span class="mt-2"><a id="mycompleteid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "mycomplete" ? "completecss btn-success"  : "completecss"}></a></span>:null}
+            <button id="myinboxid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myinbox" ? "myinboxclicked"  : "myinboxcss"}>อินบ็อกซ์</button>
+            {this.props.data["checkifinfluencer"] == true ?  <button id="myrequestid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myrequest" ? "requestcssclicked  ml-5"  : "requestcss ml-5"}>รีเควส</button>:null}
+            {this.props.data["checkifinfluencer"] == true ?  <button id="mycompleteid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "mycomplete" ? "completecssclicked ml-5"  : "completecss ml-5"}>วีดีโอที่เสร็จสิ้น</button>:null}
 
 
 

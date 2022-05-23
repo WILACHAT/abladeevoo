@@ -14,6 +14,8 @@ class User(AbstractUser):
     normal_user_pic = models.CharField(max_length=256, null=True)
     accountstatus = models.IntegerField(null=False, default = 1)
 
+    
+
 
     pass
     def serialize(self):

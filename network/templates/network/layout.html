@@ -98,8 +98,9 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto ">
         {% if user.is_authenticated %}
             {% if user.influencer_ornot == 1 %}
               <li class="nav-item mt-2 ml-4">
@@ -147,10 +148,10 @@
 
       {% if not user.is_authenticated %}
       <li class="nav-item mt-2 ml-4">
-        <a class="wa" href="{% url 'login' %}">Log In</a>
+        <a class="wa" href="{% url 'login' %}">เข้าสู่ระบบ</a>
     </li>
     <li class="nav-item mt-2 ml-4">
-        <a class="wa" href="{% url 'register' %}">Register</a>
+        <a class="wa" href="{% url 'register' %}">สมัครเป็นสมาชิค</a>
     </li>
 
       {% endif %}
@@ -160,24 +161,24 @@
     </ul>
     <ul class="sadul">
       {% if user.is_authenticated %}
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown mt-2 ml-2 mr-5">
         <a class="nav-link dropdown-toggle wa" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           อื่นๆ
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="nav-link" href="{% url 'setting' %}">Settings</a>
-          <a class="nav-link" href="{% url 'legal' %}">Legal</a>
-          <a class="nav-link" href="{% url 'aboutus' %}">About Us</a>
-          <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+          <a class="nav-link wa" href="{% url 'setting' %}">การตั้งค่า</a>
+          <a class="nav-link wa" href="{% url 'legal' %}">กฏหมาย</a>
+          <a class="nav-link wa" href="{% url 'aboutus' %}">เกี่ยวกับเรา</a>
+          <a class="nav-link wa" href="{% url 'logout' %}">ออกจากระบบ</a>
         </div>
       </li>
       {% endif %}
     </ul>
+   <h6 class="staygrey">We are looking to hire</h6>
    
-    
-  </div>
+    </div>
+  
 </nav>
-
           <div class="body mt-5">
               {% block body %}
               {% endblock %}

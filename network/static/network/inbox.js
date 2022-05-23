@@ -475,7 +475,7 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'h4',
                                 { 'class': 'wa' },
-                                '\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E01\u0E4D\u0E32\u0E25\u0E31\u0E07\u0E14\u0E4D\u0E32\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E17\u0E4D\u0E32 Vid \u0E17\u0E35\u0E48\u0E19\u0E48\u0E32\u0E08\u0E14\u0E08\u0E4D\u0E32\u0E02\u0E2D\u0E07\u0E17\u0E48\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48'
+                                '\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E01\u0E4D\u0E32\u0E25\u0E31\u0E07\u0E14\u0E4D\u0E32\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E17\u0E4D\u0E32\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E17\u0E35\u0E48\u0E19\u0E48\u0E32\u0E08\u0E14\u0E08\u0E4D\u0E32\u0E02\u0E2D\u0E07\u0E17\u0E48\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48'
                             )
                         )
                     );
@@ -704,7 +704,7 @@ var EachReserve = function (_React$Component) {
                             { 'class': 'd-flex justify-content-center' },
                             React.createElement(
                                 'h4',
-                                { 'class': 'wainfo' },
+                                { 'class': 'wainfosaywhat' },
                                 this.props.data["data"][0].thirdinputoccasion
                             )
                         )
@@ -1150,7 +1150,11 @@ var EachReserve = function (_React$Component) {
                                     React.createElement(
                                         'h4',
                                         { 'class': 'wa' },
-                                        '\u0E16\u0E36\u0E07: ',
+                                        '\u0E16\u0E36\u0E07: '
+                                    ),
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wainfo' },
                                         this.props.data["data"][0].tointro
                                     )
                                 ),
@@ -1160,7 +1164,11 @@ var EachReserve = function (_React$Component) {
                                     React.createElement(
                                         'h4',
                                         { 'class': 'wa' },
-                                        '\u0E08\u0E32\u0E01: ',
+                                        '\u0E08\u0E32\u0E01: '
+                                    ),
+                                    React.createElement(
+                                        'h4',
+                                        { 'class': 'wainfo' },
                                         this.props.data["data"][0].fromintro
                                     )
                                 ),
@@ -1299,7 +1307,7 @@ var InboxFeedRows = function (_React$Component2) {
                             ),
                             React.createElement(
                                 'h4',
-                                { 'class': 'wa' },
+                                { 'class': 'wanameinbox' },
                                 this.props.giftornot == "someoneelse_html_id" ? "A gift" : "For you"
                             )
                         )
@@ -1864,19 +1872,19 @@ var InboxFeedTitle = function (_React$Component4) {
                 'div',
                 { 'class': 'buttonchoicesinbox d-flex justify-content-center mb-2' },
                 React.createElement(
-                    'span',
-                    { 'class': 'mt-2' },
-                    React.createElement('a', { style: { background: "red" }, id: 'myinboxid', onClick: this.changeFeedInbox, 'class': 'myinboxcss' })
+                    'button',
+                    { id: 'myinboxid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "myinbox" ? "myinboxclicked" : "myinboxcss" },
+                    '\u0E2D\u0E34\u0E19\u0E1A\u0E47\u0E2D\u0E01\u0E0B\u0E4C'
                 ),
                 this.props.data["checkifinfluencer"] == true ? React.createElement(
-                    'span',
-                    { 'class': 'mt-2' },
-                    React.createElement('a', { id: 'myrequestid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "myrequest" ? "requestcss btn-success" : "requestcss" })
+                    'button',
+                    { id: 'myrequestid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "myrequest" ? "requestcssclicked  ml-5" : "requestcss ml-5" },
+                    '\u0E23\u0E35\u0E40\u0E04\u0E27\u0E2A'
                 ) : null,
                 this.props.data["checkifinfluencer"] == true ? React.createElement(
-                    'span',
-                    { 'class': 'mt-2' },
-                    React.createElement('a', { id: 'mycompleteid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "mycomplete" ? "completecss btn-success" : "completecss" })
+                    'button',
+                    { id: 'mycompleteid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "mycomplete" ? "completecssclicked ml-5" : "completecss ml-5" },
+                    '\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E17\u0E35\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
                 ) : null
             );
         }

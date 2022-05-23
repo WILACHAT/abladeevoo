@@ -2,55 +2,67 @@
 {% load static %}
 
 {% block body %}
-<div>
-<h2>Apply to join Cameo as talent!
-If you have fanbase and want to join Cameo as talent, 
-you can apply here and we'll be in touch within 72 hours.</h2>
+<div class="godownmore"></div>
+<div class="biggestdivdara">  
+    <h2 class="h2dara mb-5">สมัครเข้าร่วมเป็นสตาร์ของเราได้ที่นี่ และเราจะติดต่อกลับโดยเร็วที่สุด</h2>
+   
+    <form action="{% url 'dara' %}" method="post">
+   
+    <label class="labeldara">ชื่อ-นามสกุล</label>
+    <br>
+        <input class="inputdara"type=text required name="name" placeholder="ชื่อของคุณ"></input><br></br>
+        
+        <label class="labeldara mt-3">อีเมล</label>
+    <br>
+        <input  class="inputdara"type=text required name="email" placeholder="อีเมลของคุณ"></input><br></br>
+        <label class="labeldara mt-3">หมายเลขโทรศัพท์</label>
+    <br>
+        <input class="inputdara"type=text required name="phonenumber" placeholder="หมายเลขโทรศัพท์ของคุณ"></input><br></br>
+        <label class="labeldara mt-3">เราสามารถติดต่อคุณได้ทางไหน
+        </label>
+    <br>
+        <input class="inputdara"type=text required name="findwhere" placeholder="ช่องทางการติดต่อ
+        "></input><br></br>
+        <label class="labeldara mt-3">ชื่อผู้ใช้</label>
+    <br>
+        <input class="inputdara"type=text required name="usernamefindwhere" placeholder="ชื่อผู้ใช้ของคุณ"></input><br></br>
+        <label class="labeldara mt-3">คุณมีผู้ติดตามกี่คน</label>
+    <br>
+        <input class="inputdara"type=text required name="followerfindwhere" placeholder="คุณมีผู้ติดตามกี่คน"></input><br></br>
+     
+    <label class="labeldara" for="cars">อาชีพของคุณ:</label>
 
-<form action="{% url 'dara' %}" method="post">
-    {% csrf_token %}
+    <select class="inputdara mt-2"name="cars" id="cars">
+      <option value="nuksadaeng">นักแสดง
+    </option>
+      <option value="nu">นักร้อง
+    </option>
+      <option value="mercedes">ดารา</option>
+      <option value="audi">นักกีฬา</option>
+      <option value="gamegae">สตรีมเมอร์/เกมเมอร์
+    </option>
+      <option value="kuay">อินฟลูเอนเซอร์
+    </option>
+      <option value="hey">อื่นๆ</option>
+    </select>
+    <!--<select required name="category" id="selectforcategory">
+            <option value="actor">Nhuk Sadaeng</option>
+            <option value="influencer">Influencer</option>
+            <option value="singer">Nhuk Rorng</option>
+            <option value="comedian">Nhuk Talok</option>
+            <option value="athelete">Nhuk Gee Lar</option>
+            <option value="gamer">Gamer</option>
+            <option value="others">UEN2</option>
+        </select>-->
+    <br><br><br>
+        <div class="d-flex justify-content-center">
+         <button class="btn registerbtn" type="submit" >สมัครเป็นสตาร์</button>
+        </div>
+   
+    </form>
 
-<label>Name</label>
-<input required name="name" placeholder="What's the occasion?"></input><br></br>
-<label>Email</label>
-<input required name="email" placeholder="Instructions for"></input><br></br>
-<label>Phone Number</label>
-
-<input required name="phonenumber" placeholder="Optional"></input><br></br>
-
-<label>Where can we find you?</label>
-<!--Select type na ja-->
-<input required name="findwhere" placeholder="Optional"></input><br></br>
-
-
-<label>Username</label>
-<!--Select type na ja-->
-<input required name="usernamefindwhere" placeholder="Optional"></input><br></br>
-
-
-<label>How many followers do you have?</label>
-<!--Select type na ja-->
-<input required name="followerfindwhere" placeholder="Optional"></input><br></br>
-
-<label>Category</label>
-
-<select required name="category" id="selectforcategory">
-   <option value="actor">Nhuk Sadaeng</option>
-   <option value="influencer">Influencer</option>
-   <option value="singer">Nhuk Rorng</option>
-   <option value="comedian">Nhuk Talok</option>
-   <option value="athelete">Nhuk Gee Lar</option>
-   <option value="gamer">Gamer</option>
-   <option value="others">UEN2</option>
-
-
-</select>
-<input class="btn btn-primary" type="submit" value="Submit">
-
-</form>
-
-<h6>Note: you are not automatically enrolled on Cameo. If you meet the eligibility requirements, a talent representative will contact you within a few days to finish onboarding.</h6>
-
+ 
+</div>
 {% endblock %}
 
 {% block script %}
