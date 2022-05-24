@@ -141,14 +141,31 @@
     
     </script>
    
-    <h1 class="godown">Account</h1>
-    {% if user.influencer_ornot == 1 %}
+   <div class="d-flex justify-content-center">
+
+    <div class="accountsettingfirstcolumn">
+        <h1 class="settingheading">บัญชีของคุณ</h1>
+        {% if user.influencer_ornot == 1 %}
         {% if user.accountstatus == 1 %}
-        <button onclick="accountfunc('pause')">Pause Account</button>
+        <button class="pauseaccountbtn mt-2" onclick="accountfunc('pause')">หยุดบัญชีชั่วคราว</button>
         {% else %}
-        <button onclick="accountfunc('unpause')">Unpause Account</button>
+        <button class="pauseaccountbtn mt-2" onclick="accountfunc('unpause')">ยกเลิกการหยุดบัญชี</button>
         {% endif %}
-    {% endif %}
-    <h1>Help Center</h1>
+    {% endif %}       
+ </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="accountsettingsecondcolumn mt-2">
+        <h1 class="settingheading">ศูนย์ช่วยเหลือ</h1>
+        <div class="d-flex justify-content-center">
+        <p class="helpcenterdescription">หากคุณมีปัญหาหรืออยากสอบถามเพิ่มเติม โปรดติดต่อ vidma@vidma.tv และทางทีมงานเราจะติดต่อกลับโดยเร็วที่สุด</p></div>
+    </div>
+</div>
+</div>
+   
 
 {% endblock %}
+
+
+

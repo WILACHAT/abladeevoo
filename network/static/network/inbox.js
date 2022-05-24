@@ -134,7 +134,13 @@ var EachReserve = function (_React$Component) {
             }
 
             navigator.clipboard.writeText(content).then(function () {
-                console.log("Text copied to clipboard...");
+                Swal.fire({
+                    title: 'คัดลอกวีดีโอเรียบร้อย!',
+                    showConfirmButton: false,
+
+                    timer: 500
+
+                });
             }).catch(function (err) {
                 console.log('Something went wrong', err);
             });
@@ -154,24 +160,41 @@ var EachReserve = function (_React$Component) {
                 type = "image";
             }
 
-            var formData = new FormData();
-            formData.append("media", fileinput);
+            if (checker != 'video') {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'ต้องเป็นวีดีโอแต่ดันอัพโหลดรูป'
+                });
+            } else {
+                var formData = new FormData();
+                formData.append("media", fileinput);
+                Swal.fire({
+                    icon: 'info',
+                    title: 'กําลังเซฟวีดีโอ',
+                    text: 'กรุณาอย่ากดออกหรือรีเฟรชจากหน้านี้จนกว่าจะมีข้อความสําเร็จ อาจจะใช้เวลานาน'
+                });
 
-            var getcooked = getCookie('csrftoken');
-            fetch('/forupload/' + type, {
-                method: 'POST',
-                headers: { 'X-CSRFToken': getcooked },
-                body: formData
+                var getcooked = getCookie('csrftoken');
+                fetch('/forupload/' + type, {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': getcooked },
+                    body: formData
 
-            }).then(function (response) {
-                return response.json();
-            }).then(function (data) {
-                //right now its either you create a new video or unhide the one that you already have
-                console.log("yayyyyyyyyyyyyyyy");
-                document.querySelector('#testervideo').hidden = false;
-                document.querySelector('#sendingvideoidback').name = data['url'];
-                document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4";
-            });
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    //right now its either you create a new video or unhide the one that you already have
+                    console.log("yayyyyyyyyyyyyyyy");
+                    document.querySelector('#testervideo').hidden = false;
+                    document.querySelector('#sendingvideoidback').name = data['url'];
+                    document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4";
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'สําเร็จ!',
+                        text: '*คุณต้องกดอัพโหลดถึงจะส่งวีดีโอไปให้แฟนคลับ*'
+                    });
+                });
+            }
         }
     }, {
         key: 'goBack',
@@ -216,7 +239,15 @@ var EachReserve = function (_React$Component) {
                     videoid: videoid
                 })
             }).then(function (result) {
-                window.location.href = "/inbox";
+                Swal.fire({
+                    title: 'สําเร็จ!',
+                    showCancelButton: false,
+                    showConfirmButton: false
+
+                });
+                setTimeout(function () {
+                    window.location.href = "/inbox";
+                }, 800);
             });
         }
     }, {
@@ -247,7 +278,14 @@ var EachReserve = function (_React$Component) {
                         reserveid: reserveid,
                         influencername: influencername }, _defineProperty(_JSON$stringify, 'influencername', influencername), _defineProperty(_JSON$stringify, 'type', "submitreview"), _defineProperty(_JSON$stringify, 'reviewstars', selectreview), _JSON$stringify))
                 }).then(function (result) {
-                    window.location.href = "/inbox";
+                    Swal.fire({
+                        title: 'สําเร็จ!',
+                        showCancelButton: false
+
+                    });
+                    setTimeout(function () {
+                        window.location.href = "/inbox";
+                    }, 800);
                 });
             }
         }
@@ -283,8 +321,8 @@ var EachReserve = function (_React$Component) {
                             { 'class': 'd-flex justify-content-center mt-2' },
                             React.createElement(
                                 'button',
-                                { id: 'savethelink', value: link, onClick: this.saveUrl, 'class': 'btn btn-primary' },
-                                'Copy Video to Post somewhere!'
+                                { id: 'savethelink', value: link, onClick: this.saveUrl, 'class': 'btn registerbtnsavelink' },
+                                '\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D'
                             )
                         )
                     )
@@ -326,7 +364,7 @@ var EachReserve = function (_React$Component) {
                                 ),
                                 React.createElement(
                                     'div',
-                                    { 'class': 'd-flex justify-content-center mt-5' },
+                                    { 'class': 'd-flex justify-content-center' },
                                     React.createElement(
                                         'video',
                                         { hidden: true, id: 'testervideo', 'class': 'videovideowhenget', controls: true },
@@ -347,15 +385,15 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { id: 'sendingbacktorequest' })
+                                React.createElement('input', { 'class': 'inputheho', id: 'sendingbacktorequest' })
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center mt-3 mb-5' },
                                 React.createElement(
                                     'button',
-                                    { 'class': 'btn btn-primary', onClick: this.submitSave, id: 'submitrequested' },
-                                    'Post'
+                                    { 'class': 'btn registerbtnforupload', onClick: this.submitSave, id: 'submitrequested' },
+                                    '\u0E2D\u0E31\u0E1E\u0E42\u0E2B\u0E25\u0E14'
                                 )
                             ),
                             React.createElement('input', { name: '', type: 'hidden', id: 'sendingvideoidback' })
@@ -1358,7 +1396,7 @@ var InboxFeedRows = function (_React$Component2) {
                         ),
                         React.createElement(
                             'div',
-                            { 'class': 'd-flex justify-content-center' },
+                            { 'class': 'd-flex justify-content-center mb-5' },
                             React.createElement(
                                 'h6',
                                 { 'class': 'waduedate' },
@@ -1682,19 +1720,23 @@ var InboxFeedInbox = function (_React$Component3) {
                             { 'class': 'd-flex justify-content-center' },
                             this.state.newdata["type"] == "inbox" ? React.createElement(
                                 'div',
-                                null,
+                                { 'class': 'noorderyet' },
                                 React.createElement(
-                                    'h1',
-                                    { 'class': 'wa' },
-                                    '\u0E22\u0E31\u0E27\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E43\u0E19 \u0E2D\u0E34\u0E19\u0E1A\u0E47\u0E2D\u0E01\u0E0B\u0E4C'
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h1',
+                                        { 'class': 'waheading' },
+                                        '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E43\u0E19 \u0E2D\u0E34\u0E19\u0E1A\u0E47\u0E2D\u0E01\u0E0B\u0E4C'
+                                    )
                                 ),
                                 React.createElement(
                                     'div',
                                     { 'class': 'd-flex justify-content-center mt-4' },
                                     React.createElement(
                                         'h4',
-                                        { 'class': 'wa mr-3' },
-                                        '\u0E44\u0E1B\u0E04\u0E49\u0E19\u0E2B\u0E32\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22: '
+                                        { 'class': 'waa mr-3' },
+                                        '\u0E04\u0E49\u0E19\u0E2B\u0E32\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E43\u0E19\u0E43\u0E08\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13: '
                                     ),
                                     React.createElement(
                                         'h4',
@@ -1711,8 +1753,8 @@ var InboxFeedInbox = function (_React$Component3) {
                                     { 'class': 'd-flex justify-content-center mt-4' },
                                     React.createElement(
                                         'h4',
-                                        { 'class': 'wa mr-3' },
-                                        '\u0E16\u0E49\u0E32\u0E2D\u0E22\u0E32\u0E01\u0E40\u0E23\u0E35\u0E22\u0E19\u0E23\u0E39\u0E49\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E1E\u0E27\u0E01\u0E40\u0E23\u0E32: '
+                                        { 'class': 'waa mr-3' },
+                                        '\u0E40\u0E23\u0E35\u0E22\u0E19\u0E23\u0E39\u0E49\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E40\u0E01\u0E35\u0E48\u0E22\u0E27\u0E01\u0E31\u0E1A\u0E40\u0E23\u0E32: '
                                     ),
                                     React.createElement(
                                         'h4',
@@ -1726,23 +1768,31 @@ var InboxFeedInbox = function (_React$Component3) {
                                 )
                             ) : React.createElement(
                                 'div',
-                                null,
+                                { 'class': 'noorderyet' },
                                 React.createElement(
                                     'div',
                                     { 'class': 'd-flex justify-content-center' },
                                     React.createElement(
-                                        'h1',
-                                        { 'class': 'wa' },
-                                        '\u0E22\u0E31\u0E27\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E43\u0E19 \u0E23\u0E35\u0E40\u0E04\u0E27\u0E2A\u0E17\u0E4C'
-                                    )
-                                ),
-                                React.createElement(
-                                    'div',
-                                    { 'class': 'd-flex justify-content-center' },
-                                    React.createElement(
-                                        'h2',
-                                        { 'class': 'wa mt-2' },
-                                        '\u0E0A\u0E48\u0E27\u0E22\u0E41\u0E0A\u0E23\u0E4C\u0E43\u0E2B\u0E49\u0E41\u0E1F\u0E19\u0E04\u0E25\u0E31\u0E1A\u0E04\u0E38\u0E13\u0E43\u0E19 \u0E42\u0E0B\u0E40\u0E0A\u0E35\u0E22\u0E25!'
+                                        'div',
+                                        null,
+                                        React.createElement(
+                                            'div',
+                                            { 'class': 'd-flex justify-content-center' },
+                                            React.createElement(
+                                                'h1',
+                                                { 'class': 'waheading' },
+                                                '\u0E04\u0E38\u0E13\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E2D\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E43\u0E19\u0E23\u0E35\u0E40\u0E04\u0E27\u0E2A\u0E17\u0E4C'
+                                            )
+                                        ),
+                                        React.createElement(
+                                            'div',
+                                            { 'class': 'd-flex justify-content-center' },
+                                            React.createElement(
+                                                'h2',
+                                                { 'class': 'waa mt-2' },
+                                                '\u0E40\u0E0A\u0E34\u0E0D\u0E0A\u0E27\u0E19\u0E41\u0E1F\u0E19\u0E04\u0E25\u0E31\u0E1A\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13\u0E21\u0E32\u0E43\u0E0A\u0E49\u0E40\u0E25\u0E22!'
+                                            )
+                                        )
                                     )
                                 )
                             )
@@ -1880,24 +1930,25 @@ var InboxFeedTitle = function (_React$Component4) {
                         '\u0E2D\u0E34\u0E19\u0E1A\u0E47\u0E2D\u0E01\u0E0B\u0E4C'
                     )
                 ),
-                React.createElement(
+                this.props.data["checkifinfluencer"] == true ? React.createElement(
                     'div',
                     { 'class': 'wangong' },
-                    this.props.data["checkifinfluencer"] == true ? React.createElement(
+                    ' ',
+                    React.createElement(
                         'button',
                         { id: 'myrequestid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "myrequest" ? "requestcssclicked" : "requestcss" },
                         '\u0E23\u0E35\u0E40\u0E04\u0E27\u0E2A'
-                    ) : null
-                ),
-                React.createElement(
+                    )
+                ) : null,
+                this.props.data["checkifinfluencer"] == true ? React.createElement(
                     'div',
                     { 'class': 'wangong' },
-                    this.props.data["checkifinfluencer"] == true ? React.createElement(
+                    React.createElement(
                         'button',
                         { id: 'mycompleteid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "mycomplete" ? "completecssclicked" : "completecss" },
                         '\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E17\u0E35\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
-                    ) : null
-                )
+                    )
+                ) : null
             );
         }
     }]);

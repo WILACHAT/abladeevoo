@@ -2,61 +2,81 @@
 {% load static %}
 
 {% block body %}
+
 <div class="godownmore"></div>
 <div class="biggestdivdara">  
+    {% if message %}
+        {% if message == "error" %}
+            <script>
+                Swal.fire({
+                icon: 'error',
+                title: 'คุณไม่สามารถสมัครเป็นสตาร์ได้',
+                html: 'คุณได้สมัครป็นสตาร์ไปแล้ว กรุณารอทีมงานเราติดต่อกลับ<br></br>ถ้ามีข้อสงใสเพิ่มเติมติดต่อมาที่ vidma@vidma.tv',
+
+                footer: '<a href="/">กลับหน้าหลัก</a>'
+                })
+            </script>
+        {% else %}
+            <script>
+                Swal.fire({
+                icon: 'success',
+                title: 'สมัครเป็นสตาร์สําเร็จ',
+                text: 'กรุณารอทีมงานเราติดต่อกลับในไม่ช้า',
+                footer: '<a href="/">กลับหน้าหลัก</a>'
+
+                })
+            
+            
+            </script>   
+        {% endif %}
+        
+    {% endif %}    
     <h2 class="h2dara mb-5">สมัครเข้าร่วมเป็นสตาร์ของเราได้ที่นี่ และเราจะติดต่อกลับโดยเร็วที่สุด</h2>
+    
+    <form method="post">
+        {% csrf_token %}
    
-    <form action="{% url 'dara' %}" method="post">
-   
-    <label class="labeldara">ชื่อ-นามสกุล</label>
+    <label class="labeldara">ชื่อ-นามสกุล  (ไทย หรือ อังกฤษ)</label>
     <br>
-        <input class="inputdara"type=text required name="name" placeholder="ชื่อของคุณ"></input><br></br>
+        <input class="inputdara"type=text required name="name" placeholder="ตัวอย่าง: วิรชัช วีสกุล, Wilachat Weesakul"></input><br></br>
         
         <label class="labeldara mt-3">อีเมล</label>
     <br>
-        <input  class="inputdara"type=text required name="email" placeholder="อีเมลของคุณ"></input><br></br>
-        <label class="labeldara mt-3">หมายเลขโทรศัพท์</label>
+        <input  class="inputdara"type=text required name="email" placeholder="ตัวอย่าง: araisukyarng@gmail.com"></input><br></br>
+        <label class="labeldara mt-3">หมายเลขโทรศัพท์ (เบอร์ไทย)</label>
     <br>
-        <input class="inputdara"type=text required name="phonenumber" placeholder="หมายเลขโทรศัพท์ของคุณ"></input><br></br>
+        <input class="inputdara"type=text required name="phonenumber" placeholder="ตัวอย่าง: 0812345678"></input><br></br>
         <label class="labeldara mt-3">เราสามารถติดต่อคุณได้ทางไหน
         </label>
     <br>
-        <input class="inputdara"type=text required name="findwhere" placeholder="ช่องทางการติดต่อ
+        <input class="inputdara"type=text required name="findwhere" placeholder="ตัวอย่าง: Instagram
         "></input><br></br>
-        <label class="labeldara mt-3">ชื่อผู้ใช้</label>
+        <label class="labeldara mt-3">ชื่อผู้ใช้ (ในช่องทางการติดต่อด้านบน)</label>
     <br>
-        <input class="inputdara"type=text required name="usernamefindwhere" placeholder="ชื่อผู้ใช้ของคุณ"></input><br></br>
+        <input class="inputdara"type=text required name="usernamefindwhere" placeholder="ตัวอย่าง: earth_thurachon"></input><br></br>
         <label class="labeldara mt-3">คุณมีผู้ติดตามกี่คน</label>
     <br>
-        <input class="inputdara"type=text required name="followerfindwhere" placeholder="คุณมีผู้ติดตามกี่คน"></input><br></br>
+        <input class="inputdara"type=text required name="followerfindwhere" placeholder="ตัวอย่าง: 20111, 20K"></input><br></br>
      
     <label class="labeldara" for="cars">อาชีพของคุณ:</label>
 
-    <select class="inputdara mt-2"name="cars" id="cars">
-      <option value="nuksadaeng">นักแสดง
+    <select class="inputdara mt-2"name="category" id="selectforcategory">
+        <option value="influencer">อินฟลูเอนเซอร์
+        </option>
+    <option value="actor">นักแสดง
     </option>
-      <option value="nu">นักร้อง
+      <option value="singer">นักร้อง
     </option>
-      <option value="mercedes">ดารา</option>
-      <option value="audi">นักกีฬา</option>
-      <option value="gamegae">สตรีมเมอร์/เกมเมอร์
+      <option value="athelete">นักกีฬา</option>
+      <option value="gamer">สตรีมเมอร์/เกมเมอร์
     </option>
-      <option value="kuay">อินฟลูเอนเซอร์
-    </option>
-      <option value="hey">อื่นๆ</option>
+      
+      <option value="others">อื่นๆ</option>
     </select>
-    <!--<select required name="category" id="selectforcategory">
-            <option value="actor">Nhuk Sadaeng</option>
-            <option value="influencer">Influencer</option>
-            <option value="singer">Nhuk Rorng</option>
-            <option value="comedian">Nhuk Talok</option>
-            <option value="athelete">Nhuk Gee Lar</option>
-            <option value="gamer">Gamer</option>
-            <option value="others">UEN2</option>
-        </select>-->
+ 
     <br><br><br>
         <div class="d-flex justify-content-center">
-         <button class="btn registerbtn" type="submit" >สมัครเป็นสตาร์</button>
+         <button class="btn registerbtn"  onclick="show_alert()"type="submit">สมัครเป็นสตาร์</button>
         </div>
    
     </form>

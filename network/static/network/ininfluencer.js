@@ -332,7 +332,7 @@ var EditPost = function (_React$Component3) {
             React.createElement(
               'button',
               { type: 'button', className: 'loll btn btn-outline-danger btn-sm', name: 'cancel_button', onClick: this.editCancel },
-              'Cancel'
+              '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01'
             )
           ),
           React.createElement(
@@ -411,7 +411,7 @@ var EditPost = function (_React$Component3) {
             React.createElement(
               'button',
               { type: 'button', name: 'edit_post_button', className: 'loll btn btn-outline-success btn-sm mr-2', onClick: this.editPost },
-              'Save'
+              '\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01'
             )
           )
         )
@@ -483,53 +483,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
       profilepic: profilepic,
       profilevideo: profilevideo,
 
-      edit: React.createElement(
-        'div',
-        null,
-        React.createElement(
-          'label',
-          { 'class': 'wa' },
-          '\u0E0A\u0E37\u0E48\u0E2D'
-        ),
-        React.createElement(
-          'h5',
-          null,
-          fullname
-        ),
-        React.createElement('hr', null),
-        React.createElement(
-          'label',
-          { 'class': 'wa' },
-          '\u0E44\u0E1A\u0E42\u0E2D'
-        ),
-        React.createElement(
-          'h6',
-          null,
-          description
-        ),
-        React.createElement('hr', null),
-        React.createElement(
-          'label',
-          { 'class': 'wa' },
-          '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C'
-        ),
-        React.createElement(
-          'h6',
-          null,
-          first_url
-        ),
-        React.createElement(
-          'h6',
-          null,
-          second_url
-        ),
-        React.createElement(
-          'h6',
-          null,
-          third_url
-        ),
-        React.createElement('hr', null)
-      )
+      edit: React.createElement('div', { 'class': 'biggestdivchecker' })
 
     };
     return _this5;
@@ -540,13 +494,30 @@ var InfluencerFeedTitle = function (_React$Component4) {
     value: function chooseFile(e) {
       var _this6 = this;
 
+      //function above
+      /*
+        <label class="wa">ไบโอ</label>
+            <h6>{description}</h6>
+            <hr></hr>
+       <label class="wa">ชื่อ</label>
+      <h5>{fullname}</h5>
+      <hr></hr>
+      */
+      //      <label class="wa">ลิ้งค์</label>
+      // <h6>{first_url}</h6>
+      //<h6>{second_url}</h6>
+      // <h6>{third_url}</h6>
+      //  <hr></hr>
       //  return file && file['type'].split('/')[0] === 'image';
 
 
       var getcooked = getCookie('csrftoken');
       var fileInput = document.querySelector('#choosefile').files[0];
       if (fileInput["type"].split('/')[0] != 'image') {
-        alert("ไม่ใช่รูป");
+        Swal.fire({
+          icon: 'error',
+          text: 'ต้องเป็นรูปแต่ดันอัพโหลดวีดีโอ!'
+        });
       } else {
 
         console.log("this is fileinput", fileInput);
@@ -564,6 +535,10 @@ var InfluencerFeedTitle = function (_React$Component4) {
         }).then(function (response) {
           return response.json();
         }).then(function (result) {
+          Swal.fire({
+            icon: 'success',
+            text: 'เปลี่ยนรูปสําเร็จ'
+          });
           console.log("result", result);
           console.log(result['url']);
           _this6.setState({
@@ -579,7 +554,10 @@ var InfluencerFeedTitle = function (_React$Component4) {
       var fileInput = document.querySelector('#inputGroupFile01').files[0];
 
       if (fileInput["type"].split('/')[0] != 'video') {
-        alert("ไม่ใช่วีดีโอ");
+        Swal.fire({
+          icon: 'error',
+          text: 'ต้องเป็นวีดีโอแต่ดันอัพโหลดรูป'
+        });
       } else {
 
         console.log("CHOOSEFILEVIDEOOOOOO");
@@ -593,6 +571,11 @@ var InfluencerFeedTitle = function (_React$Component4) {
         var type = "videoinprofile";
         console.log("what the fuck is thye type", type);
         console.log("formdata", formData);
+        Swal.fire({
+          icon: 'info',
+          title: 'กําลังเซฟวีดีโอ',
+          text: 'กรุณาอย่ากดออกหรือรีเฟรชจากหน้านี้จนกว่าจะมีข้อความสําเร็จ อาจจะใช้เวลานาน'
+        });
         fetch('/forupload/' + type, {
           method: 'POST',
           headers: { 'X-CSRFToken': getcooked
@@ -601,9 +584,14 @@ var InfluencerFeedTitle = function (_React$Component4) {
         }).then(function (response) {
           return response.json();
         }).then(function (result) {
+          console.log("in result immediately?");
           console.log("result", result);
           console.log("waan weesakul", result['url']);
           document.querySelector('#introvideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + result['url'] + ".mp4";
+          Swal.fire({
+            icon: 'success',
+            title: 'สําเร็จ!'
+          });
         });
       }
     }
@@ -670,27 +658,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
               null,
               iddescription
             ),
-            React.createElement('hr', null),
-            React.createElement(
-              'label',
-              { 'class': 'wa' },
-              '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C'
-            ),
-            React.createElement(
-              'h6',
-              null,
-              idurl1
-            ),
-            React.createElement(
-              'h6',
-              null,
-              idurl2
-            ),
-            React.createElement(
-              'h6',
-              null,
-              idurl3
-            ),
             React.createElement('hr', null)
           )
 
@@ -700,6 +667,14 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }, {
     key: 'cancel',
     value: function cancel() {
+      //function above
+      /*
+      <label class="wa">ลิ้งค์</label>
+      <h6>{idurl1}</h6>
+      <h6>{idurl2}</h6>
+      <h6>{idurl3}</h6>
+      <hr></hr>
+      */
       this.setState({
 
         edit: React.createElement(
@@ -726,27 +701,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
             null,
             this.state.description
           ),
-          React.createElement('hr', null),
-          React.createElement(
-            'label',
-            { 'class': 'wa' },
-            '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C'
-          ),
-          React.createElement(
-            'h6',
-            null,
-            this.state.first_url
-          ),
-          React.createElement(
-            'h6',
-            null,
-            this.state.second_url
-          ),
-          React.createElement(
-            'h6',
-            null,
-            this.state.third_url
-          ),
           React.createElement('hr', null)
         )
       });
@@ -754,6 +708,14 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }, {
     key: 'editProfile',
     value: function editProfile(e) {
+      //function above
+      /*
+      <label class="wa">ลิ้งค์</label>
+      <h6>{this.state.first_url}</h6>
+      <h6>{this.state.second_url}</h6>
+      <h6>{this.state.third_url}</h6>
+      <hr></hr>
+      */
       console.log("edot");
       //go to edit thingy ok??
       //the jon of this state is to essentially send the value to EditPost
@@ -874,157 +836,184 @@ var InfluencerFeedTitle = function (_React$Component4) {
           null,
           React.createElement(
             'div',
-            { 'class': 'controlininfluencer d-flex justify-content-between' },
+            { 'class': 'controlininfluencer' },
             React.createElement(
               'div',
-              { 'class': 'beforehihi' },
+              { 'class': 'd-flex justify-content-center' },
               React.createElement(
                 'div',
-                { 'class': 'hihi d-flex flex-column' },
+                { 'class': 'plsbegu' },
                 React.createElement(
                   'div',
-                  { 'class': 'd-flex justify-content-center' },
-                  React.createElement('img', { 'class': 'imgnoedit', src: link })
-                ),
-                this.props.data["sameperson"] == 1 ? React.createElement(
-                  'div',
-                  { 'class': 'd-flex flex-column mt-3' },
+                  { 'class': 'd-flex flex-column' },
                   React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center' },
                     React.createElement(
-                      'label',
-                      { htmlFor: 'edit_post_txt' },
-                      'Click to change profile picture: '
+                      'div',
+                      { 'class': 'beforehihi' },
+                      React.createElement(
+                        'div',
+                        { 'class': 'hihi' },
+                        React.createElement(
+                          'div',
+                          { 'class': 'insidehihi' },
+                          React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement('img', { 'class': 'imgnoedit', src: link })
+                          ),
+                          this.props.data["sameperson"] == 1 ? React.createElement(
+                            'div',
+                            { 'class': 'd-flex flex-column mt-3' },
+                            React.createElement(
+                              'div',
+                              { 'class': 'd-flex justify-content-center' },
+                              React.createElement(
+                                'label',
+                                { 'class': 'wa', htmlFor: 'edit_post_txt' },
+                                '\u0E01\u0E14\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E39\u0E1B\u0E42\u0E1B\u0E23\u0E44\u0E1F\u0E25\u0E4C'
+                              )
+                            ),
+                            React.createElement(
+                              'div',
+                              { 'class': 'd-flex justify-content-center ' },
+                              React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
+                            )
+                          ) : null,
+                          React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(
+                              'h1',
+                              null,
+                              this.props.data['username']
+                            ),
+                            this.props.data["sameperson"] == 1 ? React.createElement(
+                              'div',
+                              null,
+                              React.createElement(
+                                'button',
+                                { type: 'button', 'class': 'btn registersmall', onClick: this.editProfile },
+                                '\u0E41\u0E01\u0E49\u0E44\u0E02'
+                              )
+                            ) : null
+                          ),
+                          React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            this.props.data["userinfodata"][0].profile_fullname
+                          ),
+                          React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
+                            this.props.data["userinfodata"] != "" ? React.createElement(
+                              'p',
+                              { 'class': 'forfont' },
+                              categoryname
+                            ) : null,
+                            React.createElement(
+                              'p',
+                              { 'class': 'forfont' },
+                              this.props.data["reviewnum"],
+                              ' \u0E23\u0E35\u0E27\u0E34\u0E27'
+                            ),
+                            React.createElement(
+                              'p',
+                              { 'class': 'forfont' },
+                              averagestars,
+                              ' \u0E14\u0E32\u0E27\u0E40\u0E09\u0E25\u0E35\u0E48\u0E22'
+                            )
+                          )
+                        )
+                      )
                     )
                   ),
                   React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-end' },
-                    React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
+                    { 'class': 'd-flex justify-content-center' },
+                    React.createElement(
+                      'div',
+                      { 'class': 'beforehihi mt-3' },
+                      React.createElement(
+                        'div',
+                        { 'class': 'hihi' },
+                        React.createElement(
+                          'div',
+                          { 'class': 'insidehihi' },
+                          this.props.data["userinfodata"][0].profile_description
+                        )
+                      )
+                    )
+                  ),
+                  React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center mt-3' },
+                    this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
+                      'a',
+                      { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
+                      '\u0E08\u0E2D\u0E07\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49: ',
+                      this.props.data["userinfodata"][0]["price"],
+                      '\u0E3F'
+                    ) : React.createElement('div', null) : React.createElement(
+                      'div',
+                      null,
+                      '\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E2B\u0E22\u0E38\u0E14\u0E0A\u0E31\u0E48\u0E27\u0E04\u0E23\u0E32\u0E27'
+                    )
                   )
-                ) : null,
+                ),
+                this.state.edit
+              ),
+              React.createElement(
+                'div',
+                { 'class': 'coversvdointro d-flex justify-content-center' },
                 React.createElement(
                   'div',
-                  { 'class': 'd-flex justify-content-between mt-3' },
+                  { 'class': 'd-flex flex-column ' },
                   React.createElement(
-                    'h1',
-                    null,
-                    this.props.data['username']
+                    'div',
+                    { 'class': 'd-flex justify-content-center' },
+                    videolink == "" ? React.createElement(
+                      'div',
+                      null,
+                      React.createElement(
+                        'h6',
+                        { 'class': 'wanopostyet' },
+                        '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27'
+                      )
+                    ) : React.createElement(
+                      'video',
+                      { 'class': 'almostvideovideowhenget', id: 'introvideo', controls: true },
+                      React.createElement('source', { src: videolink }),
+                      'Your browser does not support the video tag.'
+                    )
                   ),
                   this.props.data["sameperson"] == 1 ? React.createElement(
                     'div',
                     null,
                     React.createElement(
-                      'button',
-                      { type: 'button', 'class': 'btn editbutton', onClick: this.editProfile },
-                      'Edit'
-                    )
-                  ) : null,
-                  React.createElement(
-                    'h4',
-                    { 'class': 'wa' },
-                    this.props.data["userinfodata"][0]["price"],
-                    '\u0E3F'
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { 'class': 'forfont d-flex justify-content-center' },
-                  React.createElement(
-                    'div',
-                    { 'class': 'mr-3' },
-                    React.createElement(
-                      'h5',
-                      { 'class': 'forfont ml-3' },
-                      this.props.data["reviewnum"],
-                      ' \u0E23\u0E35\u0E27\u0E34\u0E27'
-                    )
-                  ),
-                  React.createElement(
-                    'div',
-                    null,
-                    React.createElement(
-                      'h5',
-                      null,
-                      averagestars,
-                      ' \u0E14\u0E32\u0E27\u0E40\u0E09\u0E25\u0E35\u0E48\u0E22'
-                    )
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { 'class': 'd-flex justify-content-center mt-1' },
-                  this.props.data["userinfodata"] != "" ? React.createElement(
-                    'h5',
-                    null,
-                    categoryname
-                  ) : null
-                ),
-                this.state.edit
-              )
-            ),
-            React.createElement(
-              'div',
-              { 'class': 'coversvdointro d-flex justify-content-center' },
-              React.createElement(
-                'div',
-                { 'class': 'd-flex flex-column ' },
-                React.createElement(
-                  'div',
-                  { 'class': 'd-flex justify-content-center' },
-                  videolink == "" ? React.createElement(
-                    'div',
-                    null,
-                    React.createElement(
-                      'h6',
-                      { 'class': 'wanopostyet' },
-                      '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27'
-                    )
-                  ) : React.createElement(
-                    'video',
-                    { 'class': 'almostvideovideowhenget', id: 'introvideo', controls: true },
-                    React.createElement('source', { src: videolink }),
-                    'Your browser does not support the video tag.'
-                  )
-                ),
-                this.props.data["sameperson"] == 1 ? React.createElement(
-                  'div',
-                  null,
-                  React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement(
-                      'label',
-                      { htmlFor: 'edit_post_txt' },
-                      'Click to change introduction video: '
-                    )
-                  ),
-                  React.createElement(
-                    'div',
-                    null,
+                      'div',
+                      { 'class': 'd-flex justify-content-center mt-2' },
+                      React.createElement(
+                        'label',
+                        { htmlFor: 'edit_post_txt' },
+                        '\u0E01\u0E14\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27'
+                      )
+                    ),
                     React.createElement(
                       'div',
-                      { 'class': 'custom-file' },
+                      null,
                       React.createElement(
                         'div',
-                        { 'class': 'videouploadininfluencer' },
-                        React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                        { 'class': 'custom-file ' },
+                        React.createElement(
+                          'div',
+                          { 'class': 'videouploadininfluencer' },
+                          React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                        )
                       )
                     )
-                  )
-                ) : React.createElement(
-                  'div',
-                  { 'class': 'd-flex justify-content-center mt-3' },
-                  this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
-                    'a',
-                    { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
-                    '\u0E08\u0E2D\u0E07\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49'
-                  ) : React.createElement('div', null) : React.createElement(
-                    'div',
-                    null,
-                    '\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E2B\u0E22\u0E38\u0E14\u0E0A\u0E31\u0E48\u0E27\u0E04\u0E23\u0E32\u0E27'
-                  )
+                  ) : React.createElement('div', { 'class': 'd-flex justify-content-center mt-3' })
                 )
               )
             )

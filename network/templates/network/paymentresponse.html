@@ -2,12 +2,33 @@
 {% load static %}
 
 {% block body %}
-<h6 class="godown">this is the payment respones page</h6>
-<h1>{{status}}</h1>
+<h6 class="godown"></h6>
+
+{% if status == "fail" %}
+<div class="d-flex justify-content-center">
+    <div class="failpaymentcolumn">
+        <p class="failpaymentheading">การชำระเงินของคุณไม่สำเร็จ</p>
+        <p class="m-auto">เกิดข้อผิดพลาดในการชำระเงิน โปรดลองใหม่อีกครั้ง</p>
+        <p class="mt-4 "><a href="{% url 'index' %}">กลับหน้าหลัก</a></p>
+    </div>
+</div>
+
+{% else %}
+<div class="d-flex justify-content-center">
+    <div class="successpaymentcolumn">
+        <p class="successpaymentheading">ยินดีด้วย การชำระเงินของคุณเสร็จสิ้นแล้ว!</p>
+        <p class="">ขอบคุณที่ใช้บริการ โปรดรอรับวีดีโอพิเศษจากสตาร์คนโปรดของคุณ</p>
+        <p class="">ถ้าหากคุณอยากสอบถามอะไรเพิ่มเติม โปรดติต่อเราผ่าน vidma@vidma.tv</p>
+        <p class="mt-4 "><a href="{% url 'index' %}">กลับหน้าหลัก</a></p>
+
+    </div>
+</div>
+
+{% endif %}
+
 
 
 
 {% endblock %}
-{% block script %}
-{% endblock %}
+
 

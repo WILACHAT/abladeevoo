@@ -61,7 +61,7 @@ class PaymentSetup extends React.Component {
                   </div>
       
                   <div class="d-flex justify-content-center mt-2">
-                      <label>ชื่อและนามสกุล (ภาษาไทย)</label>
+                      <label>ชื่อ-นามสกุล (ไทย หรือ อังกฤษ)</label>
                   </div>
                   <div class="d-flex justify-content-center">
                       <input class="inputhehore" id="fullnamebankid" placeholder="ตัวอย่าง: วิรชัช วีสกุล"></input>
@@ -82,6 +82,10 @@ class PaymentSetup extends React.Component {
                   </div>
                   <div class="d-flex justify-content-center mt-3">
                     <p>*ในขณะนี้ไม่สามารถสร้างบัญชีการเงินได้มากกว่าหนึ่งอัน  แต่สามารถเปลี่ยนข้อมูลบัญชีของท่านได้*</p>
+                  </div>
+
+                  <div class="d-flex justify-content-center">
+                    <label class="wa d-flex justify-content-center mt-2">*กรุณาตรวจสอบเลขที่บัญชีอีกครั้ง*</label>
                   </div>
 
                   <div class="d-flex justify-content-center">
@@ -151,7 +155,7 @@ class PaymentSetup extends React.Component {
 
         
                     <div class="d-flex justify-content-center mt-2">
-                        <label>อีเมวย์</label>
+                        <label>อีเมล</label>
                     </div>
 
                     <div class="d-flex justify-content-center">
@@ -184,6 +188,10 @@ class PaymentSetup extends React.Component {
           })
           .then(response => response.json())
           .then(data => {
+            Swal.fire({
+                icon: 'success',
+                title: 'สําเร็จ!',
+              })
             this.setState({
                 price:data["price"],
                 innerpricediv: 
@@ -269,6 +277,10 @@ class PaymentSetup extends React.Component {
             })
             .then(response => response.json())
             .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'สําเร็จ!',
+                  })
                 console.log("suk mah dik", data)
                 console.log("suk mah dik", data["brand"])
                 console.log("suk mah dik", data["number"])
@@ -345,7 +357,7 @@ class PaymentSetup extends React.Component {
     
             
                         <div class="d-flex justify-content-center mt-2">
-                            <label>อีเมวย์</label>
+                            <label>อีเมล</label>
                         </div>
     
                         <div class="d-flex justify-content-center">
@@ -430,7 +442,7 @@ class PaymentSetup extends React.Component {
 
 
             <div class="d-flex justify-content-center mt-2">
-                <label>อีเมวย์</label>
+                <label>อีเมล</label>
             </div>
 
             <div class="d-flex justify-content-center">
@@ -453,19 +465,26 @@ class PaymentSetup extends React.Component {
             this.setState({
                 innerpricediv: 
                 <div>
-                  <div class="d-flex justify-content-center">
-                    <label>Set Price (THB)</label>
-                    </div>
                     <div class="d-flex justify-content-center">
-                        <input id="setpriceid"></input>
-                    </div>
-                    <div class="d-flex justify-content-center mt-1">
-                        <button class="btn btn-primary" onClick={this.setPrice}>Set Price</button>
-                    </div>
-                    <div class="d-flex justify-content-center mt-1">
-                        <button class="btn btn-primary" onClick={this.cancelPriceChange}>Cancel</button>
+                        <div class="coversprice">
+                                <div class="d-flex justify-content-center">
+                                    <label>ตั้งราคาต่อวีดีไอ (THB)</label>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <input class="inputheho"id="setpriceid" placeholder="ตัวอย่าง: 500"></input>
+                                </div>
+                                <hr></hr>
+
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn registerbtnlog" onClick={this.setPrice}>ตั้งราคาต่อวีดีโอ</button>
+                                </div>
+                                <div class="d-flex justify-content-center mt-2">
+                                    <button class="btn registerbtnloglog" onClick={this.cancelPriceChange}>ยกเลิก</button>
+                                </div>
+                        </div>
                     </div>
                 </div>
+                
               })
         }
   }
@@ -479,51 +498,69 @@ class PaymentSetup extends React.Component {
             this.setState({
                 
                 innerpaymentdiv:   
-                <div>
-                <div class="d-flex justify-content-center">
-                    <label>Select Bank</label>
-                </div>
-                
-                <div class="d-flex justify-content-center">
-                    <select name="selectbank" id="selectbankid">
+              
+
+    <div class="d-flex justify-content-center mt-5">
+        <div class="coversbank">
+            <div class="d-flex justify-content-center">
+                <label>เปลี่ยนธนาคาร</label>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                    <select class="inputheho" name="selectbank" id="selectbankid">
                         <option value="nothing"></option>
                         <option value="bbl">Bangkok Bank</option>
                         <option value="bay">Krungsri Bank</option>
                         <option value="kbank">Kasikorn Bank</option>
                         <option value="ktb">Krungthai Bank</option>
-                        <option value="scv">Siam Commercial Bank</option>
+                        <option value="scb">Siam Commercial Bank</option>
                         <option value="ttb">Thanachart Bank</option>
                     </select>
+            </div>
+            <hr></hr>
+
+
+            <div class="d-flex justify-content-center mt-2">
+                <label>ชื่อ-นามสกุล  (ไทย หรือ อังกฤษ)</label>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <input class="inputheho"id="fullnamebankid" placeholder="ตัวอย่าง: วิรชัช วีสกุล"></input>
+            </div>
+            <hr></hr>
+
+            <div class="d-flex justify-content-center mt-2">
+                <label>เลขที่บัญชีใหม่</label>
+            </div>
+
+
+            <div class="d-flex justify-content-center">
+                <input class="inputheho" id="accountnumberid" placeholder="ตัวอย่าง: 0384683978"></input>
+            </div>
+            <hr></hr>
+
+
+            <div class="d-flex justify-content-center mt-2">
+                <label>อีเมล</label>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <input class="inputheho" placeholder="ตัวอย่าง: araisukyarng@gmail.com" id="emailid"></input>
+            </div>
+            <hr></hr>
+
+            <label class="wa d-flex justify-content-center mt-2">*กรุณาตรวจสอบเลขที่บัญชีอีกครั้ง*</label>
+
+            <div class="d-flex justify-content-center">
+            <button class="btn registerbtn" onClick={() => this.onSubmit("change")}>เปลี่ยนบัญชีรับเงิน</button>
+            </div>
+            <div class="d-flex justify-content-center mt-2">
+                    <button class="btn registerbtnloglog" onClick={this.cancelChange}>ยกเลิก</button>
                 </div>
-    
-                <div class="d-flex justify-content-center mt-2">
-                    <label>Full Name</label>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <input id="fullnamebankid"></input>
-                </div>
-            
-                <div class="d-flex justify-content-center mt-2">
-                    <label>Account Number</label>
-                </div>    
-                <div class="d-flex justify-content-center">
-                    <input id="accountnumberid"></input>
-                </div>
-                
-                <div class="d-flex justify-content-center mt-2">
-                    <label>Email</label>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <input id="emailid"></input>
-                </div>
-    
-                <div class="d-flex justify-content-center mt-2">
-                    <button class="btn btn-primary" onClick={() => this.onSubmit("change")}>Change Payment</button>
-                </div>
-                <div class="d-flex justify-content-center mt-2">
-                    <button class="btn btn-primary" onClick={this.cancelChange}>Cancel</button>
-                </div>
-          </div>
+        </div>
+    </div>
+
+
         })
 
     

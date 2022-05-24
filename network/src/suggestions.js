@@ -31,18 +31,16 @@ function getCookie(name) {
       {
    
         return (
-          <div class="d-flex justify-content-center">
           <div class="divsearch d-flex justify-content-center">
             <form>
           <input
             id="searchid"
             type="text"
-            class="inputsearch form-control d-flex justify-content-center"
-            placeholder="Search..."
+            class="inputhehosearch form-control d-flex justify-content-center"
+            placeholder="ค้นหา"
             value={this.props.searchtext} 
             onChange={this.checkSearch}/>
         </form>
-          </div>
           </div>
         );
       }

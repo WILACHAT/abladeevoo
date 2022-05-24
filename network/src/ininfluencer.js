@@ -265,7 +265,7 @@ class InfluencerFeedTable extends React.Component {
         <div>
                 <div className="form-floating">
                     <div class="d-flex justify-content-center mt-2 mb-2">
-                        <button type="button"className="loll btn btn-outline-danger btn-sm" name="cancel_button" onClick={this.editCancel}>Cancel</button>
+                        <button type="button"className="loll btn btn-outline-danger btn-sm" name="cancel_button" onClick={this.editCancel}>ยกเลิก</button>
                     </div>
                     <div class="d-flex justify-content-center mt-1 mb-1">
                         <label htmlFor="edit_post_txt">ชื่อจริง: </label>
@@ -305,7 +305,7 @@ class InfluencerFeedTable extends React.Component {
                     </div>
                     
                     <div class="d-flex justify-content-center mt-2 mb-2">
-                        <button type="button" name="edit_post_button" className="loll btn btn-outline-success btn-sm mr-2" onClick={this.editPost}>Save</button>
+                        <button type="button" name="edit_post_button" className="loll btn btn-outline-success btn-sm mr-2" onClick={this.editPost}>บันทึก</button>
                     </div>
                 
                 </div>
@@ -383,20 +383,12 @@ class InfluencerFeedTitle extends React.Component {
       profilevideo: profilevideo,
 
       edit:
-        <div>
-           <label class="wa">ชื่อ</label>
-            <h5>{fullname}</h5>
-            <hr></hr>
+        <div class="biggestdivchecker">
+          
 
-          <label class="wa">ไบโอ</label>
-            <h6>{description}</h6>
-            <hr></hr>
+        
 
-          <label class="wa">ลิ้งค์</label>
-            <h6>{first_url}</h6>
-            <h6>{second_url}</h6>
-           <h6>{third_url}</h6>
-           <hr></hr>
+    
 
         </div>
 
@@ -404,6 +396,21 @@ class InfluencerFeedTitle extends React.Component {
   }
     chooseFile(e)
     {
+      //function above
+      /*
+        <label class="wa">ไบโอ</label>
+            <h6>{description}</h6>
+            <hr></hr>
+
+      <label class="wa">ชื่อ</label>
+      <h5>{fullname}</h5>
+      <hr></hr>
+      */
+      //      <label class="wa">ลิ้งค์</label>
+     // <h6>{first_url}</h6>
+      //<h6>{second_url}</h6>
+    // <h6>{third_url}</h6>
+   //  <hr></hr>
           //  return file && file['type'].split('/')[0] === 'image';
         
         
@@ -411,7 +418,10 @@ class InfluencerFeedTitle extends React.Component {
       let fileInput = document.querySelector('#choosefile').files[0]
       if (fileInput["type"].split('/')[0] != 'image')
       {
-        alert("ไม่ใช่รูป");
+        Swal.fire({
+          icon: 'error',
+          text: 'ต้องเป็นรูปแต่ดันอัพโหลดวีดีโอ!',
+        })
 
       }
       else
@@ -432,6 +442,10 @@ class InfluencerFeedTitle extends React.Component {
       })
       .then(response => response.json())
           .then(result =>{
+            Swal.fire({
+              icon: 'success',
+              text: 'เปลี่ยนรูปสําเร็จ',
+            })
               console.log("result", result)
               console.log(result['url'])
               this.setState({
@@ -450,8 +464,10 @@ class InfluencerFeedTitle extends React.Component {
 
       if (fileInput["type"].split('/')[0] != 'video')
       {
-        alert("ไม่ใช่วีดีโอ");
-
+        Swal.fire({
+          icon: 'error',
+          text: 'ต้องเป็นวีดีโอแต่ดันอัพโหลดรูป',
+        })
       }
       else
       {
@@ -467,6 +483,11 @@ class InfluencerFeedTitle extends React.Component {
         let type = "videoinprofile"
         console.log("what the fuck is thye type", type)
         console.log("formdata", formData)
+        Swal.fire({
+          icon: 'info',
+          title: 'กําลังเซฟวีดีโอ',
+          text: 'กรุณาอย่ากดออกหรือรีเฟรชจากหน้านี้จนกว่าจะมีข้อความสําเร็จ อาจจะใช้เวลานาน',
+        })
         fetch(`/forupload/${type}`, {
           method: 'POST',
           headers: {'X-CSRFToken': getcooked
@@ -475,9 +496,14 @@ class InfluencerFeedTitle extends React.Component {
       })
       .then(response => response.json())
           .then(result =>{
+              console.log("in result immediately?")
               console.log("result", result)
               console.log("waan weesakul", result['url'])
               document.querySelector('#introvideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + result['url'] + ".mp4"
+              Swal.fire({
+                icon: 'success',
+                title: 'สําเร็จ!'
+              })
   
           });
       }
@@ -531,11 +557,7 @@ class InfluencerFeedTitle extends React.Component {
               <h6>{iddescription}</h6>
               <hr></hr>
 
-            <label class="wa">ลิ้งค์</label>
-              <h6>{idurl1}</h6>
-              <h6>{idurl2}</h6>
-             <h6>{idurl3}</h6>
-             <hr></hr>
+           
 
           </div>
 
@@ -545,6 +567,14 @@ class InfluencerFeedTitle extends React.Component {
     }
     cancel()
     {
+      //function above
+      /*
+      <label class="wa">ลิ้งค์</label>
+      <h6>{idurl1}</h6>
+      <h6>{idurl2}</h6>
+     <h6>{idurl3}</h6>
+     <hr></hr>
+     */
       this.setState({
 
         edit:
@@ -555,11 +585,7 @@ class InfluencerFeedTitle extends React.Component {
             <label class="wa">ไบโอ</label>
               <h6>{this.state.description}</h6>
               <hr></hr>
-              <label class="wa">ลิ้งค์</label>
-              <h6>{this.state.first_url}</h6>
-              <h6>{this.state.second_url}</h6>
-             <h6>{this.state.third_url}</h6>
-             <hr></hr>
+             
 
           </div>
         })
@@ -568,6 +594,14 @@ class InfluencerFeedTitle extends React.Component {
     
     editProfile(e)
     {
+      //function above
+      /*
+      <label class="wa">ลิ้งค์</label>
+      <h6>{this.state.first_url}</h6>
+      <h6>{this.state.second_url}</h6>
+     <h6>{this.state.third_url}</h6>
+     <hr></hr>
+     */
       console.log("edot")
       //go to edit thingy ok??
       //the jon of this state is to essentially send the value to EditPost
@@ -715,46 +749,72 @@ class InfluencerFeedTitle extends React.Component {
    
 
                 <div>
-                        <div class="controlininfluencer d-flex justify-content-between"> 
-                         <div class="beforehihi">
-                          <div class="hihi d-flex flex-column">
-                              <div class="d-flex justify-content-center">
-                                <img class="imgnoedit" src={link}></img>
-  
-                              </div>
-                              {this.props.data["sameperson"] == 1 ?                
-                    
-                      <div class="d-flex flex-column mt-3">
+                        <div class="controlininfluencer"> 
                         <div class="d-flex justify-content-center">
-                            <label htmlFor="edit_post_txt">Click to change profile picture: </label>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>                  
-                        </div>
+                        <div class="plsbegu">
 
-                      </div> 
-                      :null}
-                              <div class="d-flex justify-content-between mt-3">
-                                <h1 >{this.props.data['username']}</h1>
-                                {this.props.data["sameperson"] == 1 ? <div><button type="button" class="btn editbutton" onClick={this.editProfile}>Edit</button></div>:null}
-                                <h4 class="wa">{this.props.data["userinfodata"][0]["price"]}฿</h4>
-                              </div>                              
-                              <div class="forfont d-flex justify-content-center">
-                                  <div class="mr-3">
-                                      <h5 class="forfont ml-3">{this.props.data["reviewnum"]} รีวิว</h5>
+                        <div class="d-flex flex-column">
+                          
+                          <div class="d-flex justify-content-center">
+                         <div class="beforehihi">
+                            <div class="hihi">
+                              <div class="insidehihi">
+                                  <div class="d-flex justify-content-center">
+                                    <img class="imgnoedit" src={link}></img>
                                   </div>
-                                  <div>
-                                      <h5>{averagestars} ดาวเฉลี่ย</h5>
+
+                                  {this.props.data["sameperson"] == 1 ?                
+                                
+                                      <div class="d-flex flex-column mt-3">
+                                          <div class="d-flex justify-content-center">
+                                              <label class="wa" htmlFor="edit_post_txt">กดเพื่อเปลี่ยนรูปโปรไฟล์</label>
+                                          </div>
+                                          <div class="d-flex justify-content-center ">
+                                              <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>                  
+                                          </div>
+                                      </div> 
+                                  :null}
+
+          
+                                  <div class="d-flex justify-content-center">
+                                      <h1 >{this.props.data['username']}</h1>
+                                      {this.props.data["sameperson"] == 1 ? <div><button type="button" class="btn registersmall" onClick={this.editProfile}>แก้ไข</button></div>:null}
+                                  </div>    
+                                  <div class="d-flex justify-content-center">
+                                    {this.props.data["userinfodata"][0].profile_fullname}
+                                  </div>
+
+                                  <div class="d-flex justify-content-center mt-2">
+                                    {this.props.data["userinfodata"] != "" ? <p class="forfont">{categoryname}</p>:null}
+                                    <p class="forfont">{this.props.data["reviewnum"]} รีวิว</p>
+                                    <p class="forfont" >{averagestars} ดาวเฉลี่ย</p>
+
+                                  </div>
                                   </div>
                               </div>
-                              <div class="d-flex justify-content-center mt-1">
-                                  {this.props.data["userinfodata"] != "" ? <h5>{categoryname}</h5>:null}
-                              </div>
+                          </div>
+                          </div>
 
-                                  {this.state.edit}
+                           <div class="d-flex justify-content-center">
+                              <div class="beforehihi mt-3">
+                                <div class="hihi">
+                                  <div class="insidehihi">
+                                      {this.props.data["userinfodata"][0].profile_description}
+                                  </div>
+                                </div>
+                             </div>
+                          </div>
 
-                              </div>
-                              </div>
+                          <div class="d-flex justify-content-center mt-3">
+                            {this.props.data.accountstatus == 1 ? 
+                              this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>จองตอนนี้: {this.props.data["userinfodata"][0]["price"]}฿</a>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>
+                            }
+                          </div>
+
+                                </div>
+                        {this.state.edit}
+                            </div>
+
                             <div class="coversvdointro d-flex justify-content-center">
                                 <div class="d-flex flex-column ">
                                     <div class="d-flex justify-content-center">
@@ -769,11 +829,11 @@ class InfluencerFeedTitle extends React.Component {
                                 </div>
                                 {this.props.data["sameperson"] == 1 ?   
                                     <div>
-                                        <div class="d-flex justify-content-center">
-                                          <label htmlFor="edit_post_txt">Click to change introduction video: </label>
+                                        <div class="d-flex justify-content-center mt-2">
+                                          <label htmlFor="edit_post_txt">กดเพื่อเปลี่ยนวีดีโอแนะนําตัว</label>
                                       </div>
                                         <div>
-                                            <div class="custom-file">
+                                            <div class="custom-file ">
                                                 <div class="videouploadininfluencer">
                                                     <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
                                                 </div>
@@ -782,10 +842,10 @@ class InfluencerFeedTitle extends React.Component {
                                     </div>
                                     : 
                                     <div class="d-flex justify-content-center mt-3">
-                                    {this.props.data.accountstatus == 1 ? 
-                                    this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>จองตอนนี้</a>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>}
+
                                     </div>}
                                 </div>
+                            </div>
                             </div>
                     </div>
              </div>

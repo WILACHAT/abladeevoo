@@ -85,20 +85,45 @@ class Information extends React.Component{
 
       let formData = new FormData();
       formData.append("media", fileInput);
-      let type = "imageinprofile"
-      console.log("formdata", formData)
-      fetch(`/forupload/${type}`, {
-        method: 'POST',
-        headers: {'X-CSRFToken': getcooked
-        },
-        body:formData
-    })
-    .then(response => response.json())
-        .then(result =>{
-            document.querySelector('#profilepicture').value = result['url']
-            document.querySelector('#profilepicture').src = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + result['url'] + ".jpg"
 
+
+        let type = "imageinprofile"
+        console.log("formdata", formData)
+        fetch(`/forupload/${type}`, {
+          method: 'POST',
+          headers: {'X-CSRFToken': getcooked
+          },
+          body:formData
+      })
+      
+          .then(response => response.json())
+          .then(result =>{
+            console.log("profilepicresult", result)
+            if (result["error"] != null)
+            {
+              Swal.fire({
+                icon: 'error',
+                title: 'อุ๊ยยย',
+                text: 'ต้องเป็นรูปแต่ดันอัพโหลดวีดีโอ!',
+              })
+            }
+            else
+            {
+              Swal.fire({
+                icon: 'success',
+                title: 'อิอิ',
+                text: 'เปลี่ยนรูปสําเร็จ!',
+              })
+              document.querySelector('#profilepicture').value = result['url']
+              document.querySelector('#profilepicture').src = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + result['url'] + ".jpg"  
+            }
+            
+         
         });
+      
+      
+     
+   
 
 
     }
@@ -130,52 +155,36 @@ class Information extends React.Component{
     })
     .then(response => response.json())
         .then(result =>{
+          console.log("resul error", result["error"])
           if (result["error"] != null)
           {
-            if (result["error"] = "mail")
+            if (result["error"] == "mail")
             {
               Swal.fire({
-                title: '<strong>HTML <u>example</u></strong>',
-                icon: 'info',
-                html:
-                            
-                    'Are you <b>certain</b> that you want to delete the account. Everything will be deleted from the database and you will not be able to access your account again.',
-              
-                showCloseButton: true,
-                showCancelButton: true,
-                focusConfirm: false,
-                confirmButtonText:
-                    '<i class="fa fa-thumbs-up"></i> Delete Account',
-                confirmButtonAriaLabel: 'Thumbs up, great!',
-                cancelButtonText:
-                'No',
-                cancelButtonAriaLabel: 'Thumbs down '
-                })
+                icon: 'error',
+                title: 'อุ๊ยยย',
+                text: 'อีเมลนี้มีผู้ใช้แล้ว!',
+              })
             }
             else
             {
               Swal.fire({
-                title: '<strong>HTML <u>example</u></strong>',
-                icon: 'info',
-                html:
-                            
-                    'Are you <b>certain</b> that you want to delete the account. Everything will be deleted from the database and you will not be able to access your account again.',
-              
-                showCloseButton: true,
-                showCancelButton: true,
-                focusConfirm: false,
-                confirmButtonText:
-                    '<i class="fa fa-thumbs-up"></i> Delete Account',
-                confirmButtonAriaLabel: 'Thumbs up, great!',
-                cancelButtonText:
-                'No',
-                cancelButtonAriaLabel: 'Thumbs down '
-                })
+                icon: 'error',
+                title: 'อุ๊ยยย',
+                text: 'ยูเซอเนมนี้มีผู้ใช้แล้ว!'
+
+              })
             }
           }
           else
           {
-            window.location.href = "/";
+            Swal.fire({
+                icon: 'success',
+                title: 'อิอิอิ',
+                text: 'เปลี่ยนแปลงสําเร็จ!',
+                footer: '<a href="/">กลับหน้าหลัก</a>'
+
+              })
           }
 
         })

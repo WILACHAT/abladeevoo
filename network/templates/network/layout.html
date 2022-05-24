@@ -71,6 +71,22 @@
                   console.log("yo", result)
                   document.getElementById(id).value = ""
 
+                  if (id == "feedbackinputid")
+                  {
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'ขอบคุณท่านสําหรับฟีดแบค',
+                    })
+                  }
+                  else
+                  {
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'ขอบคุณท่านที่เข้าร่วมรายชื่อผู้รับเมล',
+                    })
+                  }
+                 
+
                 })
 
             }

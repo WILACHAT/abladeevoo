@@ -415,7 +415,8 @@ def hidepost(request):
             
     return_request = {"hide": hide}
     return JsonResponse(return_request, safe=False)
- 
+
+@login_required
 def book(request, username):
     print("tell me that the thing came here or not")
     currentuserid = request.user.id
@@ -649,7 +650,6 @@ def gotoeachreserve(request):
     return JsonResponse(return_request, safe=False)
 
 
-@login_required
 
 
 def legal(request):
@@ -716,7 +716,7 @@ def register(request):
         confirmation = request.POST["confirmation"]
         if password != confirmation:
             return render(request, "network/register.html", {
-                "message": "Passwords must match."
+                "message": "password"
             })
 
         # Attempt to create new user
@@ -729,12 +729,12 @@ def register(request):
             error_message = str(error_message)
             if "Key (e" in error_message:
                 return render(request, "network/register.html", {
-                "message": "Email already taken."
+                "message": "email"
             })
 
             else:
                 return render(request, "network/register.html", {
-                "message": "Username already taken."
+                "message": "username"
             })
 
            
@@ -771,17 +771,21 @@ def forupload(request, type):
 
             elif type == "imageinprofile":
                 uploaded_response = upload_files(request.FILES['media'], uniquepostingid)
-                checker = Userinfo.objects.filter(influencer_id = request.user.id)
-                if checker.exists():
-                     userinfo = checker.update(profile_picture=uploaded_response['resources'][0]['public_id'])
-    
+                print("this is something wrong lolololol", uploaded_response)
+                if uploaded_response != "error":
+                    checker = Userinfo.objects.filter(influencer_id = request.user.id)
+                    if checker.exists():
+                        userinfo = checker.update(profile_picture=uploaded_response['resources'][0]['public_id'])
+        
+                    else:
+                        userinfo = Userinfo(profile_picture=uploaded_response['resources'][0]['public_id'], influencer_id=request.user.id)
+                        userinfo.save()
+                    User.objects.filter(id = request.user.id).update(normal_user_pic = uploaded_response['resources'][0]['public_id'])
+        
+                    return_response = {"url": uploaded_response['resources'][0]['public_id']}
                 else:
-                    userinfo = Userinfo(profile_picture=uploaded_response['resources'][0]['public_id'], influencer_id=request.user.id)
-                    userinfo.save()
-                User.objects.filter(id = request.user.id).update(normal_user_pic = uploaded_response['resources'][0]['public_id'])
-    
-                return_response = {"url": uploaded_response['resources'][0]['public_id']}
-
+                    return_response = {"error": "pic but upload vid"}
+            
             else:
                 uploaded_response = upload_files_videos(request.FILES['media'], uniquepostingid)
                 checker = Userinfo.objects.filter(influencer_id = request.user.id)
@@ -803,10 +807,15 @@ def dump_response(response):
 
 def upload_files(file, fileid):
     print("this is in upload_files")
-    cloudinary.uploader.upload(file, public_id = fileid)
+    try:
+        cloudinary.uploader.upload(file, public_id = fileid)
+        successful = cloudinary.api.resources_by_ids([fileid])
+
+    except:
+        successful = "error"
+        
     
     
-    successful = cloudinary.api.resources_by_ids([fileid])
     return successful
 
 def upload_files_videos(file, fileid):
@@ -909,15 +918,20 @@ def dara(request):
         category = request.POST["category"]
         print("this is for category", category)
 
-        requestdara = Requesteddara(name = name,email = email, phone = phonenumber,
-        find = findwhere, findusername = usernamefindwhere, followernum = followerfindwhere, 
-        requested_user_id = request.user.id, category = category)
-        requestdara.save()
-    
-   
+        try:
 
-        return HttpResponseRedirect(reverse("index"))
+            requestdara = Requesteddara(name = name,email = email, phone = phonenumber,
+            find = findwhere, findusername = usernamefindwhere, followernum = followerfindwhere, 
+            requested_user_id = request.user.id, category = category)
+            requestdara.save()
+            return render(request, "network/dara.html", {
+            "message": "success"})
 
+        except IntegrityError as e:
+            return render(request, "network/dara.html", {
+                "message": "error"})
+
+        
 
     return render(request, "network/dara.html")
 

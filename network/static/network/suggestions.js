@@ -50,21 +50,17 @@ var SearchBar = function (_React$Component) {
 
       return React.createElement(
         'div',
-        { 'class': 'd-flex justify-content-center' },
+        { 'class': 'divsearch d-flex justify-content-center' },
         React.createElement(
-          'div',
-          { 'class': 'divsearch d-flex justify-content-center' },
-          React.createElement(
-            'form',
-            null,
-            React.createElement('input', {
-              id: 'searchid',
-              type: 'text',
-              'class': 'inputsearch form-control d-flex justify-content-center',
-              placeholder: 'Search...',
-              value: this.props.searchtext,
-              onChange: this.checkSearch })
-          )
+          'form',
+          null,
+          React.createElement('input', {
+            id: 'searchid',
+            type: 'text',
+            'class': 'inputhehosearch form-control d-flex justify-content-center',
+            placeholder: '\u0E04\u0E49\u0E19\u0E2B\u0E32',
+            value: this.props.searchtext,
+            onChange: this.checkSearch })
         )
       );
     }

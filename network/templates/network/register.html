@@ -8,30 +8,95 @@
     </div>
 
     {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
+        {% if message == "email" %}
+            <script>
+                Swal.fire({
+                icon: 'error',
+                title: 'อีเมลซํ้า!',
+                text: 'กรุณาใส่อีเมลใหม่!',
+              })
+            </script>
+        {% elif message == "username" %}
+            <script>
+                Swal.fire({
+                icon: 'error',
+                title: 'ชื่อผู้ใช้ซั้า!',
+                text: 'กรุณาใส่ชื่อผู้ใช้ใหม่!'
+              })
+            
+            
+            </script>   
+        {% else %}
+            <script>
+                Swal.fire({
+                icon: 'error',
+                title: 'รหัสไม่ตรงกัน',
+                text: 'กรุณาใส่รหัสสองช่องให้เหมือนกัน!'
+              })
+            
+            
+            </script>   
+        {% endif %}
+
+    {% endif %}    
 
     
 
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mt-4">
+            <div class="coverslogin">
+                <div class="d-flex justify-content-start">
+                    <label class="labeldara" for="cars">ชื่อผู้ใช้:</label>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <input class="inputhehorelog" minlength="3" autofocus type="text" name="username" placeholder="ตัวอย่าง: walouch">
+                </div>
+            </div>
+        </div>
 
-            <input class="inputhehore" minlength="3" autofocus type="text" name="username" placeholder="ยูสเซ่อเนม">
-        </div>
         <div class="d-flex justify-content-center">
-            <input class="inputhehore" type="email" name="email" placeholder="อีเมล">
+            <div class="coverslogin">
+                <div class="d-flex justify-content-start">
+                    <label class="labeldara" for="cars">อีเมล:</label>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <input class="inputhehorelog" type="email" name="email" placeholder="ตัวอย่าง: araisukyarng@gmail.com">
+                </div>
+            </div>
         </div>
+
         <div class="d-flex justify-content-center">
-            <input class="inputhehore" type="password" name="password" placeholder="รหัสผ่าน" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="ต้องมีเลขอย่างน้อยหนึ่งตัว ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวใหญ่อย่างน้อยหนึ่งตัว และ ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวเล็กอย่างน้อยหนึ่งตัว, สุดท้ายต้องมีความยาวมากกว่า 8 ตัวอักษร Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+            <div class="coverslogin">
+
+                <div class="d-flex justify-content-start">
+                    <label class="labeldara" for="cars">รหัสผ่าน:</label>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <input class="inputhehorelog" type="password" name="password" placeholder="ตัวอย่าง: Abcdefg123" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="ต้องมีเลขอย่างน้อยหนึ่งตัว ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวใหญ่อย่างน้อยหนึ่งตัว และ ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวเล็กอย่างน้อยหนึ่งตัว, สุดท้ายต้องมีความยาวมากกว่า 8 ตัวอักษร Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+                </div>
+            </div>
         </div>
+
         <div class="d-flex justify-content-center">
-            <input class="inputhehore" type="password" name="confirmation" placeholder="ยืนยันรหัสผ่าน">
+            <div class="coverslogin">
+                <div class="d-flex justify-content-start">
+                    <label class="labeldara" for="cars">ยืนยันรหัสผ่าน:</label>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <input class="inputhehorelog" type="password" name="confirmation" placeholder="ยืนยันรหัสผ่าน">
+                </div>
+            </div>
         </div>
+
+
         <label class="wa d-flex justify-content-center mt-2">*อีเมลของท่านจะถูกใช้ในกรณีที่ลืมรหัสผ่าน*</label>
+        <label class="wa d-flex justify-content-center mt-2">*รหัสผ่านต้องมีเลขอย่างน้อยหนึ่งตัว ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวใหญ่อย่างน้อยหนึ่งตัว*</label>
+        <label class="wa d-flex justify-content-center mt-2">*ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวเล็กอย่างน้อยหนึ่งตัว, และต้องมีความยาวมากกว่า 8 ตัวอักษร*</label>        
+
 
         <div class="d-flex justify-content-center mt-3">
-             <input id="registerid" class="btn registerbtn" type="submit"  value="สมัคร">
+             <input id="registerid" class="btn registerbtnlog" type="submit" value="สมัคร">
         </div>
 
     </form>

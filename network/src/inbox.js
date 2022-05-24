@@ -131,7 +131,14 @@ class EachReserve extends React.Component{
 
         navigator.clipboard.writeText(content)
         .then(() => {
-        console.log("Text copied to clipboard...")
+            Swal.fire({
+                title: 'คัดลอกวีดีโอเรียบร้อย!',
+                showConfirmButton: false,
+
+                timer: 500
+
+              })
+        
         })
         .catch(err => {
         console.log('Something went wrong', err);
@@ -155,26 +162,47 @@ class EachReserve extends React.Component{
         {
           type= "image"
         }
-  
-        let formData = new FormData();
-        formData.append("media", fileinput);
-        
-        const getcooked = getCookie('csrftoken')
-        fetch(`/forupload/${type}`, {
-          method: 'POST',
-          headers:{'X-CSRFToken': getcooked},
-          body: formData
-  
-        })
-        .then(response => response.json())
-          .then(data => {
-              //right now its either you create a new video or unhide the one that you already have
-            console.log("yayyyyyyyyyyyyyyy")
-            document.querySelector('#testervideo').hidden = false
-            document.querySelector('#sendingvideoidback').name = data['url']
-            document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4"
 
-          });
+        if (checker != 'video')
+        {
+          Swal.fire({
+            icon: 'error',
+            text: 'ต้องเป็นวีดีโอแต่ดันอัพโหลดรูป',
+          })
+        }
+        else
+        {
+            let formData = new FormData();
+            formData.append("media", fileinput);
+            Swal.fire({
+                icon: 'info',
+                title: 'กําลังเซฟวีดีโอ',
+                text: 'กรุณาอย่ากดออกหรือรีเฟรชจากหน้านี้จนกว่าจะมีข้อความสําเร็จ อาจจะใช้เวลานาน',
+              })
+            
+            const getcooked = getCookie('csrftoken')
+            fetch(`/forupload/${type}`, {
+              method: 'POST',
+              headers:{'X-CSRFToken': getcooked},
+              body: formData
+      
+            })
+            .then(response => response.json())
+              .then(data => {
+                  //right now its either you create a new video or unhide the one that you already have
+                console.log("yayyyyyyyyyyyyyyy")
+                document.querySelector('#testervideo').hidden = false
+                document.querySelector('#sendingvideoidback').name = data['url']
+                document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4"
+                Swal.fire({
+                    icon: 'success',
+                    title: 'สําเร็จ!',
+                    text: '*คุณต้องกดอัพโหลดถึงจะส่งวีดีโอไปให้แฟนคลับ*'
+                  })
+              });
+        }
+  
+        
     }
 
     goBack(e)
@@ -228,7 +256,15 @@ class EachReserve extends React.Component{
           })
         
           .then(result => {
-              window.location.href = "/inbox";
+            Swal.fire({
+                title: 'สําเร็จ!',
+                showCancelButton: false,
+                showConfirmButton: false
+
+
+              })
+              setTimeout(() => {   window.location.href = "/inbox"; }, 800);
+
           });
           
     }
@@ -265,7 +301,12 @@ class EachReserve extends React.Component{
                 })
             })
             .then(result => {
-                window.location.href = "/inbox";
+                Swal.fire({
+                    title: 'สําเร็จ!',
+                    showCancelButton: false,
+    
+                  })
+                  setTimeout(() => {   window.location.href = "/inbox"; }, 800);
             });
 
         }
@@ -291,7 +332,7 @@ class EachReserve extends React.Component{
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn btn-primary">Copy Video to Post somewhere!</button>
+                        <button id="savethelink" value={link} onClick={this.saveUrl}class="btn registerbtnsavelink">คัดลอกวีดีโอ</button>
                     </div>
 
                 </div>
@@ -322,7 +363,7 @@ class EachReserve extends React.Component{
                                       <input type="file" onChange={this.chooseFile} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
                                   </div>
                               </div>
-                              <div class="d-flex justify-content-center mt-5">
+                              <div class="d-flex justify-content-center">
                         <video hidden id="testervideo" class="videovideowhenget" controls>
                             <source src={link}></source>
                             Your browser does not support the video tag.
@@ -334,10 +375,10 @@ class EachReserve extends React.Component{
                         <h6 class="wa">ข้อความสั้นๆให้แฟนคลับ: </h6>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input id="sendingbacktorequest"></input>
+                        <input class="inputheho"id="sendingbacktorequest"></input>
                     </div>
                     <div class="d-flex justify-content-center mt-3 mb-5">
-                        <button class="btn btn-primary" onClick={this.submitSave} id="submitrequested">Post</button>
+                        <button class="btn registerbtnforupload" onClick={this.submitSave} id="submitrequested">อัพโหลด</button>
                     </div>
                     <input name="" type="hidden" id="sendingvideoidback"></input>
                 </div>
@@ -975,7 +1016,7 @@ class InboxFeedRows extends React.Component {
                         <div class="inboxtroublesome mt-1 ml-2">
                                 
                                 <h6 class="waduedate"> ไม่เสร็จสิ้น</h6>
-                                <div class="d-flex justify-content-center">
+                                <div class="d-flex justify-content-center mb-5">
                                     <h6 class="waduedate">ส่งก่อน:</h6>
                                     <h6 class="waduedate">{this.props.duedate}</h6> 
                                 </div>
@@ -1317,34 +1358,40 @@ class InboxFeedInbox extends React.Component {
                     <div class="norequestdiv">
                             <div class="d-flex justify-content-center">
                             {this.state.newdata["type"] == "inbox" ? 
-                            <div>
-                                <h1 class="wa">ยัวไม่มีออเดอร์ใน อินบ็อกซ์</h1>
-
+                              <div class="noorderyet">
+                              <div class="d-flex justify-content-center">
+                                <h1 class="waheading">ยังไม่มีออเดอร์ใน อินบ็อกซ์</h1></div>
+                      
                                 <div class="d-flex justify-content-center mt-4">
-                                    <h4 class="wa mr-3">ไปค้นหาสตาร์ได้เลย: </h4>
+                                    <h4 class="waa mr-3">ค้นหาสตาร์ในใจของคุณ: </h4>
                                    <h4><a href={gotoindex} class="wae">หน้าหลัก</a></h4> 
                                 </div>
-
+                      
                                 <div class="d-flex justify-content-center mt-4">
-                                    <h4 class="wa mr-3">ถ้าอยากเรียนรู้เพิ่มเติมกับพวกเรา: </h4>
+                                    <h4 class="waa mr-3">เรียนรู้เพิ่มเติมเกี่ยวกับเรา: </h4>
                                    <h4><a href={gotoaboutus} class="wae">เกี่ยวกับเรา</a></h4> 
                                 </div>
-                               
+                      
                             </div>: 
-                            <div>
-                                <div class="d-flex justify-content-center">
-                                    <h1 class="wa">ยัวไม่มีออเดอร์ใน รีเควสท์</h1>
-                                </div>
-                                    <div class="d-flex justify-content-center">                                
-                                    <h2 class="wa mt-2">ช่วยแชร์ให้แฟนคลับคุณใน โซเชียล!</h2>
-                                </div>
+                       
+                                <div class="noorderyet">
+                                    <div class="d-flex justify-content-center">
+                                    <div>
+                                    <div class="d-flex justify-content-center">
+                                            <h1 class="waheading">คุณยังไม่มีออเดอร์ในรีเควสท์</h1>
+                                        </div>
+                                            <div class="d-flex justify-content-center">
+                                            <h2 class="waa mt-2">เชิญชวนแฟนคลับของคุณมาใช้เลย!</h2>
+                                        </div>
+
+                                   
+                                            </div>
+                                    </div>
 
                             
                             </div>}
                             </div>
                     </div>
-                
-                
             </div>}
                 {rows != "" ? 
         <div class="paginationcss">
@@ -1467,13 +1514,9 @@ class InboxFeedTitle extends React.Component {
              <div class="wangong">
                 <button id="myinboxid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myinbox" ? "myinboxclicked"  : "myinboxcss"}>อินบ็อกซ์</button>
             </div>
-            <div class="wangong">
-                {this.props.data["checkifinfluencer"] == true ?  <button id="myrequestid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myrequest" ? "requestcssclicked"  : "requestcss"}>รีเควส</button>:null}
+                {this.props.data["checkifinfluencer"] == true ? <div class="wangong"> <button id="myrequestid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myrequest" ? "requestcssclicked"  : "requestcss"}>รีเควส</button></div>:null}
+                {this.props.data["checkifinfluencer"] == true ? <div class="wangong"><button id="mycompleteid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "mycomplete" ? "completecssclicked"  : "completecss"}>วีดีโอที่เสร็จสิ้น</button></div>:null}
             </div>
-            <div class="wangong">
-                {this.props.data["checkifinfluencer"] == true ?  <button id="mycompleteid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "mycomplete" ? "completecssclicked"  : "completecss"}>วีดีโอที่เสร็จสิ้น</button>:null}
-            </div>
-         </div>
         )
 
     }

@@ -144,6 +144,7 @@ html, body {
   color:#203354;
   font-family: 'Sarabun';
   font-size:15px;
+  margin-bottom: 0px;
 }
 
 .myinboxcss
@@ -268,12 +269,13 @@ html, body {
 }
 .secondintrodiv
 {
+  padding-bottom:2%;
   width: 100%;
   background-color:#094FCB;
   background-image: linear-gradient(90deg, #094FCB,#FF336F);
 
   display: flex;
-  height:625px;
+  height:100%;
 }
 .okokok
 {
@@ -375,6 +377,12 @@ html, body {
   align-items: center;
 
 }
+.whatintrowords
+{
+  padding-left:4%;
+  padding-right:4%;
+
+}
 .introwords
 {
   display:flex;
@@ -400,18 +408,27 @@ html, body {
 }
 .forbox
 {
+
   margin-top:100px;
+  justify-content: center;
+  display:flex;
+  flex-wrap: wrap;
 }
-.covers4box
+.coversboxsug
 {
+  padding-left:1%;
+  padding-right:1%;
+  padding-top:1%;
+  padding-bottom:3%;
+
+
 
 }
 .boxsug1
 {
-  width:15%;
-  background-color: white;
+  width:200px;
+  background-color: rgba(255,255,255,0.6);
   height:150px;
-  opacity: 0.5;
   border-radius: 10px;
   padding:10px;
   font-family: 'Sarabun';
@@ -421,7 +438,7 @@ html, body {
 }
 .boxsug2
 {
-  width:35%;
+  width:200px;
   background-color: white;
   height:150px;
   border-radius: 10px;
@@ -433,11 +450,11 @@ html, body {
 
 .inboxsugnumber
 {
-  background-color: red;
+  background-image: linear-gradient(45deg, #094FCB,#FF336F);
   opacity: 2;
 
   border-radius: 100%;
-  width:20%;
+  width:22%;
   
 }
 .inboxsugn
@@ -467,7 +484,7 @@ html, body {
   background-color: #FFEF00;;
   border: 0 solid #E5E7EB;
   box-sizing: border-box;
-  color: black;
+  color: #212121;
   display: flex;
   font-family: 'Sarabun';
   font-size: 1rem;
@@ -478,29 +495,20 @@ html, body {
   position: relative;
   text-align: center;
   text-decoration: none #000000 solid;
-  width: 100%;
+  width: 90%;
   max-width: 460px;
   position: relative;
   cursor: pointer;
-  transform: rotate(-2deg);
   user-select: none;
-  -webkit-user-select: none;
   touch-action: manipulation;
+  border-radius: 40px;
 }
 
 .button-53:focus {
   outline: 0;
 }
 
-.button-53:after {
-  content: '';
-  position: absolute;
-  border: 1px solid #000000;
-  bottom: 4px;
-  left: 4px;
-  width: calc(100% - 1px);
-  height: calc(100% - 1px);
-}
+
 
 .button-53:hover:after {
   bottom: 2px;
@@ -689,32 +697,54 @@ padding: 10px;
 }
 
 
+.forfont
+{
+  padding-right:5%;
 
+}
 .reviewtext
 {
   font-size:15px;
 }
 
+.catname
+{
+  font-size: 17px;
+}
 .beforehihi
 {
   height:100%;
   background-image: linear-gradient(45deg, #094FCB,#FF336F);
-  padding:0.3%;
-  margin-left:100px;
+  padding:3px;
 
-  border-radius: 50px; 
+  border-radius: 40px; 
 
-  width:2200px;
+  width:500px;
 
 
+
+}
+.insidehihi
+{
+  padding:2%;
 }
 .hihi
 {
   background-color: white;
-  padding:20px;
+  padding:10px;
   width:100%;
-  border-radius: 50px; 
+  border-radius: 40px; 
+  height:100%;
+  word-wrap: break-word;
+  
+
 }
+.biggestdivchecker
+{
+
+  word-wrap: break-word;
+}
+
 .publicbutton
 {
   font-family: 'Sarabun';
@@ -798,17 +828,14 @@ padding: 10px;
 .reservebutton
 {
   background-image: linear-gradient(90deg, #094FCB,#FF336F);
-  width:100%;
+  width:50%;
   color:white;
-  border-radius: 20px;
   padding-top: 3%;
   padding-bottom: 3%;
+  border-radius: 40px;
 
 }
-.forfont
-{
-  font-family: 'Sarabun';
-}
+
 .flexclass
 {
   display: flex;
@@ -824,13 +851,20 @@ padding: 10px;
 {
   background-color: #02d667;
 }
+.plsbegu
+{
+  top: 50%;
+  height:100%;
+  padding-top:3%;
 
+}
 
 .coversvdointro
 {
-  width:100%;
-  height:35em;
+  width:400px;
   padding:10px;
+  padding-top:3%;
+
   justify-content: center;
 }
 
@@ -928,18 +962,19 @@ padding: 10px;
 {
   width:100%;
   height:100vh;
-  background-color: aqua;
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
   justify-content: center;
 }
 .videovideowhenget
 {
   width: 300px;   
   height: 100%;   
-  margin-top:110px;
+  margin-top:50px;
+
 }
 .almostvideovideowhenget
 {
-  width: 300px;   
+  width:280px;   
   height: 100%;   
 }
 .donetitle
@@ -1079,7 +1114,7 @@ padding: 10px;
   align-content: center;
   width:100%;
   height:100vh;
-  background-color: aqua;
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1288,7 +1323,7 @@ margin-bottom: 0px;
   font-family: 'Bangers';
   color:#FFEF00;
   text-shadow: 3px 3px #FF336F;
-  font-size:1000%;
+  font-size:900%;
   margin-bottom:5px;
 
 }
@@ -1314,21 +1349,37 @@ margin-bottom: 0px;
 {
   margin-top:200px;
 }
+.beforeboxsug
+{
+
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+.beforeboxsug2
+{
+
+padding:25px;
+}
 
 .divsecondpart
 {
+  justify-content: center;
+  display:flex;
+  flex-wrap: wrap;
   background-color:white;
   width:100%;
   height:100%;
+  
 
-  padding:5%;
 }
 .divsecondpartt
 {
   
   background-color: #FF336F;
   width:100%;
-  height:100vh;
+  height:120%;
   padding-left: 5%;
   padding-top:5%;
   padding-bottom:5%;
@@ -1336,13 +1387,22 @@ margin-bottom: 0px;
 }
 .aboutusvidvid
 {
-  width:60%;
+  width:700px;
   margin-bottom:85px;
+  height:100%;
 }
 .aboutusvid
 {
   
- width:80%;
+ width:90%;
+}
+.coveraboutusvid
+{
+  padding-top:4%;
+  padding-left:1%;
+  padding-right:1%;
+
+
 }
 #secondpart{
  
@@ -1354,47 +1414,22 @@ margin-bottom: 0px;
 .boxcoverwvd1
 {
   background-color: #008fff;
-  padding:7%;
   width:300px;
-  height:100%;
+  height:95%;
   border-radius: 10px;
   box-shadow: 15px 15px #273f87;
   vertical-align: middle;
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-top: 7%;
+  padding-bottom: 15%;
 
 
-}
-.boxcoverwvd2
-{
-  background-color: #008fff;
-  padding:7%;
-  width:300px;
-  height:100%;
-  border-radius: 10px;
-  box-shadow: 15px 15px #273f87;
-  vertical-align: middle;
-  text-align: center;
-  margin:auto;
-  justify-content: center;
-  line-height : 100px;
 
 
 
 }
-.boxcoverwvd3
-{
-  background-color: #008fff;
-  padding:7%;
-  width:300px;
-  height:100%;
-  border-radius: 10px;
-  box-shadow: 15px 15px #273f87;
-  vertical-align: middle;
-  text-align: center;
-
-
-  
-
-}
+ 
 .staywhite
 {
   background-color: white;
@@ -1447,7 +1482,7 @@ margin-bottom: 0px;
 }
 .boxbtn
 {
-  margin-top:50px;
+  margin-top:10px;
   
 }
 
@@ -1458,7 +1493,7 @@ margin-bottom: 0px;
   font-size:120%;
   text-align:center;
 
-  padding:1.5%;
+  padding:2.2%;
 
   border-radius: 40px;
   background-color: #FFEF00;
@@ -1558,6 +1593,13 @@ video{
   color:#353535
 
 }
+.coversboxcoverwvd
+{
+  padding-left:1%;
+  padding-right:1%;
+  padding-bottom:3%;
+
+}
 .parallax
 {
   background-image: url('https://res.cloudinary.com/ablaze-project/image/upload/v1651002804/8842d4b2-c59a-11ec-8fd4-acde480011225.png');
@@ -1569,6 +1611,34 @@ video{
   background-repeat: no-repeat;
   background-size: cover;
 }
+.registerbtnsavelink
+{
+  background-color: #ffc500;
+  color:black;
+  border:none;
+  width:120px;
+  height:40px;
+  border-radius: 45px;
+}
+.registerbtnforupload
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:120px;
+  height:40px;
+  border-radius: 45px;
+}
+.registersmall
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:70px;
+  height:40px;
+  border-radius: 40px;
+  padding:10%;
+}
 .registerbtn
 {
   background-image: linear-gradient(90deg, #094FCB,#FF336F);
@@ -1576,6 +1646,24 @@ video{
   border:none;
   width:200px;
   height:60px;
+  border-radius: 45px;
+}
+.registerbtnlog
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:200px;
+  height:50px;
+  border-radius: 45px;
+}
+.registerbtnloglog
+{
+  background-color: #FF336F;
+  color:white;
+  border:none;
+  width:100px;
+  height:45px;
   border-radius: 45px;
 }
 .registertitle
@@ -1605,9 +1693,33 @@ video{
   background-color:white;
   border-radius: 10px;
 }
+.inputhehosearch
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:transparent;
+  height:45px;
+}
+
 .inputhehore
 {
   width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+.inputhehorelog
+{
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -1810,3 +1922,202 @@ ul{
   font-size:18px;
   color:#00002a;
 }
+.coverslogin
+{
+  width:30%;
+}
+@media only screen and (max-width: 650px) {
+  .coverslogin
+  {
+    width:90%;
+  }
+}
+
+.legalbutton{
+  margin-top: 80px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  width:250px;
+  height:80px;
+  border-radius:20px;
+  margin-left:2.5%;
+  padding:1%;
+}
+
+
+
+.legalintroduction{
+  margin-top: 80px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:left;
+  padding:2%;
+  width:50%;
+  border-radius:20px;
+  font-family:'sarabun';
+}
+.legalsubtopics{
+  margin-top: 20px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:left;
+  padding:2%;
+  width:50%;
+  border-radius:20px;
+
+}
+.legallastubtopics{
+  margin-top: 20px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:left;
+  padding:2%;
+  width:50%;
+  border-radius:20px;
+  margin-bottom:80px;
+}
+
+
+.legalbiggestheading{
+  font-size:200%;
+  font-weight:400;
+}
+
+.legalboldtext{
+  font-weight:bold;
+  font-size:100%;
+}
+
+.legaldescription{
+  font-size:100%;
+}
+
+.gobacktotop{
+  margin-bottom:1%;
+  font-size:120%;
+  color:black;
+}
+
+.legalitalictext{
+  font-style:italic;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+.accountsettingfirstcolumn{
+  margin-top: 80px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:30px;
+  width:50%;
+  border-radius:20px;
+  font-family:'sarabun';
+}
+
+.pauseaccountbtn{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:200px;
+  height:40px;
+  border-radius: 45px;
+}
+
+.accountsettingsecondcolumn{
+  margin-top: 20px;;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:30px;
+  width:50%;
+  border-radius:20px;
+  font-family:'sarabun';
+}
+
+.helpcenterdescription{
+  width:50%;
+}
+
+.settingheading{
+  font-size:190%;
+}
+.failpaymentcolumn{
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:30px;
+  padding-left:30px;
+  padding-right:30px;
+  width:600px;
+  border-radius:20px;
+}
+
+.failpaymentheading
+{
+  color:red;
+  font-family: 'Sarabun';
+  font-size:130%;
+}
+.successpaymentcolumn{
+  margin-top: 20px;;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:30px;
+  padding-left:30px;
+  padding-right:30px;
+  width:600px;
+  border-radius:20px;
+
+}
+
+.successpaymentheading{
+  font-size:130%;
+  color:#02d667;
+  font-family: 'Sarabun';
+
+}
+.sarabun
+{
+    font-family: 'Sarabun';
+
+}
+
+.noorderyet{
+  margin-top: 20px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:left;
+  padding:10%;
+  width:600px;
+  height:100%;
+  border-radius:40px;
+
+}
+
+.waa{
+  font-size:160%;
+  font-family: 'Sarabun';
+}
+.waheading{
+  font-size:200%;
+  font-family: 'Sarabun';
+}
+.norequestyet{
+  margin-top: 20px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:left;
+  padding:2%;
+  width:100%;
+  border-radius:20px;
+
+}
+
+
