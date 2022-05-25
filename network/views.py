@@ -19,6 +19,7 @@ from django.contrib.auth import login as authd_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
+from django.contrib.auth.decorators import login_required
 
 from celery import Celery
 from celery.schedules import crontab
@@ -59,7 +60,6 @@ from datetime import datetime
 import json
 from json import dumps
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import cloudinary
 import cloudinary.uploader
@@ -380,11 +380,20 @@ def editprofile(request):
         print(request.user.id)
 
         data = json.loads(request.body)
-     
-        checker = Userinfo.objects.filter(influencer_id = request.user.id)
-        if checker.exists():
-            userinfo = checker.update(profile_fullname=data['idfullname'],profile_description=data['iddescription'],
-            first_url=data['idurl1'], second_url=data['idurl2'], third_url=data['idurl3'], influencer_id=request.user.id)
+        if data["type"] == "fullname":
+            checker = Userinfo.objects.filter(influencer_id = request.user.id)
+            if checker.exists():
+                checker.update(profile_fullname=data['idfullname'],
+                influencer_id=request.user.id)
+        
+        else:
+            checker = Userinfo.objects.filter(influencer_id = request.user.id)
+            if checker.exists():
+                checker.update(profile_description=data['iddescription'],
+                influencer_id=request.user.id)
+
+
+   
         
         #else: 
            # userinfo = Userinfo(profile_fullname=data['idfullname'],profile_description=data['iddescription'],
@@ -416,7 +425,7 @@ def hidepost(request):
     return_request = {"hide": hide}
     return JsonResponse(return_request, safe=False)
 
-@login_required
+@login_required(login_url='/login')
 def book(request, username):
     print("tell me that the thing came here or not")
     currentuserid = request.user.id

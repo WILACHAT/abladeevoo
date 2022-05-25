@@ -188,6 +188,8 @@ class InfluencerFeedTable extends React.Component {
       this.editCancel = this.editCancel.bind(this);
       this.checkTxtArea = this.checkTxtArea.bind(this);
       console.log("this.props.fillname", this.props.fullname)
+      console.log("rengoku", this.props.profilepic)
+
   
 
       this.state = {
@@ -209,8 +211,10 @@ class InfluencerFeedTable extends React.Component {
     }
     checkTxtArea(e)
     {
+        console.log("check the e target id", e.target.id)
         if (e.target.id == "idfullname")
         {
+            console.log("hi")
             if (e.target.value.length > 0) {
                 this.setState({fullname: e.target.value});
             }
@@ -228,42 +232,14 @@ class InfluencerFeedTable extends React.Component {
                 this.setState({description: ""});
             }
         }
-        if (e.target.id == "idurl1")
-        {
-            if (e.target.value.length > 0) {
-                console.log(e.target.value)
-                this.setState({first_url: e.target.value});
-            }
-            else {
-                this.setState({first_url: ""});
-            }
-        }
-        if (e.target.id == "idurl2")
-        {
-            if (e.target.value.length > 0) {
-                console.log(e.target.value)
-                this.setState({second_url: e.target.value});
-            }
-            else {
-                this.setState({second_url: ""});
-            }
-        }
-        if (e.target.id == "idurl3")
-        {
-            if (e.target.value.length > 0) {
-                console.log(e.target.value)
-                this.setState({third_url: e.target.value});
-            }
-            else {
-                this.setState({third_url: ""});
-            }
-        }
     }
 
   render(){
+    let link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.profilepic + ".jpg"
+
     return (
         <div>
-                <div className="form-floating">
+             <div className="form-floating">
                     <div class="d-flex justify-content-center mt-2 mb-2">
                         <button type="button"className="loll btn btn-outline-danger btn-sm" name="cancel_button" onClick={this.editCancel}>ยกเลิก</button>
                     </div>
@@ -271,7 +247,7 @@ class InfluencerFeedTable extends React.Component {
                         <label htmlFor="edit_post_txt">ชื่อจริง: </label>
                     </div>
                     <div class="d-flex justify-content-center mt-1 mb-1">
-                      <textarea id="idfullname" class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.fullname}></textarea>
+                      <textarea id="idfullname" class="d-flex justify-content-center" name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.fullname}></textarea>
                     </div>
 
                     <div class="d-flex justify-content-center mt-1 mb-1">
@@ -279,29 +255,6 @@ class InfluencerFeedTable extends React.Component {
                     </div>
                     <div class="d-flex justify-content-center mt-1 mb-1">
                         <textarea id="iddescription" class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.description}></textarea>
-                    </div>
-                    
-                    <div class="d-flex justify-content-center mt-2 mb-2">
-                      <label htmlFor="edit_post_txt">ลิ้งค์ 1: </label>
-                    </div>
-                    <div class="d-flex justify-content-center mt-1 mb-1">
-                      <textarea id="idurl1"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.first_url}></textarea>
-                    </div>
-
-                         
-                    <div class="d-flex justify-content-center mt-2 mb-2">
-                      <label htmlFor="edit_post_txt">ลิ้งค์  2: </label>
-                    </div>
-                    <div class="d-flex justify-content-center mt-1 mb-1">
-                      <textarea id="idurl2"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.second_url}></textarea>
-                    </div>
-
-                         
-                    <div class="d-flex justify-content-center mt-2 mb-2">
-                      <label htmlFor="edit_post_txt">ลิ้งค์  3: </label>
-                    </div>
-                    <div class="d-flex justify-content-center mt-1 mb-1">
-                      <textarea id="idurl3"  class="d-flex justify-content-center" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.third_url}></textarea>
                     </div>
                     
                     <div class="d-flex justify-content-center mt-2 mb-2">
@@ -320,16 +273,26 @@ class InfluencerFeedTitle extends React.Component {
       super(props);
       this.changeFeedPortal = this.changeFeedPortal.bind(this);
       this.editProfile = this.editProfile.bind(this);
+      this.editDes = this.editDes.bind(this);
+
       this.cancel = this.cancel.bind(this);
+      this.cancelDes = this.cancelDes.bind(this);
+
     //  this.showImg = this.showImg.bind(this);
       this.sendEditPost = this.sendEditPost.bind(this);
+      this.sendEditDes = this.sendEditDes.bind(this);
+
       this.chooseFile = this.chooseFile.bind(this);
       this.chooseFileVideo = this.chooseFileVideo.bind(this);
+      this.checkTxtArea = this.checkTxtArea.bind(this);
+
+      
 
 
   
       document.querySelector('#maininfluencer').hidden = false;
       document.querySelector('#reviewsmainfluencer').hidden = true;
+      
       console.log("waearth", this.props.data)
 
       let fullname = ""
@@ -339,6 +302,9 @@ class InfluencerFeedTitle extends React.Component {
       let first_url = ""
       let second_url = ""
       let third_url = ""
+      let trackername = 0
+      let trackerdes = 0
+
       
       if (this.props.data["userinfodata"][0] != null)
       {
@@ -381,6 +347,9 @@ class InfluencerFeedTitle extends React.Component {
       third_url: third_url,
       profilepic: profilepic,
       profilevideo: profilevideo,
+      trackername: 0,
+      trackerdes:0,
+      
 
       edit:
         <div class="biggestdivchecker">
@@ -392,6 +361,46 @@ class InfluencerFeedTitle extends React.Component {
 
         </div>
 
+      }
+  }
+  checkTxtArea(e)
+  {
+
+      document.querySelector('#thefullnameidprofile').hidden = true
+      document.querySelector('#thefullnameidedit').hidden = false
+      console.log("iphone15", e.target.id)
+      console.log("iphone15 value", e.target.value)
+      console.log("iphone15", e.target.value.length)
+
+      console.log("iphone15", this.state.fullname)
+
+
+
+      if (e.target.id == "idfullname")
+      {
+          console.log("iphone success")
+           
+          if (e.target.value.length > 0) {
+              console.log("iphone16", e.target.value)
+              this.setState({fullname: e.target.value});
+          }
+          else {
+              this.setState({fullname: ""});
+          }
+      }
+
+
+
+      console.log("iphone after", this.state.fullname)
+      if (e.target.id == "iddescription")
+      {
+          if (e.target.value.length > 0) {
+              console.log(e.target.value)
+              this.setState({description: e.target.value});
+          }
+          else {
+              this.setState({description: ""});
+          }
       }
   }
     chooseFile(e)
@@ -511,13 +520,42 @@ class InfluencerFeedTitle extends React.Component {
 
 
     }
+    sendEditDes()
+    {
+      let iddescription = document.getElementById("iddescription").value
+      const csrftoken = getCookie('csrftoken');
+      fetch(`/editprofile`, {
+        method: 'POST',
+        headers: {'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({
+            iddescription: iddescription,
+            type: "description"
+
+   
+        })
+    })
+    .then(response => response.json())
+        .then(result =>{
+
+        this.setState({
+          description: iddescription,
+          trackerdes: 1
+          
+ 
+      
+        })
+        document.querySelector('#descriptionidprofile').hidden = false
+        document.querySelector('#descriptionidedit').hidden = true
+            
+        });
+
+
+    }
     sendEditPost()
     {
+      console.log("ok this is in send edit post")
       let idfullname = document.getElementById("idfullname").value
-      let iddescription = document.getElementById("iddescription").value
-      let idurl1 = document.getElementById("idurl1").value
-      let idurl2 = document.getElementById("idurl2").value
-      let idurl3 = document.getElementById("idurl3").value
       
       const csrftoken = getCookie('csrftoken');
       let type = "normal"
@@ -528,70 +566,76 @@ class InfluencerFeedTitle extends React.Component {
         },
         body: JSON.stringify({
             idfullname: idfullname,
-            iddescription: iddescription,
-            idurl1: idurl1,
-            idurl2: idurl2,
-            idurl3: idurl3
+            type: "fullname"
+
+   
         })
     })
     .then(response => response.json())
         .then(result =>{
           console.log("this is result", idfullname)
-          console.log("this is result", iddescription)
-          console.log("this is result", idurl1)
 
         this.setState({
         fullname: idfullname,
-        description: iddescription,
-        first_url: idurl1,
-        second_url: idurl2,
-        third_url: idurl3,
-
-        edit:
-          <div>
-             <label class="wa">ชื่อ</label>
-              <h5>{idfullname}</h5>
-              <hr></hr>
-
-            <label class="wa">ไบโอ</label>
-              <h6>{iddescription}</h6>
-              <hr></hr>
-
-           
-
-          </div>
-
+        trackername: 1
+ 
+      
         })
+        document.querySelector('#thefullnameidprofile').hidden = false
+        document.querySelector('#thefullnameidedit').hidden = true
             
         });
     }
+    cancelDes()
+    {
+      if (this.state.trackerdes == 1)
+      {
+        this.setState({
+          description: this.state.description
+        })
+      }
+      else
+      {
+        this.setState({
+          description: this.props.data["userinfodata"][0].profile_description
+        })
+      }
+     
+
+      document.querySelector('#descriptionidprofile').hidden = false
+      document.querySelector('#descriptionidedit').hidden = true
+    }
+
     cancel()
     {
-      //function above
-      /*
-      <label class="wa">ลิ้งค์</label>
-      <h6>{idurl1}</h6>
-      <h6>{idurl2}</h6>
-     <h6>{idurl3}</h6>
-     <hr></hr>
-     */
-      this.setState({
-
-        edit:
-          <div>
-             <label class="wa">ชื่อ</label>
-              <h5>{this.state.fullname}</h5>
-              <hr></hr>
-            <label class="wa">ไบโอ</label>
-              <h6>{this.state.description}</h6>
-              <hr></hr>
-             
-
-          </div>
+      if (this.state.trackername == 1)
+      {
+        this.setState({
+          fullname: this.state.fullname,
         })
+          
+      }
+      else
+      {
+        this.setState({
+          fullname: this.props.data["userinfodata"][0].profile_fullname,
+        })
+          
+      }
+     
+       
+      document.querySelector('#thefullnameidprofile').hidden = false
+      document.querySelector('#thefullnameidedit').hidden = true
+    
+
       
     }
     
+    editDes(e)
+    {
+      document.querySelector('#descriptionidprofile').hidden = true
+      document.querySelector('#descriptionidedit').hidden = false
+    }
     editProfile(e)
     {
       //function above
@@ -602,26 +646,20 @@ class InfluencerFeedTitle extends React.Component {
      <h6>{this.state.third_url}</h6>
      <hr></hr>
      */
-      console.log("edot")
-      //go to edit thingy ok??
-      //the jon of this state is to essentially send the value to EditPost
+   
 
       
-      console.log("inside editprofile button/ function")
-      console.log("profilepci in editprofile", this.state.fullname)
+      document.querySelector('#thefullnameidprofile').hidden = true
+      document.querySelector('#thefullnameidedit').hidden = false
 
-      this.setState({
-        fullname: this.state.fullname,
-        description: this.state.description,
-        first_url: this.state.first_url,
-        second_url: this.state.second_url,
-        third_url: this.state.third_url,
 
-        edit:<EditPost savePostHandler={this.sendEditPost} cancel={this.cancel}
-        fullname={this.state.fullname} description={this.state.description} first_url={this.state.first_url} 
-        second_url={this.state.second_url} third_url={this.state.third_url}/>     
       
-      })
+
+      
+
+      console.log("iphone pls dont be in here")
+ 
+      
     }
     changeFeedPortal(e)
     {
@@ -746,14 +784,11 @@ class InfluencerFeedTitle extends React.Component {
       console.log("daijoubu dayou", this.props.data)
         return (
          <div>
-   
-
                 <div>
                         <div class="controlininfluencer"> 
-                        <div class="d-flex justify-content-center">
-                        <div class="plsbegu">
 
-                        <div class="d-flex flex-column">
+                        <div class="divcolumn">
+       
                           
                           <div class="d-flex justify-content-center">
                          <div class="beforehihi">
@@ -767,7 +802,7 @@ class InfluencerFeedTitle extends React.Component {
                                 
                                       <div class="d-flex flex-column mt-3">
                                           <div class="d-flex justify-content-center">
-                                              <label class="wa" htmlFor="edit_post_txt">กดเพื่อเปลี่ยนรูปโปรไฟล์</label>
+                                              <label >กดเพื่อเปลี่ยนรูปโปรไฟล์</label>
                                           </div>
                                           <div class="d-flex justify-content-center ">
                                               <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>                  
@@ -775,19 +810,44 @@ class InfluencerFeedTitle extends React.Component {
                                       </div> 
                                   :null}
 
-          
+
                                   <div class="d-flex justify-content-center">
                                       <h1 >{this.props.data['username']}</h1>
-                                      {this.props.data["sameperson"] == 1 ? <div><button type="button" class="btn registersmall" onClick={this.editProfile}>แก้ไข</button></div>:null}
-                                  </div>    
-                                  <div class="d-flex justify-content-center">
-                                    {this.props.data["userinfodata"][0].profile_fullname}
+                                  </div>   
+
+ 
+                                  <div id="thefullnameidprofile">
+                                    <div class="d-flex justify-content-center">
+                                      {this.state.fullname}
+                                    </div>
                                   </div>
+                                  {this.props.data["sameperson"] == 1 ? <div class="d-flex justify-content-center mt-2"><button type="button" class="btn registersmall" onClick={this.editProfile}>แก้ไขชื่อ-นามสกุล</button></div>:null}
+
+                                  <div hidden id="thefullnameidedit">
+                                      <div class="d-flex justify-content-center mt-1 mb-1">
+                                          <label htmlFor="edit_post_txt">ชื่อจริง: </label>
+                                      </div>
+                                      <div class="d-flex justify-content-center mt-1 mb-1">
+                                          <textarea id="idfullname" class="d-flex justify-content-center inputhehore" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.fullname}></textarea>
+                                      </div>
+                                        
+                                        <div class="d-flex justify-content-center">
+                                        <div class="d-flex justify-content-center mt-2 mb-2">
+                                            <button type="button" name="edit_post_button" className="loll btn btn-outline-success btn-sm mr-2" onClick={this.sendEditPost}>บันทึก</button>
+                                        </div>
+                                          <div class="d-flex justify-content-center mt-2 mb-2">
+                                              <button type="button"className="loll btn btn-outline-danger btn-sm" name="cancel_button" onClick={this.cancel}>ยกเลิก</button>
+                                          </div>
+                                          
+                                      </div>
+
+
+                                   </div>                                
 
                                   <div class="d-flex justify-content-center mt-2">
                                     {this.props.data["userinfodata"] != "" ? <p class="forfont">{categoryname}</p>:null}
                                     <p class="forfont">{this.props.data["reviewnum"]} รีวิว</p>
-                                    <p class="forfont" >{averagestars} ดาวเฉลี่ย</p>
+                                    <p class="forfont" >{averagestars}<span id="starshow" class="fa fa-star checked ml-1"></span></p>
 
                                   </div>
                                   </div>
@@ -795,26 +855,50 @@ class InfluencerFeedTitle extends React.Component {
                           </div>
                           </div>
 
-                           <div class="d-flex justify-content-center">
+                            <div class="d-flex justify-content-center">
                               <div class="beforehihi mt-3">
                                 <div class="hihi">
                                   <div class="insidehihi">
-                                      {this.props.data["userinfodata"][0].profile_description}
+                                        <div id="descriptionidprofile">
+                                        <div>
+
+                                            {this.state.description}
+                                        </div>
+                                      </div>
+                                      <div hidden id="descriptionidedit">
+                                          <div class="d-flex justify-content-center mt-1 mb-1">
+                                            <label htmlFor="edit_post_txt">ไบโอ: </label>
+                                          </div>
+                                          <div class="d-flex justify-content-center mt-1 mb-1">
+                                              <textarea id="iddescription" class="d-flex justify-content-center inputhehore" ref={this.textInput} name="edit_post_txt" style={{height: 100+'px'}} onChange={this.checkTxtArea} value={this.state.description}></textarea>
+                                          </div>
+                                          <div class="d-flex justify-content-center">
+                                        <div class="d-flex justify-content-center mt-2 mb-2">
+                                            <button type="button" name="edit_post_button" className="loll btn btn-outline-success btn-sm mr-2" onClick={this.sendEditDes}>บันทึก</button>
+                                        </div>
+                                          <div class="d-flex justify-content-center mt-2 mb-2">
+                                              <button type="button"className="loll btn btn-outline-danger btn-sm" name="cancel_button" onClick={this.cancelDes}>ยกเลิก</button>
+                                          </div>
+                                          
+                                      </div>
+                                      </div>
+                                      {this.props.data["sameperson"] == 1 ? <div class="d-flex justify-content-center mt-2"><button type="button" class="btn registersmall" onClick={this.editDes}>แก้ไขไบโอ</button></div>:null}
+                                      
                                   </div>
                                 </div>
                              </div>
-                          </div>
+                             </div>
 
-                          <div class="d-flex justify-content-center mt-3">
+                              <div class="d-flex justify-content-center mt-5">
                             {this.props.data.accountstatus == 1 ? 
-                              this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton" href={bookhtmllink}>จองตอนนี้: {this.props.data["userinfodata"][0]["price"]}฿</a>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>
+                              this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton"  href={bookhtmllink}>จองตอนนี้: {this.props.data["userinfodata"][0]["price"]}฿</a>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>
                             }
-                          </div>
+                            </div>
 
                                 </div>
                         {this.state.edit}
-                            </div>
 
+                            <div class="d-flex justify-content-center">
                             <div class="coversvdointro d-flex justify-content-center">
                                 <div class="d-flex flex-column ">
                                     <div class="d-flex justify-content-center">

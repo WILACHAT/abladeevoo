@@ -78,6 +78,7 @@ var EachReserve = function (_React$Component) {
         _this.reportButton = _this.reportButton.bind(_this);
         _this.overlayCancel = _this.overlayCancel.bind(_this);
         _this.submitReport = _this.submitReport.bind(_this);
+        _this.checkStar = _this.checkStar.bind(_this);
 
         console.log("right in the constructor");
         console.log("this.props.data", _this.props.data);
@@ -89,6 +90,29 @@ var EachReserve = function (_React$Component) {
     }
 
     _createClass(EachReserve, [{
+        key: 'checkStar',
+        value: function checkStar(e) {
+            var rest = 0;
+            console.log("kik", e.target.id);
+            var myarray = e.target.id.split("", 5);
+
+            var stars = parseInt(myarray[4]);
+            console.log(document.querySelector('#star' + 1).className);
+
+            for (var i = 1; i < stars + 1; i++) {
+                console.log("hehehoho", i);
+                document.querySelector('#star' + i).className = "fa fa-star checked";
+                rest = i;
+            }
+
+            rest = rest + 1;
+            console.log("this is rest", rest);
+            for (var j = rest; j < 6; j++) {
+                console.log("rest each j", j);
+                document.querySelector('#star' + j).className = "fa fa-star unchecked";
+            }
+        }
+    }, {
         key: 'submitReport',
         value: function submitReport(e) {
             console.log("very close", document.querySelector('#reportinputid').value);
@@ -253,10 +277,14 @@ var EachReserve = function (_React$Component) {
     }, {
         key: 'submitReview',
         value: function submitReview(e) {
+
             var getcooked = getCookie('csrftoken');
             var value = document.querySelector('#typeforreview').value;
             if (value == "") {
-                alert("You can't submit Review without writing a review");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'คุณยังไม่ได้เขียนรีวิว'
+                });
             } else {
                 var _JSON$stringify;
 
@@ -266,7 +294,17 @@ var EachReserve = function (_React$Component) {
 
                 var influencername = this.props.data["data"][0].username_influencer;
 
-                var selectreview = document.querySelector('#selectforreview').value;
+                var selectreview = 5;
+                var count = 0;
+                for (var i = 0; i < document.querySelector('#starboss').children.length; i++) {
+                    console.log("hashira", document.querySelector('#starboss').children[i]);
+                    var checker = document.querySelector('#starboss').children[i].className.split(" ")[2];
+                    if (checker == "checked") {
+                        count += 1;
+                    }
+                }
+                selectreview = count;
+                console.log("this is selectreview", selectreview);
 
                 console.log("value of review", value);
 
@@ -299,7 +337,7 @@ var EachReserve = function (_React$Component) {
 
             videoandstuff = React.createElement(
                 'div',
-                null,
+                { id: 'videowhengetid' },
                 React.createElement(
                     'div',
                     { 'class': 'videowhenget' },
@@ -318,7 +356,7 @@ var EachReserve = function (_React$Component) {
                         ),
                         React.createElement(
                             'div',
-                            { 'class': 'd-flex justify-content-center mt-2' },
+                            { 'class': 'beforesavethelink d-flex justify-content-center mt-2' },
                             React.createElement(
                                 'button',
                                 { id: 'savethelink', value: link, onClick: this.saveUrl, 'class': 'btn registerbtnsavelink' },
@@ -408,17 +446,31 @@ var EachReserve = function (_React$Component) {
                         null,
                         React.createElement(
                             'div',
-                            { 'class': 'donetitle' },
+                            { 'class': 'beforedonetitle' },
                             React.createElement(
                                 'div',
-                                { 'class': 'd-flex justify-content-center' },
+                                { 'class': 'd-flex flex-column' },
                                 React.createElement(
-                                    'h1',
-                                    { 'class': 'donetext' },
-                                    '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E41\u0E25\u0E49\u0E27\u0E27\u0E27!'
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h1',
+                                        { 'class': 'biggersarabun' },
+                                        '\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19!'
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'a',
+                                        { href: '#videowhengetid', 'class': 'sarabun' },
+                                        '\u0E01\u0E14\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E25\u0E37\u0E48\u0E2D\u0E19\u0E44\u0E1B\u0E14\u0E39\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D'
+                                    )
                                 )
                             )
                         ),
+                        React.createElement('div', { 'class': 'donetitle' }),
                         videoandstuff,
                         React.createElement(
                             'div',
@@ -525,17 +577,31 @@ var EachReserve = function (_React$Component) {
                         null,
                         React.createElement(
                             'div',
-                            { 'class': 'donetitle' },
+                            { 'class': 'beforedonetitle' },
                             React.createElement(
                                 'div',
-                                { 'class': 'd-flex justify-content-center' },
+                                { 'class': 'd-flex flex-column' },
                                 React.createElement(
-                                    'h1',
-                                    { 'class': 'donetext' },
-                                    '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E41\u0E25\u0E49\u0E27\u0E27\u0E27!'
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h1',
+                                        { 'class': 'biggersarabun' },
+                                        '\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19!'
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'a',
+                                        { href: '#videowhengetid', 'class': 'sarabun' },
+                                        '\u0E01\u0E14\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E25\u0E37\u0E48\u0E2D\u0E19\u0E44\u0E1B\u0E14\u0E39\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D'
+                                    )
                                 )
                             )
                         ),
+                        React.createElement('div', { 'class': 'donetitle' }),
                         videoandstuff,
                         React.createElement(
                             'div',
@@ -573,42 +639,22 @@ var EachReserve = function (_React$Component) {
                                 React.createElement(
                                     'h4',
                                     { 'class': 'wa' },
-                                    '\u0E40\u0E02\u0E35\u0E22\u0E19\u0E23\u0E35\u0E27\u0E34\u0E27\u0E43\u0E2B\u0E49\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E04\u0E19\u0E42\u0E1B\u0E23\u0E14'
+                                    '\u0E40\u0E02\u0E35\u0E22\u0E19\u0E23\u0E35\u0E27\u0E34\u0E27\u0E41\u0E25\u0E30\u0E43\u0E2B\u0E49\u0E14\u0E32\u0E27\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E04\u0E19\u0E42\u0E1B\u0E23\u0E14\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13'
                                 )
                             ),
                             React.createElement(
                                 'div',
+                                { id: 'starboss', 'class': 'd-flex justify-content-center mt-3' },
+                                React.createElement('span', { id: 'star1', onClick: this.checkStar, 'class': 'fa fa-star checked' }),
+                                React.createElement('span', { id: 'star2', onClick: this.checkStar, 'class': 'fa fa-star checked' }),
+                                React.createElement('span', { id: 'star3', onClick: this.checkStar, 'class': 'fa fa-star checked' }),
+                                React.createElement('span', { id: 'star4', onClick: this.checkStar, 'class': 'fa fa-star checked' }),
+                                React.createElement('span', { id: 'star5', onClick: this.checkStar, 'class': 'fa fa-star checked' })
+                            ),
+                            React.createElement(
+                                'div',
                                 { 'class': 'd-flex justify-content-center mt-2 mb-3' },
-                                React.createElement('input', { id: 'typeforreview' }),
-                                React.createElement(
-                                    'select',
-                                    { id: 'selectforreview' },
-                                    React.createElement(
-                                        'option',
-                                        { value: '5' },
-                                        '5'
-                                    ),
-                                    React.createElement(
-                                        'option',
-                                        { value: '4' },
-                                        '4'
-                                    ),
-                                    React.createElement(
-                                        'option',
-                                        { value: '3' },
-                                        '3'
-                                    ),
-                                    React.createElement(
-                                        'option',
-                                        { value: '2' },
-                                        '2'
-                                    ),
-                                    React.createElement(
-                                        'option',
-                                        { value: '1' },
-                                        '1'
-                                    )
-                                )
+                                React.createElement('input', { 'class': 'inputhehorere', id: 'typeforreview', placeholder: '\u0E23\u0E35\u0E27\u0E34\u0E27' })
                             ),
                             React.createElement(
                                 'div',
@@ -1791,6 +1837,33 @@ var InboxFeedInbox = function (_React$Component3) {
                                                 'h2',
                                                 { 'class': 'waa mt-2' },
                                                 '\u0E40\u0E0A\u0E34\u0E0D\u0E0A\u0E27\u0E19\u0E41\u0E1F\u0E19\u0E04\u0E25\u0E31\u0E1A\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13\u0E21\u0E32\u0E43\u0E0A\u0E49\u0E40\u0E25\u0E22!'
+                                            )
+                                        ),
+                                        React.createElement(
+                                            'div',
+                                            { 'class': 'd-flex justify-content-center' },
+                                            React.createElement(
+                                                'h4',
+                                                { 'class': 'waa mt-3' },
+                                                '\u0E2A\u0E2D\u0E1A\u0E16\u0E32\u0E21\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21: vidma@vidma.tv'
+                                            )
+                                        ),
+                                        React.createElement(
+                                            'div',
+                                            { 'class': 'd-flex justify-content-center' },
+                                            React.createElement(
+                                                'h4',
+                                                { 'class': 'waa mt-3 mr-3' },
+                                                '\u0E2D\u0E48\u0E32\u0E19\u0E40\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E40\u0E01\u0E35\u0E48\u0E22\u0E27\u0E01\u0E31\u0E1A\u0E01\u0E0F\u0E2B\u0E21\u0E32\u0E22:'
+                                            ),
+                                            React.createElement(
+                                                'h4',
+                                                { 'class': 'mt-3' },
+                                                React.createElement(
+                                                    'a',
+                                                    { href: '/legal', 'class': 'wae' },
+                                                    '\u0E40\u0E01\u0E35\u0E48\u0E22\u0E27\u0E01\u0E31\u0E1A\u0E01\u0E0F\u0E2B\u0E21\u0E32\u0E22'
+                                                )
                                             )
                                         )
                                     )

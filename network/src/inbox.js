@@ -72,6 +72,8 @@ class EachReserve extends React.Component{
         this.reportButton = this.reportButton.bind(this);
         this.overlayCancel = this.overlayCancel.bind(this);
         this.submitReport = this.submitReport.bind(this);
+        this.checkStar = this.checkStar.bind(this);
+
 
 
 
@@ -82,6 +84,31 @@ class EachReserve extends React.Component{
         console.log("kaido is ded2", document.querySelector('#typeofpage'))
         console.log("bruh", this.props.data["type"])
         
+    }
+    checkStar(e)
+    {
+        let rest = 0
+        console.log("kik", e.target.id)
+        const myarray = e.target.id.split("", 5);
+        
+        let stars = parseInt(myarray[4])
+        console.log(document.querySelector('#star'+1).className)
+
+        for (let i = 1; i < stars + 1; i++)
+        {
+            console.log("hehehoho", i)
+            document.querySelector('#star'+i).className = "fa fa-star checked"
+            rest = i
+
+        }
+
+        rest = rest + 1
+        console.log("this is rest", rest)
+        for (let j = rest;j < 6; j++)
+        {
+            console.log("rest each j", j)
+            document.querySelector('#star'+j).className = "fa fa-star unchecked"
+        }
     }
     submitReport(e)
     {
@@ -270,11 +297,15 @@ class EachReserve extends React.Component{
     }
     submitReview(e)
     {
+   
         const getcooked = getCookie('csrftoken');
         var value = document.querySelector('#typeforreview').value
         if (value == "")
         {
-            alert("You can't submit Review without writing a review")
+            Swal.fire({
+                icon: 'error',
+                title: 'คุณยังไม่ได้เขียนรีวิว'
+              })
         }
         else
         {
@@ -284,10 +315,23 @@ class EachReserve extends React.Component{
 
             var influencername = this.props.data["data"][0].username_influencer
     
-            var selectreview = document.querySelector('#selectforreview').value
+            let selectreview = 5
+            let count = 0
+            for (let i = 0; i < document.querySelector('#starboss').children.length; i++)
+            {
+                console.log("hashira", document.querySelector('#starboss').children[i])
+                let checker = document.querySelector('#starboss').children[i].className.split(" ")[2]
+                if (checker == "checked")
+                {
+                    count +=1
+                }
+            }
+            selectreview = count
+            console.log("this is selectreview", selectreview)
         
 
             console.log("value of review", value)
+            
             
             fetch(`/gotoeachreserve`, {
                 method: 'POST',
@@ -308,6 +352,7 @@ class EachReserve extends React.Component{
                   })
                   setTimeout(() => {   window.location.href = "/inbox"; }, 800);
             });
+            
 
         }
         
@@ -321,7 +366,7 @@ class EachReserve extends React.Component{
         link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
 
         videoandstuff = 
-        <div>
+        <div id="videowhengetid">
             <div class="videowhenget">
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-center">
@@ -331,7 +376,7 @@ class EachReserve extends React.Component{
                         </video>
                     </div>
 
-                    <div class="d-flex justify-content-center mt-2">
+                    <div class="beforesavethelink d-flex justify-content-center mt-2">
                         <button id="savethelink" value={link} onClick={this.saveUrl}class="btn registerbtnsavelink">คัดลอกวีดีโอ</button>
                     </div>
 
@@ -391,13 +436,28 @@ class EachReserve extends React.Component{
                 
                     postoption = 
                     <div>
+                         <div class="beforedonetitle">
+                         <div class="d-flex flex-column">
+
+                             <div class="d-flex justify-content-center">
+                                <h1 class="biggersarabun">วีดีโอเสร็จสิ้น!</h1>
+                            </div>
+                            
+                            <div class="d-flex justify-content-center">
+                                <a href="#videowhengetid"class="sarabun">กดเพื่อเลื่อนไปดูวีดีโอ</a>
+                            </div>
+                            </div>
+
+                        
+                        </div>
+
+                      
                         <div class="donetitle">
-                          <div class="d-flex justify-content-center">
-                                <h1 class="donetext">เสร็จแล้ววว!</h1>
-                                
-                          </div>
+
+                        
                         </div>
                         {videoandstuff}
+                      
 
                         <div class="d-flex justify-content-center mt-3">
                             <div class="orderdetails">
@@ -462,10 +522,27 @@ class EachReserve extends React.Component{
 
                     postoption = 
                     <div>
+                        
+                  
+                        <div class="beforedonetitle">
+                         <div class="d-flex flex-column">
+
+                             <div class="d-flex justify-content-center">
+                                <h1 class="biggersarabun">วีดีโอเสร็จสิ้น!</h1>
+                            </div>
+                            
+                            <div class="d-flex justify-content-center">
+                                <a href="#videowhengetid"class="sarabun">กดเพื่อเลื่อนไปดูวีดีโอ</a>
+                            </div>
+                            </div>
+
+                        
+                        </div>
+
+                      
                         <div class="donetitle">
-                          <div class="d-flex justify-content-center">
-                                <h1 class="donetext">เสร็จแล้ววว!</h1>
-                          </div>
+
+                        
                         </div>
                         {videoandstuff}
 
@@ -490,18 +567,19 @@ class EachReserve extends React.Component{
                         <div class="d-flex flex-column">
 
                         <div class="d-flex justify-content-center mt-5">
-                            <h4 class="wa">เขียนรีวิวให้กับสตาร์คนโปรด</h4>
+                            <h4 class="wa">เขียนรีวิวและให้ดาวสตาร์คนโปรดของคุณ</h4>
+                        </div>
+
+                        <div id="starboss"class="d-flex justify-content-center mt-3">
+                            <span id="star1" onClick={this.checkStar} class="fa fa-star checked"></span>
+                            <span id="star2" onClick={this.checkStar} class="fa fa-star checked"></span>
+                            <span id="star3" onClick={this.checkStar} class="fa fa-star checked"></span>
+                            <span id="star4" onClick={this.checkStar} class="fa fa-star checked"></span>
+                            <span id="star5" onClick={this.checkStar} class="fa fa-star checked"></span>
                         </div>
 
                         <div class="d-flex justify-content-center mt-2 mb-3">
-                            <input id="typeforreview"></input>
-                            <select id="selectforreview">
-                                <option value="5">5</option>
-                                <option value="4">4</option>
-                                <option value="3">3</option>
-                                <option value="2">2</option>
-                                <option value="1">1</option>
-                            </select>
+                            <input class="inputhehorere" id="typeforreview" placeholder="รีวิว"></input>
                         </div>
 
                        
@@ -1380,8 +1458,16 @@ class InboxFeedInbox extends React.Component {
                                     <div class="d-flex justify-content-center">
                                             <h1 class="waheading">คุณยังไม่มีออเดอร์ในรีเควสท์</h1>
                                         </div>
-                                            <div class="d-flex justify-content-center">
+                                        <div class="d-flex justify-content-center">
                                             <h2 class="waa mt-2">เชิญชวนแฟนคลับของคุณมาใช้เลย!</h2>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <h4 class="waa mt-3">สอบถามเพิ่มเติม: vidma@vidma.tv</h4>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <h4 class="waa mt-3 mr-3">อ่านเรื่องเกี่ยวกับกฏหมาย:</h4>
+                                            <h4 class="mt-3"><a href="/legal" class="wae">เกี่ยวกับกฏหมาย</a></h4> 
+
                                         </div>
 
                                    

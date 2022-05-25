@@ -252,6 +252,7 @@ var EditPost = function (_React$Component3) {
     _this4.editCancel = _this4.editCancel.bind(_this4);
     _this4.checkTxtArea = _this4.checkTxtArea.bind(_this4);
     console.log("this.props.fillname", _this4.props.fullname);
+    console.log("rengoku", _this4.props.profilepic);
 
     _this4.state = {
       fullname: _this4.props.fullname,
@@ -277,7 +278,9 @@ var EditPost = function (_React$Component3) {
   }, {
     key: 'checkTxtArea',
     value: function checkTxtArea(e) {
+      console.log("check the e target id", e.target.id);
       if (e.target.id == "idfullname") {
+        console.log("hi");
         if (e.target.value.length > 0) {
           this.setState({ fullname: e.target.value });
         } else {
@@ -292,34 +295,12 @@ var EditPost = function (_React$Component3) {
           this.setState({ description: "" });
         }
       }
-      if (e.target.id == "idurl1") {
-        if (e.target.value.length > 0) {
-          console.log(e.target.value);
-          this.setState({ first_url: e.target.value });
-        } else {
-          this.setState({ first_url: "" });
-        }
-      }
-      if (e.target.id == "idurl2") {
-        if (e.target.value.length > 0) {
-          console.log(e.target.value);
-          this.setState({ second_url: e.target.value });
-        } else {
-          this.setState({ second_url: "" });
-        }
-      }
-      if (e.target.id == "idurl3") {
-        if (e.target.value.length > 0) {
-          console.log(e.target.value);
-          this.setState({ third_url: e.target.value });
-        } else {
-          this.setState({ third_url: "" });
-        }
-      }
     }
   }, {
     key: 'render',
     value: function render() {
+      var link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.profilepic + ".jpg";
+
       return React.createElement(
         'div',
         null,
@@ -347,7 +328,7 @@ var EditPost = function (_React$Component3) {
           React.createElement(
             'div',
             { 'class': 'd-flex justify-content-center mt-1 mb-1' },
-            React.createElement('textarea', { id: 'idfullname', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.fullname })
+            React.createElement('textarea', { id: 'idfullname', 'class': 'd-flex justify-content-center', name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.fullname })
           ),
           React.createElement(
             'div',
@@ -362,48 +343,6 @@ var EditPost = function (_React$Component3) {
             'div',
             { 'class': 'd-flex justify-content-center mt-1 mb-1' },
             React.createElement('textarea', { id: 'iddescription', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.description })
-          ),
-          React.createElement(
-            'div',
-            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
-            React.createElement(
-              'label',
-              { htmlFor: 'edit_post_txt' },
-              '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C 1: '
-            )
-          ),
-          React.createElement(
-            'div',
-            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
-            React.createElement('textarea', { id: 'idurl1', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.first_url })
-          ),
-          React.createElement(
-            'div',
-            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
-            React.createElement(
-              'label',
-              { htmlFor: 'edit_post_txt' },
-              '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C  2: '
-            )
-          ),
-          React.createElement(
-            'div',
-            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
-            React.createElement('textarea', { id: 'idurl2', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.second_url })
-          ),
-          React.createElement(
-            'div',
-            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
-            React.createElement(
-              'label',
-              { htmlFor: 'edit_post_txt' },
-              '\u0E25\u0E34\u0E49\u0E07\u0E04\u0E4C  3: '
-            )
-          ),
-          React.createElement(
-            'div',
-            { 'class': 'd-flex justify-content-center mt-1 mb-1' },
-            React.createElement('textarea', { id: 'idurl3', 'class': 'd-flex justify-content-center', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.third_url })
           ),
           React.createElement(
             'div',
@@ -432,14 +371,22 @@ var InfluencerFeedTitle = function (_React$Component4) {
 
     _this5.changeFeedPortal = _this5.changeFeedPortal.bind(_this5);
     _this5.editProfile = _this5.editProfile.bind(_this5);
+    _this5.editDes = _this5.editDes.bind(_this5);
+
     _this5.cancel = _this5.cancel.bind(_this5);
+    _this5.cancelDes = _this5.cancelDes.bind(_this5);
+
     //  this.showImg = this.showImg.bind(this);
     _this5.sendEditPost = _this5.sendEditPost.bind(_this5);
+    _this5.sendEditDes = _this5.sendEditDes.bind(_this5);
+
     _this5.chooseFile = _this5.chooseFile.bind(_this5);
     _this5.chooseFileVideo = _this5.chooseFileVideo.bind(_this5);
+    _this5.checkTxtArea = _this5.checkTxtArea.bind(_this5);
 
     document.querySelector('#maininfluencer').hidden = false;
     document.querySelector('#reviewsmainfluencer').hidden = true;
+
     console.log("waearth", _this5.props.data);
 
     var fullname = "";
@@ -449,6 +396,8 @@ var InfluencerFeedTitle = function (_React$Component4) {
     var first_url = "";
     var second_url = "";
     var third_url = "";
+    var trackername = 0;
+    var trackerdes = 0;
 
     if (_this5.props.data["userinfodata"][0] != null) {
       if (_this5.props.data["userinfodata"][0].profile_fullname != null) {
@@ -482,6 +431,8 @@ var InfluencerFeedTitle = function (_React$Component4) {
       third_url: third_url,
       profilepic: profilepic,
       profilevideo: profilevideo,
+      trackername: 0,
+      trackerdes: 0,
 
       edit: React.createElement('div', { 'class': 'biggestdivchecker' })
 
@@ -490,6 +441,39 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }
 
   _createClass(InfluencerFeedTitle, [{
+    key: 'checkTxtArea',
+    value: function checkTxtArea(e) {
+
+      document.querySelector('#thefullnameidprofile').hidden = true;
+      document.querySelector('#thefullnameidedit').hidden = false;
+      console.log("iphone15", e.target.id);
+      console.log("iphone15 value", e.target.value);
+      console.log("iphone15", e.target.value.length);
+
+      console.log("iphone15", this.state.fullname);
+
+      if (e.target.id == "idfullname") {
+        console.log("iphone success");
+
+        if (e.target.value.length > 0) {
+          console.log("iphone16", e.target.value);
+          this.setState({ fullname: e.target.value });
+        } else {
+          this.setState({ fullname: "" });
+        }
+      }
+
+      console.log("iphone after", this.state.fullname);
+      if (e.target.id == "iddescription") {
+        if (e.target.value.length > 0) {
+          console.log(e.target.value);
+          this.setState({ description: e.target.value });
+        } else {
+          this.setState({ description: "" });
+        }
+      }
+    }
+  }, {
     key: 'chooseFile',
     value: function chooseFile(e) {
       var _this6 = this;
@@ -596,15 +580,41 @@ var InfluencerFeedTitle = function (_React$Component4) {
       }
     }
   }, {
-    key: 'sendEditPost',
-    value: function sendEditPost() {
+    key: 'sendEditDes',
+    value: function sendEditDes() {
       var _this7 = this;
 
-      var idfullname = document.getElementById("idfullname").value;
       var iddescription = document.getElementById("iddescription").value;
-      var idurl1 = document.getElementById("idurl1").value;
-      var idurl2 = document.getElementById("idurl2").value;
-      var idurl3 = document.getElementById("idurl3").value;
+      var csrftoken = getCookie('csrftoken');
+      fetch('/editprofile', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({
+          iddescription: iddescription,
+          type: "description"
+
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (result) {
+
+        _this7.setState({
+          description: iddescription,
+          trackerdes: 1
+
+        });
+        document.querySelector('#descriptionidprofile').hidden = false;
+        document.querySelector('#descriptionidedit').hidden = true;
+      });
+    }
+  }, {
+    key: 'sendEditPost',
+    value: function sendEditPost() {
+      var _this8 = this;
+
+      console.log("ok this is in send edit post");
+      var idfullname = document.getElementById("idfullname").value;
 
       var csrftoken = getCookie('csrftoken');
       var type = "normal";
@@ -615,95 +625,60 @@ var InfluencerFeedTitle = function (_React$Component4) {
         },
         body: JSON.stringify({
           idfullname: idfullname,
-          iddescription: iddescription,
-          idurl1: idurl1,
-          idurl2: idurl2,
-          idurl3: idurl3
+          type: "fullname"
+
         })
       }).then(function (response) {
         return response.json();
       }).then(function (result) {
         console.log("this is result", idfullname);
-        console.log("this is result", iddescription);
-        console.log("this is result", idurl1);
 
-        _this7.setState({
+        _this8.setState({
           fullname: idfullname,
-          description: iddescription,
-          first_url: idurl1,
-          second_url: idurl2,
-          third_url: idurl3,
-
-          edit: React.createElement(
-            'div',
-            null,
-            React.createElement(
-              'label',
-              { 'class': 'wa' },
-              '\u0E0A\u0E37\u0E48\u0E2D'
-            ),
-            React.createElement(
-              'h5',
-              null,
-              idfullname
-            ),
-            React.createElement('hr', null),
-            React.createElement(
-              'label',
-              { 'class': 'wa' },
-              '\u0E44\u0E1A\u0E42\u0E2D'
-            ),
-            React.createElement(
-              'h6',
-              null,
-              iddescription
-            ),
-            React.createElement('hr', null)
-          )
+          trackername: 1
 
         });
+        document.querySelector('#thefullnameidprofile').hidden = false;
+        document.querySelector('#thefullnameidedit').hidden = true;
       });
+    }
+  }, {
+    key: 'cancelDes',
+    value: function cancelDes() {
+      if (this.state.trackerdes == 1) {
+        this.setState({
+          description: this.state.description
+        });
+      } else {
+        this.setState({
+          description: this.props.data["userinfodata"][0].profile_description
+        });
+      }
+
+      document.querySelector('#descriptionidprofile').hidden = false;
+      document.querySelector('#descriptionidedit').hidden = true;
     }
   }, {
     key: 'cancel',
     value: function cancel() {
-      //function above
-      /*
-      <label class="wa">ลิ้งค์</label>
-      <h6>{idurl1}</h6>
-      <h6>{idurl2}</h6>
-      <h6>{idurl3}</h6>
-      <hr></hr>
-      */
-      this.setState({
+      if (this.state.trackername == 1) {
+        this.setState({
+          fullname: this.state.fullname
+        });
+      } else {
+        this.setState({
+          fullname: this.props.data["userinfodata"][0].profile_fullname
+        });
+      }
 
-        edit: React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'label',
-            { 'class': 'wa' },
-            '\u0E0A\u0E37\u0E48\u0E2D'
-          ),
-          React.createElement(
-            'h5',
-            null,
-            this.state.fullname
-          ),
-          React.createElement('hr', null),
-          React.createElement(
-            'label',
-            { 'class': 'wa' },
-            '\u0E44\u0E1A\u0E42\u0E2D'
-          ),
-          React.createElement(
-            'h6',
-            null,
-            this.state.description
-          ),
-          React.createElement('hr', null)
-        )
-      });
+      document.querySelector('#thefullnameidprofile').hidden = false;
+      document.querySelector('#thefullnameidedit').hidden = true;
+    }
+  }, {
+    key: 'editDes',
+    value: function editDes(e) {
+      document.querySelector('#descriptionidprofile').hidden = true;
+      document.querySelector('#descriptionidedit').hidden = false;
     }
   }, {
     key: 'editProfile',
@@ -716,26 +691,11 @@ var InfluencerFeedTitle = function (_React$Component4) {
       <h6>{this.state.third_url}</h6>
       <hr></hr>
       */
-      console.log("edot");
-      //go to edit thingy ok??
-      //the jon of this state is to essentially send the value to EditPost
 
+      document.querySelector('#thefullnameidprofile').hidden = true;
+      document.querySelector('#thefullnameidedit').hidden = false;
 
-      console.log("inside editprofile button/ function");
-      console.log("profilepci in editprofile", this.state.fullname);
-
-      this.setState({
-        fullname: this.state.fullname,
-        description: this.state.description,
-        first_url: this.state.first_url,
-        second_url: this.state.second_url,
-        third_url: this.state.third_url,
-
-        edit: React.createElement(EditPost, { savePostHandler: this.sendEditPost, cancel: this.cancel,
-          fullname: this.state.fullname, description: this.state.description, first_url: this.state.first_url,
-          second_url: this.state.second_url, third_url: this.state.third_url })
-
-      });
+      console.log("iphone pls dont be in here");
     }
   }, {
     key: 'changeFeedPortal',
@@ -839,131 +799,228 @@ var InfluencerFeedTitle = function (_React$Component4) {
             { 'class': 'controlininfluencer' },
             React.createElement(
               'div',
-              { 'class': 'd-flex justify-content-center' },
+              { 'class': 'divcolumn' },
               React.createElement(
                 'div',
-                { 'class': 'plsbegu' },
+                { 'class': 'd-flex justify-content-center' },
                 React.createElement(
                   'div',
-                  { 'class': 'd-flex flex-column' },
+                  { 'class': 'beforehihi' },
                   React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center' },
+                    { 'class': 'hihi' },
                     React.createElement(
                       'div',
-                      { 'class': 'beforehihi' },
+                      { 'class': 'insidehihi' },
                       React.createElement(
                         'div',
-                        { 'class': 'hihi' },
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement('img', { 'class': 'imgnoedit', src: link })
+                      ),
+                      this.props.data["sameperson"] == 1 ? React.createElement(
+                        'div',
+                        { 'class': 'd-flex flex-column mt-3' },
                         React.createElement(
                           'div',
-                          { 'class': 'insidehihi' },
+                          { 'class': 'd-flex justify-content-center' },
+                          React.createElement(
+                            'label',
+                            null,
+                            '\u0E01\u0E14\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E39\u0E1B\u0E42\u0E1B\u0E23\u0E44\u0E1F\u0E25\u0E4C'
+                          )
+                        ),
+                        React.createElement(
+                          'div',
+                          { 'class': 'd-flex justify-content-center ' },
+                          React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
+                        )
+                      ) : null,
+                      React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                          'h1',
+                          null,
+                          this.props.data['username']
+                        )
+                      ),
+                      React.createElement(
+                        'div',
+                        { id: 'thefullnameidprofile' },
+                        React.createElement(
+                          'div',
+                          { 'class': 'd-flex justify-content-center' },
+                          this.state.fullname
+                        )
+                      ),
+                      this.props.data["sameperson"] == 1 ? React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                          'button',
+                          { type: 'button', 'class': 'btn registersmall', onClick: this.editProfile },
+                          '\u0E41\u0E01\u0E49\u0E44\u0E02\u0E0A\u0E37\u0E48\u0E2D-\u0E19\u0E32\u0E21\u0E2A\u0E01\u0E38\u0E25'
+                        )
+                      ) : null,
+                      React.createElement(
+                        'div',
+                        { hidden: true, id: 'thefullnameidedit' },
+                        React.createElement(
+                          'div',
+                          { 'class': 'd-flex justify-content-center mt-1 mb-1' },
+                          React.createElement(
+                            'label',
+                            { htmlFor: 'edit_post_txt' },
+                            '\u0E0A\u0E37\u0E48\u0E2D\u0E08\u0E23\u0E34\u0E07: '
+                          )
+                        ),
+                        React.createElement(
+                          'div',
+                          { 'class': 'd-flex justify-content-center mt-1 mb-1' },
+                          React.createElement('textarea', { id: 'idfullname', 'class': 'd-flex justify-content-center inputhehore', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.fullname })
+                        ),
+                        React.createElement(
+                          'div',
+                          { 'class': 'd-flex justify-content-center' },
                           React.createElement(
                             'div',
-                            { 'class': 'd-flex justify-content-center' },
-                            React.createElement('img', { 'class': 'imgnoedit', src: link })
-                          ),
-                          this.props.data["sameperson"] == 1 ? React.createElement(
-                            'div',
-                            { 'class': 'd-flex flex-column mt-3' },
+                            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
                             React.createElement(
-                              'div',
-                              { 'class': 'd-flex justify-content-center' },
-                              React.createElement(
-                                'label',
-                                { 'class': 'wa', htmlFor: 'edit_post_txt' },
-                                '\u0E01\u0E14\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E39\u0E1B\u0E42\u0E1B\u0E23\u0E44\u0E1F\u0E25\u0E4C'
-                              )
-                            ),
-                            React.createElement(
-                              'div',
-                              { 'class': 'd-flex justify-content-center ' },
-                              React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
+                              'button',
+                              { type: 'button', name: 'edit_post_button', className: 'loll btn btn-outline-success btn-sm mr-2', onClick: this.sendEditPost },
+                              '\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01'
                             )
-                          ) : null,
-                          React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-center' },
-                            React.createElement(
-                              'h1',
-                              null,
-                              this.props.data['username']
-                            ),
-                            this.props.data["sameperson"] == 1 ? React.createElement(
-                              'div',
-                              null,
-                              React.createElement(
-                                'button',
-                                { type: 'button', 'class': 'btn registersmall', onClick: this.editProfile },
-                                '\u0E41\u0E01\u0E49\u0E44\u0E02'
-                              )
-                            ) : null
                           ),
                           React.createElement(
                             'div',
-                            { 'class': 'd-flex justify-content-center' },
-                            this.props.data["userinfodata"][0].profile_fullname
-                          ),
-                          React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-center mt-2' },
-                            this.props.data["userinfodata"] != "" ? React.createElement(
-                              'p',
-                              { 'class': 'forfont' },
-                              categoryname
-                            ) : null,
+                            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
                             React.createElement(
-                              'p',
-                              { 'class': 'forfont' },
-                              this.props.data["reviewnum"],
-                              ' \u0E23\u0E35\u0E27\u0E34\u0E27'
-                            ),
-                            React.createElement(
-                              'p',
-                              { 'class': 'forfont' },
-                              averagestars,
-                              ' \u0E14\u0E32\u0E27\u0E40\u0E09\u0E25\u0E35\u0E48\u0E22'
+                              'button',
+                              { type: 'button', className: 'loll btn btn-outline-danger btn-sm', name: 'cancel_button', onClick: this.cancel },
+                              '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01'
                             )
                           )
                         )
-                      )
-                    )
-                  ),
-                  React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement(
-                      'div',
-                      { 'class': 'beforehihi mt-3' },
+                      ),
                       React.createElement(
                         'div',
-                        { 'class': 'hihi' },
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        this.props.data["userinfodata"] != "" ? React.createElement(
+                          'p',
+                          { 'class': 'forfont' },
+                          categoryname
+                        ) : null,
                         React.createElement(
-                          'div',
-                          { 'class': 'insidehihi' },
-                          this.props.data["userinfodata"][0].profile_description
+                          'p',
+                          { 'class': 'forfont' },
+                          this.props.data["reviewnum"],
+                          ' \u0E23\u0E35\u0E27\u0E34\u0E27'
+                        ),
+                        React.createElement(
+                          'p',
+                          { 'class': 'forfont' },
+                          averagestars,
+                          React.createElement('span', { id: 'starshow', 'class': 'fa fa-star checked ml-1' })
                         )
                       )
                     )
-                  ),
+                  )
+                )
+              ),
+              React.createElement(
+                'div',
+                { 'class': 'd-flex justify-content-center' },
+                React.createElement(
+                  'div',
+                  { 'class': 'beforehihi mt-3' },
                   React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center mt-3' },
-                    this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
-                      'a',
-                      { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
-                      '\u0E08\u0E2D\u0E07\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49: ',
-                      this.props.data["userinfodata"][0]["price"],
-                      '\u0E3F'
-                    ) : React.createElement('div', null) : React.createElement(
+                    { 'class': 'hihi' },
+                    React.createElement(
                       'div',
-                      null,
-                      '\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E2B\u0E22\u0E38\u0E14\u0E0A\u0E31\u0E48\u0E27\u0E04\u0E23\u0E32\u0E27'
+                      { 'class': 'insidehihi' },
+                      React.createElement(
+                        'div',
+                        { id: 'descriptionidprofile' },
+                        React.createElement(
+                          'div',
+                          null,
+                          this.state.description
+                        )
+                      ),
+                      React.createElement(
+                        'div',
+                        { hidden: true, id: 'descriptionidedit' },
+                        React.createElement(
+                          'div',
+                          { 'class': 'd-flex justify-content-center mt-1 mb-1' },
+                          React.createElement(
+                            'label',
+                            { htmlFor: 'edit_post_txt' },
+                            '\u0E44\u0E1A\u0E42\u0E2D: '
+                          )
+                        ),
+                        React.createElement(
+                          'div',
+                          { 'class': 'd-flex justify-content-center mt-1 mb-1' },
+                          React.createElement('textarea', { id: 'iddescription', 'class': 'd-flex justify-content-center inputhehore', ref: this.textInput, name: 'edit_post_txt', style: { height: 100 + 'px' }, onChange: this.checkTxtArea, value: this.state.description })
+                        ),
+                        React.createElement(
+                          'div',
+                          { 'class': 'd-flex justify-content-center' },
+                          React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
+                            React.createElement(
+                              'button',
+                              { type: 'button', name: 'edit_post_button', className: 'loll btn btn-outline-success btn-sm mr-2', onClick: this.sendEditDes },
+                              '\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01'
+                            )
+                          ),
+                          React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2 mb-2' },
+                            React.createElement(
+                              'button',
+                              { type: 'button', className: 'loll btn btn-outline-danger btn-sm', name: 'cancel_button', onClick: this.cancelDes },
+                              '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01'
+                            )
+                          )
+                        )
+                      ),
+                      this.props.data["sameperson"] == 1 ? React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                          'button',
+                          { type: 'button', 'class': 'btn registersmall', onClick: this.editDes },
+                          '\u0E41\u0E01\u0E49\u0E44\u0E02\u0E44\u0E1A\u0E42\u0E2D'
+                        )
+                      ) : null
                     )
                   )
-                ),
-                this.state.edit
+                )
               ),
+              React.createElement(
+                'div',
+                { 'class': 'd-flex justify-content-center mt-5' },
+                this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
+                  'a',
+                  { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
+                  '\u0E08\u0E2D\u0E07\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49: ',
+                  this.props.data["userinfodata"][0]["price"],
+                  '\u0E3F'
+                ) : React.createElement('div', null) : React.createElement(
+                  'div',
+                  null,
+                  '\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E2B\u0E22\u0E38\u0E14\u0E0A\u0E31\u0E48\u0E27\u0E04\u0E23\u0E32\u0E27'
+                )
+              )
+            ),
+            this.state.edit,
+            React.createElement(
+              'div',
+              { 'class': 'd-flex justify-content-center' },
               React.createElement(
                 'div',
                 { 'class': 'coversvdointro d-flex justify-content-center' },
