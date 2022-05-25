@@ -421,6 +421,7 @@ def hidepost(request):
             hide = "Unhide"
 
 
+
             
     return_request = {"hide": hide}
     return JsonResponse(return_request, safe=False)
