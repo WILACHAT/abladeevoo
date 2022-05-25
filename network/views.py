@@ -426,7 +426,8 @@ def hidepost(request):
     return_request = {"hide": hide}
     return JsonResponse(return_request, safe=False)
 
-@login_required(login_url='/login')
+@login_required(login_url='/login') 
+ 
 def book(request, username):
     print("tell me that the thing came here or not")
     currentuserid = request.user.id
