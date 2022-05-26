@@ -964,12 +964,18 @@ def feedbackmaillist(request):
     return JsonResponse(return_response, safe=False)
 
 def payment(request):
-    
-    try:
-        Userinfo.objects.values('omiserecipent').get(influencer_id = request.user.id)
-        type = "exist"
+    print("wtfplstellme1")
 
-    except Userinfo.DoesNotExist:
+
+  
+
+    somethingwong = Userinfo.objects.values('omiserecipent').get(influencer_id = request.user.id)
+    type = "exist"
+    print("something is wong", somethingwong)
+
+    if somethingwong["omiserecipent"] == None:
+        print("wtfplstellme2")
+
         type = "notexist"
 
     print("this is the type", type)

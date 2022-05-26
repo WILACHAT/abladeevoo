@@ -31,7 +31,7 @@ DEBUG = True
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
-ALLOWED_HOSTS = ['plankton-app-d8rml.ondigitalocean.app']
+ALLOWED_HOSTS = ['plankton-app-d8rml.ondigitalocean.app', '127.0.0.1']
 
 
 # Application definition
@@ -89,8 +89,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'project4.wsgi.application'
 
 
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ablaze',
+        'USER': 'postgres',
+        'PASSWORD': 'Kickyourass123/',
+        'HOST': 'localhost',
+        'PORT': '',
+
+    }
+}
+'''
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
