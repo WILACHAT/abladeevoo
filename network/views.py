@@ -625,10 +625,15 @@ def gotoeachreserve(request):
             postandmessage.save()
             today = date.today()
             
-            checker = Userinfo.objects.values('omiserecipent', 'price').get(influencer_id = request.user.id)
 
-            price = (int(checker['price']) * 0.85)  * 100
-            recipientinfluencer = omise.Recipient.retrieve(checker['omiserecipent'])
+            heho = Userinfo.objects.filter(influencer_id = request.user.id)
+            for i in heho:
+                price = int(i.price)
+                omiserecipent = i.omiserecipent
+            
+
+            price = (price * 0.85)  * 100
+            recipientinfluencer = omise.Recipient.retrieve(omiserecipent)
             transfer = omise.Transfer.create(
             amount=price, recipient=recipientinfluencer.id,paid=True, sent=True)
             
@@ -1251,7 +1256,7 @@ def paymentapi(request, username):
             amount=price,
             currency="thb",
             capture=True,
-            return_uri = "http://127.0.0.1:8000/paymentresponse",
+            return_uri = "https://plankton-app-d8rml.ondigitalocean.app/paymentresponse",
             source=token
             )
 
