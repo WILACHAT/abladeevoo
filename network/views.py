@@ -1231,9 +1231,13 @@ def paymentapi(request, username):
         
         influencerid = User.objects.values('id').get(username=username)
         influencerid = influencerid["id"]
-        checker = Userinfo.objects.values('omiserecipent', 'price').get(influencer_id = influencerid)
-        price = int(checker['price'])
-        price = price * 100
+        chek = Userinfo.objects.filter(influencer_id = influencerid)
+        for i in chek:
+            price = int(i.price)
+
+            price = price * 100
+            
+  
         data = json.loads(request.POST["storevalue"])
 
         print("wawa", request.POST["storevalue"])
