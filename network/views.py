@@ -966,19 +966,14 @@ def feedbackmaillist(request):
 def payment(request):
     print("wtfplstellme1")
 
-
-  
-
-    somethingwong = Userinfo.objects.values('omiserecipent').get(influencer_id = request.user.id)
-    type = "exist"
-    print("something is wong", somethingwong)
-
-    if somethingwong["omiserecipent"] == None:
-        print("wtfplstellme2")
-
-        type = "notexist"
-
-    print("this is the type", type)
+    
+    heho = Userinfo.objects.filter(influencer_id = request.user.id)
+    for i in heho:
+       
+        if i.omiserecipent == None:
+            type = "notexist"
+        else:
+            type = "exist"
 
 
 
