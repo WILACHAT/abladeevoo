@@ -982,23 +982,27 @@ def payment(request):
 
 def paymentsetupapi(request):
     return_response = "hi"
-    
+    print("hisdfmsadfkms")
+    checker = ""
 
     if request.method == "POST":
         data = json.loads(request.body)
-        try:
-            checker = Userinfo.objects.values('omiserecipent', 'price').get(influencer_id = request.user.id)
-        except Userinfo.DoesNotExist:
-            checker = "new"
+        haha = Userinfo.objects.filter(influencer_id = request.user.id)
+        for i in haha:
+            if i.omiserecipent and i.price == None:
+                checker = "new"
+            else:
+                price = i.price
+                omiserecipent = i.omiserecipent
 
 
         if data["type"] == "exist":
-            recipient = omise.Recipient.retrieve(checker['omiserecipent'])
+            recipient = omise.Recipient.retrieve(omiserecipent)
            
             bankinfo = recipient.bank_account
        
 
-            return_response = {"name" : bankinfo.name, "brand" : bankinfo.brand, "number":bankinfo.last_digits, "price": checker['price'], "email": recipient.email}
+            return_response = {"name" : bankinfo.name, "brand" : bankinfo.brand, "number":bankinfo.last_digits, "price": price, "email": recipient.email}
 
         elif data["type"] == "notexistpost":
             print("is the shit came in here")
@@ -1027,7 +1031,7 @@ def paymentsetupapi(request):
             Userinfo.objects.filter(influencer_id = request.user.id).update(omiserecipent = recipient.id, price = data["price"])
 
         elif data["type"] == "existpostupdate":
-            recipient = omise.Recipient.retrieve(checker['omiserecipent'])
+            recipient = omise.Recipient.retrieve(omiserecipent)
             recipient.update(
                 name= data["fullname"],
                 email= data["email"],
