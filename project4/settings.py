@@ -98,8 +98,8 @@ DATABASES = {
         'NAME': 'ablaze',
         'USER': 'postgres',
         'PASSWORD': 'Kickyourass123/',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': 'app-96c982cb-b1a9-4c85-b33c-5324409cc450-do-user-8313236-0.b.db.ondigitalocean.com',
+        'PORT': '25060',
 
     }
 }
