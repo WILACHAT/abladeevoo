@@ -434,8 +434,10 @@ def book(request, username):
     influencerid = User.objects.values('id', 'accountstatus').get(username=username)
     accountstatus = influencerid.get('accountstatus')
     influencerid = influencerid["id"]
-    checker = Userinfo.objects.values('price').get(influencer_id = influencerid)
-    price = int(checker['price'])
+    waki = Userinfo.objects.filter(influencer_id = influencerid)
+    for i in waki:
+        price = int(i.price)
+
 
     '''
     if request.method == "POST":
