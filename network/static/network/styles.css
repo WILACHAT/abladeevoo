@@ -795,7 +795,7 @@ padding: 10px;
   justify-content: center;
   padding-left:5%;
   padding-top:3%;
-  margin-right:2%;
+  padding-right:7%;
   width:50%;
 }
 
@@ -804,6 +804,7 @@ padding: 10px;
   width:100%;
   padding:3%;
   padding-top:15%;
+  padding-right:20%;
 
 
   justify-content: center;
@@ -828,6 +829,20 @@ padding: 10px;
     padding-left:2%;
 
   }
+  .almostvideovideowhenget
+  {
+    width:280px;   
+    height: 100%;   
+  }
+  .coversvdointro
+{
+  width:100%;
+  padding:3%;
+  padding-top:15%;
+
+
+  justify-content: center;
+}
 
 
   .controlininfluencer
@@ -1039,7 +1054,7 @@ padding: 10px;
 }
 .almostvideovideowhenget
 {
-  width:280px;   
+  width:300px;   
   height: 100%;   
 }
 .beforedonetitle
