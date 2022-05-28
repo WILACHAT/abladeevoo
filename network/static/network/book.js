@@ -729,23 +729,23 @@ var BookPage = function (_React$Component2) {
             }
 
             if (checkblank == 1) {
-                alert("Forgot to fill in at least one form");
+                alert("ลืมกรอกอย่างน้อย 1 ฟอร์ม");
             } else if (checkblank == 10) {
-                alert("luem tueng");
+                alert("ลืมกรอกฟอร์ม ถึงใคร");
             } else if (checkblank == 9) {
-                alert("luem jark");
+                alert("ลืมกรอกฟอร์ม จากใคร");
             } else if (checkblank == 8) {
-                alert("luem chong raek");
+                alert("ลืมกรอกเนื่องในโอกาสช่องแรก");
             } else if (checkblank == 7) {
-                alert("luem chong sorng");
+                alert("ลืมกรอกเนื่องในโอกาสช่องสอง");
             } else if (checkblank == 6) {
-                alert("luem chong sarm");
+                alert("ลืมกรอกเนื่องในโอกาสช่องสาม");
             } else if (checkblank == 5) {
-                alert("luem chong seeh");
+                alert("ลืมกรอกเนื่องในโอกาสช่องสี่");
             } else if (checkblank == 4) {
-                alert("luem sai date");
+                alert("ลืมกรอกวันที่");
             } else if (checkblank == 2) {
-                alert("Time must be atleast 1 day ahead");
+                alert("วันที่ต้องมากกว่าวันที่กรอกฟอร์มอย่างน้อย 1 วัน");
             } else {
                 document.querySelector('#paymentpage').hidden = false;
                 document.querySelector('#wholereservepage').hidden = true;
@@ -1065,7 +1065,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'h4',
                                 { 'class': 'wa' },
-                                'Vid \u0E19\u0E35\u0E49\u0E2D\u0E22\u0E32\u0E01\u0E17\u0E4D\u0E32\u0E43\u0E2B\u0E49\u0E43\u0E04\u0E23: '
+                                '\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E19\u0E35\u0E49\u0E2D\u0E22\u0E32\u0E01\u0E17\u0E4D\u0E32\u0E43\u0E2B\u0E49\u0E43\u0E04\u0E23: '
                             )
                         ),
                         React.createElement('hr', { 'class': 'hr' }),
@@ -1174,7 +1174,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'h4',
                                 { 'class': 'wa' },
-                                '\u0E17\u0E4D\u0E32\u0E43\u0E2B\u0E49 Vid \u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13\u0E19\u0E48\u0E32\u0E08\u0E14\u0E08\u0E4D\u0E32!'
+                                '\u0E17\u0E4D\u0E32\u0E43\u0E2B\u0E49\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13\u0E19\u0E48\u0E32\u0E08\u0E14\u0E08\u0E4D\u0E32!'
                             )
                         ),
                         this.state.reserve_occasion_html
@@ -1216,7 +1216,7 @@ var BookPage = function (_React$Component2) {
                 React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center mt-2 mb-5' },
-                    React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: 'Payment', 'class': 'btn' })
+                    React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: '\u0E2B\u0E19\u0E49\u0E32\u0E0A\u0E4D\u0E32\u0E23\u0E30\u0E40\u0E07\u0E34\u0E19', 'class': 'btn' })
                 )
             );
         }

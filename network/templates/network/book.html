@@ -8,6 +8,8 @@
                 {
                         document.querySelector('#wholereservepage').hidden = true
                         document.querySelector('#paymentpage').hidden = true
+                        document.querySelector('#realpayment').hidden = true
+
                         document.querySelector('#wholereservepage').hidden = false
                 }   
         </script>
@@ -27,23 +29,27 @@
 
 
         <div id="paymentpage">
-                <button onclick="backFunction()"class="btn">Back</button>
+                <div class="d-flex justify-content-center">
+                        <button onclick="backFunction()"class="btn registerback">กลับ</button>
+                </div>
         </div>
-        <div id="realpayment">
-                <form id="checkoutForm" method="POST" action="/paymentapi/{{ username }}" >
-                        {% csrf_token %}
-                        <script type="text/javascript" src="https://cdn.omise.co/omise.js"
-                                data-key="pkey_test_5rsv5lm4gxeb5fc9i2k"
-                                data-amount= "{{ price }}"
-                                data-currency="THB"
-                                data-default-payment-method="credit_card"
-                                data-other-payment-methods="truemoney, internet_banking, promptpay"
-                                data-button-label="จ่ายเงิน">
-                                
-                        </script>
-                        <input id="storevalueid" name="storevalue" id="dicttest"type="hidden" value="waandictionary"></input>
+        <div class="d-flex justify-content-center mt-5">
+                <div id="realpayment">
+                        <form id="checkoutForm" method="POST" action="/paymentapi/{{ username }}" >
+                                {% csrf_token %}
+                                <script type="text/javascript" src="https://cdn.omise.co/omise.js"
+                                        data-key="pkey_test_5rsv5lm4gxeb5fc9i2k"
+                                        data-amount= "{{ price }}"
+                                        data-currency="THB"
+                                        data-default-payment-method="credit_card"
+                                        data-other-payment-methods="truemoney, internet_banking, promptpay"
+                                        data-button-label="ชําระ">
+                                        
+                                </script>
+                                <input id="storevalueid" name="storevalue" id="dicttest"type="hidden" value="waandictionary"></input>
 
-                </form> 
+                        </form> 
+                </div>
         </div>
 {% else %}
 

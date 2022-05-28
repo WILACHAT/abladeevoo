@@ -1214,12 +1214,7 @@ padding: 10px;
   display: flex;
   justify-content: center;
 }
-.wae
-{
-  color:red;
-  font-family: 'Sarabun';
 
-}
 .coversalldiv
 {
   background-color: #e6e9ee;
@@ -1407,7 +1402,7 @@ margin-bottom: 0px;
 }
 .omise-checkout-button
 {
-  background-color: #008CBA; /* Green */
+  background-image: linear-gradient(90deg, #094FCB,#FF336F); /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -1415,7 +1410,7 @@ margin-bottom: 0px;
   text-decoration: none;
   display: inline-block;
   font-size: 100%;
-  border-radius: 5px;
+  border-radius: 40px;
 
 }
  *:before, *:after {
@@ -1762,6 +1757,15 @@ video{
   width:120px;
   height:100%;
   border-radius: 40px;
+}
+.registerback
+{
+  background-color:#FF336F;
+  color:white;
+  border:none;
+  width:120px;
+  height:100%;
+  border-radius: 100px;
 }
 .registerbtn
 {
@@ -2237,9 +2241,10 @@ html {
   height:50%;
   border-radius:40px;
   margin-top:40px;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 8%;
+  padding-right: 8%;
   padding-top: 12%;
+  padding-bottom: 12%;
 }
 @media only screen and (max-width: 600px) {
   .noorderyet {
@@ -2249,7 +2254,7 @@ html {
 
 
 .waa{
-  font-size:160%;
+  font-size:18px;
   font-family: 'Sarabun';
 }
 .waheading{

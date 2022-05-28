@@ -1446,18 +1446,25 @@ class InboxFeedInbox extends React.Component {
                             <div class="d-flex justify-content-center">
                             {this.state.newdata["type"] == "inbox" ? 
                               <div class="noorderyet">
-                              <div class="d-flex justify-content-center">
-                                <h1 class="waheading">ยังไม่มีออเดอร์ใน อินบ็อกซ์</h1></div>
-                      
-                                <div class="d-flex justify-content-center mt-4">
-                                    <h4 class="waa mr-3">ค้นหาสตาร์ในใจของคุณ: </h4>
-                                   <h4><a href={gotoindex} class="wae">หน้าหลัก</a></h4> 
-                                </div>
-                      
-                                <div class="d-flex justify-content-center mt-4">
-                                    <h4 class="waa mr-3">เรียนรู้เพิ่มเติมเกี่ยวกับเรา: </h4>
-                                   <h4><a href={gotoaboutus} class="wae">เกี่ยวกับเรา</a></h4> 
-                                </div>
+                              
+
+                                <div class="d-flex justify-content-center">
+                                    <div>
+                                    <div class="d-flex justify-content-center">
+                                            <h1 class="waheading">ยังไม่มีออเดอร์ในอินบ็อกซ์</h1>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-4">
+                                            <h4 class="waa mr-3">ค้นหาสตาร์: </h4>
+                                            <a href={gotoindex} class="wae">หน้าหลัก</a>                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <h4 class="waa mt-3">สอบถาม: vidma@vidma.tv</h4>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-4">
+                                            <h4 class="waa mr-3">เรียนรู้เพิ่มเติม: </h4>
+                                            <a href={gotoaboutus} class="wae">เกี่ยวกับเรา</a> 
+                                        </div>
+                                    </div>
+                                    </div>
                       
                             </div>: 
                        
@@ -1467,16 +1474,15 @@ class InboxFeedInbox extends React.Component {
                                     <div class="d-flex justify-content-center">
                                             <h1 class="waheading">คุณยังไม่มีออเดอร์ในรีเควสท์</h1>
                                         </div>
-                                        <div class="d-flex justify-content-center">
-                                            <h2 class="waa mt-2">เชิญชวนแฟนคลับของคุณมาใช้เลย!</h2>
+                                        <div class="d-flex justify-content-center mt-4">
+                                            <h2 class="waa mt-2">เชิญชวนแฟนคลับมาใช้เลย!</h2>
                                         </div>
                                         <div class="d-flex justify-content-center">
                                             <h4 class="waa mt-3">สอบถามเพิ่มเติม: vidma@vidma.tv</h4>
                                         </div>
-                                        <div class="d-flex justify-content-center">
+                                        <div class="d-flex justify-content-center mt-4">
                                             <h4 class="waa mt-3 mr-3">อ่านเรื่องเกี่ยวกับกฏหมาย:</h4>
-                                            <h4 class="mt-3"><a href="/legal" class="wae">เกี่ยวกับกฏหมาย</a></h4> 
-
+                                            <a href="/legal" class="wae mt-3">กฏหมาย</a>
                                         </div>
 
                                    

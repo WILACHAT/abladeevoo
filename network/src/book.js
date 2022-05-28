@@ -603,37 +603,38 @@ class BookPage extends React.Component {
    
     if (checkblank == 1)
     {
-        alert("Forgot to fill in at least one form")
+        alert("ลืมกรอกอย่างน้อย 1 ฟอร์ม")
     }
     else if (checkblank == 10)
     {
-        alert("luem tueng")
+        alert("ลืมกรอกฟอร์ม ถึงใคร")
     }
     else if (checkblank == 9)
     {
-        alert("luem jark")
+        alert("ลืมกรอกฟอร์ม จากใคร")
+
     }
     else if (checkblank == 8)
     {
-        alert("luem chong raek")
+        alert("ลืมกรอกเนื่องในโอกาสช่องแรก")
     }
     else if (checkblank == 7)
     {
-        alert("luem chong sorng")
+        alert("ลืมกรอกเนื่องในโอกาสช่องสอง")
     }  else if (checkblank == 6)
     {
-        alert("luem chong sarm")
+        alert("ลืมกรอกเนื่องในโอกาสช่องสาม")
     }  else if (checkblank == 5)
     {
-        alert("luem chong seeh")
+        alert("ลืมกรอกเนื่องในโอกาสช่องสี่")
     }
     else if (checkblank == 4)
     {
-        alert("luem sai date")
+        alert("ลืมกรอกวันที่")
     }
     else if (checkblank == 2)
     {
-        alert("Time must be atleast 1 day ahead")
+        alert("วันที่ต้องมากกว่าวันที่กรอกฟอร์มอย่างน้อย 1 วัน")
     }
     
     else
@@ -855,7 +856,7 @@ class BookPage extends React.Component {
             <div id="intro" class="d-flex justify-content-center">
                 <div class="bookdetails">
                     <div class="d-flex justify-content-center">
-                        <h4 class="wa">Vid นี้อยากทําให้ใคร: </h4>
+                        <h4 class="wa">วีดีโอนี้อยากทําให้ใคร: </h4>
                     </div>
                 
                     <hr class="hr"/>
@@ -891,7 +892,7 @@ class BookPage extends React.Component {
                         <button type="button" class= {this.state.colorof2 == "other" ? "btn successbutton": "btn failbutton"} id="otherbutton" onClick={this.changeOccasionReserve}><h6 id="otherbutton" onClick={this.changeOccasionReserve} class="wabuttontext">อื่นๆ</h6></button>              
                     </div>
                     <div class="d-flex justify-content-center mt-4">
-                        <h4 class="wa">ทําให้ Vid ของคุณน่าจดจํา!</h4>
+                        <h4 class="wa">ทําให้วีดีโอของคุณน่าจดจํา!</h4>
                     </div>
                     {this.state.reserve_occasion_html}
                 </div>
@@ -915,7 +916,7 @@ class BookPage extends React.Component {
             </div>
 
             <div class="d-flex justify-content-center mt-2 mb-5">
-                <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="Payment"class="btn"/>
+                <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="หน้าชําระเงิน"class="btn"/>
             </div>
 
          </div>

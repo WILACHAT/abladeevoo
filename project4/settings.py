@@ -27,9 +27,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '13kl@xtukpwe&xj2xoysxe9_6=tf@f8ewxer5n&ifnd46+6$%8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
+
+
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER='vidma@vidma.tv'
+EMAIL_HOST_PASSWORD='fljkasdpnewdqfsx'
+ADMIN_EMAIL='Vidma Team <noreply@vidma.tv'
+
 
 ALLOWED_HOSTS = ['plankton-app-d8rml.ondigitalocean.app', '127.0.0.1']
 
@@ -88,7 +98,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project4.wsgi.application'
 
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -141,7 +151,7 @@ if POSTGRES_READY:
         }
     }
 
-
+'''
 
 AUTH_USER_MODEL = "network.User"
 
