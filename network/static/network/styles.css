@@ -795,16 +795,15 @@ padding: 10px;
   justify-content: center;
   padding-left:5%;
   padding-top:3%;
+  margin-right:2%;
   width:50%;
-  padding-right:3%;
 }
 
 .coversvdointro
 {
   width:100%;
-  padding:10px;
+  padding:3%;
   padding-top:15%;
-  padding-right:50%;
 
 
   justify-content: center;
@@ -816,19 +815,12 @@ padding: 10px;
     width:100%;
     padding-left:2%;
   }
-  .coversvdointro
-  {
-    padding-left:50%;
 
-  }
 
 
 }
 @media only screen and (max-width: 900px) {
-  .coversvdointro
-  {
-    padding-left:50%;
-  }
+
   .divcolumn
   {
     width:100%;
@@ -875,7 +867,6 @@ padding: 10px;
   }
   .enough{
     margin-top:500px;
-    justify-content: center;
   }
  
 }
