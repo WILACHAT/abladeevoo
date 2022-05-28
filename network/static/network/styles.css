@@ -795,13 +795,13 @@ padding: 10px;
   justify-content: center;
   padding-left:5%;
   padding-top:3%;
-  margin-right:2%;
   width:50%;
+  padding-right:3%;
 }
 
 .coversvdointro
 {
-  width:400px;
+  width:100%;
   padding:10px;
   padding-top:15%;
   padding-right:50%;
@@ -836,6 +836,8 @@ padding: 10px;
     padding-left:2%;
 
   }
+
+
   .controlininfluencer
   {
     flex-direction: column;
@@ -873,6 +875,7 @@ padding: 10px;
   }
   .enough{
     margin-top:500px;
+    justify-content: center;
   }
  
 }

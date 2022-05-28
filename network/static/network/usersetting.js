@@ -178,7 +178,7 @@ var Information = function (_React$Component) {
     value: function render() {
       var link = "";
       console.log("what", this.state.profilepic);
-      if (this.state.profilepic != "") {
+      if (this.state.profilepic != null) {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
         console.log("this is the new type of if in image");
       } else {
