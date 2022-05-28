@@ -80,6 +80,7 @@ var InfluencerFeedRows = function (_React$Component) {
       console.log("wawa", this.props.data);
       var thewholereturn = "";
       if (this.props.feedtype == "main") {
+
         var link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4";
         thewholereturn = React.createElement(
           'div',
@@ -92,8 +93,8 @@ var InfluencerFeedRows = function (_React$Component) {
               { 'class': 'd-flex justify-content-center' },
               React.createElement(
                 'video',
-                { 'class': 'videoshow', id: 'testervideo', width: '320', height: '240', controls: true },
-                React.createElement('source', { src: link }),
+                { autoplay: 'true', 'class': 'videoshow', muted: 'true', id: 'testervideo', width: '320', height: '240', controls: true },
+                React.createElement('source', { src: link, type: 'video/mp4' }),
                 'Your browser does not support the video tag.'
               )
             ),
@@ -116,6 +117,7 @@ var InfluencerFeedRows = function (_React$Component) {
         } else {
           _link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["picture"] + ".jpg";
         }
+        console.log("this is the link", _link);
         thewholereturn = React.createElement(
           'div',
           { 'class': 'grid' },
@@ -199,7 +201,7 @@ var InfluencerFeedTable = function (_React$Component2) {
             { 'class': 'd-flex justify-content-center mt-3 mb-5' },
             React.createElement(
               'h6',
-              { 'class': 'wanopostyet' },
+              { 'class': 'wanopostyetyet' },
               '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E42\u0E1E\u0E2A'
             )
           ) : React.createElement(
@@ -224,7 +226,7 @@ var InfluencerFeedTable = function (_React$Component2) {
             { 'class': 'd-flex justify-content-center mt-3 mb-5' },
             React.createElement(
               'h6',
-              { 'class': 'wanopostyet' },
+              { 'class': 'wanopostyetyet' },
               '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E23\u0E35\u0E27\u0E34\u0E27'
             )
           ) : React.createElement(
@@ -732,6 +734,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
     value: function render() {
       var link = "";
       var videolink = "";
+      console.log("pricelulu", this.props.data["userinfodata"][0]["price"]);
       //THIS IS A NEW PROBLEM TO FIX
       //the user info data is fucked or essentially its blank and query anything
       var bookhtmllink = "/book/" + this.props.data["username"];
@@ -739,6 +742,8 @@ var InfluencerFeedTitle = function (_React$Component4) {
       if (this.state.profilepic != "") {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
         console.log("this is the new type of if in image");
+      } else {
+        link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png";
       }
       if (this.state.profilevideo != "") {
         videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4";
@@ -788,6 +793,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
       console.log("earthwa", this.props.data["userinfodata"][0]["price"]);
 
       console.log("daijoubu dayou", this.props.data);
+
       return React.createElement(
         'div',
         null,
@@ -831,8 +837,8 @@ var InfluencerFeedTitle = function (_React$Component4) {
                         ),
                         React.createElement(
                           'div',
-                          { 'class': 'd-flex justify-content-center ' },
-                          React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
+                          { 'class': 'd-flex justify-content-center coverchoosefile' },
+                          React.createElement('input', { id: 'choosefile', 'class': 'choosefile ml-5', onChange: this.chooseFile, type: 'file' })
                         )
                       ) : null,
                       React.createElement(
@@ -840,7 +846,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
                         { 'class': 'd-flex justify-content-center' },
                         React.createElement(
                           'h1',
-                          null,
+                          { 'class': 'usernameininfluencer' },
                           this.props.data['username']
                         )
                       ),
@@ -859,7 +865,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
                         React.createElement(
                           'button',
                           { type: 'button', 'class': 'btn registersmall', onClick: this.editProfile },
-                          '\u0E41\u0E01\u0E49\u0E44\u0E02\u0E0A\u0E37\u0E48\u0E2D-\u0E19\u0E32\u0E21\u0E2A\u0E01\u0E38\u0E25'
+                          '\u0E41\u0E01\u0E49\u0E44\u0E02\u0E0A\u0E37\u0E48\u0E2D'
                         )
                       ) : null,
                       React.createElement(
@@ -1004,7 +1010,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
               React.createElement(
                 'div',
                 { 'class': 'd-flex justify-content-center mt-5' },
-                this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
+                this.props.data["userinfodata"][0]["price"] != null ? this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
                   'a',
                   { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
                   '\u0E08\u0E2D\u0E07\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49: ',
@@ -1014,14 +1020,35 @@ var InfluencerFeedTitle = function (_React$Component4) {
                   'div',
                   null,
                   '\u0E1A\u0E31\u0E0D\u0E0A\u0E35\u0E2B\u0E22\u0E38\u0E14\u0E0A\u0E31\u0E48\u0E27\u0E04\u0E23\u0E32\u0E27'
-                )
+                ) : React.createElement(
+                  'div',
+                  null,
+                  '\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E44\u0E14\u0E49\u0E17\u0E4D\u0E32\u0E40\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E40\u0E07\u0E34\u0E19'
+                ),
+                ' '
               )
             ),
             this.state.edit,
             React.createElement(
               'div',
-              { 'class': 'd-flex justify-content-center' },
-              React.createElement(
+              null,
+              videolink == "" ? React.createElement(
+                'div',
+                { 'class': 'd-flex justify-content-center' },
+                React.createElement(
+                  'div',
+                  { 'class': 'covercoverwanopostyet mt-5' },
+                  React.createElement(
+                    'div',
+                    { 'class': 'coverwanopostyet' },
+                    React.createElement(
+                      'h6',
+                      { 'class': 'wanopostyet' },
+                      '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27'
+                    )
+                  )
+                )
+              ) : React.createElement(
                 'div',
                 { 'class': 'coversvdointro d-flex justify-content-center' },
                 React.createElement(
@@ -1029,19 +1056,11 @@ var InfluencerFeedTitle = function (_React$Component4) {
                   { 'class': 'd-flex flex-column ' },
                   React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    videolink == "" ? React.createElement(
-                      'div',
-                      null,
-                      React.createElement(
-                        'h6',
-                        { 'class': 'wanopostyet' },
-                        '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27'
-                      )
-                    ) : React.createElement(
+                    { 'class': 'd-flex justify-content-center ' },
+                    videolink == "" ? null : React.createElement(
                       'video',
-                      { 'class': 'almostvideovideowhenget', id: 'introvideo', controls: true },
-                      React.createElement('source', { src: videolink }),
+                      { autoplay: 'true', muted: 'true', 'class': 'almostvideovideowhenget', id: 'introvideo', controls: true },
+                      React.createElement('source', { src: videolink, type: 'video/mp4' }),
                       'Your browser does not support the video tag.'
                     )
                   ),

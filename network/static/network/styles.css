@@ -798,6 +798,7 @@ padding: 10px;
   margin-right:2%;
   width:50%;
 }
+
 .coversvdointro
 {
   width:400px;
@@ -831,7 +832,9 @@ padding: 10px;
   .divcolumn
   {
     width:100%;
-    padding-right:5%;
+    padding-right:2%;
+    padding-left:2%;
+
   }
   .controlininfluencer
   {
@@ -1220,11 +1223,41 @@ padding: 10px;
   width:100%;
   flex-wrap: wrap;
 }
-
+.usernameininfluencer
+{
+  text-align: center;
+  width:100%;
+}
+@media only screen and (max-width: 750px) {
+  .usernameininfluencer
+  {
+    font-size: 125%;
+  }
+  .forfont
+  {    font-size:15px;
+  }
+}
+.covercoverwanopostyet
+{
+  justify-content: center;
+  align-items: center;
+}
+.coverwanopostyet
+{
+  width:100%;
+  
+}
 .wanopostyet
 {
   font-family: 'Sarabun';
-  font-size: 200%;
+  font-size:35px;
+  color:red;
+  
+
+}
+.wanopostyetyet
+{
+  font-family: 'Sarabun';
 
 }
 .wangong
@@ -1717,7 +1750,7 @@ video{
   background-image: linear-gradient(90deg, #094FCB,#FF336F);
   color:white;
   border:none;
-  width:35%;
+  width:120px;
   height:100%;
   border-radius: 40px;
 }
@@ -1765,6 +1798,11 @@ video{
   padding:2%;
   background-color:white;
   border-radius: 10px;
+}
+.coverchoosefile
+{
+  word-wrap: break-word;
+
 }
 
 .coversbank

@@ -152,7 +152,7 @@ function getCookie(name) {
       }
       else
       {
-         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
+         link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png"
       }
 
       

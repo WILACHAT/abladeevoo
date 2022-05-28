@@ -72,13 +72,14 @@ render()
   let thewholereturn = ""
   if (this.props.feedtype == "main")
   {
+
     let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4"
     thewholereturn = 
     <div class="d-flex justify-comlumn">
       <div  class="videomaincover mt-3 ml-2">
         <div class="d-flex justify-content-center">
-          <video class="videoshow" id="testervideo" width="320" height="240" controls>
-            <source src={link}></source>
+          <video autoplay="true" class="videoshow" muted="true"  id="testervideo" width="320" height="240" controls >
+            <source src={link} type="video/mp4"></source>
             Your browser does not support the video tag.
           </video>
         
@@ -102,6 +103,7 @@ render()
     {
       link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["picture"] + ".jpg"
     }
+    console.log("this is the link", link)
     thewholereturn =  
     <div class="grid">
       <div class="reviewmaincover d-flex justify-content-center">
@@ -154,7 +156,7 @@ class InfluencerFeedTable extends React.Component {
       
             {this.props.data["feedtype"] == "main" ? <div><div class="d-flex justify-content-center"><h1 class="wa mt-3">วีดีโอตัวอย่าง</h1></div>{this.props.data["alldata"] == "" ? 
             <div class="d-flex justify-content-center mt-3 mb-5">
-              <h6 class="wanopostyet">ยังไม่มีโพส</h6>
+              <h6 class="wanopostyetyet">ยังไม่มีโพส</h6>
             </div>: 
             <div class="grid d-flex justify-content-center">
               {rows}
@@ -167,7 +169,7 @@ class InfluencerFeedTable extends React.Component {
                   {this.props.data["alldata"] == "" ? 
                   
                   <div class="d-flex justify-content-center mt-3 mb-5">
-                  <h6 class="wanopostyet">ยังไม่มีรีวิว</h6>
+                  <h6 class="wanopostyetyet">ยังไม่มีรีวิว</h6>
                 </div>: 
 
                   <div class="row d-flex justify-content-center">
@@ -703,6 +705,7 @@ class InfluencerFeedTitle extends React.Component {
     render() {
       let link = ""
       let videolink = ""
+      console.log("pricelulu", this.props.data["userinfodata"][0]["price"])
       //THIS IS A NEW PROBLEM TO FIX
       //the user info data is fucked or essentially its blank and query anything
       let bookhtmllink = "/book/"+this.props.data["username"]
@@ -711,6 +714,11 @@ class InfluencerFeedTitle extends React.Component {
       {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg"
         console.log("this is the new type of if in image")
+      }
+      else
+      {
+        link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png"
+
       }
       if (this.state.profilevideo != "")
       {
@@ -780,8 +788,10 @@ class InfluencerFeedTitle extends React.Component {
       }
 
       console.log("earthwa", this.props.data["userinfodata"][0]["price"])
+      
 
       console.log("daijoubu dayou", this.props.data)
+        
         return (
          <div>
                 <div>
@@ -804,15 +814,15 @@ class InfluencerFeedTitle extends React.Component {
                                           <div class="d-flex justify-content-center">
                                               <label >กดเพื่อเปลี่ยนรูปโปรไฟล์</label>
                                           </div>
-                                          <div class="d-flex justify-content-center ">
-                                              <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>                  
+                                          <div class="d-flex justify-content-center coverchoosefile">
+                                              <input id="choosefile" class="choosefile ml-5" onChange={this.chooseFile} type="file"></input>                  
                                           </div>
                                       </div> 
                                   :null}
 
 
                                   <div class="d-flex justify-content-center">
-                                      <h1 >{this.props.data['username']}</h1>
+                                      <h1 class="usernameininfluencer">{this.props.data['username']}</h1>
                                   </div>   
 
  
@@ -821,7 +831,7 @@ class InfluencerFeedTitle extends React.Component {
                                       {this.state.fullname}
                                     </div>
                                   </div>
-                                  {this.props.data["sameperson"] == 1 ? <div class="d-flex justify-content-center mt-2"><button type="button" class="btn registersmall" onClick={this.editProfile}>แก้ไขชื่อ-นามสกุล</button></div>:null}
+                                  {this.props.data["sameperson"] == 1 ? <div class="d-flex justify-content-center mt-2"><button type="button" class="btn registersmall" onClick={this.editProfile}>แก้ไขชื่อ</button></div>:null}
 
                                   <div hidden id="thefullnameidedit">
                                       <div class="d-flex justify-content-center mt-1 mb-1">
@@ -889,24 +899,38 @@ class InfluencerFeedTitle extends React.Component {
                              </div>
                              </div>
 
+
                               <div class="d-flex justify-content-center mt-5">
-                            {this.props.data.accountstatus == 1 ? 
+                              {this.props.data["userinfodata"][0]["price"] != null ?
+
+                            
+                            this.props.data.accountstatus == 1 ? 
                               this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton"  href={bookhtmllink}>จองตอนนี้: {this.props.data["userinfodata"][0]["price"]}฿</a>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>
-                            }
-                            </div>
+                            
+                              :<div>สตาร์ยังไม่ได้ทําเรื่องการเงิน</div>} </div>
 
                                 </div>
                         {this.state.edit}
 
+                          
+                            <div>
+                            {videolink == "" ? 
                             <div class="d-flex justify-content-center">
-                            <div class="coversvdointro d-flex justify-content-center">
+                            <div class="covercoverwanopostyet mt-5">
+                              <div class="coverwanopostyet">
+                                    <h6 class="wanopostyet">ยังไม่มีวีดีโอแนะนําตัว</h6>
+                              </div>
+                            </div>
+                            </div>
+                                : <div class="coversvdointro d-flex justify-content-center">
+                               
+
                                 <div class="d-flex flex-column ">
-                                    <div class="d-flex justify-content-center">
-                                   {videolink == "" ? <div>
-                                     <h6 class="wanopostyet">ยังไม่มีวีดีโอแนะนําตัว</h6>
-                                   </div>:
-                                      <video class="almostvideovideowhenget" id="introvideo" controls>
-                                      <source src={videolink}></source>
+                                    <div class="d-flex justify-content-center ">
+                                   {videolink == "" ? 
+                                  null:
+                                      <video autoplay="true" muted="true" class="almostvideovideowhenget" id="introvideo" controls >
+                                      <source src={videolink} type="video/mp4"></source>
                                       Your browser does not support the video tag.
                                    </video>  }
                                                                 
@@ -929,8 +953,10 @@ class InfluencerFeedTitle extends React.Component {
 
                                     </div>}
                                 </div>
-                            </div>
-                            </div>
+                              </div>
+                        
+                           
+        }</div>
                     </div>
              </div>
 

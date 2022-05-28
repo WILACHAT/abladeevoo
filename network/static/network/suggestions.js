@@ -196,7 +196,7 @@ var SuggestionsRow = function (_React$Component3) {
       if (this.props.profile_picture != null) {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.profile_picture + ".jpg";
       } else {
-        link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
+        link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png";
       }
 
       // might be of use so yea

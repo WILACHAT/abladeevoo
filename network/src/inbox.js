@@ -839,20 +839,29 @@ class EachReserve extends React.Component{
         
         let link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
 
+        console.log("mamamememomo", this.props.data["data"][0].normal_pic)
         if (document.querySelector('#typeofpage').value == "inbox")
         {
-            if (this.props.data["data"][0].influencer_pic != null || this.props.data["data"][0].influencer_pic != "")
+            if (this.props.data["data"][0].influencer_pic != null)
             {
                 link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["data"][0].influencer_pic + ".jpg"
 
+            }
+            else
+            {
+                link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png"
             }
      
         }
         else
         {
-            if (this.props.data["data"][0].influencer_pic != null || this.props.data["data"][0].influencer_pic != "")
+            if (this.props.data["data"][0].normal_pic != null)
             {
                 link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["data"][0].normal_pic + ".jpg"
+            }
+            else
+            {
+                link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
             }
         }
 
@@ -1046,7 +1055,7 @@ class InboxFeedRows extends React.Component {
         {
             if (this.props.influencer_pic == null)
             {
-              link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
+              link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png"
         
             }
             else

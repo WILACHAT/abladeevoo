@@ -181,6 +181,8 @@ var Information = function (_React$Component) {
       if (this.state.profilepic != "") {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
         console.log("this is the new type of if in image");
+      } else {
+        link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
       }
 
       console.log("this", this.props.data["data"][0]);
