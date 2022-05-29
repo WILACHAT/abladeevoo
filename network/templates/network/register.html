@@ -4,6 +4,18 @@
 <script src="https://www.google.com/recaptcha/api.js?hl=th" async defer></script>
 
 <script>
+    document.querySelector('#tooltiptextid').hidden = true
+    function ngongMak()
+    {
+        
+        document.querySelector('#tooltiptextid').hidden = true
+    }
+
+    function clickPassword()
+    {
+        
+        document.querySelector('#tooltiptextid').hidden = false
+    }
     function onSubmit()
     {
         document.querySelector('#registerid').hidden = false
@@ -16,6 +28,8 @@
         })
     }
    
+    document.querySelector('#tooltiptextid').hidden = true
+
 
 </script>
     <div class="godown"></div>
@@ -58,7 +72,7 @@
 
     
 
-    <form action="{% url 'register' %}" method="post">
+    <form onClick="ngongMak()" action="{% url 'register' %}" method="post">
 
         {% csrf_token %}
         <div class="d-flex justify-content-center mt-4">
@@ -80,6 +94,7 @@
                 <div class="d-flex justify-content-center">
                     <input class="inputhehorelog" type="email" name="email" placeholder="ตัวอย่าง: araisukyarng@gmail.com">
                 </div>
+
             </div>
         </div>
 
@@ -89,9 +104,13 @@
                 <div class="d-flex justify-content-start">
                     <label class="labeldara" for="cars">รหัสผ่าน:</label>
                 </div>
+
+   
                 <div class="d-flex justify-content-center">
-                    <input class="inputhehorelog" type="password" name="password" placeholder="ตัวอย่าง: Abcdefg123" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="ต้องมีเลขอย่างน้อยหนึ่งตัว ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวใหญ่อย่างน้อยหนึ่งตัว และ ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวเล็กอย่างน้อยหนึ่งตัว, สุดท้ายต้องมีความยาวมากกว่า 8 ตัวอักษร Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+                    <input class="inputhehorelog" type="password" name="password" placeholder="ตัวอย่าง: abcdefgh" pattern="{8,}" title="ต้องมีความยาวมากกว่า 8 ตัวอักษร ">
                 </div>
+                <label class="wapassword d-flex justify-content-center">ต้องมีความยาวมากกว่า 8 ตัวอักษร</label> 
+
             </div>
         </div>
 
@@ -107,11 +126,10 @@
         </div>
 
 
-        <label class="wa d-flex justify-content-center mt-2">*อีเมลของท่านจะถูกใช้ในกรณีที่ลืมรหัสผ่าน*</label>
-        <label class="wa d-flex justify-content-center mt-2">*รหัสผ่านต้องมีเลขอย่างน้อยหนึ่งตัว ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวใหญ่อย่างน้อยหนึ่งตัว*</label>
-        <label class="wa d-flex justify-content-center mt-2">*ต้องมีตัวอักษรตัวพิมพ์อังกฤษตัวเล็กอย่างน้อยหนึ่งตัว, และต้องมีความยาวมากกว่า 8 ตัวอักษร*</label>        
+        <label class="d-flex justify-content-center mt-2">*การสร้างบัญชีแสดงว่าคุณยอมรับและอ่าน <a href="/legal">กฏหมาย</a>ของ Vidma เป็นอย่างดีแล้ว*</label>        
+       
         
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mt-2">
             <div class="g-recaptcha" data-theme='light'data-callback='onSubmit' data-error-callback='botdetected' data-sitekey="6LdALikgAAAAABZj10DvMclBlWPsZ3D8mB3i-6C7"></div>
         </div>
 
