@@ -1817,6 +1817,21 @@ video{
   word-wrap: break-word;
 
 }
+.wanoresult
+{
+  padding-bottom:7%;
+}
+@media only screen and (max-width: 600px) {
+  .wanoresult {
+    padding-bottom:3%;
+    padding-top:3%;
+    padding-left:3%;
+
+
+
+  }
+}
+
 
 .coversbank
 {

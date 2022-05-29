@@ -164,11 +164,11 @@ var Information = function (_React$Component) {
           }
         } else {
           Swal.fire({
-            icon: 'success',
-            title: 'อิอิอิ',
-            text: 'เปลี่ยนแปลงสําเร็จ!',
-            footer: '<a href="/">กลับหน้าหลัก</a>'
+            title: 'เปลี่ยนแปลงสําเร็จ',
+            timer: 800
 
+          }).then(function () {
+            window.location.href = '/usersetting';
           });
         }
       });

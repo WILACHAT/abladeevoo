@@ -51,17 +51,14 @@ var SearchBar = function (_React$Component) {
       return React.createElement(
         'div',
         { 'class': 'divsearch d-flex justify-content-center' },
-        React.createElement(
-          'form',
-          null,
-          React.createElement('input', {
-            id: 'searchid',
-            type: 'text',
-            'class': 'inputhehosearch form-control d-flex justify-content-center',
-            placeholder: '\u0E04\u0E49\u0E19\u0E2B\u0E32',
-            value: this.props.searchtext,
-            onChange: this.checkSearch })
-        )
+        React.createElement('input', {
+          id: 'searchid',
+          type: 'text',
+          'class': 'inputhehosearch form-control d-flex justify-content-center',
+          placeholder: '\u0E04\u0E49\u0E19\u0E2B\u0E32',
+          value: this.props.searchtext,
+          onChange: this.checkSearch
+        })
       );
     }
   }]);
@@ -126,17 +123,28 @@ var SuggestionTable = function (_React$Component2) {
       </div>
       */
 
-      for (var i = 0; i < this.state.newdata.length; i++) {
-        //console.log("lol wtf", this.props.data[i])
+      if (this.state.newdata.length != 0) {
+        for (var i = 0; i < this.state.newdata.length; i++) {
+          console.log("bakano");
+          //console.log("lol wtf", this.props.data[i])
+          suggestion_rows.push(React.createElement(SuggestionsRow, {
+            id: this.state.newdata[i].id,
+            username: this.state.newdata[i].username,
+            email: this.state.newdata[i].email,
+            influencer_ornot: this.state.newdata[i].influencer_ornot,
+            freeze_account: this.state.newdata[i].freeze_account,
+            fullname: this.state.newdata[i].fullname,
+            profile_picture: this.state.newdata[i].profile_picture,
+            lengthh: this.state.newdata.length
+          }));
+        }
+      } else {
         suggestion_rows.push(React.createElement(SuggestionsRow, {
-          id: this.state.newdata[i].id,
-          username: this.state.newdata[i].username,
-          email: this.state.newdata[i].email,
-          influencer_ornot: this.state.newdata[i].influencer_ornot,
-          freeze_account: this.state.newdata[i].freeze_account,
-          fullname: this.state.newdata[i].fullname,
-          profile_picture: this.state.newdata[i].profile_picture }));
+
+          lengthh: this.state.newdata.length
+        }));
       }
+
       console.log(this.props.type);
       return React.createElement(
         'div',
@@ -206,29 +214,40 @@ var SuggestionsRow = function (_React$Component3) {
       //not sure wa mee tummai but geb whai gorn
       //<h5>{this.props.influencer_ornot}</h5>
       //<h5>{this.props.freeze_account}</h5>
+      console.log("bakayarou", this.props.lengthh);
+
       return React.createElement(
         'div',
-        { 'class': 'perbox' },
-        React.createElement(
-          'a',
-          { name: 'goodmorning', 'class': 'goodmorning d-flex justify-content-center mb-3', href: ininfluencer_link },
+        null,
+        this.props.lengthh != 0 ? React.createElement(
+          'div',
+          { 'class': 'perbox' },
           React.createElement(
-            'div',
-            { 'class': 'd-flex flex-column' },
-            React.createElement('img', { 'class': 'imgindex', width: '240', height: '300', src: link }),
+            'a',
+            { name: 'goodmorning', 'class': 'goodmorning d-flex justify-content-center mb-3', href: ininfluencer_link },
             React.createElement(
-              'h5',
-              { name: 'posterr', 'class': 'indexusername' },
-              this.props.username
-            ),
-            React.createElement(
-              'h5',
-              { 'class': 'indexfullname' },
-              this.props.fullname
+              'div',
+              { 'class': 'd-flex flex-column' },
+              React.createElement('img', { 'class': 'imgindex', width: '240', height: '300', src: link }),
+              React.createElement(
+                'h5',
+                { name: 'posterr', 'class': 'indexusername' },
+                this.props.username
+              ),
+              React.createElement(
+                'h5',
+                { 'class': 'indexfullname' },
+                this.props.fullname
+              )
             )
-          )
+          ),
+          React.createElement('hr', { 'class': 'hrindex' })
+        ) : React.createElement(
+          'h3',
+          { 'class': 'wanoresult' },
+          '\u0E44\u0E21\u0E48\u0E04\u0E49\u0E19\u0E1E\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E17\u0E35\u0E48\u0E04\u0E38\u0E13\u0E04\u0E49\u0E19\u0E2B\u0E32'
         ),
-        React.createElement('hr', { 'class': 'hrindex' })
+        ' '
       );
     }
   }]);

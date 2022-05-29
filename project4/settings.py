@@ -14,6 +14,12 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+#SITE KEY RECAPTCHA
+#6LdALikgAAAAABZj10DvMclBlWPsZ3D8mB3i-6C7
+
+#SECRET KEY RECAPTCHA
+#6LdALikgAAAAAKf0c3HrXIUxPC--TAs12bONvkzh
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,7 +33,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '13kl@xtukpwe&xj2xoysxe9_6=tf@f8ewxer5n&ifnd46+6$%8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 

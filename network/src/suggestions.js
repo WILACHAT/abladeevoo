@@ -18,7 +18,9 @@ function getCookie(name) {
         super(props);
         this.checkSearch = this.checkSearch.bind(this);
 
+
     };
+
     checkSearch(e) {      
       //if (e.target.value !=  "")
      // {
@@ -32,15 +34,14 @@ function getCookie(name) {
    
         return (
           <div class="divsearch d-flex justify-content-center">
-            <form>
           <input
             id="searchid"
             type="text"
             class="inputhehosearch form-control d-flex justify-content-center"
             placeholder="ค้นหา"
             value={this.props.searchtext} 
-            onChange={this.checkSearch}/>
-        </form>
+            onChange={this.checkSearch}
+            />
           </div>
         );
       }
@@ -63,6 +64,7 @@ function getCookie(name) {
     }
     mainSearch(searchtext)
     {
+      
       console.log("searchtext", searchtext)
       this.setState({searchtext: searchtext})
       const getcooked = getCookie('csrftoken')
@@ -97,21 +99,41 @@ function getCookie(name) {
       </div>
       </div>
       */
+
+
       
-      for (let i = 0; i < this.state.newdata.length; i++)
+      if (this.state.newdata.length != 0)
       {
-        //console.log("lol wtf", this.props.data[i])
+        for (let i = 0; i < this.state.newdata.length; i++)
+        {
+          console.log("bakano")
+          //console.log("lol wtf", this.props.data[i])
+          suggestion_rows.push(
+            <SuggestionsRow
+                id={this.state.newdata[i].id}
+                username={this.state.newdata[i].username}
+                email={this.state.newdata[i].email}
+                influencer_ornot={this.state.newdata[i].influencer_ornot}
+                freeze_account={this.state.newdata[i].freeze_account}
+                fullname={this.state.newdata[i].fullname}
+                profile_picture={this.state.newdata[i].profile_picture}
+                lengthh={this.state.newdata.length}
+                />
+          );
+        }
+      }
+      else
+      {
         suggestion_rows.push(
           <SuggestionsRow
-              id={this.state.newdata[i].id}
-              username={this.state.newdata[i].username}
-              email={this.state.newdata[i].email}
-              influencer_ornot={this.state.newdata[i].influencer_ornot}
-              freeze_account={this.state.newdata[i].freeze_account}
-              fullname={this.state.newdata[i].fullname}
-              profile_picture={this.state.newdata[i].profile_picture}/>
+    
+              lengthh={this.state.newdata.length}
+              />
         );
+
+
       }
+  
       console.log(this.props.type)
         return (
           <div id="control-suggestions" class="control-suggestions">
@@ -163,8 +185,13 @@ function getCookie(name) {
       //not sure wa mee tummai but geb whai gorn
       //<h5>{this.props.influencer_ornot}</h5>
       //<h5>{this.props.freeze_account}</h5>
+      console.log("bakayarou", this.props.lengthh)
+
         return (
-          <div class="perbox">
+          <div>
+                      {this.props.lengthh != 0 ? 
+
+<div class="perbox">
         <a name="goodmorning" class="goodmorning d-flex justify-content-center mb-3" href={ininfluencer_link}> 
           <div class="d-flex flex-column">
             <img class="imgindex" width="240" height="300" src={link}></img>
@@ -175,7 +202,9 @@ function getCookie(name) {
         </a>
         <hr class="hrindex"></hr>
    
-        </div>
+        </div>: <h3 class="wanoresult">ไม่ค้นพบสตาร์ที่คุณค้นหา</h3>} </div>
+
+
         )
 
       }

@@ -729,6 +729,8 @@ def register(request):
         username = request.POST["username"]
         email = request.POST["email"]
 
+    
+
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -740,17 +742,22 @@ def register(request):
         # Attempt to create new user
         try:
             print("does it even comes in here")
+            
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError as e:
+            print("probably not")
             error_message = e.__cause__
+            print(error_message)
             error_message = str(error_message)
             if "Key (e" in error_message:
+                print("mailerror")
                 return render(request, "network/register.html", {
                 "message": "email"
             })
 
             else:
+                print("messageerror")
                 return render(request, "network/register.html", {
                 "message": "username"
             })
