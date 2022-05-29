@@ -74,6 +74,7 @@ import subprocess
 import os
 import omise
 from django.conf import settings
+from django.core.mail import send_mail
 
 
 
@@ -102,6 +103,7 @@ def aboutus(request):
 
 def index(request):
     seconds = time.time()
+
     #internet banking
     #chrg_test_5rum3y82hqozzcladoc
     #chrg_test_5rumbtxocxkiobgb6m8
@@ -637,6 +639,13 @@ def gotoeachreserve(request):
             transfer = omise.Transfer.create(
             amount=price, recipient=recipientinfluencer.id,paid=True, sent=True)
             
+     #       send_mail(
+     #   'Your Video is done',
+     #   "you are cool, and you are doing good",
+     #   "vidma@vidma.tv",
+     #   ['waanwaanwilachat@gmail.com'],
+     #   )
+            
             Reservation.objects.filter(id=data["reserveid"]).update(completed = True, completiondate = today)
         
         elif data["type"] == "submitreview":
@@ -742,7 +751,7 @@ def register(request):
         # Attempt to create new user
         try:
             print("does it even comes in here")
-            
+
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError as e:

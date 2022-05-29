@@ -349,8 +349,8 @@ var EachReserve = function (_React$Component) {
                             { 'class': 'd-flex justify-content-center' },
                             React.createElement(
                                 'video',
-                                { id: 'testervideo', 'class': 'videovideowhenget', controls: true },
-                                React.createElement('source', { src: link }),
+                                { autoplay: 'true', muted: 'true', id: 'testervideo', 'class': 'videovideowhenget', controls: true },
+                                React.createElement('source', { type: 'video/mp4', src: link }),
                                 'Your browser does not support the video tag.'
                             )
                         ),
@@ -405,8 +405,8 @@ var EachReserve = function (_React$Component) {
                                     { 'class': 'd-flex justify-content-center' },
                                     React.createElement(
                                         'video',
-                                        { hidden: true, id: 'testervideo', 'class': 'videovideowhenget', controls: true },
-                                        React.createElement('source', { src: link }),
+                                        { autoplay: 'true', muted: 'true', hidden: true, id: 'testervideo', 'class': 'videovideowhenget', controls: true },
+                                        React.createElement('source', { type: 'video/mp4', src: link }),
                                         'Your browser does not support the video tag.'
                                     )
                                 )

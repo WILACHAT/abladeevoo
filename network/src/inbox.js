@@ -370,8 +370,8 @@ class EachReserve extends React.Component{
             <div class="videowhenget">
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-center">
-                        <video id="testervideo" class="videovideowhenget" controls>
-                            <source src={link}></source>
+                        <video autoplay="true" muted="true" id="testervideo" class="videovideowhenget" controls>
+                            <source type="video/mp4" src={link}></source>
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -409,8 +409,8 @@ class EachReserve extends React.Component{
                                   </div>
                               </div>
                               <div class="d-flex justify-content-center">
-                        <video hidden id="testervideo" class="videovideowhenget" controls>
-                            <source src={link}></source>
+                        <video autoplay="true" muted="true" hidden id="testervideo" class="videovideowhenget" controls>
+                            <source type="video/mp4" src={link}></source>
                             Your browser does not support the video tag.
                         </video>
                     </div>
