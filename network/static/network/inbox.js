@@ -250,29 +250,36 @@ var EachReserve = function (_React$Component) {
             var value = document.querySelector('#sendingbacktorequest').value;
             var reserveid = this.props.data["data"][0].id;
             var videoid = document.querySelector('#sendingvideoidback').name;
+            if (videoid != "") {
+                var getcooked = getCookie('csrftoken');
 
-            var getcooked = getCookie('csrftoken');
+                fetch('/gotoeachreserve', {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': getcooked },
+                    body: JSON.stringify({
+                        value: value,
+                        reserveid: reserveid,
+                        type: "submitvdo",
+                        videoid: videoid
+                    })
+                }).then(function (result) {
+                    Swal.fire({
+                        title: 'สําเร็จ!',
+                        showCancelButton: false,
+                        showConfirmButton: false
 
-            fetch('/gotoeachreserve', {
-                method: 'POST',
-                headers: { 'X-CSRFToken': getcooked },
-                body: JSON.stringify({
-                    value: value,
-                    reserveid: reserveid,
-                    type: "submitvdo",
-                    videoid: videoid
-                })
-            }).then(function (result) {
+                    });
+                    setTimeout(function () {
+                        window.location.href = "/inbox";
+                    }, 800);
+                });
+            } else {
                 Swal.fire({
-                    title: 'สําเร็จ!',
-                    showCancelButton: false,
-                    showConfirmButton: false
+                    icon: 'error',
+                    title: 'คุณยังไม่ได้อัพโหลดวีดีโอ'
 
                 });
-                setTimeout(function () {
-                    window.location.href = "/inbox";
-                }, 800);
-            });
+            }
         }
     }, {
         key: 'submitReview',
@@ -1109,16 +1116,20 @@ var EachReserve = function (_React$Component) {
                         React.createElement(
                             'div',
                             { 'class': 'd-flex justify-content-center' },
-                            React.createElement('input', { id: 'reportinputid', placeholder: 'Report Tummai' }),
+                            React.createElement('input', { 'class': 'inputhehore', id: 'reportinputid', placeholder: '\u0E23\u0E32\u0E22\u0E07\u0E32\u0E19\u0E40\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E2D\u0E30\u0E44\u0E23' })
+                        ),
+                        React.createElement(
+                            'div',
+                            { 'class': 'd-flex justify-content-center mt-2' },
                             React.createElement(
                                 'button',
-                                { onClick: this.submitReport, 'class': 'btn btn-primary' },
-                                'Submit'
+                                { onClick: this.submitReport, 'class': 'btn btn-primary mr-2' },
+                                '\u0E23\u0E32\u0E22\u0E07\u0E32\u0E19'
                             ),
                             React.createElement(
                                 'button',
                                 { onClick: this.overlayCancel, 'class': 'btn btn-danger' },
-                                'Cancel'
+                                '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01'
                             )
                         )
                     )
@@ -1129,12 +1140,12 @@ var EachReserve = function (_React$Component) {
                     React.createElement(
                         'button',
                         { 'class': 'backbutton btn btn-primary mb-3', onClick: this.goBack },
-                        'Back'
+                        '\u0E01\u0E25\u0E31\u0E1A'
                     ),
                     this.props.data["type"] == "request" ? React.createElement(
                         'button',
                         { 'class': 'backbutton btn btn-danger mb-3 ml-3', onClick: this.reportButton },
-                        'Report'
+                        '\u0E23\u0E32\u0E22\u0E07\u0E32\u0E19'
                     ) : null
                 ),
                 React.createElement(

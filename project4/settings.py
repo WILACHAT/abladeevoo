@@ -32,19 +32,25 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '13kl@xtukpwe&xj2xoysxe9_6=tf@f8ewxer5n&ifnd46+6$%8'
 
+ANYMAIL = {
+    
+    "SENDINBLUE_API_KEY": "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"
+}
+
+SENDINBLUE_API_URL = "https://api.sendinblue.com/v3/"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 #if DEBUG:
     #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='smtp.gmail.com'
+EMAIL_BACKEND='anymail.backends.sendinblue.EmailBackend'
+EMAIL_HOST='smtp-relay.sendinblue.com'
 EMAIL_PORT=587
-EMAIL_USE_TLS=True
-EMAIL_HOST_USER='vidma@vidma.tv'
-EMAIL_HOST_PASSWORD='fljkasdpnewdqfsx'
-ADMIN_EMAIL='Vidma Team <noreply@vidma.tv'
+#EMAIL_USE_TLS=True
+#EMAIL_HOST_USER='vidma@vidma.tv'
+#EMAIL_HOST_PASSWORD='fljkasdpnewdqfsx'
+#ADMIN_EMAIL='Vidma Team <noreply@vidma.tv'
 
 
 
@@ -104,8 +110,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project4.wsgi.application'
-
 '''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

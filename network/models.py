@@ -187,6 +187,13 @@ class ReportTable(models.Model):
 
     
 
+class PasswordReset(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='resetuser') 
+    token = models.CharField(max_length=256, null=True)
+    expiration = models.CharField(max_length=256, null=True)
+
+
+
 
 
 

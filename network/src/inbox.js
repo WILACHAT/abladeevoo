@@ -268,32 +268,44 @@ class EachReserve extends React.Component{
         var value = document.querySelector('#sendingbacktorequest').value
         var reserveid = this.props.data["data"][0].id
         var videoid = document.querySelector('#sendingvideoidback').name
+        if (videoid != "")
+        {
+            const getcooked = getCookie('csrftoken');
 
-        const getcooked = getCookie('csrftoken');
-
-        fetch(`/gotoeachreserve`, {
-            method: 'POST',
-            headers:{'X-CSRFToken': getcooked},
-            body: JSON.stringify({
-              value: value,
-              reserveid: reserveid,
-              type:"submitvdo",
-              videoid: videoid
-            })
-          })
-        
-          .then(result => {
-            Swal.fire({
-                title: 'สําเร็จ!',
-                showCancelButton: false,
-                showConfirmButton: false
-
-
+            fetch(`/gotoeachreserve`, {
+                method: 'POST',
+                headers:{'X-CSRFToken': getcooked},
+                body: JSON.stringify({
+                  value: value,
+                  reserveid: reserveid,
+                  type:"submitvdo",
+                  videoid: videoid
+                })
               })
-              setTimeout(() => {   window.location.href = "/inbox"; }, 800);
+            
+              .then(result => {
+                Swal.fire({
+                    title: 'สําเร็จ!',
+                    showCancelButton: false,
+                    showConfirmButton: false
+    
+    
+                  })
+                  setTimeout(() => {   window.location.href = "/inbox"; }, 800);
+    
+              });
+              
+        }
+        else
+        {
+            Swal.fire({
+                icon: 'error',
+                title: 'คุณยังไม่ได้อัพโหลดวีดีโอ'
+           
+            })
+        }
 
-          });
-          
+       
     }
     submitReview(e)
     {
@@ -878,16 +890,18 @@ class EachReserve extends React.Component{
                         <label>Report</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input id="reportinputid" placeholder="Report Tummai"></input>
-                        <button onClick={this.submitReport}class="btn btn-primary">Submit</button>
-                        <button onClick={this.overlayCancel} class="btn btn-danger">Cancel</button>
-
+                        <input class="inputhehore" id="reportinputid" placeholder="รายงานเรื่องอะไร"></input>
+    
+                    </div>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button onClick={this.submitReport}class="btn btn-primary mr-2">รายงาน</button>
+                        <button onClick={this.overlayCancel} class="btn btn-danger">ยกเลิก</button>
                     </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="backbutton btn btn-primary mb-3"onClick={this.goBack}>Back</button>
-                    {this.props.data["type"] == "request" ? <button class="backbutton btn btn-danger mb-3 ml-3"onClick={this.reportButton}>Report</button>:null}
+                    <button class="backbutton btn btn-primary mb-3"onClick={this.goBack}>กลับ</button>
+                    {this.props.data["type"] == "request" ? <button class="backbutton btn btn-danger mb-3 ml-3"onClick={this.reportButton}>รายงาน</button>:null}
 
 
                 </div>

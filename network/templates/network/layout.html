@@ -61,6 +61,23 @@
               console.log("yea lets go", id)
               console.log("ok", document.getElementById(id).value)
               let getcooked = getCookie('csrftoken');
+              let attrue = "nah"
+              if (id == "mailinglistid")
+              {
+                  attrue = "false"
+                  for (let i = 0; i < document.getElementById(id).value.length; i++)
+                  {
+
+                    if (document.getElementById(id).value[i] == '@')
+                    {
+                      attrue = "true"
+                      break;
+                    }
+                  }
+              } 
+              if (attrue == "true" || attrue == "nah")
+              {
+                console.log("this is id", id)
                 fetch(`/feedbackmaillist`, {
                   method: 'POST',
                   headers: {'X-CSRFToken': getcooked
@@ -70,6 +87,7 @@
                     value: document.getElementById(id).value              
                 })
             })
+         
             .then(response => response.json())
                 .then(result =>{
                   console.log("yo", result)
@@ -92,6 +110,16 @@
                  
 
                 })
+              }
+              else
+              {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'กรอกอีเมลผิด',
+                    })
+              }
+              
+                
 
             }
  
@@ -206,7 +234,14 @@
         <div class="d-flex justify-content-between maindivcoversfooter">
             <div class="coverfootertext d-flex flex-column">
               <h4 class="vidmefooter">Vidma!</h4>
-              <p class="wafooter">เว็ปไซท์ที่สามารถให้คุณเชื่อมต่อกับบุคคลสาธารณะที่คุณชื่นชอบ ไม่ว่าจะเป็นนักร้อง นักแสดง เกมเมอร์ หรือ อินฟลูเอนเซอร์ที่คุณติดตาม กดจองคลิปสั้นๆที่สตาร์ตั้งใจถ่ายให้เป็นพิเศษโดยเฉพาะคุณเพียงคนเดียว เช่น วีดีโอสุขสันต์วันเกิด วีดีโอแสดงความยินดี หรือ วีดีโอเผาหรือล้อเลียนตลกๆ ที่คุณสามารถเก็บไว้เป็นคนทรงจำที่ดรหรือส่งเป็นของขวัญให้กับคนที่คุณรัก</p>
+              <div class="d-flex flex-column">
+                <p class="wafooter">เว็ปไซท์ที่สามารถให้คุณเชื่อมต่อกับบุคคลสาธารณะที่คุณชื่นชอบ</p>
+                <p class="wafooter">ไม่ว่าจะเป็น อินฟลูเอนเซอร์ เกมเมอร์ หรือ นักร้อง</p>
+                <p class="wafooter">กดจองคลิปสั้นๆที่สตาร์ตั้งใจถ่ายให้เป็นพิเศษโดยเฉพาะคุณเพียงคนเดียว</p>
+                <p class="wafooter">เช่น วีดีโอสุขสันต์วันเกิด วีดีโอแสดงความยินดี หรือ วีดีโอเผา</p>
+                <p class="wafooter">ที่คุณสามารถเก็บไว้เป็นความทรงจำที่ดีหรือส่งเป็นของขวัญให้กับคนที่คุณรัก</p>
+
+              </div>
             </div>
 
             <div class="d-flex flex-column thistoo">
@@ -222,7 +257,7 @@
                 <label class="wafooter ml-1 mt-1">เป็นคนแรกที่รู้เกี่ยวกับสตาร์ใหม่ล่าสุดที่เข้า Vidma!</label>
                 
                 <div class="d-flex justify-content-start divdivdiv">
-                  <input id="mailinglistid" class="feedbackinputfooter"></input>  
+                  <input type="email" id="mailinglistid" class="feedbackinputfooter"></input>  
                   <button onclick="uploadInfo('mailinglistid')"class="uploadfooter btn ml-2 mt-2">Send</button>
                 </div>              
 
@@ -241,7 +276,13 @@
                 <h3 class="wafooter mt-3">ติดต่อเรา</h3>
               </div>  
               <div class="d-flex justify-content-center">
+                <div class="d-flex flex-column">
                 <h5 class="walegal">vidma@vidma.tv</h5>
+                <div class="d-flex justify-content-center">
+                  <h5 class="walegal">0924159115</h5>
+                </div>
+                </div>
+
               </div>
 
               <div class="d-flex justify-content-center">

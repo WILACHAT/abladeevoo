@@ -61,17 +61,16 @@ urlpatterns = [
 
 
 
+    path("password_reset", views.password_reset, name="password_reset"),
+    path("password_reset_done", views.password_reset_done, name="password_reset_done"),
+    path('resetpass/<str:token>', views.resetpass, name="resetpass"),
+    path("password_reset_complete", views.password_reset_complete, name="password_reset_complete"),
 
-    path('password_reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='network/password_reset_done.html'),
-     name='password_reset_done'),
 
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='network/password_reset_confirm.html'), name='password_reset_confirm'),
+
+
     
-    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='network/password_reset_form.html'), name='password_reset'),
-    
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='network/password_reset_complete.html'),
-     name='password_reset_complete'),
-
+  
     path("forupload/<str:type>", views.forupload, name="forupload")
 
 ]

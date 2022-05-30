@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from enum import unique
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
@@ -5,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara, Views, FeedBack, Maillistlist, ReportTable
+from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara, Views, FeedBack, Maillistlist, ReportTable, PasswordReset
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 import uuid
@@ -20,9 +22,16 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
 from django.contrib.auth.decorators import login_required
+import time
+import sib_api_v3_sdk
+from sib_api_v3_sdk.rest import ApiException
+from pprint import pprint
 
 from celery import Celery
 from celery.schedules import crontab
+import secrets
+import hashlib
+
 
 
 UserModel = get_user_model()
@@ -47,6 +56,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 #from django.utils.deprecation import RemovedInDjango50Warning
 from django.utils.http import url_has_allowed_host_and_scheme, urlsafe_base64_decode
+import base64
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
@@ -103,6 +113,8 @@ def aboutus(request):
 
 def index(request):
     seconds = time.time()
+    
+    # Configure API key authorization: api-key
 
     #internet banking
     #chrg_test_5rum3y82hqozzcladoc
@@ -645,8 +657,43 @@ def gotoeachreserve(request):
      #   "vidma@vidma.tv",
      #   ['waanwaanwilachat@gmail.com'],
      #   )
+
+            reservethingy = Reservation.objects.filter(id=data["reserveid"])
+            for i in reservethingy:
+                reservethingy = i.user_id_reserver_id
+                reserveinfluencer = i.user_id_influencerreserve_id
+            reservethingy = User.objects.filter(id=reservethingy)
+            influencerthingy = User.objects.filter(id=reserveinfluencer)
+
+            for i in reservethingy:
+                emailofuser = i.email
+                usernameofuser = i.username
+            for i in influencerthingy:
+                usernameofinfluencer = i.username
+
+
+            
+
             
             Reservation.objects.filter(id=data["reserveid"]).update(completed = True, completiondate = today)
+            
+            configuration = sib_api_v3_sdk.Configuration()
+            configuration.api_key['api-key'] = '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'
+
+            api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
+            subject = "My Subject"
+            html_content = "<html><body><h1 style='color:#FF336F; font-family:'Bangers';'>VIDMA!</h1><h1>วีดีโอที่" + " "+ usernameofinfluencer + " " + "ทํามาเพื่อคุณโดยเฉพาะได้สําเร็จแล้ว!</h1><a href='https://plankton-app-d8rml.ondigitalocean.app'>กดเพื่อไปดู</a></body></html>"
+            sender = {"name":"Vidma","email":"vidma@vidma.tv"}
+            to = [{"email":emailofuser,"name":usernameofuser}]
+       
+            headers = {"Some-Custom-Name":"unique-id-1234"}
+            send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(to=to, headers=headers, html_content=html_content, sender=sender, subject=subject)
+
+            try:
+                api_response = api_instance.send_transac_email(send_smtp_email)
+                print(api_response)
+            except ApiException as e:
+                print("Exception when calling SMTPApi->send_transac_email: %s\n" % e)
         
         elif data["type"] == "submitreview":
             print("is it in submitreview?")
@@ -665,12 +712,6 @@ def gotoeachreserve(request):
         reporttable = ReportTable(reservation_foreign_id = data["reservationid"], influencer = data["influencer"],
         requester = data["requester"], report_value = data["value"])
         reporttable.save()
-
-
-
-
-
-
 
     return_request = {"reservationid":"hi"}
 
@@ -1075,150 +1116,115 @@ def paymentsetupapi(request):
             return_response = {"new":checker}
     return JsonResponse(return_response, safe=False)
 
+def password_reset(request):
+    if request.method == "POST":
+        print("submited email")
+        email = request.POST["email"]
+        
 
-class PasswordContextMixin:
-    extra_context = None
+        okchecker = User.objects.filter(email = email)
+        for i in okchecker:
+            username = i.username
+            idofuser = i.id
+        okchecker = okchecker.count()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(
-            {"title": self.title, "subtitle": None, **(self.extra_context or {})}
-        )
-        return context
+        #reset token
+      
 
-class PasswordResetView(PasswordContextMixin, FormView):
-    email_template_name = "registration/password_reset_email.html"
-    extra_email_context = None
-    form_class = PasswordResetForm
-    from_email = None
-    html_email_template_name = None
-    subject_template_name = "registration/password_reset_subject.txt"
-    success_url = reverse_lazy("password_reset_done")
-    template_name = "registration/password_reset_form.html"
-    title = _("Password reset")
-    token_generator = default_token_generator
-
-    @method_decorator(csrf_protect)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
-
-    def form_valid(self, form):
-        opts = {
-            "use_https": self.request.is_secure(),
-            "token_generator": self.token_generator,
-            "from_email": self.from_email,
-            "email_template_name": self.email_template_name,
-            "subject_template_name": self.subject_template_name,
-            "request": self.request,
-            "html_email_template_name": self.html_email_template_name,
-            "extra_email_context": self.extra_email_context,
-        }
-        form.save(**opts)
-        return super().form_valid(form)
-
-
-INTERNAL_RESET_SESSION_TOKEN = "_password_reset_token"
-
-
-class PasswordResetDoneView(PasswordContextMixin, TemplateView):
-    template_name = "registration/password_reset_done.html"
-    title = _("Password reset sent")
-
-
-class PasswordResetConfirmView(PasswordContextMixin, FormView):
-    form_class = SetPasswordForm
-    post_reset_login = False
-    post_reset_login_backend = None
-    reset_url_token = "set-password"
-    success_url = reverse_lazy("password_reset_complete")
-    template_name = "registration/password_reset_confirm.html"
-    title = _("Enter new password")
-    token_generator = default_token_generator
-
-    @method_decorator(sensitive_post_parameters())
-    @method_decorator(never_cache)
-    def dispatch(self, *args, **kwargs):
-        if "uidb64" not in kwargs or "token" not in kwargs:
-            raise ImproperlyConfigured(
-                "The URL path must contain 'uidb64' and 'token' parameters."
-            )
-
-        self.validlink = False
-        self.user = self.get_user(kwargs["uidb64"])
-
-        if self.user is not None:
-            token = kwargs["token"]
-            if token == self.reset_url_token:
-                session_token = self.request.session.get(INTERNAL_RESET_SESSION_TOKEN)
-                if self.token_generator.check_token(self.user, session_token):
-                    # If the token is valid, display the password reset form.
-                    self.validlink = True
-                    return super().dispatch(*args, **kwargs)
-            else:
-                if self.token_generator.check_token(self.user, token):
-                    # Store the token in the session and redirect to the
-                    # password reset form at a URL without the token. That
-                    # avoids the possibility of leaking the token in the
-                    # HTTP Referer header.
-                    self.request.session[INTERNAL_RESET_SESSION_TOKEN] = token
-                    redirect_url = self.request.path.replace(
-                        token, self.reset_url_token
-                    )
-                    return HttpResponseRedirect(redirect_url)
-
-        # Display the "Password reset unsuccessful" page.
-        return self.render_to_response(self.get_context_data())
-
-    def get_user(self, uidb64):
-        try:
-            # urlsafe_base64_decode() decodes to bytestring
-            uid = urlsafe_base64_decode(uidb64).decode()
-            user = UserModel._default_manager.get(pk=uid)
-        except (
-            TypeError,
-            ValueError,
-            OverflowError,
-            UserModel.DoesNotExist,
-            ValidationError,
-        ):
-            user = None
-        return user
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["user"] = self.user
-        return kwargs
-
-    def form_valid(self, form):
-        user = form.save()
-        del self.request.session[INTERNAL_RESET_SESSION_TOKEN]
-        if self.post_reset_login:
-            auth_login(self.request, user, self.post_reset_login_backend)
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.validlink:
-            context["validlink"] = True
+        if okchecker == 0:
+            return HttpResponseRedirect(reverse("password_reset_done"))
+       
         else:
-            context.update(
-                {
-                    "form": None,
-                    "title": _("Password reset unsuccessful"),
-                    "validlink": False,
-                }
-            )
-        return context
+            token = secrets.token_urlsafe(64)
+            #hashed version of token that needs to be store in db
+
+            hashedtoken = hashlib.sha256(token.encode()).hexdigest()
+        
+            expirationtime = datetime.now() + timedelta(minutes = 10)
+            myobj = expirationtime.strftime('%Y-%m-%d %H:%M')
+            print(myobj)
+            passwordreset = PasswordReset(user_id = idofuser, token = hashedtoken, expiration = myobj)
+            passwordreset.save()
+
+            linktoreset = 'https://plankton-app-d8rml.ondigitalocean.app/resetpass/' + token
+            
+            configuration = sib_api_v3_sdk.Configuration()
+            configuration.api_key['api-key'] = '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'
+
+            api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
+            subject = "My Subject"
+            html_content = "<html><body><h1 style='color:#FF336F; font-family:'Bangers';'>VIDMA!</h1><h1>คุณลืมรหัสผ่าน</h1><a href=" + linktoreset + ">กดเพื่อไปดู</a></body></html>"
+            sender = {"name":"Vidma","email":"vidma@vidma.tv"}
+            to = [{"email":email,"name":username}]
+       
+            headers = {"Some-Custom-Name":"unique-id-1234"}
+            send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(to=to, headers=headers, html_content=html_content, sender=sender, subject=subject)
+
+            try:
+                api_response = api_instance.send_transac_email(send_smtp_email)
+                print(api_response)
+            except ApiException as e:
+                print("Exception when calling SMTPApi->send_transac_email: %s\n" % e)
+            
+            
+            return HttpResponseRedirect(reverse("password_reset_done"))
 
 
-class PasswordResetCompleteView(PasswordContextMixin, TemplateView):
-    template_name = "registration/password_reset_complete.html"
-    title = _("Password reset complete")
+    return render(request, "network/password_reset_form.html")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["login_url"] = resolve_url(settings.LOGIN_URL)
-        return context
+def resetpass(request, token):
+    print("this is in resetpass")
+    hashedtoken = hashlib.sha256(token.encode()).hexdigest()
+    #QDTja2YryNKgxbEGiaLNDYzHiXHSWvUxwARbVBTk1DckmyDjm8rMDICMZpwi4MWx80H-FLox2qAD6fTAdSVLqg
+
+    print("justincase", hashedtoken)
+    expirationtime = datetime.now().strftime('%Y-%m-%d %H:%M')
+    prdatabase = PasswordReset.objects.filter(token = hashedtoken)
+
+    for i in prdatabase:
+        idofuser = i.user_id
+        expirationtimebefore = i.expiration
+
+
+    checkifexist = prdatabase.count()
+
+    if checkifexist == 1 and expirationtimebefore > expirationtime:
+        validlink = True
+    else: 
+        validlink = False
+
+    if request.method == "POST":
+        password = request.POST["password"]
+        confirmation = request.POST["confirmation"]
+        if password != confirmation:
+            return render(request, "network/password_reset_confirm.html", {
+                "message": "password"
+            })
+
+        expirationtime = datetime.now().strftime('%Y-%m-%d %H:%M')
+        if expirationtimebefore > expirationtime:
+            u = User.objects.get(id=idofuser)
+            u.set_password(password)
+            u.save()
+            return HttpResponseRedirect(reverse("password_reset_complete"))
+
+            
+        else:
+            return render(request, "network/password_reset_confirm.html", {
+            "message": "timeout"
+        })
+
+
+
+
+    #checkeverythinghere
+    return render(request, "network/password_reset_confirm.html", {"validlink":validlink})
+
+def password_reset_done(request):
+    return render(request, "network/password_reset_done.html")
+
+def password_reset_complete(request):
+    return render(request, "network/password_reset_complete.html")
 
 def paymentresponse(request):
     chargestuff = Reservation.objects.filter(user_id_reserver_id=request.user.id).order_by('-creationtime')[0]

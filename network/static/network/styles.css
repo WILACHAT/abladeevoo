@@ -1098,11 +1098,14 @@ padding: 10px;
 }
 .postoptionforinfluencer
 {
-  border-radius: 10px;
-  padding:3%;
-  width:90%;
-  background-color: aquamarine;
-  box-shadow: 5px 10px #008fff;
+ 
+  width:50%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 10px 15px #FF336F;
+  ;
+  padding:15px;
+  margin-bottom:20px;
 
 }
 .bookdetails
@@ -1137,6 +1140,10 @@ padding: 10px;
 }
 
 @media only screen and (max-width: 800px) {
+  .postoptionforinfluencer
+  {
+    width:90%;
+  }
   .orderorder 
   {
     width: 90%;
@@ -1316,7 +1323,7 @@ padding: 10px;
 }
 .coverfootertext
 {
-  width:350px;
+  width:40%;
 }
 .vidmefooter
 {
@@ -1367,6 +1374,10 @@ padding: 10px;
   {
     width:100%;
   }
+  .coverfootertext
+  {
+    width:100%;
+  }
  
   .maindivcoversfooter
 {
@@ -1384,6 +1395,7 @@ padding: 10px;
   right: 0;
   background: rgba(0, 0, 0, 0.7);
   transition: opacity 500ms;
+
 }
 
 .paymentinput
@@ -1544,12 +1556,21 @@ padding:25px;
   padding-top: 7%;
   padding-bottom: 15%;
 
-
-
-
-
 }
  
+.paginationcolor:hover
+{
+  cursor: pointer;
+}
+.paginationnocolor:hover
+{
+  cursor: pointer;
+}
+.nextbutton
+{
+  cursor: pointer;
+
+}
 .staywhite
 {
   background-color: white;
