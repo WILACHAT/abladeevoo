@@ -952,15 +952,15 @@ padding: 10px;
 }
 .imgnoeditinbox
 {
+  
   height: 70px;
-  width: 100%;
+  width: 70px;
+  border-radius: 50%;
   display: inline-block;
+  cursor: pointer;
   object-fit: cover;
 }
-.fakimgnoeditinbox
-{
-  width:116.5px;
-}
+
 .orderfrom
 {
   width:50%;

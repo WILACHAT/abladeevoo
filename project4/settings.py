@@ -33,7 +33,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '13kl@xtukpwe&xj2xoysxe9_6=tf@f8ewxer5n&ifnd46+6$%8'
 
 ANYMAIL = {
-    
+
     "SENDINBLUE_API_KEY": "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"
 }
 
