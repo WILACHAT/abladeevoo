@@ -1133,7 +1133,7 @@ def password_reset(request):
 
         if okchecker == 0:
             return HttpResponseRedirect(reverse("password_reset_done"))
-       
+        
         else:
             token = secrets.token_urlsafe(64)
             #hashed version of token that needs to be store in db
