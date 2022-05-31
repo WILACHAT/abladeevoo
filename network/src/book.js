@@ -590,51 +590,88 @@ class BookPage extends React.Component {
     }
 
     let today = new Date().toISOString().slice(0, 10)
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    console.log("this is today", today)
+    tomorrow.toISOString().slice(0, 10)
+    console.log("first tomorrow", tomorrow)
 
-    let g1 = new Date(today);
+
+
+
+    let g1 = new Date(tomorrow);
+    console.log("get time", g1.getTime())
+
 
     let g2 = new Date(datetime);
+
 
     if (g1.getTime() >= g2.getTime())
     {
         checkblank = 2
-
     }
    
     if (checkblank == 1)
     {
-        alert("ลืมกรอกอย่างน้อย 1 ฟอร์ม")
+        Swal.fire({
+            icon: 'error',
+            text: 'ลืมกรอกอย่างน้อย 1 ฟอร์ม',
+          })
     }
     else if (checkblank == 10)
     {
-        alert("ลืมกรอกฟอร์ม ถึงใคร")
+        Swal.fire({
+            icon: 'error',
+            text: 'ลืมกรอกฟอร์ม ถึงใคร',
+          })
     }
     else if (checkblank == 9)
     {
-        alert("ลืมกรอกฟอร์ม จากใคร")
+        Swal.fire({
+            icon: 'error',
+            text: 'ลืมกรอกฟอร์ม จากใคร',
+          })
 
     }
     else if (checkblank == 8)
     {
-        alert("ลืมกรอกเนื่องในโอกาสช่องแรก")
+        Swal.fire({
+            icon: 'error',
+            text: 'ลืมกรอกเนื่องในโอกาสช่องแรก',
+          })
     }
     else if (checkblank == 7)
     {
-        alert("ลืมกรอกเนื่องในโอกาสช่องสอง")
+        Swal.fire({
+            icon: 'error',
+            text: 'ลืมกรอกเนื่องในโอกาสช่องสอง',
+          })
     }  else if (checkblank == 6)
     {
-        alert("ลืมกรอกเนื่องในโอกาสช่องสาม")
+        Swal.fire({
+            icon: 'error',
+            text: 'ลืมกรอกเนื่องในโอกาสช่องสาม',
+          })
     }  else if (checkblank == 5)
     {
-        alert("ลืมกรอกเนื่องในโอกาสช่องสี่")
+        Swal.fire({
+            icon: 'error',
+            text: 'ลืมกรอกเนื่องในโอกาสช่องสี่',
+          })
     }
     else if (checkblank == 4)
     {
-        alert("ลืมกรอกวันที่")
+        Swal.fire({
+            icon: 'error',
+            text: 'ลืมกรอกวันที่',
+          })
     }
     else if (checkblank == 2)
     {
-        alert("วันที่ต้องมากกว่าวันที่กรอกฟอร์มอย่างน้อย 1 วัน")
+        Swal.fire({
+            icon: 'error',
+            text: 'วันที่ต้องมากกว่าวันที่กรอกฟอร์มอย่างน้อย 2 วัน',
+          })
     }
     
     else

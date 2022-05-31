@@ -33,4 +33,7 @@ def refund_user():
     #print(day)
    # print(dayminus)
    # charge = omise.Charge.retrieve("chrg_test_5rtm4r4uygzmoz6teo8")
-   # print(charge.amount)
+   # print(charge.amount)@shared_task
+@shared_task
+def checkwork():
+    print("hi")

@@ -41,14 +41,14 @@ function checkforoccasiontype(occasion) {
     console.log("occasion", occasion);
     var checkoccasion = "";
     if (occasion == "birthday_html_id") {
-        checkoccasion = "Birthday";
+        checkoccasion = "วันเกิด";
     } else if (occasion == "peptalk_html_id") {
-        checkoccasion = "Pep Talk";
+        checkoccasion = "กําลังใจ";
     } else if (occasion == "roastbutton_html_id") {
-        checkoccasion = "Roast";
+        checkoccasion = "เผา";
         console.log("is the mofo in here");
     } else {
-        checkoccasion = "Others";
+        checkoccasion = "อื่นๆ";
     }
     return checkoccasion;
 }
@@ -341,7 +341,7 @@ var EachReserve = function (_React$Component) {
 
             var videoandstuff = "";
             link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4";
-
+            // https://res.cloudinary.com/demo/video/upload/l_cloudinary_icon,w_70,h_70,g_north_west/abbey_road.mp4
             videoandstuff = React.createElement(
                 'div',
                 { id: 'videowhengetid' },
@@ -1407,8 +1407,8 @@ var InboxFeedRows = function (_React$Component2) {
                             ),
                             React.createElement(
                                 'h4',
-                                { 'class': 'wanameinbox' },
-                                this.props.giftornot == "someoneelse_html_id" ? "A gift" : "For you"
+                                { 'class': 'wanameinbox mt-2' },
+                                this.props.giftornot == "someoneelse_html_id" ? "ของขวัญ" : "ตัวเอง"
                             )
                         )
                     ),

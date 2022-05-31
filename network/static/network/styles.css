@@ -119,7 +119,7 @@ html, body {
   color:#212121;
 
   font-family: 'Sarabun';
-  font-size:25px;
+  font-size:20px;
 }
 .nameininbox
 {
@@ -134,10 +134,11 @@ html, body {
 {
   font-family: 'Sarabun';
   color:#212121;
+  font-size:100%;
 }
 .yeathename
 {
-  width:50px;
+  width:100%;
 }
 .waduedate
 {
@@ -793,9 +794,7 @@ padding: 10px;
   flex:wrap;
   flex-direction: column;
   justify-content: center;
-  padding-left:5%;
   padding-top:3%;
-  padding-right:7%;
   width:50%;
 }
 
@@ -805,6 +804,7 @@ padding: 10px;
   padding:3%;
   padding-top:15%;
   padding-right:20%;
+  
 
 
   justify-content: center;
@@ -816,7 +816,6 @@ padding: 10px;
     width:100%;
     padding-left:2%;
   }
-
 
 
 }
@@ -1915,7 +1914,7 @@ video{
 .settingbackground{
   margin-top:100px;
   background-color:white;
-  border:1.5px solid #dbccdc;
+  border:2px solid #dbdcdc;
   text-align:center;
   padding-top:5%;
   padding-bottom:5%;

@@ -35,20 +35,20 @@ function checkforoccasiontype(occasion) {
     var checkoccasion = ""
     if (occasion == "birthday_html_id")
     {
-        checkoccasion = "Birthday"
+        checkoccasion = "วันเกิด"
     }
     else if(occasion == "peptalk_html_id")
     {
-        checkoccasion = "Pep Talk"
+        checkoccasion = "กําลังใจ"
     }
     else if(occasion == "roastbutton_html_id")
     {
-        checkoccasion = "Roast"
+        checkoccasion = "เผา"
         console.log("is the mofo in here")
     }
     else
     {
-        checkoccasion = "Others"
+        checkoccasion = "อื่นๆ"
     }
     return checkoccasion;
 }
@@ -376,7 +376,7 @@ class EachReserve extends React.Component{
 
         let videoandstuff = ""
         link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
-
+       // https://res.cloudinary.com/demo/video/upload/l_cloudinary_icon,w_70,h_70,g_north_west/abbey_road.mp4
         videoandstuff = 
         <div id="videowhengetid">
             <div class="videowhenget">
@@ -1087,7 +1087,7 @@ class InboxFeedRows extends React.Component {
                 <img class="imgnoeditinbox mt-3 mr-5" src={link}></img>
                 <div class="d-flex flex-column yeathename mt-2">
                     <a class="nameininbox" >{this.props.name}</a> 
-                    <h4 class="wanameinbox">{this.props.giftornot == "someoneelse_html_id" ? "A gift":"For you"}</h4>
+                    <h4 class="wanameinbox mt-2">{this.props.giftornot == "someoneelse_html_id" ? "ของขวัญ":"ตัวเอง"}</h4>
                     
                 </div>
                    

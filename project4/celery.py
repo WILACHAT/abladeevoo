@@ -6,6 +6,9 @@ import os
 from celery import Celery
 from datetime import datetime
 from celery.schedules import crontab
+from datetime import timedelta
+
+
 
 BROKER_URL = 'django://'
 timezone = 'Asia/Bangkok'
@@ -21,9 +24,13 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.conf.beat_schedule = {
     'add-every-5-seconds': {
         'task': 'network.tasks.refund_user',
-       # 'schedule': 10.0
        #utc thai time -8
         'schedule': crontab(minute=2, hour=16)
+    },
+    'printhithatisall': {
+        'task': 'network.tasks.checkwork',
+        'schedule': timedelta(seconds=30)
+
     }
 }
 
