@@ -164,8 +164,6 @@ if POSTGRES_READY:
         }
     }
 
-
-
 AUTH_USER_MODEL = "network.User"
 
 # Password validation

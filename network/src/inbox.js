@@ -975,9 +975,6 @@ class EachReserve extends React.Component{
                    </div>} 
 
                     </div>
-
-                   
-
                 </div>
   
                     {postoption}
@@ -1084,8 +1081,8 @@ class InboxFeedRows extends React.Component {
         eachcontent =  
         <div class="okseecolor">
         <div class="randomdesign d-flex justify-content-between">
-            <div class="d-flex justify-content-start mt-2">
-                <div class="fakimgnoeditinbox">
+            <div class="fakimgnoeditinbox d-flex justify-content-start ml-3">
+                <div>
                     <img class="imgnoeditinbox" src={link}></img>
                 </div>
                 <div class="d-flex flex-column yeathename mt-2">

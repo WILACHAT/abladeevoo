@@ -1396,10 +1396,10 @@ var InboxFeedRows = function (_React$Component2) {
                     { 'class': 'randomdesign d-flex justify-content-between' },
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex justify-content-start mt-2' },
+                        { 'class': 'fakimgnoeditinbox d-flex justify-content-start ml-3' },
                         React.createElement(
                             'div',
-                            { 'class': 'fakimgnoeditinbox' },
+                            null,
                             React.createElement('img', { 'class': 'imgnoeditinbox', src: link })
                         ),
                         React.createElement(

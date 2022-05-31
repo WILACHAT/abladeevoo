@@ -78,6 +78,11 @@ html, body {
   background-color: #FFBE00;
   margin-top: 2px;
 }
+.fakimgnoeditinbox
+{
+margin-top:20px;  
+
+}
 
 
 
@@ -119,7 +124,8 @@ html, body {
   color:#212121;
 
   font-family: 'Sarabun';
-  font-size:20px;
+  font-size:100%;
+  margin-top: 20px;
 }
 .nameininbox
 {
@@ -129,6 +135,7 @@ html, body {
   flex-direction: column;
   flex-wrap: wrap;
   margin-left:15px;
+  font-size: 20px;
 
 }
 .wanameinbox
@@ -142,6 +149,7 @@ html, body {
 .yeathename
 {
   width:100%;
+  margin-top: 20px;
 }
 .waduedate
 {
@@ -600,40 +608,16 @@ padding: 10px;
   background-color: #f7efe9;
   padding:7px;
   border-radius: 20px;
-}
-
-@media only screen and (max-width: 1200px) {
-  .ineachrow {
-    width:80%;
-  }
 
 }
-@media only screen and (max-width: 800px) {
-  .ineachrow {
-    width:100%;
-  }
-  .waoccasion
-  {
-    font-size: 100%;
-  }
-  
-}
-
-.sortbutton
-{
-  background-color: #ffc500;
-  height:40px;
-}
-
-
-
-/* Button Styles */
-
 .button {
   display: inline-flex;
   height: 40px;
   width: 150px;
-  margin: 20px 20px 20px 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+
   color: #BFC0C0;
   text-transform: uppercase;
   text-decoration: none;
@@ -693,6 +677,48 @@ padding: 10px;
 #button-7:hover a {
   left: 150px;
 }
+
+@media only screen and (max-width: 1200px) {
+  .ineachrow {
+    width:80%;
+  }
+
+}
+@media only screen and (max-width: 800px) {
+  .ineachrow {
+    width:100%;
+  }
+  .nameininbox
+  { 
+    font-size:15px;
+  }
+  .waoccasion
+  {
+    font-size: 15px;
+  }
+  .button{
+    margin-left:0px;
+    width:100px;
+    margin-right:0px;
+  }
+  .okseecolor
+  {
+    justify-content: center;
+  }
+  
+}
+
+.sortbutton
+{
+  background-color: #ffc500;
+  height:40px;
+}
+
+
+
+/* Button Styles */
+
+
 .grid {
   display: grid;
   gap: 1px;
