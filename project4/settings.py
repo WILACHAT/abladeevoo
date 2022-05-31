@@ -14,6 +14,11 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+CELERY_BROKER_URL = 'redis://localhost:6379'   
+CELERY_TIMEZONE = 'Asia/Bangkok'
+
+
+
 #SITE KEY RECAPTCHA
 #6LdALikgAAAAABZj10DvMclBlWPsZ3D8mB3i-6C7
 
