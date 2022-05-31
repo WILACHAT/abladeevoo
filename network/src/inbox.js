@@ -1084,7 +1084,9 @@ class InboxFeedRows extends React.Component {
         <div class="okseecolor">
         <div class="randomdesign d-flex justify-content-between">
             <div class="d-flex justify-content-start mt-2">
-                <img class="imgnoeditinbox mt-3 mr-5" src={link}></img>
+                <div class="fuckimgnoeditinbox">
+                    <img class="imgnoeditinbox mt-3 mr-5" src={link}></img>
+                </div>
                 <div class="d-flex flex-column yeathename mt-2">
                     <a class="nameininbox" >{this.props.name}</a> 
                     <h4 class="wanameinbox mt-2">{this.props.giftornot == "someoneelse_html_id" ? "ของขวัญ":"ตัวเอง"}</h4>

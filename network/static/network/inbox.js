@@ -1396,7 +1396,11 @@ var InboxFeedRows = function (_React$Component2) {
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-start mt-2' },
-                        React.createElement('img', { 'class': 'imgnoeditinbox mt-3 mr-5', src: link }),
+                        React.createElement(
+                            'div',
+                            { 'class': 'fuckimgnoeditinbox' },
+                            React.createElement('img', { 'class': 'imgnoeditinbox mt-3 mr-5', src: link })
+                        ),
                         React.createElement(
                             'div',
                             { 'class': 'd-flex flex-column yeathename mt-2' },

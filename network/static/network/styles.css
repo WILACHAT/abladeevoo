@@ -53,16 +53,7 @@ html, body {
   object-fit: cover;
 
 }
-.imgnoeditinbox
-{
-  height: 5em;
-  width: 5em;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-  object-fit: cover;
 
-}
 .staygrey
 {
   font-size:2px;
@@ -128,6 +119,8 @@ html, body {
   display:flex;
   flex-direction: column;
   flex-wrap: wrap;
+  margin-left:10px;
+
 
 }
 .wanameinbox
@@ -135,6 +128,7 @@ html, body {
   font-family: 'Sarabun';
   color:#212121;
   font-size:100%;
+  margin-left:10px;
 }
 .yeathename
 {
@@ -947,14 +941,19 @@ padding: 10px;
 {
   width:30%;
 }
+.fuckimgnoeditinbox
+{
+  width:120px;
+  height:70px;
+}
 .imgnoeditinbox
 {
-  height: 70px;
-  width: 70px;
-  border-radius: 50%;
+  width: 100%;
+  height:100%;
+
   display: inline-block;
-  cursor: pointer;
   object-fit: cover;
+  border-radius: 50%;
 }
 .orderfrom
 {
