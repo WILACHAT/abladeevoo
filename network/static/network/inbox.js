@@ -1375,6 +1375,7 @@ var InboxFeedRows = function (_React$Component2) {
                 if (this.props.normal_pic == null) {
                     link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
                 } else {
+                    console.log("i dont know what to do now hep");
                     link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.normal_pic + ".jpg";
                 }
             } else {
@@ -1398,8 +1399,8 @@ var InboxFeedRows = function (_React$Component2) {
                         { 'class': 'd-flex justify-content-start mt-2' },
                         React.createElement(
                             'div',
-                            { 'class': 'fuckimgnoeditinbox' },
-                            React.createElement('img', { 'class': 'imgnoeditinbox mt-3 mr-5', src: link })
+                            { 'class': 'fakimgnoeditinbox' },
+                            React.createElement('img', { 'class': 'imgnoeditinbox', src: link })
                         ),
                         React.createElement(
                             'div',

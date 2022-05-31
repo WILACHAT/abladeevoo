@@ -39,7 +39,7 @@ ANYMAIL = {
 
 SENDINBLUE_API_URL = "https://api.sendinblue.com/v3/"
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 #if DEBUG:
     #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
@@ -110,7 +110,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project4.wsgi.application'
-'''
+
 
 DATABASES = {
     'default': {
@@ -164,7 +164,7 @@ if POSTGRES_READY:
         }
     }
 
-
+'''
 
 AUTH_USER_MODEL = "network.User"
 

@@ -1062,6 +1062,7 @@ class InboxFeedRows extends React.Component {
             }
             else
             {
+              console.log("i dont know what to do now hep")
               link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.normal_pic + ".jpg"
             }
         }
@@ -1084,8 +1085,8 @@ class InboxFeedRows extends React.Component {
         <div class="okseecolor">
         <div class="randomdesign d-flex justify-content-between">
             <div class="d-flex justify-content-start mt-2">
-                <div class="fuckimgnoeditinbox">
-                    <img class="imgnoeditinbox mt-3 mr-5" src={link}></img>
+                <div class="fakimgnoeditinbox">
+                    <img class="imgnoeditinbox" src={link}></img>
                 </div>
                 <div class="d-flex flex-column yeathename mt-2">
                     <a class="nameininbox" >{this.props.name}</a> 

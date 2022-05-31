@@ -15,7 +15,8 @@ timezone = 'Asia/Bangkok'
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project4.settings')
 
-app = Celery('project4', broker='amqp://', backend='rpc://')
+app = Celery('project4')
+#, broker='amqp://', backend='rpc://'
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
