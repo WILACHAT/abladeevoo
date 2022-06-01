@@ -1042,9 +1042,36 @@ var InfluencerFeedTitle = function (_React$Component4) {
                     'div',
                     { 'class': 'coverwanopostyet' },
                     React.createElement(
-                      'h6',
-                      { 'class': 'wanopostyet' },
-                      '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27'
+                      'div',
+                      { 'class': 'd-flex justify-content-center' },
+                      React.createElement(
+                        'h6',
+                        { 'class': 'wanopostyet' },
+                        '\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E21\u0E35\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27'
+                      )
+                    )
+                  ),
+                  React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                      'div',
+                      { 'class': 'd-flex justify-content-center' },
+                      this.props.data["sameperson"] == 1 ? React.createElement(
+                        'video',
+                        { autoplay: 'true', muted: 'true', 'class': 'almostvideovideowhenget', id: 'introvideo', controls: true },
+                        React.createElement('source', { src: videolink, type: 'video/mp4' }),
+                        'Your browser does not support the video tag.'
+                      ) : null
+                    ),
+                    React.createElement(
+                      'div',
+                      { 'class': 'custom-filee' },
+                      React.createElement(
+                        'div',
+                        { 'class': 'videouploadininfluencer' },
+                        React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                      )
                     )
                   )
                 )
@@ -1081,7 +1108,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
                       null,
                       React.createElement(
                         'div',
-                        { 'class': 'custom-file ' },
+                        { 'class': 'custom-file' },
                         React.createElement(
                           'div',
                           { 'class': 'videouploadininfluencer' },

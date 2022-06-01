@@ -918,7 +918,25 @@ class InfluencerFeedTitle extends React.Component {
                             <div class="d-flex justify-content-center">
                             <div class="covercoverwanopostyet mt-5">
                               <div class="coverwanopostyet">
+                                <div class="d-flex justify-content-center">
                                     <h6 class="wanopostyet">ยังไม่มีวีดีโอแนะนําตัว</h6>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="d-flex justify-content-center">
+                                    {this.props.data["sameperson"] == 1 ? 
+                                      <video autoplay="true" muted="true" class="almostvideovideowhenget" id="introvideo" controls >
+                                          <source src={videolink} type="video/mp4"></source>
+                                          Your browser does not support the video tag.
+                                      </video>:null}
+                                   </div>
+                                  <div class="custom-filee">
+                                      <div class="videouploadininfluencer">
+                                          <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                                      </div>
+                                  </div>
+
+
                               </div>
                             </div>
                             </div>
@@ -941,7 +959,7 @@ class InfluencerFeedTitle extends React.Component {
                                           <label htmlFor="edit_post_txt">กดเพื่อเปลี่ยนวีดีโอแนะนําตัว</label>
                                       </div>
                                         <div>
-                                            <div class="custom-file ">
+                                            <div class="custom-file">
                                                 <div class="videouploadininfluencer">
                                                     <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
                                                 </div>
