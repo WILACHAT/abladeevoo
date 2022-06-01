@@ -1,0 +1,80 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if user.is_superuser == 1 %}
+<div class="d-flex justify-content-between superuserclass">
+<div>
+{% if user.is_superuser == 1 %}
+
+    {% if validlink == True %}
+        <form action="{% url 'superuserrefund' %}" method="post">
+            {% csrf_token %}
+            
+            <h1>num of transaction that is needed to be refund</h1>
+            {{ refundnum }}
+            <input class="btn btn-primary" type="submit" value="Refund">
+        </form>
+
+
+        {% for i in alltheinfo %}
+        <form action="{% url 'superuser' %}" method="post">
+        {% csrf_token %}
+        
+        <h6>{{i.name}}</h6>
+        <h6>{{i.email}}</h6>
+        <h6>{{i.phone}}</h6>
+        <h6>{{i.find}}</h6>
+        <h6>{{i.findusername}}</h6>
+        <h6>{{i.follownum}}</h6>
+        <h6>{{i.category}}</h6>
+    
+        <input name="idofuser" type="hidden" value={{i.requested_user_id}}></input>
+        <input name="category" type="hidden" value={{i.category}}></input>
+        <input name="firstname" type="hidden" value={{i.name}}></input>
+    
+    
+        <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+        {% endfor %}
+      
+    
+
+
+
+
+       
+        <li class="nav-item mt-2 ml-4">
+            <a id="navprofile" class="wa" href="{% url 'superuserreport' %}"><strong>Reports</strong></a>
+        </li>
+        <li class="nav-item mt-2 ml-4">
+            <a id="navprofile" class="wa" href="{% url 'superuserfeedback' %}"><strong>Feedbacks</strong></a>
+        </li>
+        <li class="nav-item mt-2 ml-4">
+            <a id="navprofile" class="wa" href="{% url 'superusermail' %}"><strong>Mailing Lists</strong></a>
+        </li>
+  
+    {% endif %}
+  {% endif %}
+
+
+</div>
+
+
+
+
+{% else %}
+<h2>We might look to hire!</h2>
+<h2>waanwaanwilachat@gmail.com</h2>
+
+
+
+{% endif %}
+
+
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if user.is_superuser == 1 %}
+<div class="d-flex justify-content-between superuserclass">
+<div>
+    <form action="{% url 'superuserrefund' %}" method="post">
+    {% csrf_token %}
+    
+    <h1>num of transaction that is needed to be refund</h1>
+    <h1>{{ refundnum }}</h1>
+    <input class="btn btn-primary" type="submit" value="Refund">
+    </form>
+  
+
+
+
+</div>
+
+
+
+
+{% else %}
+<h2>We might look to hire!</h2>
+<h2>waanwaanwilachat@gmail.com</h2>
+
+
+
+{% endif %}
+
+
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

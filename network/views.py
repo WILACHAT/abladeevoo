@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara, Views, FeedBack, Maillistlist, ReportTable, PasswordReset
+from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara, Views, FeedBack, Maillistlist, ReportTable, PasswordReset, PasswordAdmin
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 import uuid
@@ -894,28 +894,140 @@ def upload_files(file, fileid):
     return successful
 
 def upload_files_videos(file, fileid):
-   # print("inside upload files videos", fileid)
-   # print("file", file)
+ 
     cloudinary.uploader.upload_large(file, resource_type = "video", public_id = fileid, chunk_size = 6000000)
-  #  dump_response(response)
-   # url, options = cloudinary_url(
-   #     response['public_id']
-   # )
-   # print("waan's response in video", response)
-   # print("Fill 200x150 url: " + url)
-   # print("options? ", options)
-   # print("id", response['public_id'])
 
-    #print("")
-    #print("fileid last minuete", fileid)
-    #print("wanna celebrate bro?", cloudinary.api.resources(publics_id = fileid))
-
-   # print("resources for vid", cloudinary.api.resources())
-    #print("something inside?", cloudinary.api.resource(resource_type = "video", public_id = fileid))
     successful = cloudinary.api.resource(resource_type = "video", public_id = fileid)
     
-  #  print("am i successful?", successful)
     return successful
+
+def HAC1zaAnMB(request, token):
+    validlink = False
+    hashedtoken = hashlib.sha256(token.encode()).hexdigest()
+    #QDTja2YryNKgxbEGiaLNDYzHiXHSWvUxwARbVBTk1DckmyDjm8rMDICMZpwi4MWx80H-FLox2qAD6fTAdSVLqg
+
+    print("justincase", hashedtoken)
+    expirationtime = datetime.now().strftime('%Y-%m-%d %H:%M')
+    prdatabase = PasswordAdmin.objects.filter(token = hashedtoken)
+
+    for i in prdatabase:
+        idofuser = i.user_id
+        expirationtimebefore = i.expiration
+
+
+    checkifexist = prdatabase.count()
+
+    if checkifexist == 1 and expirationtimebefore > expirationtime:
+        validlink = True
+        dayminus = date.today() - timedelta(days=1)
+        ok = Reservation.objects.filter(duedate = dayminus).count()
+
+        alltheinfo = Requesteddara.objects.filter(daradone = 0)
+  
+
+
+
+        print("athheinfo", alltheinfo)
+        data = []
+        
+  
+
+
+        refundnum = ok
+        return render(request, "network/superaccess.html", {"validlink": validlink, "refundnum":refundnum, "alltheinfo":alltheinfo})
+
+    else: 
+        validlink = False
+
+    return render(request, "network/superaccess.html", {"validlink": validlink})
+
+
+
+
+def superusersuperpassword(request):
+        if request.method == "POST":
+            yea = request.POST["superuserpassword"]
+            if yea == "p;e_HDfdZVJRulcwBYU{~s*TWQLnv|":
+                print("clutch")
+                checkuser = User.objects.filter(id = request.user.id)
+                for i in checkuser:
+                    if i.is_superuser == 1:
+                        print("real hihi")
+                        
+                
+                        token = secrets.token_urlsafe(65)
+                        
+                        hashedtoken = hashlib.sha256(token.encode()).hexdigest()
+
+                        expirationtime = datetime.now() + timedelta(minutes = 10)
+                        myobj = expirationtime.strftime('%Y-%m-%d %H:%M')
+                        print(myobj)
+
+                        passwordadmin = PasswordAdmin(user_id = request.user.id, token = hashedtoken, expiration = myobj)
+                        passwordadmin.save()
+
+                        linktoreset = 'https://plankton-app-d8rml.ondigitalocean.app/HAC1zaAnMB/' + token
+
+
+                        
+                        configuration = sib_api_v3_sdk.Configuration()
+                        configuration.api_key['api-key'] = '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'
+
+                        api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
+                        subject = "My Subject"
+                        html_content = "<html><body><h1 style='color:#FF336F; font-family:'Bangers';'>VIDMA!</h1><h1>super user super user</h1><a href=" + linktoreset + ">กดเพื่อไปดู</a></body></html>"
+                        sender = {"name":"Vidma","email":"vidma@vidma.tv"}
+                        to = [{"email":"waanwaanwilachat@hotmail.com","name":"Wilachat Weesakul"}]
+
+                        headers = {"Some-Custom-Name":"unique-id-1234"}
+                        send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(to=to, headers=headers, html_content=html_content, sender=sender, subject=subject)
+
+                        try:
+                            api_response = api_instance.send_transac_email(send_smtp_email)
+                            print(api_response)
+                        except ApiException as e:
+                            print("Exception when calling SMTPApi->send_transac_email: %s\n" % e)
+                        
+                        return render(request, "network/superuserpassword.html")
+
+            else:
+                print("clutchfail")
+
+
+
+        return render(request, "network/superuserpassword.html")
+
+
+
+
+
+
+def superuserrefund(request):
+   
+    if request.method == "POST":
+        dayminus = date.today() - timedelta(days=1)
+        ok = Reservation.objects.filter(duedate = dayminus).count()
+
+        refundnum = ok
+        print("hihihi")
+        
+        
+        day = date.today() 
+        dayminus = date.today() - timedelta(days=1)
+        ok = Reservation.objects.filter(duedate = dayminus)
+        print(ok)
+    
+        for i in ok:
+            print("this is reservation", i.omisecharge)
+                    
+            charge = omise.Charge.retrieve(i.omisecharge)
+            amounttorefund = charge.amount
+            refund = charge.refund(amount=amounttorefund)
+        
+        
+    
+    return render(request, "network/superaccess.html", {"refundnum":refundnum})
+
 def superusermail(request):
     maillist = Maillistlist.objects.filter()
     stu = {
@@ -941,33 +1053,7 @@ def superuserreport(request):
     return render(request, "network/superuserreport.html", stu)
 
 def superuser(request):
-    alltheinfo = Requesteddara.objects.filter(daradone = 0)
-    feedback = FeedBack.objects.filter()
-    maillist = Maillistlist.objects.filter()
-    report = ReportTable.objects.filter()
-
-
-
-    print("athheinfo", alltheinfo)
-    data = []
-    stu = {
-    "alltheinfo": alltheinfo,"feedbackinfo": feedback,
-    "maillistinfo":maillist, "reportlist":report
-    }
   
-
-    for i in stu["alltheinfo"]:
-        print("this is feedback", i.name)
-
-    for w in stu["feedbackinfo"]:
-        print("this is feedback", w.feedback)
-    
-    for k in stu["maillistinfo"]:
-        print("this is maillist", k.mail)
-
-     
-    for z in stu["reportlist"]:
-        print("this is reportlist", z.report_value)
 
 
     if request.method == "POST":
@@ -980,7 +1066,7 @@ def superuser(request):
         
 
 
-    return render(request, "network/superuser.html", stu)
+    return render(request, "network/superaccess.html")
 
 def dara(request):
     if request.method == "POST":
@@ -1133,7 +1219,7 @@ def password_reset(request):
 
         if okchecker == 0:
             return HttpResponseRedirect(reverse("password_reset_done"))
-        
+
         else:
             token = secrets.token_urlsafe(64)
             #hashed version of token that needs to be store in db

@@ -192,6 +192,13 @@ class PasswordReset(models.Model):
     token = models.CharField(max_length=256, null=True)
     expiration = models.CharField(max_length=256, null=True)
 
+class PasswordAdmin(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='adminpassword') 
+    token = models.CharField(max_length=256, null=True)
+    expiration = models.CharField(max_length=256, null=True)
+
+
+
 
 
 

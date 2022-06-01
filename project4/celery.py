@@ -7,7 +7,7 @@ from celery import Celery
 from datetime import datetime
 from celery.schedules import crontab
 from datetime import timedelta
-
+from urllib.parse import urlparse
 
 
 timezone = 'Asia/Bangkok'

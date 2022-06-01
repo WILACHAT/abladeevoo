@@ -33,10 +33,16 @@ urlpatterns = [
 
     path("editprofile", views.editprofile, name="editprofile"),
     path("hidepost", views.hidepost, name="hidepost"),
+    path("superusersuperpassword", views.superusersuperpassword, name="superusersuperpassword"),
+
     path("superuser", views.superuser, name="superuser"),
+    path("HAC1zaAnMB/<str:token>", views.HAC1zaAnMB, name="HAC1zaAnMB"),
+
     path("superuserreport", views.superuserreport, name="superuserreport"),
     path("superuserfeedback", views.superuserfeedback, name="superuserfeedback"),
     path("superusermail", views.superusermail, name="superusermail"),
+    path("superuserrefund", views.superuserrefund, name="superuserrefund"),
+
     path("paymentapi/<str:username>", views.paymentapi, name="paymentapi"),
     path("paymentresponse", views.paymentresponse, name="paymentresponse"),
 

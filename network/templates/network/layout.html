@@ -161,20 +161,14 @@
               </li>
             {% endif %}
             {% if user.is_superuser == 1 %}
-              <li class="nav-item mt-2 ml-4">
-                <a id="navprofile" class="wa" href="{% url 'superuser' %}"><strong>Influencers</strong></a>
-              </li>
-              <li class="nav-item mt-2 ml-4">
-                <a id="navprofile" class="wa" href="{% url 'superuserreport' %}"><strong>Reports</strong></a>
-              </li>
-              <li class="nav-item mt-2 ml-4">
-                <a id="navprofile" class="wa" href="{% url 'superuserfeedback' %}"><strong>Feedbacks</strong></a>
-              </li>
-              <li class="nav-item mt-2 ml-4">
-                <a id="navprofile" class="wa" href="{% url 'superusermail' %}"><strong>Mailing Lists</strong></a>
-              </li>
+            <li class="nav-item mt-2 ml-4">
+              <a id="navprofile" class="wa" href="{% url 'superusersuperpassword' %}"><strong>password</strong></a>
+            </li>
+             
             {% endif %}
         {% endif %}
+
+      {% if user.is_superuser != 1 %}
       <li class="nav-item mt-2 ml-4">
         <a class="wa" href="{% url 'index' %}">หน้าหลัก</a>
       </li>
@@ -193,6 +187,8 @@
         </li>
         {% endif %}
       {% endif %}
+      {% endif %}
+
 
       {% if not user.is_authenticated %}
       <li class="nav-item mt-2 ml-4">
