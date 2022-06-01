@@ -49,7 +49,7 @@ DEBUG = False
     #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND='anymail.backends.sendinblue.EmailBackend'
+#EMAIL_BACKEND='anymail.backends.sendinblue.EmailBackend'
 EMAIL_HOST='smtp-relay.sendinblue.com'
 EMAIL_PORT=587
 #EMAIL_USE_TLS=True
@@ -115,8 +115,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project4.wsgi.application'
-'''
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

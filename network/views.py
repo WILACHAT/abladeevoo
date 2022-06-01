@@ -1136,16 +1136,20 @@ def paymentsetupapi(request):
     checker = ""
 
     if request.method == "POST":
+        print("we are one fuck u")
         data = json.loads(request.body)
         haha = Userinfo.objects.filter(influencer_id = request.user.id)
         for i in haha:
             if i.omiserecipent and i.price == None:
                 checker = "new"
+                omiserecipent = i.omiserecipent
+                print("we are", omiserecipent)
             else:
+                print("whatwhat")
                 price = i.price
                 omiserecipent = i.omiserecipent
 
-
+        print(omiserecipent)
         if data["type"] == "exist":
             recipient = omise.Recipient.retrieve(omiserecipent)
            
