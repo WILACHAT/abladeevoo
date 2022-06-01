@@ -5,11 +5,7 @@
 
 <script>
     document.querySelector('#tooltiptextid').hidden = true
-    function ngongMak()
-    {
-        
-        document.querySelector('#tooltiptextid').hidden = true
-    }
+   
 
     function clickPassword()
     {
@@ -57,6 +53,16 @@
             
             
             </script>   
+
+        {% elif message == "captcha" %}
+        <script>
+            Swal.fire({
+            icon: 'error',
+            title: 'ลืมกรอกcaptcha!'
+        })
+
+
+        </script>   
         {% else %}
             <script>
                 Swal.fire({
@@ -72,7 +78,7 @@
 
     
 
-    <form onClick="ngongMak()" action="{% url 'register' %}" method="post">
+    <form action="{% url 'register' %}" method="post" >
 
         {% csrf_token %}
         <div class="d-flex justify-content-center mt-4">

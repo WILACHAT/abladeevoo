@@ -85,7 +85,7 @@ render()
         
         </div>
         <div class="d-flex justify-content-center mt-3">
-              {this.props.sameperson == 1 ?  <button id={this.props.data} value={this.state.hide} class={this.state.hide == "Hide" ? "btn-primary hidebutton":"btn-danger hidebutton"} onClick={this.hideFunction}>{this.state.hide}</button>:null}
+              {this.props.sameperson == 1 ?  <button id={this.props.data} value={this.state.hide} class={this.state.hide == "Hide" ? "btn hidebutton":"btn hidebuttonwrong"} onClick={this.hideFunction}>{this.state.hide == "Hide" ? "ซ้อน":"เลิกซ่อน"}</button>:null}
         </div>
       </div>
     </div>
@@ -930,11 +930,12 @@ class InfluencerFeedTitle extends React.Component {
                                           Your browser does not support the video tag.
                                       </video>:null}
                                    </div>
+                                   {this.props.data["sameperson"] == 1 ? 
                                   <div class="custom-filee">
                                       <div class="videouploadininfluencer">
                                           <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
                                       </div>
-                                  </div>
+                                  </div>:null}
 
 
                               </div>
@@ -985,7 +986,8 @@ class InfluencerFeedTitle extends React.Component {
             </div>
             {this.props.data["sameperson"] == 1 ?
               <div class="d-flex justify-content-center">
-                  <h6>*note สามารถ Show ได้แค่ 9 Posts</h6>
+                  <h6>*เว็ปไซต์จะโชย์ 9 วีดีโอล่าสุดถ้าไม่ได้ซ่อนวีดีโอ*</h6>
+
               </div>
               :null}
          </div>

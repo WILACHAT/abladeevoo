@@ -373,9 +373,8 @@ class EachReserve extends React.Component{
     }
     render() {
         console.log("hahahahahahheheheheheh", document.querySelector('#typeofpage').value)
-
         let videoandstuff = ""
-        link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
+        link = "https://res.cloudinary.com/ablaze-project/video/upload/l_9687f7ee-e194-11ec-a149-3af9d3ce8c1e1.png,w_160,h_60,g_south_west/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4"
        // https://res.cloudinary.com/demo/video/upload/l_cloudinary_icon,w_70,h_70,g_north_west/abbey_road.mp4
         videoandstuff = 
         <div id="videowhengetid">

@@ -457,28 +457,28 @@ class BookPage extends React.Component {
                         <label class="wa">เกิดวันที่เท่าไหร่</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa1" placeholder="เกิดวันที่เท่าไหร่?"></input>
+                        <input class="inputheho" required name="occa1" placeholder="ตัวอย่าง: 20 กรกฎาคม, 20/7"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">จะอายุขึ้นเท่าไหร่</label>
+                        <label class="wa">อายุขึ้นเท่าไหร่</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa2" placeholder="จะอายุขึ้นเท่าไหร่?"></input>
+                        <input class="inputheho" required name="occa2" placeholder="อายุ 20 ปีนี้"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
                         <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa3"placeholder="อยากให้สตาร์พูด/ทําอะไรให้"></input>
+                        <input class="inputheho" required name="occa3"placeholder="ร้องเพลงสุขสันต์วันเกิด พร้อมคำอวยพร"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
                         <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์:</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input id="optional/occa4" class="inputheho" name="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                        <input id="optional/occa4" class="inputheho" name="occa4" placeholder="รอชมผลงานการแสดงอยู่นะ!"></input>
                     </div>
 
                 </div>
@@ -744,28 +744,28 @@ class BookPage extends React.Component {
                         <label class="wa">เกิดวันที่เท่าไหร่</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa1" placeholder="เกิดวันที่เท่าไหร่?"></input>
+                        <input class="inputheho" required name="occa1" placeholder="ตัวอย่าง: 20 กรกฎาคม, 20/7"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">จะอายุขึ้นเท่าไหร่</label>
+                        <label class="wa">อายุขึ้นเท่าไหร่</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa2" placeholder="จะอายุขึ้นเท่าไหร่?"></input>
+                        <input class="inputheho" required name="occa2" placeholder="อายุ 20 ปีนี้"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
                         <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa3"placeholder="อยากให้สตาร์พูด/ทําอะไรให้"></input>
+                        <input class="inputheho" required name="occa3"placeholder="ร้องเพลงสุขสันต์วันเกิด พร้อมคำอวยพร"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์:</label>
+                        <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" id="optional/occa4" name="occa4" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                        <input class="inputheho" id="optional/occa4" name="occa4" placeholder="รอชมผลงานอยู่นะ!"></input>
                     </div>
 
                 </div>
@@ -785,21 +785,21 @@ class BookPage extends React.Component {
                                 <label class="wa">ทําไมถึงอยากได้กําลังใจ</label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" required name="occa1" placeholder="ทําไมถึงอยากได้กําลังใจ?"></input><br></br>
+                                <input class="inputheho" required name="occa1" placeholder="ให้กำลังใจ ตั้งใจทำงาน"></input><br></br>
                             </div>
 
                             <div class="d-flex justify-content-center mt-2">
-                                <label class="wa">ให้สตาร์ช่วยอะไรได้บ้าง</label>
+                                <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" required name="occa2" placeholder="ให้สตาร์ช่วยอะไรได้บ้าง?"></input><br></br>
+                                <input class="inputheho" required name="occa2" placeholder="พูดให้กำลังใจ ให้มีไฟทำงาน"></input><br></br>
                             </div>
 
                             <div class="d-flex justify-content-center mt-2">
                                 <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input id="optional/occa3" class="inputheho" name="occa3" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input><br></br>
+                                <input id="optional/occa3" class="inputheho" name="occa3" placeholder="รอชมผลงานอยู่นะ!"></input><br></br>
                             </div>
                            
                         </div>
@@ -817,11 +817,11 @@ class BookPage extends React.Component {
                     <div name="occasionname" id="roastbutton_html_id">
                         <div>
                             <div class="d-flex justify-content-center mt-2">
-                                <label class="wa">อยากได้ฏัาลังใจในเรื่องอะไร</label>
+                                <label class="wa">อยากให้สตาร์ล้อเลียนว่าอย่างไรบ้าง</label>
                             </div>
 
                             <div class="d-flex justify-content-center"> 
-                                <input class="inputheho" required name="occa1" placeholder="อยากได้ฏัาลังใจในเรื่องอะไร"></input>
+                                <input class="inputheho" required name="occa1" placeholder="ล้อเลียน ให้ตั้งใจติวหนังสือ"></input>
                             </div>
 
                             <div class="d-flex justify-content-center mt-2">
@@ -829,7 +829,7 @@ class BookPage extends React.Component {
                             </div>
 
                             <div class="d-flex justify-content-center">
-                                <input id="optional/occa2" class="inputheho" name="occa2" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"></input>
+                                <input id="optional/occa2" class="inputheho" name="occa2" placeholder="รอชมผลงานอยู่นะ!"></input>
                             </div>
                         </div>
                     </div>,
@@ -848,21 +848,21 @@ class BookPage extends React.Component {
                                 <label class="wa">เนื่องในโอกาสอะไร</label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" required name="occa1" placeholder="เนื่องในโอกาสอะไร?"></input>
+                                <input class="inputheho" required name="occa1" placeholder="เรียนจบปริญญาตรี"></input>
                             </div>
                            
                             <div class="d-flex justify-content-center mt-2">
-                                <label class="wa">อยากให้สตาร์พูดหรือทําอะไร</label>
+                                <label class="wa">อยากให้สตาร์พูด/ทําอะไร</label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" required name="occa2" placeholder="อยากให้สตาร์พูดหรือทําอะไร"></input>
+                                <input class="inputheho" required name="occa2" placeholder="อวยพร และพูดแสดงความยินดี"></input>
                             </div>
                            
                             <div class="d-flex justify-content-center mt-2">
                                 <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input id="optional/occa3" class="inputheho" name="occa3" placeholder="อยากบอกอะไรเพิ่มเติมกับสตาร์"/>
+                                <input id="optional/occa3" class="inputheho" name="occa3" placeholder="รอชมผลงานอยู่นะ!"/>
                             </div>
                         </div>
                     </div>,
@@ -944,7 +944,7 @@ class BookPage extends React.Component {
             </div>
 
             <div class="d-flex justify-content-center mt-1">
-                <h6>NOTE* ถ้าสตาร์ทําเสร็จไม่ทันวันที่นี้คุณจะได้เงินคืน</h6>
+                <h6>*ถ้าสตาร์ทําเสร็จไม่ทันวันที่นี้คุณจะได้เงินคืน*</h6>
             </div>
 
             <div class="d-flex justify-content-center">

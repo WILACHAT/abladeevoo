@@ -784,10 +784,16 @@ def register(request):
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
+        print("what pls work", request.POST["g-recaptcha-response"])
         if password != confirmation:
             return render(request, "network/register.html", {
                 "message": "password"
             })
+        if request.POST["g-recaptcha-response"] == "":
+            return render(request, "network/register.html", {
+                "message": "captcha"
+            })
+
 
         # Attempt to create new user
         try:
@@ -940,8 +946,6 @@ def HAC1zaAnMB(request, token):
         validlink = False
 
     return render(request, "network/superaccess.html", {"validlink": validlink})
-
-
 
 
 def superusersuperpassword(request):

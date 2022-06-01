@@ -103,8 +103,8 @@ var InfluencerFeedRows = function (_React$Component) {
               { 'class': 'd-flex justify-content-center mt-3' },
               this.props.sameperson == 1 ? React.createElement(
                 'button',
-                { id: this.props.data, value: this.state.hide, 'class': this.state.hide == "Hide" ? "btn-primary hidebutton" : "btn-danger hidebutton", onClick: this.hideFunction },
-                this.state.hide
+                { id: this.props.data, value: this.state.hide, 'class': this.state.hide == "Hide" ? "btn hidebutton" : "btn hidebuttonwrong", onClick: this.hideFunction },
+                this.state.hide == "Hide" ? "ซ้อน" : "เลิกซ่อน"
               ) : null
             )
           )
@@ -1064,7 +1064,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
                         'Your browser does not support the video tag.'
                       ) : null
                     ),
-                    React.createElement(
+                    this.props.data["sameperson"] == 1 ? React.createElement(
                       'div',
                       { 'class': 'custom-filee' },
                       React.createElement(
@@ -1072,7 +1072,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
                         { 'class': 'videouploadininfluencer' },
                         React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
                       )
-                    )
+                    ) : null
                   )
                 )
               ) : React.createElement(
@@ -1142,7 +1142,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
           React.createElement(
             'h6',
             null,
-            '*note \u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16 Show \u0E44\u0E14\u0E49\u0E41\u0E04\u0E48 9 Posts'
+            '*\u0E40\u0E27\u0E47\u0E1B\u0E44\u0E0B\u0E15\u0E4C\u0E08\u0E30\u0E42\u0E0A\u0E22\u0E4C 9 \u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E25\u0E48\u0E32\u0E2A\u0E38\u0E14\u0E16\u0E49\u0E32\u0E44\u0E21\u0E48\u0E44\u0E14\u0E49\u0E0B\u0E48\u0E2D\u0E19\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D*'
           )
         ) : null
       );

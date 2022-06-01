@@ -586,7 +586,7 @@ var BookPage = function (_React$Component2) {
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E40\u0E01\u0E34\u0E14\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48?' })
+                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07: 20 \u0E01\u0E23\u0E01\u0E0E\u0E32\u0E04\u0E21, 20/7' })
                     ),
                     React.createElement(
                         'div',
@@ -594,13 +594,13 @@ var BookPage = function (_React$Component2) {
                         React.createElement(
                             'label',
                             { 'class': 'wa' },
-                            '\u0E08\u0E30\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                            '\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
                         )
                     ),
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E08\u0E30\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48?' })
+                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E2D\u0E32\u0E22\u0E38 20 \u0E1B\u0E35\u0E19\u0E35\u0E49' })
                     ),
                     React.createElement(
                         'div',
@@ -614,7 +614,7 @@ var BookPage = function (_React$Component2) {
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49' })
+                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa3', placeholder: '\u0E23\u0E49\u0E2D\u0E07\u0E40\u0E1E\u0E25\u0E07\u0E2A\u0E38\u0E02\u0E2A\u0E31\u0E19\u0E15\u0E4C\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14 \u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E04\u0E33\u0E2D\u0E27\u0E22\u0E1E\u0E23' })
                     ),
                     React.createElement(
                         'div',
@@ -628,7 +628,7 @@ var BookPage = function (_React$Component2) {
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { id: 'optional/occa4', 'class': 'inputheho', name: 'occa4', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                        React.createElement('input', { id: 'optional/occa4', 'class': 'inputheho', name: 'occa4', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E01\u0E32\u0E23\u0E41\u0E2A\u0E14\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
                     )
                 )
             ),
@@ -863,7 +863,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E40\u0E01\u0E34\u0E14\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48?' })
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07: 20 \u0E01\u0E23\u0E01\u0E0E\u0E32\u0E04\u0E21, 20/7' })
                             ),
                             React.createElement(
                                 'div',
@@ -871,13 +871,13 @@ var BookPage = function (_React$Component2) {
                                 React.createElement(
                                     'label',
                                     { 'class': 'wa' },
-                                    '\u0E08\u0E30\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                                    '\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E08\u0E30\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48?' })
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E2D\u0E32\u0E22\u0E38 20 \u0E1B\u0E35\u0E19\u0E35\u0E49' })
                             ),
                             React.createElement(
                                 'div',
@@ -891,7 +891,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49' })
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa3', placeholder: '\u0E23\u0E49\u0E2D\u0E07\u0E40\u0E1E\u0E25\u0E07\u0E2A\u0E38\u0E02\u0E2A\u0E31\u0E19\u0E15\u0E4C\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14 \u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E04\u0E33\u0E2D\u0E27\u0E22\u0E1E\u0E23' })
                             ),
                             React.createElement(
                                 'div',
@@ -899,13 +899,13 @@ var BookPage = function (_React$Component2) {
                                 React.createElement(
                                     'label',
                                     { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C:'
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', id: 'optional/occa4', name: 'occa4', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                                React.createElement('input', { 'class': 'inputheho', id: 'optional/occa4', name: 'occa4', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
                             )
                         )
                     ),
@@ -933,7 +933,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E17\u0E4D\u0E32\u0E44\u0E21\u0E16\u0E36\u0E07\u0E2D\u0E22\u0E32\u0E01\u0E44\u0E14\u0E49\u0E01\u0E4D\u0E32\u0E25\u0E31\u0E07\u0E43\u0E08?' }),
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E43\u0E2B\u0E49\u0E01\u0E33\u0E25\u0E31\u0E07\u0E43\u0E08 \u0E15\u0E31\u0E49\u0E07\u0E43\u0E08\u0E17\u0E33\u0E07\u0E32\u0E19' }),
                                 React.createElement('br', null)
                             ),
                             React.createElement(
@@ -942,13 +942,13 @@ var BookPage = function (_React$Component2) {
                                 React.createElement(
                                     'label',
                                     { 'class': 'wa' },
-                                    '\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E0A\u0E48\u0E27\u0E22\u0E2D\u0E30\u0E44\u0E23\u0E44\u0E14\u0E49\u0E1A\u0E49\u0E32\u0E07'
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E0A\u0E48\u0E27\u0E22\u0E2D\u0E30\u0E44\u0E23\u0E44\u0E14\u0E49\u0E1A\u0E49\u0E32\u0E07?' }),
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E1E\u0E39\u0E14\u0E43\u0E2B\u0E49\u0E01\u0E33\u0E25\u0E31\u0E07\u0E43\u0E08 \u0E43\u0E2B\u0E49\u0E21\u0E35\u0E44\u0E1F\u0E17\u0E33\u0E07\u0E32\u0E19' }),
                                 React.createElement('br', null)
                             ),
                             React.createElement(
@@ -963,7 +963,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { id: 'optional/occa3', 'class': 'inputheho', name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' }),
+                                React.createElement('input', { id: 'optional/occa3', 'class': 'inputheho', name: 'occa3', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' }),
                                 React.createElement('br', null)
                             )
                         )
@@ -986,13 +986,13 @@ var BookPage = function (_React$Component2) {
                                 React.createElement(
                                     'label',
                                     { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E44\u0E14\u0E49\u0E0F\u0E31\u0E32\u0E25\u0E31\u0E07\u0E43\u0E08\u0E43\u0E19\u0E40\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E2D\u0E30\u0E44\u0E23'
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E25\u0E49\u0E2D\u0E40\u0E25\u0E35\u0E22\u0E19\u0E27\u0E48\u0E32\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23\u0E1A\u0E49\u0E32\u0E07'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E44\u0E14\u0E49\u0E0F\u0E31\u0E32\u0E25\u0E31\u0E07\u0E43\u0E08\u0E43\u0E19\u0E40\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E2D\u0E30\u0E44\u0E23' })
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E25\u0E49\u0E2D\u0E40\u0E25\u0E35\u0E22\u0E19 \u0E43\u0E2B\u0E49\u0E15\u0E31\u0E49\u0E07\u0E43\u0E08\u0E15\u0E34\u0E27\u0E2B\u0E19\u0E31\u0E07\u0E2A\u0E37\u0E2D' })
                             ),
                             React.createElement(
                                 'div',
@@ -1006,7 +1006,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { id: 'optional/occa2', 'class': 'inputheho', name: 'occa2', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                                React.createElement('input', { id: 'optional/occa2', 'class': 'inputheho', name: 'occa2', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
                             )
                         )
                     ),
@@ -1033,7 +1033,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E40\u0E19\u0E37\u0E48\u0E2D\u0E07\u0E43\u0E19\u0E42\u0E2D\u0E01\u0E32\u0E2A\u0E2D\u0E30\u0E44\u0E23?' })
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E40\u0E23\u0E35\u0E22\u0E19\u0E08\u0E1A\u0E1B\u0E23\u0E34\u0E0D\u0E0D\u0E32\u0E15\u0E23\u0E35' })
                             ),
                             React.createElement(
                                 'div',
@@ -1041,13 +1041,13 @@ var BookPage = function (_React$Component2) {
                                 React.createElement(
                                     'label',
                                     { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14\u0E2B\u0E23\u0E37\u0E2D\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23'
+                                    '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14\u0E2B\u0E23\u0E37\u0E2D\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23' })
+                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E2D\u0E27\u0E22\u0E1E\u0E23 \u0E41\u0E25\u0E30\u0E1E\u0E39\u0E14\u0E41\u0E2A\u0E14\u0E07\u0E04\u0E27\u0E32\u0E21\u0E22\u0E34\u0E19\u0E14\u0E35' })
                             ),
                             React.createElement(
                                 'div',
@@ -1061,7 +1061,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { id: 'optional/occa3', 'class': 'inputheho', name: 'occa3', placeholder: '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C' })
+                                React.createElement('input', { id: 'optional/occa3', 'class': 'inputheho', name: 'occa3', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
                             )
                         )
                     ),
@@ -1233,7 +1233,7 @@ var BookPage = function (_React$Component2) {
                     React.createElement(
                         'h6',
                         null,
-                        'NOTE* \u0E16\u0E49\u0E32\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E17\u0E4D\u0E32\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E44\u0E21\u0E48\u0E17\u0E31\u0E19\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E19\u0E35\u0E49\u0E04\u0E38\u0E13\u0E08\u0E30\u0E44\u0E14\u0E49\u0E40\u0E07\u0E34\u0E19\u0E04\u0E37\u0E19'
+                        '*\u0E16\u0E49\u0E32\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E17\u0E4D\u0E32\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E44\u0E21\u0E48\u0E17\u0E31\u0E19\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E19\u0E35\u0E49\u0E04\u0E38\u0E13\u0E08\u0E30\u0E44\u0E14\u0E49\u0E40\u0E07\u0E34\u0E19\u0E04\u0E37\u0E19*'
                     )
                 ),
                 React.createElement(

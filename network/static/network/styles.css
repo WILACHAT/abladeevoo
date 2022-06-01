@@ -944,6 +944,18 @@ padding: 10px;
   background-color: coral;
   color:white;
 }
+.hidebutton
+{
+  color:white;
+  background-color:green;
+
+}
+.hidebuttonwrong
+{
+  color:white;
+  background-color: red;
+
+}
 
 .unhidediv
 {
@@ -1899,15 +1911,21 @@ video{
 }
 .inputhehosearch
 {
-  width: 100%;
+  width: 500px;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #094FCB;
-  border-radius: 4px;
+  border: 1.5px solid #094FCB;
+  border-radius: 40px;
   box-sizing: border-box;
   background:transparent;
   height:45px;
+}
+@media only screen and (max-width: 600px) {
+  .inputhehosearch {
+    width:100%;
+
+  }
 }
 
 .inputhehore
@@ -2445,4 +2463,93 @@ html {
 {
   font-size:15px;
   
+}
+.bigbackgoundfaqpage{
+  margin-top: 80px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  width:50%;
+  height:50%;
+  border-radius:20px;
+  padding:30px;
+}
+
+.faqheadertext{
+  font-size:220%;
+  font-family: 'Sarabun';
+}
+
+.topicsforfaqtext{
+  font-size:170%;
+  font-size: 'Sarabun';
+
+}
+.divoffaqheader{
+  padding:10px;
+}
+
+.questionsforfaq {
+  font-family: 'Sarabun';
+  background-color: #dddddd;
+  color: #212121;
+  box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  border: solid 3px transparent;
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(30deg,#ff336f,#ff336f,#094fcb, #094fcb );
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #fff inset;
+  border-radius:30px;
+  cursor: pointer;
+  padding: 1.5%;
+  width: 100%;
+  height:70px;
+  margin-bottom:3%;
+  text-align: center;
+  padding-top:1%;
+  outline: none;
+  font-size: 110%;
+}
+
+
+.answersforfaq {
+
+
+  display: none;
+  overflow: hidden;
+  text-align:center;
+  background-color: white;
+}
+
+@media only screen and (max-width: 800px) {
+  .bigbackgoundfaqpage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width:95%;
+  }
+  .accountsettingfirstcolumn
+  {
+    width:95%;
+  }
+  .accountsettingsecondcolumn
+  {
+    width:95%;
+  }
+  .questionsforfaq
+  {
+    height:100%;
+  }
+  .legalintroduction
+  {
+    width:95%;
+  }
+  .legalsubtopics
+  {
+    width:95%;
+  }
+  .legallastubtopics
+  {
+    width:95%;
+  }
 }
