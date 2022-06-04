@@ -680,14 +680,16 @@ def gotoeachreserve(request):
             configuration = sib_api_v3_sdk.Configuration()
             configuration.api_key['api-key'] = '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'
 
+      
+
+
             api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
-            subject = "My Subject"
-            html_content = "<html><body><h1 style='color:#FF336F; font-family:'Bangers';'>VIDMA!</h1><h1>วีดีโอที่" + " "+ usernameofinfluencer + " " + "ทํามาเพื่อคุณโดยเฉพาะได้สําเร็จแล้ว!</h1><a href='https://plankton-app-d8rml.ondigitalocean.app'>กดเพื่อไปดู</a></body></html>"
             sender = {"name":"Vidma","email":"vidma@vidma.tv"}
             to = [{"email":emailofuser,"name":usernameofuser}]
+            templateId = 1
        
-            headers = {"Some-Custom-Name":"unique-id-1234"}
-            send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(to=to, headers=headers, html_content=html_content, sender=sender, subject=subject)
+            send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(to=to,template_id = templateId, sender=sender, params={"name": usernameofinfluencer})
+       
 
             try:
                 api_response = api_instance.send_transac_email(send_smtp_email)
@@ -1246,13 +1248,11 @@ def password_reset(request):
             configuration.api_key['api-key'] = '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'
 
             api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
-            subject = "My Subject"
-            html_content = "<html><body><h1 style='color:#FF336F; font-family:'Bangers';'>VIDMA!</h1><h1>คุณลืมรหัสผ่าน</h1><a href=" + linktoreset + ">กดเพื่อไปดู</a></body></html>"
             sender = {"name":"Vidma","email":"vidma@vidma.tv"}
             to = [{"email":email,"name":username}]
+            templateId = 3
        
-            headers = {"Some-Custom-Name":"unique-id-1234"}
-            send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(to=to, headers=headers, html_content=html_content, sender=sender, subject=subject)
+            send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(to=to,template_id = templateId, sender=sender, params={"username": username, "link":linktoreset})
 
             try:
                 api_response = api_instance.send_transac_email(send_smtp_email)

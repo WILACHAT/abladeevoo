@@ -108,7 +108,7 @@ var PaymentSetup = function (_React$Component) {
                             React.createElement(
                                 'option',
                                 { value: 'ttb' },
-                                'Thanachart Bank'
+                                'TMB-Thanachart Bank'
                             )
                         )
                     ),
