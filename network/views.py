@@ -143,12 +143,31 @@ def index(request):
   #  print(portals)
     return render(request, "network/index.html", {"portalshown": influencers})
 
+def allstars(request):
+    print("at least its here??")
+    return render(request, "network/allstars.html")
+
+def allstarsapi(request):
+    print("what is going on?")
+    influencers = Userinfo.objects.all()
+    data = []
+    for i in influencers:
+        data.append(i.serialize())
+        print(data)
+    
+    return_request = data
+ 
+
+    
+    return JsonResponse(return_request, safe=False)
+
+
+
+
 def usersetting(request):
 
-  
-
-
     return render(request, "network/usersetting.html")
+
 def usersettingapi(request):
     if request.method == "POST":
         data = json.loads(request.body)

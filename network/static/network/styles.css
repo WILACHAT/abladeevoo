@@ -334,7 +334,25 @@ margin-top:20px;
 {
   visibility:hidden;
 }
+.contentallstars
+{
+  
+}
 
+.twooneallstar
+{
+
+  display: grid;
+  gap: 1px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.sizeofcolumnallstars
+{
+ 
+  width:300px;
+
+}
 
 @media only screen and (max-width: 650px) {
   #suggestions_por_react_popular {
@@ -342,7 +360,6 @@ margin-top:20px;
   }
   .content
   {
-    flex: 1;
     display: flex;
     overflow: auto;
     justify-content: center;

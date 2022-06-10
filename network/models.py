@@ -15,8 +15,6 @@ class User(AbstractUser):
     accountstatus = models.IntegerField(null=False, default = 1)
 
     
-
-
     pass
     def serialize(self):
         return {
