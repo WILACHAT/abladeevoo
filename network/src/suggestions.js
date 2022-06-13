@@ -115,7 +115,7 @@ function getCookie(name) {
                 email={this.state.newdata[i].email}
                 influencer_ornot={this.state.newdata[i].influencer_ornot}
                 freeze_account={this.state.newdata[i].freeze_account}
-                fullname={this.state.newdata[i].fullname}
+                fullname={this.state.newdata[i].profile_fullname}
                 profile_picture={this.state.newdata[i].profile_picture}
                 lengthh={this.state.newdata.length}
                 />
@@ -193,7 +193,7 @@ function getCookie(name) {
 
 <div class="perbox">
         <a name="goodmorning" class="goodmorning d-flex justify-content-center mb-3" href={ininfluencer_link}> 
-          <div class="d-flex flex-column">
+          <div class="undergoodmorning d-flex flex-column">
             <img class="imgindex" width="240" height="300" src={link}></img>
             <h5 name="posterr" class="indexusername">{this.props.username}</h5> 
             <h5 class="indexfullname">{this.props.fullname}</h5>

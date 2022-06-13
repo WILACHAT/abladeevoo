@@ -29,6 +29,8 @@ urlpatterns = [
     path("gotozjguen484s9gj302g/<int:paginationid>", views.gotozjguen484s9gj302g, name="gotozjguen484s9gj302g"),
     path("allstars", views.allstars, name="allstars"),
     path("allstarsapi", views.allstarsapi, name="allstarsapi"),
+    path("followapi/<str:username>", views.followapi, name="followapi"),
+
 
 
     

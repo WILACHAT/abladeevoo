@@ -22,31 +22,140 @@ function getCookie(name) {
     return cookieValue;
 }
 
-var AllStarsTable = function (_React$Component) {
-    _inherits(AllStarsTable, _React$Component);
+var SearchBar = function (_React$Component) {
+    _inherits(SearchBar, _React$Component);
+
+    function SearchBar(props) {
+        _classCallCheck(this, SearchBar);
+
+        var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
+
+        _this.checkSearch = _this.checkSearch.bind(_this);
+
+        return _this;
+    }
+
+    _createClass(SearchBar, [{
+        key: 'checkSearch',
+        value: function checkSearch(e) {
+            //if (e.target.value !=  "")
+            // {
+            //  document.querySelector('#suggestions_por_react_popular').hidden = true;
+            //}
+            this.props.oncheckSearch(e.target.value);
+            console.log("kaidoded", e.target.value);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            return React.createElement(
+                'div',
+                { 'class': 'divsearch d-flex justify-content-center' },
+                React.createElement('input', {
+                    id: 'searchid',
+                    type: 'text',
+                    'class': 'inputhehosearch form-control d-flex justify-content-center',
+                    placeholder: '\u0E04\u0E49\u0E19\u0E2B\u0E32',
+                    value: this.props.searchtext,
+                    onChange: this.checkSearch
+                })
+            );
+        }
+    }]);
+
+    return SearchBar;
+}(React.Component);
+
+var AllStarsTable = function (_React$Component2) {
+    _inherits(AllStarsTable, _React$Component2);
 
     function AllStarsTable(props) {
         _classCallCheck(this, AllStarsTable);
 
-        return _possibleConstructorReturn(this, (AllStarsTable.__proto__ || Object.getPrototypeOf(AllStarsTable)).call(this, props));
+        var _this2 = _possibleConstructorReturn(this, (AllStarsTable.__proto__ || Object.getPrototypeOf(AllStarsTable)).call(this, props));
+
+        _this2.mainSearch = _this2.mainSearch.bind(_this2);
+        _this2.onSort = _this2.onSort.bind(_this2);
+
+        _this2.state = {
+            searchtext: "",
+            newdata: _this2.props.data
+        };
+
+        return _this2;
     }
 
     _createClass(AllStarsTable, [{
+        key: 'onSort',
+        value: function onSort() {
+            var _this3 = this;
+
+            var sortingvalue = document.querySelector('#sortingallstars').value;
+            var getcooked = getCookie('csrftoken');
+            fetch('/allstarsapi', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getcooked },
+                body: JSON.stringify({
+                    type: "sort",
+
+                    sortingvalue: sortingvalue
+                })
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log("tra1", data);
+
+                _this3.setState({
+                    newdata: data
+                });
+                console.log("tra", _this3.state.newdata);
+            });
+        }
+    }, {
+        key: 'mainSearch',
+        value: function mainSearch(searchtext) {
+            var _this4 = this;
+
+            console.log("searchtext", searchtext);
+            this.setState({ searchtext: searchtext });
+            var getcooked = getCookie('csrftoken');
+            fetch('/allstarsapi', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getcooked },
+                body: JSON.stringify({
+
+                    //add state of newdata right here
+                    type: "search",
+                    searchvalue: searchtext
+                })
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log("checker checky for newdata", _this4.state.newdata);
+                console.log("this is dataaaaaa mama mama", data);
+                _this4.setState({
+                    newdata: data
+                });
+                console.log("kaidoded2", _this4.state.newdata);
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var allstars_row = [];
-            for (var i = 0; i < this.props.data.length; i++) {
+            for (var i = 0; i < this.state.newdata.length; i++) {
                 console.log(i);
                 //console.log("lol wtf", this.props.data[i])
                 allstars_row.push(React.createElement(AllStarsRow, {
-                    id: this.props.data[i].id,
-                    username: this.props.data[i].influencer,
-                    email: this.props.data[i].email,
-                    influencer_ornot: this.props.data[i].influencer_ornot,
-                    freeze_account: this.props.data[i].freeze_account,
-                    fullname: this.props.data[i].profile_fullname,
-                    profile_picture: this.props.data[i].profile_picture,
-                    lengthh: this.props.data.length
+                    id: this.state.newdata[i].id,
+                    username: this.state.newdata[i].username,
+                    email: this.state.newdata[i].email,
+                    influencer_ornot: this.state.newdata[i].influencer_ornot,
+                    freeze_account: this.state.newdata[i].freeze_account,
+                    fullname: this.state.newdata[i].profile_fullname,
+                    profile_picture: this.state.newdata[i].profile_picture,
+                    lengthh: this.state.newdata.length
                 }));
             }
             return React.createElement(
@@ -59,14 +168,68 @@ var AllStarsTable = function (_React$Component) {
                         'div',
                         { 'class': 'd-flex flex-column' },
                         React.createElement(
-                            'h1',
-                            null,
-                            'yo wassup'
+                            'select',
+                            { onChange: this.onSort, id: 'sortingallstars', 'class': 'inputdara' },
+                            React.createElement(
+                                'option',
+                                { value: 'none' },
+                                '\u0E40\u0E23\u0E35\u0E22\u0E07\u0E25\u0E33\u0E14\u0E31\u0E1A(\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14)'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'pricehighlow' },
+                                '\u0E23\u0E32\u0E04\u0E32: \u0E2A\u0E39\u0E07-\u0E15\u0E4D\u0E48\u0E32'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'pricelowhigh' },
+                                '\u0E23\u0E32\u0E04\u0E32: \u0E15\u0E4D\u0E48\u0E32-\u0E2A\u0E39\u0E07'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'followershighlow' },
+                                '\u0E1C\u0E39\u0E49\u0E15\u0E34\u0E14\u0E15\u0E32\u0E21: \u0E2A\u0E39\u0E07-\u0E15\u0E4D\u0E48\u0E32'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'followerslowhigh' },
+                                '\u0E1C\u0E39\u0E49\u0E15\u0E34\u0E14\u0E15\u0E32\u0E21: \u0E15\u0E4D\u0E48\u0E32-\u0E2A\u0E39\u0E07'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'numreviews' },
+                                '\u0E08\u0E4D\u0E32\u0E19\u0E27\u0E19\u0E23\u0E35\u0E27\u0E34\u0E27'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'catinflu' },
+                                '\u0E1B\u0E23\u0E30\u0E40\u0E20\u0E17: \u0E2D\u0E34\u0E19\u0E1F\u0E25\u0E39\u0E40\u0E2D\u0E19\u0E40\u0E0B\u0E2D\u0E23\u0E4C'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'catactor' },
+                                '\u0E1B\u0E23\u0E30\u0E40\u0E20\u0E17: \u0E19\u0E31\u0E01\u0E41\u0E2A\u0E14\u0E07'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'catathelete' },
+                                '\u0E1B\u0E23\u0E30\u0E40\u0E20\u0E17: \u0E19\u0E31\u0E01\u0E01\u0E35\u0E2C\u0E32'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'catstreamer' },
+                                '\u0E1B\u0E23\u0E30\u0E40\u0E20\u0E17: \u0E2A\u0E15\u0E23\u0E35\u0E21\u0E40\u0E21\u0E2D\u0E23\u0E4C/\u0E40\u0E01\u0E21\u0E40\u0E21\u0E2D\u0E23\u0E4C'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'catothers' },
+                                '\u0E1B\u0E23\u0E30\u0E40\u0E20\u0E17: \u0E2D\u0E37\u0E48\u0E19\u0E46'
+                            )
                         ),
                         React.createElement(
-                            'h1',
-                            null,
-                            'arrigato'
+                            'div',
+                            { 'class': 'd-flex justify-content-center' },
+                            React.createElement(SearchBar, { searchtext: this.state.searchtext, oncheckSearch: this.mainSearch })
                         )
                     )
                 ),
@@ -82,8 +245,8 @@ var AllStarsTable = function (_React$Component) {
     return AllStarsTable;
 }(React.Component);
 
-var AllStarsRow = function (_React$Component2) {
-    _inherits(AllStarsRow, _React$Component2);
+var AllStarsRow = function (_React$Component3) {
+    _inherits(AllStarsRow, _React$Component3);
 
     function AllStarsRow(props) {
         _classCallCheck(this, AllStarsRow);
@@ -113,7 +276,7 @@ var AllStarsRow = function (_React$Component2) {
                     null,
                     React.createElement(
                         'a',
-                        { name: 'goodmorning', 'class': 'goodmorning mb-3', href: ininfluencer_link },
+                        { 'class': 'd-flex justify-content-center mb-3 goodmorningallstars', href: ininfluencer_link },
                         React.createElement(
                             'div',
                             { 'class': 'd-flex flex-column' },

@@ -133,7 +133,7 @@ var SuggestionTable = function (_React$Component2) {
             email: this.state.newdata[i].email,
             influencer_ornot: this.state.newdata[i].influencer_ornot,
             freeze_account: this.state.newdata[i].freeze_account,
-            fullname: this.state.newdata[i].fullname,
+            fullname: this.state.newdata[i].profile_fullname,
             profile_picture: this.state.newdata[i].profile_picture,
             lengthh: this.state.newdata.length
           }));
@@ -227,7 +227,7 @@ var SuggestionsRow = function (_React$Component3) {
             { name: 'goodmorning', 'class': 'goodmorning d-flex justify-content-center mb-3', href: ininfluencer_link },
             React.createElement(
               'div',
-              { 'class': 'd-flex flex-column' },
+              { 'class': 'undergoodmorning d-flex flex-column' },
               React.createElement('img', { 'class': 'imgindex', width: '240', height: '300', src: link }),
               React.createElement(
                 'h5',

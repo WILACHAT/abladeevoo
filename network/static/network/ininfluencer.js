@@ -385,6 +385,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
     _this5.chooseFile = _this5.chooseFile.bind(_this5);
     _this5.chooseFileVideo = _this5.chooseFileVideo.bind(_this5);
     _this5.checkTxtArea = _this5.checkTxtArea.bind(_this5);
+    _this5.followFunc = _this5.followFunc.bind(_this5);
 
     document.querySelector('#maininfluencer').hidden = false;
     document.querySelector('#reviewsmainfluencer').hidden = true;
@@ -400,6 +401,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
     var third_url = "";
     var trackername = 0;
     var trackerdes = 0;
+    var followval = "";
 
     if (_this5.props.data["userinfodata"][0] != null) {
       if (_this5.props.data["userinfodata"][0].profile_fullname != null) {
@@ -423,6 +425,14 @@ var InfluencerFeedTitle = function (_React$Component4) {
       if (_this5.props.data["userinfodata"][0].profile_video != null) {
         profilevideo = _this5.props.data["userinfodata"][0].profile_video;
       }
+
+      if (_this5.props.data["follow"] == "false") {
+        followval = "เลิกติดตาม";
+      } else {
+        followval = "ติดตาม";
+      }
+
+      console.log("check follower something", _this5.props.data["followernumber"]);
     }
 
     _this5.state = {
@@ -435,6 +445,8 @@ var InfluencerFeedTitle = function (_React$Component4) {
       profilevideo: profilevideo,
       trackername: 0,
       trackerdes: 0,
+      followernumber: _this5.props.data["followernumber"],
+      followertext: followval,
 
       edit: React.createElement('div', { 'class': 'biggestdivchecker' })
 
@@ -443,6 +455,45 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }
 
   _createClass(InfluencerFeedTitle, [{
+    key: 'followFunc',
+    value: function followFunc(e) {
+      var _this6 = this;
+
+      var csrftoken = getCookie('csrftoken');
+      var feedtype = "none";
+
+      fetch('/followapi/' + this.props.data["username"], {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({
+          username: this.props.data["username"]
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (result) {
+        console.log("result", result);
+
+        if (result == "false") {
+          _this6.setState({
+            followernumber: _this6.state.followernumber - 1,
+            followertext: "ติดตาม"
+
+          });
+        } else {
+          _this6.setState({
+            followernumber: _this6.state.followernumber + 1,
+            followertext: "เลิกติดตาม"
+
+          });
+        }
+
+        document.querySelector('#descriptionidprofile').hidden = false;
+        document.querySelector('#descriptionidedit').hidden = true;
+      });
+      console.log("yea follow la ai sus");
+    }
+  }, {
     key: 'checkTxtArea',
     value: function checkTxtArea(e) {
 
@@ -478,7 +529,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }, {
     key: 'chooseFile',
     value: function chooseFile(e) {
-      var _this6 = this;
+      var _this7 = this;
 
       //function above
       /*
@@ -527,7 +578,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
           });
           console.log("result", result);
           console.log(result['url']);
-          _this6.setState({
+          _this7.setState({
             profilepic: result['url']
           });
         });
@@ -584,7 +635,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }, {
     key: 'sendEditDes',
     value: function sendEditDes() {
-      var _this7 = this;
+      var _this8 = this;
 
       var iddescription = document.getElementById("iddescription").value;
       var csrftoken = getCookie('csrftoken');
@@ -601,7 +652,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
         return response.json();
       }).then(function (result) {
 
-        _this7.setState({
+        _this8.setState({
           description: iddescription,
           trackerdes: 1
 
@@ -613,7 +664,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }, {
     key: 'sendEditPost',
     value: function sendEditPost() {
-      var _this8 = this;
+      var _this9 = this;
 
       console.log("ok this is in send edit post");
       var idfullname = document.getElementById("idfullname").value;
@@ -635,7 +686,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
       }).then(function (result) {
         console.log("this is result", idfullname);
 
-        _this8.setState({
+        _this9.setState({
           fullname: idfullname,
           trackername: 1
 
@@ -927,6 +978,25 @@ var InfluencerFeedTitle = function (_React$Component4) {
                           { 'class': 'forfont' },
                           averagestars,
                           React.createElement('span', { id: 'starshow', 'class': 'fa fa-star checked ml-1' })
+                        )
+                      ),
+                      React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center' },
+                        React.createElement(
+                          'p',
+                          { 'class': 'forfont' },
+                          this.state.followernumber,
+                          ' \u0E1C\u0E39\u0E49\u0E15\u0E34\u0E14\u0E15\u0E32\u0E21'
+                        )
+                      ),
+                      React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-center mt-2' },
+                        React.createElement(
+                          'button',
+                          { 'class': 'btn followbutton', onClick: this.followFunc },
+                          this.state.followertext
                         )
                       )
                     )

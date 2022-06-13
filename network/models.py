@@ -159,6 +159,12 @@ class Reviews(models.Model):
     user_id_reviewed = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reviewed') 
     reservation_foreign = models.ForeignKey(Reservation, null=True, blank=True, on_delete=models.CASCADE, related_name='reservation_foreign') 
 
+class Follow(models.Model):
+    follow = models.BooleanField(default=False)
+    user_id_follower = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='follower_user_id') 
+    influencer_id_follow = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencer_follow_id') 
+
+
 class Requesteddara(models.Model):
     name = models.CharField(max_length=256, null=True)
     email = models.CharField(max_length=256, null=True)

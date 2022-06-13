@@ -287,6 +287,7 @@ class InfluencerFeedTitle extends React.Component {
       this.chooseFile = this.chooseFile.bind(this);
       this.chooseFileVideo = this.chooseFileVideo.bind(this);
       this.checkTxtArea = this.checkTxtArea.bind(this);
+      this.followFunc = this.followFunc.bind(this);
 
       
 
@@ -306,6 +307,8 @@ class InfluencerFeedTitle extends React.Component {
       let third_url = ""
       let trackername = 0
       let trackerdes = 0
+      let followval = ""
+
 
       
       if (this.props.data["userinfodata"][0] != null)
@@ -338,6 +341,18 @@ class InfluencerFeedTitle extends React.Component {
           {
             profilevideo = this.props.data["userinfodata"][0].profile_video
           }
+
+          if (this.props.data["follow"] == "false")
+          {
+            followval = "เลิกติดตาม"
+          }
+          else
+          {
+            followval = "ติดตาม"
+
+          }
+
+          console.log("check follower something", this.props.data["followernumber"])
           
     }
        
@@ -351,19 +366,60 @@ class InfluencerFeedTitle extends React.Component {
       profilevideo: profilevideo,
       trackername: 0,
       trackerdes:0,
+      followernumber:this.props.data["followernumber"],
+      followertext: followval,
+
       
 
       edit:
         <div class="biggestdivchecker">
           
 
-        
-
-    
-
         </div>
 
       }
+  }
+  followFunc(e)
+  {
+      const csrftoken = getCookie('csrftoken');
+      let feedtype = "none"
+
+      fetch(`/followapi/${this.props.data["username"]}`, {
+        method: 'POST',
+        headers: {'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({
+            username: this.props.data["username"]
+        })
+    })
+    .then(response => response.json())
+        .then(result =>{
+          console.log("result", result)
+
+        if (result == "false")
+        {
+          this.setState({
+            followernumber: this.state.followernumber - 1,
+            followertext: "ติดตาม"
+            
+          })
+        }
+        else
+        {
+          this.setState({
+            followernumber: this.state.followernumber+ 1,
+            followertext: "เลิกติดตาม"
+            
+          })
+        }
+
+   
+        document.querySelector('#descriptionidprofile').hidden = false
+        document.querySelector('#descriptionidedit').hidden = true
+            
+        });
+    console.log("yea follow la ai sus")
+
   }
   checkTxtArea(e)
   {
@@ -857,9 +913,18 @@ class InfluencerFeedTitle extends React.Component {
                                   <div class="d-flex justify-content-center mt-2">
                                     {this.props.data["userinfodata"] != "" ? <p class="forfont">{categoryname}</p>:null}
                                     <p class="forfont">{this.props.data["reviewnum"]} รีวิว</p>
+
+                                    
                                     <p class="forfont" >{averagestars}<span id="starshow" class="fa fa-star checked ml-1"></span></p>
 
                                   </div>
+                                    <div class="d-flex justify-content-center">
+                                      <p class="forfont">{this.state.followernumber} ผู้ติดตาม</p>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center mt-2">
+                                      <button class="btn followbutton" onClick={this.followFunc}>{this.state.followertext}</button>
+                                    </div>
                                   </div>
                               </div>
                           </div>
