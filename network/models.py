@@ -42,6 +42,8 @@ class Userinfo(models.Model):
     category = models.CharField(max_length=256, null=True)
     omiserecipent = models.CharField(max_length=256, null=True)
     price = models.IntegerField(null=True)
+    points = models.IntegerField(null=True)
+
 
 
     def serialize(self):
@@ -56,7 +58,8 @@ class Userinfo(models.Model):
             "third_url":self.third_url,
             "influencer":str(self.influencer),
             "category":self.category,
-            "price": self.price
+            "price": self.price,
+            "points": self.points
         } 
 class Views(models.Model):
     viewer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='viewer') 

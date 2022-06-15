@@ -17,6 +17,11 @@ import cloudinary.api
 CELERY_BROKER_URL = 'redis://localhost:6379'   
 CELERY_TIMEZONE = 'Asia/Bangkok'
 
+TWILIO_ACCOUNT_SID = 'ACc07ad825a0ca00cd52e5fb7e47356963'
+TWILIO_AUTH_TOKEN = '55c9bfc84659f8f93cdefbd06d3a38d9'
+#echo "export TWILIO_ACCOUNT_SID='ACf29368bea963bcae69dd8fa07268e603'" > twilio.env
+#echo "export TWILIO_AUTH_TOKEN='31f3e2bfd4b394b65179e5b34c462142'" >> twilio.env
+#source ./twilio.env#
 
 
 #SITE KEY RECAPTCHA
@@ -73,6 +78,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cloudinary',
+    'django_twilio',
+
     'django_celery_results',
 
 

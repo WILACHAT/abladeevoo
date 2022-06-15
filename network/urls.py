@@ -30,6 +30,8 @@ urlpatterns = [
     path("allstars", views.allstars, name="allstars"),
     path("allstarsapi", views.allstarsapi, name="allstarsapi"),
     path("followapi/<str:username>", views.followapi, name="followapi"),
+    path("testlive", views.testlive, name="testlive"),
+
 
 
 

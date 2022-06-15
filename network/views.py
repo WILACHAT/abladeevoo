@@ -85,25 +85,58 @@ import subprocess
 import os
 import omise
 from django.conf import settings
-from django.core.mail import send_mail
+import os
+from twilio.rest import Client
+from twilio.jwt.access_token import AccessToken
+from twilio.jwt.access_token.grants import VideoGrant
+import twilio.jwt.access_token
+import twilio.jwt.access_token.grants
+import twilio.rest
+
+
 
 
 
 
 omise.api_secret = 'skey_test_5rsxnq9a82ys6gtgf92'
 
+#TWILIO
+account_sid = 'ACc07ad825a0ca00cd52e5fb7e47356963'
+auth_token = '55c9bfc84659f8f93cdefbd06d3a38d9'
+api_key = 'SKa9ee50bca308b2818e570ad4b8c6529c'
+api_secret = 'zY9N0EZJl7WfxRIJw4kCaszFkChBv1bc'
+twilio_client = twilio.rest.Client(api_key, api_secret, account_sid)
 
-##CELERYBEAT_SCHEDULE = {
-  #  "runs-every-30-seconds": {
-      #  "task": "tasks.add",
-       # "schedule": timedelta(seconds=30),
-       # "args": (16, 16)
-   # },
-#}
 
-#@periodic_task(run_every=crontab(hour=22, minute=57))
-def every_monday_morning():
-    print("This is run every Monday morning at 7:30")
+
+def testlive(request):
+ 
+    #CREATE A ROOMMMMMM
+    client = Client(account_sid, auth_token)
+
+    room = client.video.rooms.create(type='go', unique_name='My seventh Video Room', max_participants='2')
+
+    print("this is ROOM SID", room.sid)
+    print("this is ROOM URL", room.url)
+    print("this is ROOM URL paritcipant", room.links)
+    print("this is ROOM status callbacks", room.status_callback)
+
+
+    #CREATE AN ACCESS TOKENNNNN
+    access_token = twilio.jwt.access_token.AccessToken(
+        account_sid, api_key, api_secret, identity=uuid.uuid4().int
+    )
+    # create the video grant
+    video_grant = twilio.jwt.access_token.grants.VideoGrant(room=room.unique_name)
+    # Add the video grant to the access token
+    access_token.add_grant(video_grant)
+    print("this is the accesstoken???", access_token)
+    print("this is also an access token??", access_token.to_jwt())
+
+
+
+    return render(request, "network/testlive.html")
+
 
 
 def current_milli_time():
