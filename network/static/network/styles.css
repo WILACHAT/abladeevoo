@@ -2235,7 +2235,14 @@ ul{
   font-family: 'Sarabun';
 
 }
-
+#video-container video {
+  width: 1000px;
+  border-radius: 40px;
+}
+.livevideodiv
+{
+  width:75%;
+}
 
 
 .legalintroduction{

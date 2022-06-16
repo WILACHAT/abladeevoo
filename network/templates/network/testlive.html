@@ -5,6 +5,11 @@
 {% block body %}
 
     <script>
+        let isAudioMuted = false;
+        let isVideoMuted = false;
+        let bigroom = ""
+
+
         function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -21,14 +26,83 @@
             return cookieValue;
         }
         
-  
         const joinVideoRoom = async (roomName, token) => {
-  // join the video room with the Access Token and the given room name
+            const { createLocalAudioTrack } = require('twilio-video');
+            const pollAudioLevel = require('./pollaudiolevel');
+
+            const audioTrack = await createLocalAudioTrack();
+
+            // Display the audio level.
+            pollAudioLevel(audioTrack, level => {
+            /* Update audio level indicator. */
+            });
+            // join the video room with the Access Token and the given room name
             const room = await Twilio.Video.connect(token, {
                 room: roomName,
             });
             return room;
             };      
+
+        function muteOrUnmute(type)
+        {
+
+            console.log("bigroom", bigroom)
+         ;
+
+            if (type == "video")
+            {
+
+                if (isVideoMuted == false)
+                {
+                    
+
+                    bigroom.localParticipant.videoTracks.forEach(
+                    publication => publication.track.disable());
+                    document.getElementById('stopvideo').innerHTML = "Unmute Video"
+
+                    isVideoMuted = true
+                }
+                else
+                {
+                    bigroom.localParticipant.videoTracks.forEach(
+                    publication => publication.track.enable());
+                    document.getElementById('stopvideo').innerHTML = "Mute Video"
+
+
+                    isVideoMuted = false
+                }
+            }
+            else
+            {
+                if (isAudioMuted == false)
+                {
+                    
+
+                    bigroom.localParticipant.audioTracks.forEach(
+                    publication => publication.track.disable());
+                    document.getElementById('stopaudio').innerHTML = "Unmute Audio"
+
+
+                    isAudioMuted = true
+                }
+                else
+                {
+                    bigroom.localParticipant.audioTracks.forEach(
+                    publication => publication.track.enable());
+                    document.getElementById('stopaudio').innerHTML = "Mute Audio"
+
+
+                    isAudioMuted = false
+                }
+
+            }
+
+        
+
+
+            
+
+        }
 
         function handleDisconnectedParticipant(participant)
         {
@@ -45,6 +119,7 @@
             console.log("this is participant", participant)
             const participantDiv = document.createElement("div");
             participantDiv.setAttribute("id", participant.identity);
+            participantDiv.setAttribute("class", "livevideodiv");
             container.appendChild(participantDiv);
 
             // iterate through the participant's published tracks and
@@ -63,6 +138,8 @@
                 const participantDiv = document.getElementById(participant.identity);
                 // track.attach creates an HTMLVideoElement or HTMLAudioElement
                 // (depending on the type of track) and adds the video or audio stream
+            
+
                 participantDiv.append(track.attach());
             }
 
@@ -111,6 +188,7 @@
                 console.log("i dont know what im doing")
 
             const room = await joinVideoRoom(roomNameInput, token);
+            bigroom = room
 
             console.log("should have something but no", room);
             console.log("should have", room.promise);
@@ -146,11 +224,15 @@
    </div>
    <div class="d-flex justify-content-center">
         <form id="room-name-form">
-                <input name="room_name" id="room-name-input"/>
-                <button onClick="getAccessToken()"type="submit">Join Room</button>
+            <input name="room_name" id="room-name-input"/>
+            <button onClick="getAccessToken()"type="submit">Join Room</button>
         </form>
     </div>
-  <div id="video-container"></div>
+
+  <div id="video-container">
+      <button  onClick="muteOrUnmute('audio')" id="stopaudio" class="btn btn-primary">Mute Sound</button>
+      <button onClick="muteOrUnmute('video')" id="stopvideo" class="btn btn-primary">Mute Video</button>
+  </div>
 
 
 {% endblock %}
