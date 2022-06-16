@@ -113,29 +113,39 @@ def testlive(request):
  
     #CREATE A ROOMMMMMM
     client = Client(account_sid, auth_token)
+    id = uuid.uuid1()
+    uniquepostingid = str(id)
+    roomname = request.user.username + "_" + uniquepostingid
 
-    room = client.video.rooms.create(type='go', unique_name='My seventh Video Room', max_participants='2')
+    room = client.video.rooms.create(type='go', unique_name=roomname, max_participants='2')
 
     print("this is ROOM SID", room.sid)
+    print("this is ROOM unique_name", room.unique_name)
+
     print("this is ROOM URL", room.url)
     print("this is ROOM URL paritcipant", room.links)
     print("this is ROOM status callbacks", room.status_callback)
 
 
     #CREATE AN ACCESS TOKENNNNN
-    access_token = twilio.jwt.access_token.AccessToken(
-        account_sid, api_key, api_secret, identity=uuid.uuid4().int
-    )
-    # create the video grant
-    video_grant = twilio.jwt.access_token.grants.VideoGrant(room=room.unique_name)
-    # Add the video grant to the access token
-    access_token.add_grant(video_grant)
-    print("this is the accesstoken???", access_token)
-    print("this is also an access token??", access_token.to_jwt())
+    if request.method == "POST":
+        data = json.loads(request.body)
+       
+        access_token = twilio.jwt.access_token.AccessToken(
+            account_sid, api_key, api_secret, identity=uuid.uuid4().int
+        )
+        # create the video grant
+        video_grant = twilio.jwt.access_token.grants.VideoGrant(room= data["roomname"])
+        # Add the video grant to the access token
+        access_token.add_grant(video_grant)
+        print("this is the accesstoken???", access_token)
+        return_request = {"token": str(access_token.to_jwt())}
+        return JsonResponse(return_request, safe=False)
 
 
 
-    return render(request, "network/testlive.html")
+
+    return render(request, "network/testlive.html", {"roomname": roomname})
 
 
 

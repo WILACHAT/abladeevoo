@@ -5,23 +5,151 @@
 {% block body %}
 
     <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
         
+  
+        const joinVideoRoom = async (roomName, token) => {
+  // join the video room with the Access Token and the given room name
+            const room = await Twilio.Video.connect(token, {
+                room: roomName,
+            });
+            return room;
+            };      
+
+        function handleDisconnectedParticipant(participant)
+        {
+            // stop listening for this participant
+            participant.removeAllListeners();
+            // remove this participant's div from the page
+            const participantDiv = document.getElementById(participant.identity);
+            participantDiv.remove();
+        }
+        function handleConnectedParticipant(participant)
+        {
+            const container = document.getElementById("video-container");
+
+            console.log("this is participant", participant)
+            const participantDiv = document.createElement("div");
+            participantDiv.setAttribute("id", participant.identity);
+            container.appendChild(participantDiv);
+
+            // iterate through the participant's published tracks and
+            // call `handleTrackPublication` on them
+            participant.tracks.forEach((trackPublication) => {
+                handleTrackPublication(trackPublication, participant);
+            });
+
+            // listen for any new track publications
+            participant.on("trackPublished", handleTrackPublication);
+        }
+        function handleTrackPublication(trackPublication, participant)
+        {
+            function displayTrack(track) {
+                // append this track to the participant's div and render it on the page
+                const participantDiv = document.getElementById(participant.identity);
+                // track.attach creates an HTMLVideoElement or HTMLAudioElement
+                // (depending on the type of track) and adds the video or audio stream
+                participantDiv.append(track.attach());
+            }
+
+            if (trackPublication.track) {
+                displayTrack(trackPublication.track);
+            }
+
+            // listen for any new subscriptions to this track publication
+            trackPublication.on("subscribed", displayTrack);
+        }
+        function getAccessToken()
+        {
+            const form = document.getElementById("room-name-form");
+            const roomNameInput = document.getElementById("room-name-input").value;
+            const container = document.getElementById("video-container");
+
+            console.log("this is the roomnameinput", roomNameInput)
+            event.preventDefault();
+            // hide the join form
+            form.style.visibility = "hidden";
+            // retrieve the room name
+
+            // fetch an Access Token from the join-room route
+            const getcooked = getCookie('csrftoken')
+            fetch(`/testlive`, {
+            method: 'POST',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+                roomname:roomNameInput
+
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("this should be the accesstoken", data) 
+                let token = data["token"]  
+                token = token.slice(1);
+                token = token.slice(1);
+                token = token.slice(0, token.length - 1);
+                console.log(token)
+                console.log(roomNameInput)
+                aFunction(roomNameInput, token)
+              
+            });
+            const aFunction = async (roomNameInput, token) => {
+                console.log("i dont know what im doing")
+
+            const room = await joinVideoRoom(roomNameInput, token);
+
+            console.log("should have something but no", room);
+            console.log("should have", room.promise);
+
+            console.log("wae", room._promise)
+            console.log("should have something but no", room.localParticipant);
+
+
+            handleConnectedParticipant(room.localParticipant);
+            room.participants.forEach(handleConnectedParticipant);
+            room.on("participantConnected", handleConnectedParticipant);
+
+            room.on("participantDisconnected", handleDisconnectedParticipant);
+            window.addEventListener("pagehide", () => room.disconnect());
+            window.addEventListener("beforeunload", () => room.disconnect());
+            }
+        }
+       
+    
     </script>
+    
     <div class="godown"></div>
 
     <div class="d-flex justify-content-center">
-        <h3 class="registertitle">เข้าสู่ระบบ</h3>
+        <h3 class="registertitle">เข้าห้องคอล</h3>
     </div>
 
-
-    
-
-   <h1>TEST LIVE</h1>
-
-   <form id="room-name-form">
-    Enter a Room Name to join: <input name="room_name" id="room-name-input" />
-    <button type="submit">Join Room</button>
-  </form>
+   <div class="d-flex justify-content-center">
+        <h5>ชื่อห้อง: {{roomname}}</h5>
+   </div>
+   <div class="d-flex justify-content-center mt-3">
+        <h5 class="sarabun">ใส่ชื่อห้องที่มอบให้เพื่อเข้าห้อง:</h5>
+   </div>
+   <div class="d-flex justify-content-center">
+        <form id="room-name-form">
+                <input name="room_name" id="room-name-input"/>
+                <button onClick="getAccessToken()"type="submit">Join Room</button>
+        </form>
+    </div>
   <div id="video-container"></div>
 
 

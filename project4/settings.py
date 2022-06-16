@@ -64,7 +64,7 @@ EMAIL_PORT=587
 
 
 
-ALLOWED_HOSTS = ['plankton-app-d8rml.ondigitalocean.app', '127.0.0.1']
+ALLOWED_HOSTS = ['plankton-app-d8rml.ondigitalocean.app', '127.0.0.1', 'localhost', '4363-171-97-47-123.ap.ngrok.io']
 
 
 # Application definition
