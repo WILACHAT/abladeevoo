@@ -31,6 +31,12 @@ urlpatterns = [
     path("allstarsapi", views.allstarsapi, name="allstarsapi"),
     path("followapi/<str:username>", views.followapi, name="followapi"),
     path("testlive", views.testlive, name="testlive"),
+    path("beforetestlive", views.beforetestlive, name="beforetestlive"),
+    path("joinlive", views.joinlive, name="joinlive"),
+    path("getaccesstoken", views.getaccesstoken, name="getaccesstoken"),
+
+
+
 
 
 

@@ -1885,6 +1885,16 @@ video{
   height:60px;
   border-radius: 45px;
 }
+.joincallbutton
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:200px;
+  height:60px;
+  border-radius: 45px;
+  text-align: center;
+}
 .registerbtnlog
 {
   background-image: linear-gradient(90deg, #094FCB,#FF336F);
@@ -1995,6 +2005,21 @@ video{
   border-radius: 4px;
   box-sizing: border-box;
   background:white;
+}
+.joinformclass
+{
+  width:100%;
+}
+.inputjoincall
+{
+  width: 500px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: none;
 }
 .inputhehorelog
 {
@@ -2237,6 +2262,11 @@ ul{
 }
 #video-container video {
   width: 1000px;
+  border-radius: 40px;
+}
+.videotestclass
+{
+  width: 500px;
   border-radius: 40px;
 }
 .livevideodiv

@@ -29,7 +29,6 @@
 
 
 
-
       <script type="text/javascript">
         function getCookie(name) {
         let cookieValue = null;
@@ -181,6 +180,9 @@
         <li class="nav-item mt-2 ml-4">
           <a class="wa" href="{% url 'allstars' %}">รวมสตาร์</a>
         </li>    
+        <li class="nav-item mt-2 ml-4">
+          <a id="wa" class="wa" href="{% url 'beforetestlive' %}">คอล</a>
+        </li>
         {% if user.influencer_ornot != 1 %}
 
           <li class="nav-item mt-2 ml-4">
@@ -190,10 +192,9 @@
         <li class="nav-item mt-2 ml-4">
           <a id="wa" class="wa" href="{% url 'payment' %}">การเงิน</a>
         </li>
-        <li class="nav-item mt-2 ml-4">
-          <a id="wa" class="wa" href="{% url 'testlive' %}">สร้างห้องคอล</a>
-        </li>
+  
         {% endif %}
+      
       {% endif %}
       {% endif %}
 
