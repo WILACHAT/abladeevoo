@@ -1266,7 +1266,6 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('/gotobook/' + influencerusername).then(function (response) {
         return response.json();
     }).then(function (data) {
-        // ReactDOM.render(<PaymentPage/>, document.querySelector('#paymentpage'));
 
         ReactDOM.render(React.createElement(BookPage, { data: data }), document.querySelector('#wholereservepage'));
     });

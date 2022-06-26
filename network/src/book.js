@@ -970,7 +970,6 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch(`/gotobook/${influencerusername}`)
     .then(response => response.json())
     .then(data => {
-       // ReactDOM.render(<PaymentPage/>, document.querySelector('#paymentpage'));
 
         ReactDOM.render(<BookPage data={data}/>, document.querySelector('#wholereservepage'));
 

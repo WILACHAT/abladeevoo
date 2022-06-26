@@ -577,6 +577,10 @@ margin-top:20px;
   white-space:normal;
 }
 
+.calendar
+{
+  width:500px;
+}
 
 .control-suggestions
 {
@@ -954,6 +958,7 @@ padding: 10px;
   padding-top: 3%;
   padding-bottom: 3%;
   border-radius: 40px;
+  border:none;
 
 }
 .followbutton
@@ -965,8 +970,44 @@ padding: 10px;
   padding-bottom: 3%;
   border-radius: 40px;
   border:none;
-
 }
+
+.coverbookingtype
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  width:105px;
+  color:white;
+  border-style: #212121 solid;
+  height:100px;
+  border-radius: 0.25rem;
+  height:105px;
+
+} 
+.coverbookingtypeye
+{
+  background: white;
+  width:105px;
+  color:white;
+  border-style: #212121 solid;
+  height:100px;
+  border-radius: 0.25rem;
+  height:105px;
+
+} 
+.liveornotbuttons
+{
+  margin-top:2.5px;
+  height:100px;
+  background-color: white;
+  width:100px;
+  color:black;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  border-style: #212121 solid;
+}
+
+
+
 
 
 .flexclass
@@ -2649,4 +2690,95 @@ html {
   {
     width:95%;
   }
+}
+.month {
+  padding:25px;
+  width:100%;
+  background: #0275d8;
+  text-align: center;
+}
+
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month ul li {
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.month .prev {
+  float: left;
+  padding-top: 10px;
+}
+
+.month .next {
+  float: right;
+  padding-top: 10px;
+}
+
+.weekdays {
+  margin: 0;
+  padding: 10px 0;
+  background-color: #ddd;
+}
+
+.weekdays li {
+  display: inline-block;
+  width: 13.6%;
+  color: #666;
+  text-align: center;
+}
+
+.days {
+  padding: 10px 0;
+  background: #eee;
+  margin: 0;
+}
+
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 13.6%;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size:12px;
+  color: #777;
+}
+
+.notactive:hover
+{
+  cursor: pointer;
+}
+.active {
+  padding: 5px;
+  background: #1abc9c;
+  color: white !important
+}
+.active:hover {
+  cursor: pointer;
+
+}
+
+/* Add media queries for smaller screens */
+@media screen and (max-width:720px) {
+  .weekdays li, .days li {width: 13.1%;}
+}
+
+@media screen and (max-width: 420px) {
+  .weekdays li, .days li {width: 12.5%;}
+  .days li .active {padding: 2px;}
+}
+
+@media screen and (max-width: 290px) {
+  .weekdays li, .days li {width: 12.2%;}
+}
+
+.whatmonth
+{
+  margin-bottom: 0px;
+  margin:auto;
 }

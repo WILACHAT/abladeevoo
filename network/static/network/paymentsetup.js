@@ -146,7 +146,7 @@ var PaymentSetup = function (_React$Component) {
                         React.createElement(
                             'label',
                             null,
-                            '\u0E2D\u0E35\u0E40\u0E21\u0E27'
+                            '\u0E2D\u0E35\u0E40\u0E21\u0E25'
                         )
                     ),
                     React.createElement(

@@ -24,25 +24,24 @@ urlpatterns = [
     path("gotoinfluencer/<str:username>/<str:feedtype>", views.gotoinfluencer, name="gotoinfluencer"),
 
     path("book/<str:username>", views.book, name="book"),
+    path("booklive/<str:username>", views.booklive, name="booklive"),
+
+
     path("gotobook/<str:username>", views.gotobook, name="gotobook"),
     path("inbox", views.inbox, name="inbox"),
     path("gotozjguen484s9gj302g/<int:paginationid>", views.gotozjguen484s9gj302g, name="gotozjguen484s9gj302g"),
     path("allstars", views.allstars, name="allstars"),
     path("allstarsapi", views.allstarsapi, name="allstarsapi"),
     path("followapi/<str:username>", views.followapi, name="followapi"),
-    path("testlive", views.testlive, name="testlive"),
+    path("live", views.testlive, name="live"),
+
     path("beforetestlive", views.beforetestlive, name="beforetestlive"),
     path("joinlive", views.joinlive, name="joinlive"),
+
     path("getaccesstoken", views.getaccesstoken, name="getaccesstoken"),
 
 
 
-
-
-
-
-    
-    
     path("eachreserve/<int:reservationid>", views.eachreserve, name="eachreserve"),
     path("gotoeachreserve", views.gotoeachreserve, name="gotoeachreserve"),
 
@@ -66,8 +65,6 @@ urlpatterns = [
     path("paymentsetupapi", views.paymentsetupapi, name="paymentsetupapi"),
 
 
-
-
     path("dara", views.dara, name="dara"),
 
 
@@ -86,12 +83,6 @@ urlpatterns = [
     path("password_reset_done", views.password_reset_done, name="password_reset_done"),
     path('resetpass/<str:token>', views.resetpass, name="resetpass"),
     path("password_reset_complete", views.password_reset_complete, name="password_reset_complete"),
-
-
-
-
-    
-  
     path("forupload/<str:type>", views.forupload, name="forupload")
 
 ]

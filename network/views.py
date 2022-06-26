@@ -641,7 +641,28 @@ def hidepost(request):
     return JsonResponse(return_request, safe=False)
 
 @login_required(login_url='/login') 
- 
+def booklive(request, username):
+    currentuserid = request.user.id
+    influencerid = User.objects.values('id', 'accountstatus').get(username=username)
+    accountstatus = influencerid.get('accountstatus')
+    influencerid = influencerid["id"]
+    waki = Userinfo.objects.filter(influencer_id = influencerid)
+    for i in waki:
+        price = int(i.price)
+    return render(request, "network/booklive.html", {'username': username, "price": price * 100 * 3, "accountstatus":accountstatus})
+@login_required(login_url='/login') 
+def gotobooklive(request, username):
+    currentuserid = request.user.id
+    influencerid = User.objects.values('id', 'accountstatus').get(username=username)
+    accountstatus = influencerid.get('accountstatus')
+    influencerid = influencerid["id"]
+    waki = Userinfo.objects.filter(influencer_id = influencerid)
+    for i in waki:
+        price = int(i.price)
+    return render(request, "network/booklive.html", {'username': username, "price": price * 100 * 3, "accountstatus":accountstatus})
+
+
+@login_required(login_url='/login') 
 def book(request, username):
     print("tell me that the thing came here or not")
     currentuserid = request.user.id
@@ -1321,6 +1342,7 @@ def feedbackmaillist(request):
 
 def payment(request):
     print("wtfplstellme1")
+    type = "notexist"
 
     
     heho = Userinfo.objects.filter(influencer_id = request.user.id)
@@ -1355,7 +1377,6 @@ def paymentsetupapi(request):
                 price = i.price
                 omiserecipent = i.omiserecipent
 
-        print(omiserecipent)
         if data["type"] == "exist":
             recipient = omise.Recipient.retrieve(omiserecipent)
            
@@ -1572,7 +1593,7 @@ def paymentapi(request, username):
             amount=price,
             currency="thb",
             capture=True,
-            return_uri = "https://plankton-app-d8rml.ondigitalocean.app/paymentresponse",
+            return_uri = "http://127.0.0.1:8000/paymentresponse",
             source=token
             )
 

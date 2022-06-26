@@ -288,6 +288,8 @@ class InfluencerFeedTitle extends React.Component {
       this.chooseFileVideo = this.chooseFileVideo.bind(this);
       this.checkTxtArea = this.checkTxtArea.bind(this);
       this.followFunc = this.followFunc.bind(this);
+      this.bookingType = this.bookingType.bind(this);
+
 
       
 
@@ -308,6 +310,8 @@ class InfluencerFeedTitle extends React.Component {
       let trackername = 0
       let trackerdes = 0
       let followval = ""
+      let bookingtype = ""
+      let price = ""
 
 
       
@@ -368,6 +372,8 @@ class InfluencerFeedTitle extends React.Component {
       trackerdes:0,
       followernumber:this.props.data["followernumber"],
       followertext: followval,
+      bookingtype: "true",
+      price:this.props.data["userinfodata"][0]["price"],
 
       
 
@@ -378,6 +384,25 @@ class InfluencerFeedTitle extends React.Component {
         </div>
 
       }
+  }
+  bookingType(type)
+  {
+    console.log("this is the booking type", type)
+    if (type == "true")
+    {
+      this.setState({
+        price: this.props.data["userinfodata"][0]["price"]
+      })
+    }
+    else
+    {
+      this.setState({
+        price: this.props.data["userinfodata"][0]["price"] * 3
+      })
+    }
+    this.setState({
+      bookingtype: type
+    })
   }
   followFunc(e)
   {
@@ -764,7 +789,15 @@ class InfluencerFeedTitle extends React.Component {
       console.log("pricelulu", this.props.data["userinfodata"][0]["price"])
       //THIS IS A NEW PROBLEM TO FIX
       //the user info data is fucked or essentially its blank and query anything
-      let bookhtmllink = "/book/"+this.props.data["username"]
+      let bookhtmllink = ""
+      if (this.state.bookingtype == "true")
+      {
+        bookhtmllink = "/book/"+this.props.data["username"]
+      }
+      else
+      {
+        bookhtmllink = "/booklive/"+this.props.data["username"]
+      }
 
       if (this.state.profilepic != "")
       {
@@ -964,13 +997,27 @@ class InfluencerFeedTitle extends React.Component {
                              </div>
                              </div>
 
+                              <div class="d-flex justify-content-center mt-5">
+                                <div class={this.state.bookingtype == "true" ? "coverbookingtype mr-3" : "coverbookingtypeye mr-3"}>
+                                  <div class="d-flex justify-content-center">
+                                    <button onClick={() => this.bookingType("true")} class="btn liveornotbuttons">จองวีดีโอ</button>
+                                  </div>
+                                </div>
+                               
+
+                                <div class={this.state.bookingtype == "false" ? "coverbookingtype" : "coverbookingtypeye"}>
+                                  <div class="d-flex justify-content-center">
+                                    <button onClick={() => this.bookingType("false")} class="btn liveornotbuttons">จองคอล</button>
+                                  </div>
+                                </div>
+                              </div>
 
                               <div class="d-flex justify-content-center mt-5">
                               {this.props.data["userinfodata"][0]["price"] != null ?
 
                             
                             this.props.data.accountstatus == 1 ? 
-                              this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton"  href={bookhtmllink}>จองตอนนี้: {this.props.data["userinfodata"][0]["price"]}฿</a>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>
+                              this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton"  href={bookhtmllink}>จองตอนนี้: {this.state.price}฿</a>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>
                             
                               :<div>สตาร์ยังไม่ได้ทําเรื่องการเงิน</div>} </div>
 

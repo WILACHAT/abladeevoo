@@ -14,11 +14,14 @@
 
     
       <link href="{% static 'network/styles.css' %}" rel="stylesheet">
-      <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-      <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>    
+      <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+      <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
       <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/ablaze-project/image/upload/v1654075439/904c6dea-e18c-11ec-b6e9-3af9d3ce8c1e52.jpg" />
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+
       <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Concert+One&family=Londrina+Outline&family=Luckiest+Guy&family=Orelega+One&family=Sarabun:wght@600&display=swap" rel="stylesheet">        
       <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -180,9 +183,11 @@
         <li class="nav-item mt-2 ml-4">
           <a class="wa" href="{% url 'allstars' %}">รวมสตาร์</a>
         </li>    
+        <!--
         <li class="nav-item mt-2 ml-4">
           <a id="wa" class="wa" href="{% url 'beforetestlive' %}">คอล</a>
         </li>
+        -->
         {% if user.influencer_ornot != 1 %}
 
           <li class="nav-item mt-2 ml-4">

@@ -12,18 +12,19 @@
 
                         document.querySelector('#wholereservepage').hidden = false
                 }   
-        </script>
+
+   </script>
         <input id="getinfluencerusername"type="hidden" data-username="{{ username }}">
         <input id="getinfluencerprice"type="hidden" data-price="{{ price }}">
 
 
 
         <div class="beginningofbook d-flex justify-content-center ">
-                <h4 class="wa">รีเควสใหม่ถึง {{ username }}</h4>
+                <h4 class="wa">รีเควสคอลใหม่ถึง {{ username }}</h4>
         </div>
+        
 
 
-        <div id="wholereservepage"></div>
         <div id="status"></div>
         <div id="livebookid"></div>
 
@@ -73,6 +74,6 @@ internetbanking-->
 
 {% endblock %}
 {% block script %}
-<script type="module" src="{% static 'network/book.js' %}"></script>
+<script type="module" src="{% static 'network/booklive.js' %}"></script>
 {% endblock %}
 

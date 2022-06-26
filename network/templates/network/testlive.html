@@ -3,7 +3,6 @@
 
 
 {% block body %}
-{% if user.influencer_ornot == True %}
 
     <script>
    
@@ -82,12 +81,8 @@ async function pollAudioLevel(track, onLevelChanged) {
             
         }
 
-
         const testvideo = async () => {
         const { createLocalVideoTrack } = Twilio.Video;
-
-
-
 
         const videoTrack = await createLocalVideoTrack();
         console.log("check for video track", videoTrack)
@@ -103,9 +98,6 @@ async function pollAudioLevel(track, onLevelChanged) {
         };
         testaudio()
         testvideo()
-
-
-  
 
         function getCookie(name) {
             let cookieValue = null;
@@ -313,9 +305,11 @@ async function pollAudioLevel(track, onLevelChanged) {
     
     </script>
     
+
     <div class="godown"></div>
 
 
+    {% if user.influencer_ornot == True %}
 
     <div class="d-flex justify-content-center">
         <h3 class="registertitle">สร้างห้องคอล</h3>
@@ -324,18 +318,39 @@ async function pollAudioLevel(track, onLevelChanged) {
    <div class="d-flex justify-content-center">
         <h5>ชื่อห้อง: {{roomname}}</h5>
    </div>
+
+
    <div class="d-flex justify-content-center mt-3">
         <h5 class="sarabun">ใส่ชื่อห้องที่มอบให้เพื่อสร้างห้อง:</h5>
    </div>
+
+   {% else %}
+
+   <div class="d-flex justify-content-center">
+        <h3 class="registertitle">เข้าห้องคอล</h3>
+   </div>
+
+    <div class="d-flex justify-content-center mt-3">
+        <h5 class="sarabun">ใส่ชื่อห้องที่มอบให้เพื่อเข้าห้อง:</h5>
+    </div>
+
+   {% endif %}
+
    <div class="d-flex justify-content-center">
         <form id="room-name-form">
             <div class="d-flex justify-content-center mt-2">
                 <input class="inputjoincall" name="room_name" id="room-name-input"/>
             </div>
 
+            {% if user.influencer_ornot == True %}
             <div class="d-flex justify-content-center mt-3">
                 <button class="btn joincallbutton" onClick="getAccessToken()"type="submit">สร้างคอล</button>
             </div>
+            {% else %}
+            <div class="d-flex justify-content-center mt-3">
+                <button class="btn joincallbutton"onClick="getAccessToken()"type="submit">เข้่าคอล</button>
+            </div>
+            {% endif %}
         </form>
     </div>
 
@@ -359,12 +374,12 @@ async function pollAudioLevel(track, onLevelChanged) {
 </div>  
 
 
-  {% else %}
+  <!--
     <div class="d-flex justify-content-center godownmore">
         <h5 class="sarabun">คุณไม่สามารถสร้างห้องได้ถ้าคุณไม่ใช่สตาร์</h5>
     </div>
+    -->
 
-  {% endif %}
 
 
 

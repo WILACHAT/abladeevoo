@@ -75,7 +75,7 @@ class PaymentSetup extends React.Component {
                   </div>
                   
                   <div class="d-flex justify-content-center mt-2">
-                      <label>อีเมว</label>
+                      <label>อีเมล</label>
                   </div>
                   <div class="d-flex justify-content-center">
                       <input class="inputhehore" id="emailid" placeholder="ตัวอย่าง: araisukyarng@gmail.com"></input>
