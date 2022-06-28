@@ -23,11 +23,15 @@ class BookLiveRow extends React.Component
 
     this.state = 
     {
-      active:this.props.firstactive,
+      active:"",
       previousid:""
     }
+ 
 
   }
+
+
+
   clickHe(value, idid)
   {
     console.log("tong took laew pa")
@@ -40,8 +44,6 @@ class BookLiveRow extends React.Component
       active:value,
       previousid:idid
     })
-  
-    
 
     this.props.onClickDay(idid, value)
   }
@@ -49,16 +51,40 @@ class BookLiveRow extends React.Component
  
   render()
   {
-    let what = []
-    //console.log("ok fuck me hard", this.state.active)
-    //console.log("ok fuck me hard previousid", this.state.previousid)
-    what.push(this.state.previousid)
+    const mystyle = {
+      pointerEvents: 'none',
+      opacity: 0.3
+    };
+    const mystylecorrect = {
+      pointerEvents: 'auto',
+      opacity: 1
+    };
 
+
+  
     let idid = this.props.monthnumber.toString() + this.props.rowname.toString() 
+    let what = ""
     
+    for (let i = 0; i < this.props.onearray.length; i++)
+    {
+      if (idid == this.props.onearray[i])
+        {
+          console.log("MONLEY D  LUFFY", idid)
+          what=<button style={mystylecorrect} id={idid} class={this.state.active == this.props.rowname ? "active":"notactive"} onClick={() => this.clickHe(this.props.rowname, idid)}>{this.props.rowname}</button>
 
+          break;
+        }
+        what=<button style={mystyle} id={idid} class={this.state.active == this.props.rowname ? "active":"notactive"} onClick={() => this.clickHe(this.props.rowname, idid)}>{this.props.rowname}</button>
+
+
+
+    }
+  
+    
     return (
-        <li id={idid} class={this.state.active == this.props.rowname ? "active":"notactive"} onClick={() => this.clickHe(this.props.rowname, idid)}>{this.props.rowname}</li>
+      <li>
+        {what}
+      </li>
     )
   }
 }
@@ -69,7 +95,8 @@ class BookLivePage extends React.Component{
         this.changeMonth = this.changeMonth.bind(this);
         this.monthConversion = this.monthConversion.bind(this);
         this.clickDay = this.clickDay.bind(this);
-
+        this.pickTime = this.pickTime.bind(this);
+        this.dayThai = this.dayThai.bind(this);
 
         const d = new Date();
         let month = d.getMonth();
@@ -79,25 +106,90 @@ class BookLivePage extends React.Component{
         let day = w.getDate();
         console.log("this is day", day)
 
-
         console.log("this is thaimonth", thaimonth)
         /* request for live -> choose 3 time -> in inbox -> normal -> history ror doo wa what time dai bab dara is choosing time then por dai gor ja plien pen showwela nun mee 3 steps un pokati mee kae 2 then dara choose time to accept OR cancel order
         -> then when wun nud sed gor ma jer gun torn t decidated place wela nun (you cant just randomly call cuz that is dumb) */
-
-        this.state = 
+          this.state = 
+          {
+            active:day,
+            notactive:"",
+            currentmonth: month,
+            themonth: thaimonth,
+            monthnumber: month,
+            themonthdetail: "",
+            dayclicked:"",
+            currentdateclicked:"",
+            daysallow:[],
+            booktime1:"",
+            booktime2:"",
+            booktime3:""
+          }
+        }
+      
+    dayThai(clicked)
+    {
+      let daythai = ""
+      if (clicked == 0)
         {
-          active:day,
-          notactive:"",
-          currentmonth: month,
-          themonth: thaimonth,
-          monthnumber: month,
-          themonthdetail: "",
-          dayclicked:"",
-          currentdateclicked:""
+          daythai = "อาทิตย์"
+        }
+        else if (clicked == 1)
+        {
+          daythai = "จันทร์"
 
         }
+        else if (clicked == 2)
+        {
+          daythai = "อังคาร"
+
         }
-   
+        else if (clicked == 3)
+        {
+          daythai = "พุธ"
+
+        }
+        else if (clicked == 4)
+        {
+          daythai = "พฤหัส"
+
+        }
+        else if (clicked == 5)
+        {
+          daythai = "ศุกร์"
+
+        }
+        else
+        {
+          daythai = "เสาร์"
+
+        }
+        return daythai
+    }
+    pickTime(e)
+    {
+      console.log("this is picktime of course")
+      console.log("this is picktime of course", e)
+      console.log("this is picktime of course", e.target.id)
+      if (this.state.currentdateclicked == "")
+      {
+        Swal.fire({
+          icon: 'error',
+          text: 'กรุณาเลือกวันที่ที่จะจองคอล',
+        })
+      }
+      else
+      {
+        let daythai = this.dayThai(this.state.dayclicked)
+        let whatttttt = this.monthConversion(this.state.monthnumber, "fadfadsf")
+        daythai = this.dayThai(this.state.dayclicked)
+        this.setState({booktime1: "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022" + "เวลา" + " " + e.target.id})
+        //append into an array or smthing
+        //if theres one in the array use booking two if theres two use booking 3
+      }
+      
+      
+
+    }
     
     clickDay(idid, value)
     {
@@ -140,12 +232,14 @@ class BookLivePage extends React.Component{
 
       if (this.state.notactive != "")
       {
+        console.log("does this always print", idid)
         
         if (firstchar1 == firstchar2)
         {
           document.getElementById(this.state.notactive).className = "notactive"
 
         }
+        console.log("i think i found where the fucking shit is")
         document.getElementById(idid).className = "active"
       }
 
@@ -153,8 +247,6 @@ class BookLivePage extends React.Component{
       let dayy = z.getDay();
       console.log("day experimentation", dayy)
       this.setState({notactive:idid,dayclicked:dayy,currentdateclicked:value})
-
-      
     }
    
     monthConversion(month, check)
@@ -225,13 +317,24 @@ class BookLivePage extends React.Component{
       
     }
 
-    changeMonth(where)
+    changeMonth(where, onearray)
     {
+      console.log("this is one array in changemonth", onearray)
+      this.setState({onearray:onearray})
       if (this.state.notactive != "")
       {
-        document.getElementById(this.state.notactive).className = "notactive"
-      }
+        console.log("FAIL")
+        console.log("this.state.notactive", this.state.notactive)
+        try {
+          document.getElementById(this.state.notactive).className = "notactive"
+        }
+        catch(err) {
+          console.log("whateber")
+        }
+       
 
+      }
+     // document.getElementById(this.state.monthnumber.toString() + this.state.active.toString()).className = "notactive"
 
       let tuatan = this.state.monthnumber
       if (where == "next")
@@ -241,8 +344,6 @@ class BookLivePage extends React.Component{
 
         })
         tuatan = tuatan + 1
-
-        console.log(tuatan)
         this.monthConversion(tuatan)
 
       }
@@ -254,54 +355,17 @@ class BookLivePage extends React.Component{
         })
         tuatan = tuatan - 1
         this.monthConversion(tuatan)
-        console.log(tuatan)
       }
-
-      
-
     }
-
-
       render() 
       {
+        let stateonearray = this.state.onearray
         let daythai = ""
         console.log("LUFFY GEAR 5", this.state.currentdateclicked)
         let whatttttt = this.monthConversion(this.state.monthnumber, "fadfadsf")
+        daythai = this.dayThai(this.state.dayclicked)
 
-        if (this.state.dayclicked == 0)
-        {
-          daythai = "อาทิตย์"
-        }
-        else if (this.state.dayclicked == 1)
-        {
-          daythai = "จันทร์"
-
-        }
-        else if (this.state.dayclicked == 2)
-        {
-          daythai = "อังคาร"
-
-        }
-        else if (this.state.dayclicked == 3)
-        {
-          daythai = "พุธ"
-
-        }
-        else if (this.state.dayclicked == 4)
-        {
-          daythai = "พฤหัส"
-
-        }
-        else if (this.state.dayclicked == 5)
-        {
-          daythai = "ศุกร์"
-
-        }
-        else
-        {
-          daythai = "เสาร์"
-
-        }
+        
         let combination = "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022"
 
         const date_rows = [];
@@ -313,13 +377,47 @@ class BookLivePage extends React.Component{
         const d = new Date();
         let month = d.getMonth();
         let howmanydays = new Date(2022, this.state.monthnumber + 1, 0).getDate();
-        console.log("how many fucking days?!", howmanydays)
 
+        let one = ""
+        let onearray = []
+
+        
+        if (stateonearray == undefined)
+        {
+          let usecase = this.state.currentmonth
+          for (let i = 0; i < 14; i++)
+          {
+            console.log("check for usecase", usecase)
+            one = (this.state.active + 1 + i) % howmanydays
+            if (one == 0)
+            {
+
+              one = howmanydays
+              onearray.push(usecase.toString() + one.toString())
+              usecase = usecase + 1
+            
+            }
+            else
+            {
+              onearray.push(usecase.toString() + one.toString())
+
+            
+            }
+          }
+        }
+        else
+        {
+          onearray=stateonearray
+        }
+        
 
         for (let i = 1; i < howmanydays + 1; i++)
         {
-          date_rows.push(<BookLiveRow rowname={i} monthnumber={this.state.monthnumber} firstactive={this.state.active} onClickDay={this.clickDay}/>)
+          date_rows.push(<BookLiveRow rowname={i} monthnumber={this.state.monthnumber} firstactive={this.state.active} currentmonth={this.state.currentmonth} onearray={onearray} onClickDay={this.clickDay}/>)
         }
+        console.log("NFT IS WEIRD", date_rows)
+
+       
 
    
         return (
@@ -329,31 +427,34 @@ class BookLivePage extends React.Component{
               <div class="calendar">
                 <div class="month d-flex justify-content-between">   
                 {this.state.currentmonth < this.state.monthnumber ?
-                <button onClick={() => this.changeMonth("back")}  class="btn prev">เดือนก่อนหน้า</button>:null}
+                <button onClick={() => this.changeMonth("back", onearray)}  class="btn prev">เดือนก่อนหน้า</button>:null}
 
                 <div class="d-flex flex-column">
                   <h5 class="whatmonth">{whatttttt}</h5>
                 </div>   
 
                 {this.state.monthnumber < 11 ? 
-                  <button onClick={() => this.changeMonth("next")} class="btn next">เดือนถัดไป</button>:null}
+                  <button onClick={() => this.changeMonth("next", onearray)} class="btn next">เดือนถัดไป</button>:null}
                   
                   </div>
 
     
-              <ul class="weekdays">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
+             
               <ul class="days"> 
               {date_rows}
               </ul>
               <h1>{combination}</h1>
+
+              <div>
+             
+                <button id="time1" onClick={this.pickTime}>12-12:30</button>
+                <button id="time2" onClick={this.pickTime}>12:30-13</button>
+                <button id="time3" onClick={this.pickTime}>13-13:30</button>     
+                <button id="time4" onClick={this.pickTime}>13:30-14</button>
+                <button id="time5" onClick={this.pickTime}>14-14:30</button>
+                <button id="time6" onClick={this.pickTime}>14:30-15</button>
+              </div>
+              <h1>{this.state.booktime1}</h1>
 
 
 

@@ -33,7 +33,7 @@ var BookLiveRow = function (_React$Component) {
     _this.clickHe = _this.clickHe.bind(_this);
 
     _this.state = {
-      active: _this.props.firstactive,
+      active: "",
       previousid: ""
     };
 
@@ -60,19 +60,44 @@ var BookLiveRow = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var what = [];
-      //console.log("ok fuck me hard", this.state.active)
-      //console.log("ok fuck me hard previousid", this.state.previousid)
-      what.push(this.state.previousid);
+      var mystyle = {
+        pointerEvents: 'none',
+        opacity: 0.3
+      };
+      var mystylecorrect = {
+        pointerEvents: 'auto',
+        opacity: 1
+      };
 
       var idid = this.props.monthnumber.toString() + this.props.rowname.toString();
+      var what = "";
+
+      for (var i = 0; i < this.props.onearray.length; i++) {
+        if (idid == this.props.onearray[i]) {
+          console.log("MONLEY D  LUFFY", idid);
+          what = React.createElement(
+            'button',
+            { style: mystylecorrect, id: idid, 'class': this.state.active == this.props.rowname ? "active" : "notactive", onClick: function onClick() {
+                return _this2.clickHe(_this2.props.rowname, idid);
+              } },
+            this.props.rowname
+          );
+
+          break;
+        }
+        what = React.createElement(
+          'button',
+          { style: mystyle, id: idid, 'class': this.state.active == this.props.rowname ? "active" : "notactive", onClick: function onClick() {
+              return _this2.clickHe(_this2.props.rowname, idid);
+            } },
+          this.props.rowname
+        );
+      }
 
       return React.createElement(
         'li',
-        { id: idid, 'class': this.state.active == this.props.rowname ? "active" : "notactive", onClick: function onClick() {
-            return _this2.clickHe(_this2.props.rowname, idid);
-          } },
-        this.props.rowname
+        null,
+        what
       );
     }
   }]);
@@ -91,6 +116,8 @@ var BookLivePage = function (_React$Component2) {
     _this3.changeMonth = _this3.changeMonth.bind(_this3);
     _this3.monthConversion = _this3.monthConversion.bind(_this3);
     _this3.clickDay = _this3.clickDay.bind(_this3);
+    _this3.pickTime = _this3.pickTime.bind(_this3);
+    _this3.dayThai = _this3.dayThai.bind(_this3);
 
     var d = new Date();
     var month = d.getMonth();
@@ -103,7 +130,6 @@ var BookLivePage = function (_React$Component2) {
     console.log("this is thaimonth", thaimonth);
     /* request for live -> choose 3 time -> in inbox -> normal -> history ror doo wa what time dai bab dara is choosing time then por dai gor ja plien pen showwela nun mee 3 steps un pokati mee kae 2 then dara choose time to accept OR cancel order
     -> then when wun nud sed gor ma jer gun torn t decidated place wela nun (you cant just randomly call cuz that is dumb) */
-
     _this3.state = {
       active: day,
       notactive: "",
@@ -112,13 +138,57 @@ var BookLivePage = function (_React$Component2) {
       monthnumber: month,
       themonthdetail: "",
       dayclicked: "",
-      currentdateclicked: ""
-
+      currentdateclicked: "",
+      daysallow: [],
+      booktime1: "",
+      booktime2: "",
+      booktime3: ""
     };
     return _this3;
   }
 
   _createClass(BookLivePage, [{
+    key: 'dayThai',
+    value: function dayThai(clicked) {
+      var daythai = "";
+      if (clicked == 0) {
+        daythai = "อาทิตย์";
+      } else if (clicked == 1) {
+        daythai = "จันทร์";
+      } else if (clicked == 2) {
+        daythai = "อังคาร";
+      } else if (clicked == 3) {
+        daythai = "พุธ";
+      } else if (clicked == 4) {
+        daythai = "พฤหัส";
+      } else if (clicked == 5) {
+        daythai = "ศุกร์";
+      } else {
+        daythai = "เสาร์";
+      }
+      return daythai;
+    }
+  }, {
+    key: 'pickTime',
+    value: function pickTime(e) {
+      console.log("this is picktime of course");
+      console.log("this is picktime of course", e);
+      console.log("this is picktime of course", e.target.id);
+      if (this.state.currentdateclicked == "") {
+        Swal.fire({
+          icon: 'error',
+          text: 'กรุณาเลือกวันที่ที่จะจองคอล'
+        });
+      } else {
+        var daythai = this.dayThai(this.state.dayclicked);
+        var whatttttt = this.monthConversion(this.state.monthnumber, "fadfadsf");
+        daythai = this.dayThai(this.state.dayclicked);
+        this.setState({ booktime1: "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022" + "เวลา" + " " + e.target.id });
+        //append into an array or smthing
+        //if theres one in the array use booking two if theres two use booking 3
+      }
+    }
+  }, {
     key: 'clickDay',
     value: function clickDay(idid, value) {
       console.log("this is the VALUE", value);
@@ -151,10 +221,12 @@ var BookLivePage = function (_React$Component2) {
       console.log("check the firstchar2", firstchar2);
 
       if (this.state.notactive != "") {
+        console.log("does this always print", idid);
 
         if (firstchar1 == firstchar2) {
           document.getElementById(this.state.notactive).className = "notactive";
         }
+        console.log("i think i found where the fucking shit is");
         document.getElementById(idid).className = "active";
       }
 
@@ -198,10 +270,19 @@ var BookLivePage = function (_React$Component2) {
     }
   }, {
     key: 'changeMonth',
-    value: function changeMonth(where) {
+    value: function changeMonth(where, onearray) {
+      console.log("this is one array in changemonth", onearray);
+      this.setState({ onearray: onearray });
       if (this.state.notactive != "") {
-        document.getElementById(this.state.notactive).className = "notactive";
+        console.log("FAIL");
+        console.log("this.state.notactive", this.state.notactive);
+        try {
+          document.getElementById(this.state.notactive).className = "notactive";
+        } catch (err) {
+          console.log("whateber");
+        }
       }
+      // document.getElementById(this.state.monthnumber.toString() + this.state.active.toString()).className = "notactive"
 
       var tuatan = this.state.monthnumber;
       if (where == "next") {
@@ -210,8 +291,6 @@ var BookLivePage = function (_React$Component2) {
 
         });
         tuatan = tuatan + 1;
-
-        console.log(tuatan);
         this.monthConversion(tuatan);
       } else {
         this.setState({
@@ -220,7 +299,6 @@ var BookLivePage = function (_React$Component2) {
         });
         tuatan = tuatan - 1;
         this.monthConversion(tuatan);
-        console.log(tuatan);
       }
     }
   }, {
@@ -228,25 +306,12 @@ var BookLivePage = function (_React$Component2) {
     value: function render() {
       var _this4 = this;
 
+      var stateonearray = this.state.onearray;
       var daythai = "";
       console.log("LUFFY GEAR 5", this.state.currentdateclicked);
       var whatttttt = this.monthConversion(this.state.monthnumber, "fadfadsf");
+      daythai = this.dayThai(this.state.dayclicked);
 
-      if (this.state.dayclicked == 0) {
-        daythai = "อาทิตย์";
-      } else if (this.state.dayclicked == 1) {
-        daythai = "จันทร์";
-      } else if (this.state.dayclicked == 2) {
-        daythai = "อังคาร";
-      } else if (this.state.dayclicked == 3) {
-        daythai = "พุธ";
-      } else if (this.state.dayclicked == 4) {
-        daythai = "พฤหัส";
-      } else if (this.state.dayclicked == 5) {
-        daythai = "ศุกร์";
-      } else {
-        daythai = "เสาร์";
-      }
       var combination = "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022";
 
       var date_rows = [];
@@ -257,11 +322,32 @@ var BookLivePage = function (_React$Component2) {
       var d = new Date();
       var month = d.getMonth();
       var howmanydays = new Date(2022, this.state.monthnumber + 1, 0).getDate();
-      console.log("how many fucking days?!", howmanydays);
 
-      for (var i = 1; i < howmanydays + 1; i++) {
-        date_rows.push(React.createElement(BookLiveRow, { rowname: i, monthnumber: this.state.monthnumber, firstactive: this.state.active, onClickDay: this.clickDay }));
+      var one = "";
+      var onearray = [];
+
+      if (stateonearray == undefined) {
+        var usecase = this.state.currentmonth;
+        for (var i = 0; i < 14; i++) {
+          console.log("check for usecase", usecase);
+          one = (this.state.active + 1 + i) % howmanydays;
+          if (one == 0) {
+
+            one = howmanydays;
+            onearray.push(usecase.toString() + one.toString());
+            usecase = usecase + 1;
+          } else {
+            onearray.push(usecase.toString() + one.toString());
+          }
+        }
+      } else {
+        onearray = stateonearray;
       }
+
+      for (var _i = 1; _i < howmanydays + 1; _i++) {
+        date_rows.push(React.createElement(BookLiveRow, { rowname: _i, monthnumber: this.state.monthnumber, firstactive: this.state.active, currentmonth: this.state.currentmonth, onearray: onearray, onClickDay: this.clickDay }));
+      }
+      console.log("NFT IS WEIRD", date_rows);
 
       return React.createElement(
         'div',
@@ -275,7 +361,7 @@ var BookLivePage = function (_React$Component2) {
             this.state.currentmonth < this.state.monthnumber ? React.createElement(
               'button',
               { onClick: function onClick() {
-                  return _this4.changeMonth("back");
+                  return _this4.changeMonth("back", onearray);
                 }, 'class': 'btn prev' },
               '\u0E40\u0E14\u0E37\u0E2D\u0E19\u0E01\u0E48\u0E2D\u0E19\u0E2B\u0E19\u0E49\u0E32'
             ) : null,
@@ -291,21 +377,10 @@ var BookLivePage = function (_React$Component2) {
             this.state.monthnumber < 11 ? React.createElement(
               'button',
               { onClick: function onClick() {
-                  return _this4.changeMonth("next");
+                  return _this4.changeMonth("next", onearray);
                 }, 'class': 'btn next' },
               '\u0E40\u0E14\u0E37\u0E2D\u0E19\u0E16\u0E31\u0E14\u0E44\u0E1B'
             ) : null
-          ),
-          React.createElement(
-            'ul',
-            { 'class': 'weekdays' },
-            React.createElement('li', null),
-            React.createElement('li', null),
-            React.createElement('li', null),
-            React.createElement('li', null),
-            React.createElement('li', null),
-            React.createElement('li', null),
-            React.createElement('li', null)
           ),
           React.createElement(
             'ul',
@@ -316,6 +391,45 @@ var BookLivePage = function (_React$Component2) {
             'h1',
             null,
             combination
+          ),
+          React.createElement(
+            'div',
+            null,
+            React.createElement(
+              'button',
+              { id: 'time1', onClick: this.pickTime },
+              '12-12:30'
+            ),
+            React.createElement(
+              'button',
+              { id: 'time2', onClick: this.pickTime },
+              '12:30-13'
+            ),
+            React.createElement(
+              'button',
+              { id: 'time3', onClick: this.pickTime },
+              '13-13:30'
+            ),
+            React.createElement(
+              'button',
+              { id: 'time4', onClick: this.pickTime },
+              '13:30-14'
+            ),
+            React.createElement(
+              'button',
+              { id: 'time5', onClick: this.pickTime },
+              '14-14:30'
+            ),
+            React.createElement(
+              'button',
+              { id: 'time6', onClick: this.pickTime },
+              '14:30-15'
+            )
+          ),
+          React.createElement(
+            'h1',
+            null,
+            this.state.booktime1
           )
         )
       );

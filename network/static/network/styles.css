@@ -2749,6 +2749,11 @@ html {
   color: #777;
 }
 
+.normalactive:hover
+{
+  cursor: pointer;
+}
+
 .notactive:hover
 {
   cursor: pointer;
