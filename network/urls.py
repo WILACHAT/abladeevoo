@@ -57,7 +57,7 @@ urlpatterns = [
     path("superusermail", views.superusermail, name="superusermail"),
     path("superuserrefund", views.superuserrefund, name="superuserrefund"),
 
-    path("paymentapi/<str:username>", views.paymentapi, name="paymentapi"),
+    path("paymentapi/<str:username>/<str:type>", views.paymentapi, name="paymentapi"),
     path("paymentresponse", views.paymentresponse, name="paymentresponse"),
 
 

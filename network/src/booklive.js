@@ -69,7 +69,6 @@ class BookLiveRow extends React.Component
     {
       if (idid == this.props.onearray[i])
         {
-          console.log("MONLEY D  LUFFY", idid)
           what=<button style={mystylecorrect} id={idid} class={this.state.active == this.props.rowname ? "active":"notactive"} onClick={() => this.clickHe(this.props.rowname, idid)}>{this.props.rowname}</button>
 
           break;
@@ -97,6 +96,9 @@ class BookLivePage extends React.Component{
         this.clickDay = this.clickDay.bind(this);
         this.pickTime = this.pickTime.bind(this);
         this.dayThai = this.dayThai.bind(this);
+        this.saveReserve = this.saveReserve.bind(this);
+
+
 
         const d = new Date();
         let month = d.getMonth();
@@ -123,9 +125,66 @@ class BookLivePage extends React.Component{
             booktime1:"",
             booktime2:"",
             booktime3:""
+
           }
         }
       
+    
+    saveReserve(e)
+    {
+      console.log("saving")
+      let randomtext = ""
+      let savetextarray = []
+      if ( document.getElementById('booktimearrayid').children.length == 0)
+      {
+        Swal.fire({
+          icon: 'error',
+          text: 'กรุณาเลือกวันที่ที่จะจองคอล',
+        })
+      }
+      else if (document.getElementById('liveinfoid').value == "")
+      {
+        Swal.fire({
+          icon: 'error',
+          text: 'กรุณาเลือกวันที่ที่จะจองคอล',
+        })
+      }
+      else
+      {
+        for (let i = 0; i <  document.getElementById('booktimearrayid').children.length; i++)
+        {
+          randomtext = document.getElementById('booktimearrayid').children[i].innerHTML
+  
+          randomtext = randomtext.replace('<button>X</button>','')
+          savetextarray.push(randomtext)
+          
+        }
+  
+
+        if (savetextarray[1] == undefined)
+        {
+          savetextarray[1] = ""
+        }
+        if (savetextarray[2] == undefined)
+        {
+          savetextarray[2] = ""
+        }
+
+        if (savetextarray)
+        document.querySelector('#storevalueid').value = JSON.stringify({
+          savetextarray1: savetextarray[0],
+          savetextarray2: savetextarray[1],
+          savetextarray3: savetextarray[2],
+          liveinfovalue: document.getElementById('liveinfoid').value
+        })
+  
+        document.querySelector('#paymentpage').hidden = false
+        document.querySelector('#livebookid').hidden = true
+        document.querySelector('#realpayment').hidden = false
+              
+      }
+     
+    }
     dayThai(clicked)
     {
       let daythai = ""
@@ -167,9 +226,16 @@ class BookLivePage extends React.Component{
     }
     pickTime(e)
     {
-      console.log("this is picktime of course")
-      console.log("this is picktime of course", e)
-      console.log("this is picktime of course", e.target.id)
+      console.log("background color", e.target.style.backgroundColor)
+      
+
+      let fakeid = e.target.getAttribute('data-fakeid')
+      console.log("does this work", fakeid)
+
+      let variable = "[data-fakeid=" + fakeid + "]"
+      
+
+  
       if (this.state.currentdateclicked == "")
       {
         Swal.fire({
@@ -179,16 +245,91 @@ class BookLivePage extends React.Component{
       }
       else
       {
+        
+        let experi = document.getElementById('time1')
         let daythai = this.dayThai(this.state.dayclicked)
         let whatttttt = this.monthConversion(this.state.monthnumber, "fadfadsf")
         daythai = this.dayThai(this.state.dayclicked)
-        this.setState({booktime1: "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022" + "เวลา" + " " + e.target.id})
+        let idnumber = ""
+        let randomtext = ""
+        let randomtextagain = ""
+        let checker = 0
+
         //append into an array or smthing
         //if theres one in the array use booking two if theres two use booking 3
-      }
-      
-      
+        if (document.getElementById('booktimearrayid').children.length > 2)
+        {
+          console.log("cant add anymore mofo")
+        }
+        else
+        {
+        
+          let targetdiv = document.getElementById('booktimearrayid');
+          let div = document.createElement("div")
+          let button = document.createElement("button");
+          idnumber = ""
 
+          
+          if (document.getElementById('booktimearrayid').children.length == 0)
+          {
+            
+            idnumber = 1
+          }
+          else if (document.getElementById('booktimearrayid').children.length == 1)
+          {
+
+            idnumber = 2
+          }
+          else
+          {
+            idnumber = 3
+          }
+          button.innerHTML = "X";
+          button.onclick = function () {
+           
+           
+            let removebutton = document.getElementById("วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML)
+            removebutton.remove()
+          };
+
+          div.id = "วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML
+
+          for (let i = 0; i < targetdiv.children.length; i++)
+          {
+            randomtextagain = "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML
+            randomtext = targetdiv.children[i].innerHTML
+            randomtext = randomtext.replace('<button>X</button>','')
+
+            if (randomtext == randomtextagain)
+            {
+              checker = 1
+              console.log("ASHITA WA KIREI DA YO")
+            }
+          }
+          if (checker == 0)
+          {
+            console.log("check for targetdiv", targetdiv)
+            console.log("wakawaka1", document.getElementById('booktimearrayid'))
+            console.log("i dont know the", targetdiv)
+            targetdiv.append(div)
+
+
+            div.append("วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML)
+            div.append(button)
+          }
+          else
+          {
+            Swal.fire({
+              icon: 'error',
+              text: 'กรุณาเลือกวันที่ที่ไม่ซํ้า',
+            })
+          }
+
+         // targetdiv.insertAdjacentHTML('afterend', this.state.booktime1);  
+         
+  
+        }
+      }
     }
     
     clickDay(idid, value)
@@ -345,7 +486,8 @@ class BookLivePage extends React.Component{
         })
         tuatan = tuatan + 1
         this.monthConversion(tuatan)
-
+        console.log("walouch is the best", this.state.booktime1)
+        
       }
       else
       {
@@ -356,16 +498,30 @@ class BookLivePage extends React.Component{
         tuatan = tuatan - 1
         this.monthConversion(tuatan)
       }
+      console.log("walouch", this.state.monthnumber)
+
     }
+     
       render() 
       {
+        /*
+         for (let i = 0; i < document.getElementById('coversallbooktimeid').children.length; i++)
+        {
+          console.log("walouch", document.getElementById('coversallbooktimeid').children[0].id)
+   
+            document.getElementById('coversallbooktimeid').children[0].style.backgroundColor = ""
+
+        }
+        */
+
+    
+        console.log("STRESSING")
         let stateonearray = this.state.onearray
         let daythai = ""
         console.log("LUFFY GEAR 5", this.state.currentdateclicked)
         let whatttttt = this.monthConversion(this.state.monthnumber, "fadfadsf")
         daythai = this.dayThai(this.state.dayclicked)
 
-        
         let combination = "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022"
 
         const date_rows = [];
@@ -387,21 +543,16 @@ class BookLivePage extends React.Component{
           let usecase = this.state.currentmonth
           for (let i = 0; i < 14; i++)
           {
-            console.log("check for usecase", usecase)
             one = (this.state.active + 1 + i) % howmanydays
             if (one == 0)
             {
-
               one = howmanydays
               onearray.push(usecase.toString() + one.toString())
               usecase = usecase + 1
-            
             }
             else
             {
               onearray.push(usecase.toString() + one.toString())
-
-            
             }
           }
         }
@@ -417,13 +568,11 @@ class BookLivePage extends React.Component{
         }
         console.log("NFT IS WEIRD", date_rows)
 
-       
 
-   
+      
         return (
           <div class="divsearch d-flex justify-content-center">
              
-            
               <div class="calendar">
                 <div class="month d-flex justify-content-between">   
                 {this.state.currentmonth < this.state.monthnumber ?
@@ -439,24 +588,32 @@ class BookLivePage extends React.Component{
                   </div>
 
     
-             
               <ul class="days"> 
               {date_rows}
               </ul>
               <h1>{combination}</h1>
 
-              <div>
+              <div id="coversallbooktimeid">
              
-                <button id="time1" onClick={this.pickTime}>12-12:30</button>
-                <button id="time2" onClick={this.pickTime}>12:30-13</button>
-                <button id="time3" onClick={this.pickTime}>13-13:30</button>     
-                <button id="time4" onClick={this.pickTime}>13:30-14</button>
-                <button id="time5" onClick={this.pickTime}>14-14:30</button>
-                <button id="time6" onClick={this.pickTime}>14:30-15</button>
+                <button data-fakeid={this.state.monthnumber + "time1"} id={this.state.monthnumber + "time1"} onClick={this.pickTime}>12-12:30</button>
+                <button data-fakeid={this.state.monthnumber + "time2"} id={this.state.monthnumber + "time2"}onClick={this.pickTime}>12:30-13</button>
+                <button data-fakeid={this.state.monthnumber + "time3"} id={this.state.monthnumber + "time3"} onClick={this.pickTime}>13-13:30</button>     
+                <button data-fakeid={this.state.monthnumber + "time4"} id={this.state.monthnumber + "time4"} onClick={this.pickTime}>13:30-14</button>
+                <button data-fakeid={this.state.monthnumber + "time5"} id={this.state.monthnumber + "time5"} onClick={this.pickTime}>14-14:30</button>
+                <button data-fakeid={this.state.monthnumber + "time6"} id={this.state.monthnumber + "time6"} onClick={this.pickTime}>14:30-15</button>
               </div>
-              <h1>{this.state.booktime1}</h1>
 
+              <div id="booktimearrayid">
+              </div>
 
+              <div class="mt-3">
+                <p>อยากคุยเรื่องอะไร</p>
+                <input id="liveinfoid" class="inputheho"></input>
+              </div>
+
+              <div class="d-flex justify-content-center mt-2 mb-5">
+                <input required id="submitreservation" type="submit" onClick={this.saveReserve} value="หน้าชําระเงิน"class="btn"/>
+            </div>
 
       </div>
   </div>

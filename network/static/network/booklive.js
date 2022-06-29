@@ -74,7 +74,6 @@ var BookLiveRow = function (_React$Component) {
 
       for (var i = 0; i < this.props.onearray.length; i++) {
         if (idid == this.props.onearray[i]) {
-          console.log("MONLEY D  LUFFY", idid);
           what = React.createElement(
             'button',
             { style: mystylecorrect, id: idid, 'class': this.state.active == this.props.rowname ? "active" : "notactive", onClick: function onClick() {
@@ -118,6 +117,7 @@ var BookLivePage = function (_React$Component2) {
     _this3.clickDay = _this3.clickDay.bind(_this3);
     _this3.pickTime = _this3.pickTime.bind(_this3);
     _this3.dayThai = _this3.dayThai.bind(_this3);
+    _this3.saveReserve = _this3.saveReserve.bind(_this3);
 
     var d = new Date();
     var month = d.getMonth();
@@ -143,11 +143,55 @@ var BookLivePage = function (_React$Component2) {
       booktime1: "",
       booktime2: "",
       booktime3: ""
+
     };
     return _this3;
   }
 
   _createClass(BookLivePage, [{
+    key: 'saveReserve',
+    value: function saveReserve(e) {
+      console.log("saving");
+      var randomtext = "";
+      var savetextarray = [];
+      if (document.getElementById('booktimearrayid').children.length == 0) {
+        Swal.fire({
+          icon: 'error',
+          text: 'กรุณาเลือกวันที่ที่จะจองคอล'
+        });
+      } else if (document.getElementById('liveinfoid').value == "") {
+        Swal.fire({
+          icon: 'error',
+          text: 'กรุณาเลือกวันที่ที่จะจองคอล'
+        });
+      } else {
+        for (var i = 0; i < document.getElementById('booktimearrayid').children.length; i++) {
+          randomtext = document.getElementById('booktimearrayid').children[i].innerHTML;
+
+          randomtext = randomtext.replace('<button>X</button>', '');
+          savetextarray.push(randomtext);
+        }
+
+        if (savetextarray[1] == undefined) {
+          savetextarray[1] = "";
+        }
+        if (savetextarray[2] == undefined) {
+          savetextarray[2] = "";
+        }
+
+        if (savetextarray) document.querySelector('#storevalueid').value = JSON.stringify({
+          savetextarray1: savetextarray[0],
+          savetextarray2: savetextarray[1],
+          savetextarray3: savetextarray[2],
+          liveinfovalue: document.getElementById('liveinfoid').value
+        });
+
+        document.querySelector('#paymentpage').hidden = false;
+        document.querySelector('#livebookid').hidden = true;
+        document.querySelector('#realpayment').hidden = false;
+      }
+    }
+  }, {
     key: 'dayThai',
     value: function dayThai(clicked) {
       var daythai = "";
@@ -171,21 +215,86 @@ var BookLivePage = function (_React$Component2) {
   }, {
     key: 'pickTime',
     value: function pickTime(e) {
-      console.log("this is picktime of course");
-      console.log("this is picktime of course", e);
-      console.log("this is picktime of course", e.target.id);
+      console.log("background color", e.target.style.backgroundColor);
+
+      var fakeid = e.target.getAttribute('data-fakeid');
+      console.log("does this work", fakeid);
+
+      var variable = "[data-fakeid=" + fakeid + "]";
+
       if (this.state.currentdateclicked == "") {
         Swal.fire({
           icon: 'error',
           text: 'กรุณาเลือกวันที่ที่จะจองคอล'
         });
       } else {
+
+        var experi = document.getElementById('time1');
         var daythai = this.dayThai(this.state.dayclicked);
         var whatttttt = this.monthConversion(this.state.monthnumber, "fadfadsf");
         daythai = this.dayThai(this.state.dayclicked);
-        this.setState({ booktime1: "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022" + "เวลา" + " " + e.target.id });
+        var idnumber = "";
+        var randomtext = "";
+        var randomtextagain = "";
+        var checker = 0;
+
         //append into an array or smthing
         //if theres one in the array use booking two if theres two use booking 3
+        if (document.getElementById('booktimearrayid').children.length > 2) {
+          console.log("cant add anymore mofo");
+        } else {
+
+          var targetdiv = document.getElementById('booktimearrayid');
+          var div = document.createElement("div");
+          var button = document.createElement("button");
+          idnumber = "";
+
+          if (document.getElementById('booktimearrayid').children.length == 0) {
+
+            idnumber = 1;
+          } else if (document.getElementById('booktimearrayid').children.length == 1) {
+
+            idnumber = 2;
+          } else {
+            idnumber = 3;
+          }
+          button.innerHTML = "X";
+          button.onclick = function () {
+
+            var removebutton = document.getElementById("วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML);
+            removebutton.remove();
+          };
+
+          div.id = "วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML;
+
+          for (var i = 0; i < targetdiv.children.length; i++) {
+            randomtextagain = "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML;
+            randomtext = targetdiv.children[i].innerHTML;
+            randomtext = randomtext.replace('<button>X</button>', '');
+
+            if (randomtext == randomtextagain) {
+              checker = 1;
+              console.log("ASHITA WA KIREI DA YO");
+            }
+          }
+          if (checker == 0) {
+            console.log("check for targetdiv", targetdiv);
+            console.log("wakawaka1", document.getElementById('booktimearrayid'));
+            console.log("i dont know the", targetdiv);
+            targetdiv.append(div);
+
+            div.append("วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML);
+            div.append(button);
+          } else {
+            Swal.fire({
+              icon: 'error',
+              text: 'กรุณาเลือกวันที่ที่ไม่ซํ้า'
+            });
+          }
+
+          // targetdiv.insertAdjacentHTML('afterend', this.state.booktime1);  
+
+        }
       }
     }
   }, {
@@ -292,6 +401,7 @@ var BookLivePage = function (_React$Component2) {
         });
         tuatan = tuatan + 1;
         this.monthConversion(tuatan);
+        console.log("walouch is the best", this.state.booktime1);
       } else {
         this.setState({
           monthnumber: this.state.monthnumber - 1
@@ -300,12 +410,22 @@ var BookLivePage = function (_React$Component2) {
         tuatan = tuatan - 1;
         this.monthConversion(tuatan);
       }
+      console.log("walouch", this.state.monthnumber);
     }
   }, {
     key: 'render',
     value: function render() {
       var _this4 = this;
 
+      /*
+       for (let i = 0; i < document.getElementById('coversallbooktimeid').children.length; i++)
+      {
+        console.log("walouch", document.getElementById('coversallbooktimeid').children[0].id)
+              document.getElementById('coversallbooktimeid').children[0].style.backgroundColor = ""
+       }
+      */
+
+      console.log("STRESSING");
       var stateonearray = this.state.onearray;
       var daythai = "";
       console.log("LUFFY GEAR 5", this.state.currentdateclicked);
@@ -329,10 +449,8 @@ var BookLivePage = function (_React$Component2) {
       if (stateonearray == undefined) {
         var usecase = this.state.currentmonth;
         for (var i = 0; i < 14; i++) {
-          console.log("check for usecase", usecase);
           one = (this.state.active + 1 + i) % howmanydays;
           if (one == 0) {
-
             one = howmanydays;
             onearray.push(usecase.toString() + one.toString());
             usecase = usecase + 1;
@@ -394,42 +512,53 @@ var BookLivePage = function (_React$Component2) {
           ),
           React.createElement(
             'div',
-            null,
+            { id: 'coversallbooktimeid' },
             React.createElement(
               'button',
-              { id: 'time1', onClick: this.pickTime },
+              { 'data-fakeid': this.state.monthnumber + "time1", id: this.state.monthnumber + "time1", onClick: this.pickTime },
               '12-12:30'
             ),
             React.createElement(
               'button',
-              { id: 'time2', onClick: this.pickTime },
+              { 'data-fakeid': this.state.monthnumber + "time2", id: this.state.monthnumber + "time2", onClick: this.pickTime },
               '12:30-13'
             ),
             React.createElement(
               'button',
-              { id: 'time3', onClick: this.pickTime },
+              { 'data-fakeid': this.state.monthnumber + "time3", id: this.state.monthnumber + "time3", onClick: this.pickTime },
               '13-13:30'
             ),
             React.createElement(
               'button',
-              { id: 'time4', onClick: this.pickTime },
+              { 'data-fakeid': this.state.monthnumber + "time4", id: this.state.monthnumber + "time4", onClick: this.pickTime },
               '13:30-14'
             ),
             React.createElement(
               'button',
-              { id: 'time5', onClick: this.pickTime },
+              { 'data-fakeid': this.state.monthnumber + "time5", id: this.state.monthnumber + "time5", onClick: this.pickTime },
               '14-14:30'
             ),
             React.createElement(
               'button',
-              { id: 'time6', onClick: this.pickTime },
+              { 'data-fakeid': this.state.monthnumber + "time6", id: this.state.monthnumber + "time6", onClick: this.pickTime },
               '14:30-15'
             )
           ),
+          React.createElement('div', { id: 'booktimearrayid' }),
           React.createElement(
-            'h1',
-            null,
-            this.state.booktime1
+            'div',
+            { 'class': 'mt-3' },
+            React.createElement(
+              'p',
+              null,
+              '\u0E2D\u0E22\u0E32\u0E01\u0E04\u0E38\u0E22\u0E40\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E2D\u0E30\u0E44\u0E23'
+            ),
+            React.createElement('input', { id: 'liveinfoid', 'class': 'inputheho' })
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-2 mb-5' },
+            React.createElement('input', { required: true, id: 'submitreservation', type: 'submit', onClick: this.saveReserve, value: '\u0E2B\u0E19\u0E49\u0E32\u0E0A\u0E4D\u0E32\u0E23\u0E30\u0E40\u0E07\u0E34\u0E19', 'class': 'btn' })
           )
         )
       );

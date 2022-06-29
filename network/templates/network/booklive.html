@@ -6,11 +6,9 @@
         <script>
                 function backFunction()
                 {
-                        document.querySelector('#wholereservepage').hidden = true
-                        document.querySelector('#paymentpage').hidden = true
-                        document.querySelector('#realpayment').hidden = true
-
-                        document.querySelector('#wholereservepage').hidden = false
+                document.querySelector('#paymentpage').hidden = true
+                document.querySelector('#realpayment').hidden = true
+                document.querySelector('#livebookid').hidden = false
                 }   
 
    </script>
@@ -37,7 +35,7 @@
         </div>
         <div class="d-flex justify-content-center mt-5">
                 <div id="realpayment">
-                        <form id="checkoutForm" method="POST" action="/paymentapi/{{ username }}" >
+                        <form id="checkoutForm" method="POST" action="/paymentapi/{{ username }}/live" >
                                 {% csrf_token %}
                                 <script type="text/javascript" src="https://cdn.omise.co/omise.js"
                                         data-key="pkey_test_5rsv5lm4gxeb5fc9i2k"

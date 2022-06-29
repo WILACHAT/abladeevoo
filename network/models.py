@@ -96,6 +96,9 @@ class Reservation(models.Model):
     show = models.BooleanField(default=False)
     omisecharge = models.CharField(max_length=256, null=True)
     chargestatus = models.BooleanField(default=False)
+    order_id = models.CharField(max_length=256, null=True)
+
+
 
 
     def serialize(self):
@@ -112,6 +115,7 @@ class Reservation(models.Model):
             "id":self.id,
             "typeintro":self.typeintro,
             "tointro":self.tointro,
+            "orderid":self.order_id,
             "fromintro":self.fromintro,
             "typeoccasion":self.typeoccasion,
             "firstinputoccasion":self.firstinputoccasion,
@@ -129,6 +133,54 @@ class Reservation(models.Model):
             "show":self.show,
             "omisecharge":self.omisecharge
         } 
+
+
+class Reservationlive(models.Model):
+    #you can and should add bai sed and stuff here
+    time1 = models.CharField(max_length=256, null=True)
+    time2 = models.CharField(max_length=256, null=True)
+    time3 = models.CharField(max_length=256, null=True)
+    minutes = models.CharField(max_length=256, null=True)
+    liveroomid = models.CharField(max_length=256, null=True)
+    timeuse = models.CharField(max_length=256, null=True)
+    liveinfo = models.CharField(max_length=256, null=True)
+    order_id = models.CharField(max_length=256, null=True)
+    completed = models.BooleanField(default=False)
+    creationtime = models.DateTimeField(auto_now_add=True, null=True)
+    user_id_reserver_live = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='reserverlive') 
+    user_id_influencerreserve_live = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencerreservelive')
+    expired = models.BooleanField(default=False)
+    completiondate = models.DateTimeField(null=True)
+    omisecharge = models.CharField(max_length=256, null=True)
+    chargestatus = models.BooleanField(default=False)
+
+
+
+    def serialize(self):
+       
+        pic = User.objects.values('normal_user_pic').get(id = self.user_id_influencerreserve.id)
+        normalpic = User.objects.values('normal_user_pic').get(id = self.user_id_reserver.id)
+        pic = pic['normal_user_pic']
+        normalpic = normalpic['normal_user_pic']
+
+        return {
+            "id":self.id,
+            "time1":self.time1,
+            "time2":self.time2,
+            "time3":self.time3,
+            "liveroomid":self.liveroomid,
+            "timeuse":self.timeuse,
+            "order_id":self.order_id,
+            "liveinfo":self.liveinfo,
+            "timestamp":  self.creationtime,
+            "completed":self.completed,
+            "influencer_pic":pic,
+            "username":str(self.user_id_reserver_live),
+            "username_influencer":str(self.user_id_influencerreserve_live),
+            "normal_pic":normalpic,
+            "omisecharge":self.omisecharge
+        } 
+
 
 
 

@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara, Views, FeedBack, Maillistlist, ReportTable, PasswordReset, PasswordAdmin, Follow
+from .models import User, Reservation, Reviews, Postandmessage, Userinfo, Requesteddara, Views, FeedBack, Maillistlist, ReportTable, PasswordReset, PasswordAdmin, Follow, Reservationlive
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 import uuid
@@ -893,17 +893,12 @@ def gotoeachreserve(request):
                 usernameofinfluencer = i.username
 
 
-            
-
-            
             Reservation.objects.filter(id=data["reserveid"]).update(completed = True, completiondate = today)
             
             configuration = sib_api_v3_sdk.Configuration()
             configuration.api_key['api-key'] = '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'
 
       
-
-
             api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
             sender = {"name":"Vidma","email":"vidma@vidma.tv"}
             to = [{"email":emailofuser,"name":usernameofuser}]
@@ -1566,7 +1561,13 @@ def paymentresponse(request):
 
     return render(request, "network/paymentresponse.html", {"status":status})
 
-def paymentapi(request, username):
+def paymentapi(request, username, type):
+    print("this is type", type)
+    print("this is type", username)
+
+    
+
+    
     return_response = "hi"
     print("ypyp")
     if request.method == "POST":
@@ -1574,8 +1575,12 @@ def paymentapi(request, username):
         influencerid = User.objects.values('id').get(username=username)
         influencerid = influencerid["id"]
         chek = Userinfo.objects.filter(influencer_id = influencerid)
+        
         for i in chek:
-            price = int(i.price)
+            if type == "video":
+                price = int(i.price)
+            else:
+                price = int(i.price) * 3
 
             price = price * 100
             
@@ -1607,39 +1612,61 @@ def paymentapi(request, username):
             capture=True,
             card=token)
 
-        bookrequest =  Reservation(typeintro=data['typeintro'],
-        tointro=data['tointro'], fromintro=data['fromintro'], typeoccasion=data['typeoccasion'],
-        firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
-        thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],
-        user_id_reserver_id=request.user.id,user_id_influencerreserve_id=influencerid, duedate=data["datetime"], 
-        show=data["inputcheck"], omisecharge = charge.id)
+        if type == "video":
         
-        bookrequest.save()
-        '''
-        return_response = {"url":charge.authorize_uri}
-        print("this is source of charge", charge.source)
-        ye = charge.source
-        lol = ye.scannable_code 
-        print("this is image", lol.image)
-        hehe = lol.image
-        print(hehe.download_uri)
+            bookrequest =  Reservation(typeintro=data['typeintro'],
+            tointro=data['tointro'], fromintro=data['fromintro'], typeoccasion=data['typeoccasion'],
+            firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
+            thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],
+            user_id_reserver_id=request.user.id,user_id_influencerreserve_id=influencerid, duedate=data["datetime"], 
+            show=data["inputcheck"], omisecharge = charge.id)
+            
+            bookrequest.save()
 
-        return_response = {"url":hehe.download_uri}
-        '''
+        else:
+            print(data["savetextarray1"])
+            print(data["savetextarray2"])
+            print(data["savetextarray3"])
+            id = uuid.uuid1()
+            uniqueid = str(id) + str(request.user.id)
+
+            booklive =  Reservationlive(time1=data['savetextarray1'],
+            time2=data['savetextarray2'], time3=data['savetextarray3'], liveinfo=data['liveinfovalue'],
+            order_id=uniqueid,user_id_reserver_live_id=request.user.id,user_id_influencerreserve_live_id=influencerid, 
+            omisecharge = charge.id)
+            
+            
+            booklive.save()
 
 
-
+  
         if request.POST['omiseToken'] == "":
-
             return redirect(charge.authorize_uri)
         else:
 
             return redirect("paymentresponse")
 
 
+    
     return redirect("paymentresponse")
 
+
 def errorpage(request):
+    '''
+
+    MOSTLIKELY PROMPTPAY
+
+    return_response = {"url":charge.authorize_uri}
+    print("this is source of charge", charge.source)
+    ye = charge.source
+    lol = ye.scannable_code 
+    print("this is image", lol.image)
+    hehe = lol.image
+    print(hehe.download_uri)
+
+    return_response = {"url":hehe.download_uri}
+    '''
     return render(request, "network/errorpage.html")
+        
 
 
