@@ -1340,7 +1340,14 @@ padding: 10px;
   background-color: white;
 }
 
-
+.buttontimeactive
+{
+  background-color: red;
+}
+.buttontimenotactive
+{
+  background-color:""
+}
 .norequestdiv
 {
   align-content: center;
@@ -1349,6 +1356,9 @@ padding: 10px;
   background-color:#e6e9ee;
   display: flex;
   justify-content: center;
+}
+.coversallbooktimeid
+{
 }
 
 .coversalldiv

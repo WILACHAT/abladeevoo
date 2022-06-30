@@ -14,43 +14,334 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+class BookingTimeRow extends React.Component
+{
+  constructor(props)
+  {
+    super(props);
+    this.clickButton = this.clickButton.bind(this);
+
+    this.state = 
+    {
+      buttonred1:"",
+      buttonred2:"",
+      buttonred3:""
+    }
+
+  }
+  clickButton(e)
+  {
+    console.log("remake", e.target.id)
+    if (document.getElementById('booktimearrayid').children.length == 0)
+    {
+      this.setState({buttonred1:e.target.id})
+    }
+    else if (document.getElementById('booktimearrayid').children.length == 1)
+    {
+      this.setState({buttonred2:e.target.id})
+    }
+    else if (document.getElementById('booktimearrayid').children.length == 2)
+    {
+      this.setState({buttonred3:e.target.id})
+    }
+    this.props.onClickButton(e.target.innerHTML, e.target.id)
+  }
+  render()
+  {
+    
+    console.log("remake needs to show twice")
+    let buttons = ""
+    const mystyle = {
+      backgroundColor: 'red',
+    };
+    const mystylenothing = {
+      backgroundColor: ''
+    };
+
+
+    let buttonid = this.props.monthnumber.toString() + this.props.active.toString() + "button" + this.props.timesomething.toString()
+
+
+    if (this.state.buttonred1 == buttonid || this.state.buttonred2 == buttonid || this.state.buttonred3 == buttonid)
+    { 
+
+      try {
+        if (document.getElementById(buttonid).style.backgroundColor == "red")
+      {
+        buttons = <button style={mystylenothing} id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
+
+      }
+      else
+      {
+        buttons = <button style={mystyle} id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
+
+      }
+      }
+
+      catch(err) {
+      }
+    }
+    else
+    {
+      buttons = <button class="buttontimenotactive" id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
+    }
+   
+    console.log("WILACHAT IS THE BEST", this.state.buttonred1)
+
+
+    
+
+    return (
+        <div id="coversallbooktimeid" class="coversallbooktimeid">
+           {buttons}
+        </div>
+    )
+  }
+}
 class BookLiveRow extends React.Component
 {
   constructor(props)
   {
     super(props);
     this.clickHe = this.clickHe.bind(this);
+    this.pickTime = this.pickTime.bind(this);
+    this.dayThaiSecond = this.dayThaiSecond.bind(this);
+    this.secondMonthConversion = this.secondMonthConversion.bind(this);
 
     this.state = 
     {
       active:"",
-      previousid:""
+      previousid:"",
+      dayclickedlower:"",
+      deletionstate:""
     }
  
 
   }
+  secondMonthConversion(month)
+  {
+    console.log("blah", month)
+    let blah = this.props.onClickedMonthConversion(month)
+    console.log("blah1", blah)
+    return blah;
+
+  }
+  dayThaiSecond(dayclicked)
+  {
+    console.log("is this in fuck me??", dayclicked)
+    let youwillsee = this.props.onClickedDayThai(dayclicked)
+    return youwillsee
+   
+  }
+  pickTime(innerhtml, clickbuttonid, e)
+    {      
+      if (this.state.active == "")
+      {
+        Swal.fire({
+          icon: 'error',
+          text: 'กรุณาเลือกวันที่ที่จะจองคอล',
+        })
+      }
+      else
+      {
+        console.log("SUZUKI", this.state.dayclickedlower)
+        let daythai = this.dayThaiSecond(this.state.dayclickedlower)
+        console.log("FUCK ME3", daythai)
+        let whatttttt = this.secondMonthConversion(this.props.monthnumber)
+
+        let idnumber = ""
+        let randomtext = ""
+        let randomtextagain = ""
+        let checker = 0
+
+        //append into an array or smthing
+        //if theres one in the array use booking two if theres two use booking 3
+        if (document.getElementById('booktimearrayid').children.length > 2)
+        {
+          for (let i = 0; i < document.getElementById('booktimearrayid').children.length; i++)
+            {
+              let fakramdomtext = document.getElementById('booktimearrayid').children[i].innerHTML
+              randomtext = fakramdomtext.replace('<button>X</button>','')
+             
+              if (randomtext == "วัน" + daythai + "ที่" + this.state.active + whatttttt + "2022" + "เวลา" + " " + innerhtml)
+              {
+                document.getElementById(clickbuttonid).style.backgroundColor = ''
+                document.getElementById('booktimearrayid').children[i].remove()
+              }
+            }
+
+          console.log("cant add anymore mofo")
+        }
+        else
+        {
+          let targetdiv = document.getElementById('booktimearrayid');
+          let div = document.createElement("div")
+          let button = document.createElement("button");
+          idnumber = ""
+
+          if (document.getElementById('booktimearrayid').children.length == 0)
+          {
+            
+            idnumber = 1
+          }
+          else if (document.getElementById('booktimearrayid').children.length == 1)
+          {
+
+            idnumber = 2
+          }
+          else
+          {
+            idnumber = 3
+          }
+          button.innerHTML = "X";
+          button.onclick = function () {
+            console.log("why isnt no please", clickbuttonid)
+            document.getElementById(clickbuttonid).style.backgroundColor = ""
+            let removebutton = document.getElementById("วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + innerhtml)
+            removebutton.remove()
+          };
+
+          div.id = "วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + innerhtml
+
+          for (let i = 0; i < targetdiv.children.length; i++)
+          {
+            console.log("tilly birds", targetdiv.children)
+            randomtextagain = "วัน" + daythai + "ที่" + this.state.active + whatttttt + "2022" + "เวลา" + " " + innerhtml
+            randomtext = targetdiv.children[i].innerHTML
+            randomtext = randomtext.replace('<button>X</button>','')
+            if (randomtext == randomtextagain)
+            {
+              console.log("getsunova")
+              checker = 1
+              
+            }
+          }
+          if (checker == 0)
+          {
+            console.log("check for targetdiv", targetdiv)
+            console.log("wakawaka1", document.getElementById('booktimearrayid'))
+            console.log("i dont know the", targetdiv)
+            targetdiv.append(div)
+
+            div.append("วัน" + daythai + "ที่" + this.state.active + whatttttt + "2022" + "เวลา" + " " + innerhtml)
+            div.append(button)
+          }
+          else
+          {
+           
+            console.log("kwai", "วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + innerhtml)
+            console.log("kwai", idnumber)
+
+            console.log("cocaine",clickbuttonid)
+
+            console.log("cocaine",document.getElementById(clickbuttonid).style.backgroundColor)
+            document.getElementById(clickbuttonid).style.backgroundColor = ""
+            console.log("cocaine",document.getElementById(clickbuttonid).style.backgroundColor)
+
+
+
+
+            console.log("daythai", daythai)
+            console.log("idnumber", idnumber)
+            console.log("whatttttt", whatttttt)
+            console.log("whatttttt2", this.state.active)
+
+            let fakeidnumber = idnumber - 1
+            let fakramdomtext = ""
+
+            let yea = clickbuttonid
+
+            const after = yea.substring(yea.indexOf('n') + 1);
+            console.log("successfull sure", after)
+
+
+            console.log("fakkkey", "วัน" + daythai + "ที่" + this.state.active + whatttttt + "2022" + "เวลา" + " " + innerhtml)
+
+            console.log("god", document.getElementById('booktimearrayid').children.length)
+            for (let i = 0; i < document.getElementById('booktimearrayid').children.length; i++)
+            {
+              let fakramdomtext = document.getElementById('booktimearrayid').children[i].innerHTML
+              randomtext = fakramdomtext.replace('<button>X</button>','')
+              console.log("almost the best", document.getElementById('booktimearrayid').children[i].innerHTML)
+              console.log("almost the best", "วัน" + daythai + "ที่" + this.state.active + whatttttt + "2022" + "เวลา" + " " + innerhtml)
+
+              if (randomtext == "วัน" + daythai + "ที่" + this.state.active + whatttttt + "2022" + "เวลา" + " " + innerhtml)
+              {
+
+                console.log("almost the best")
+                document.getElementById('booktimearrayid').children[i].remove()
+              }
+            }
+
+            //let removebutton = document.getElementById("วัน" + daythai + "ที่" + this.state.active + whatttttt + "2022" + "เวลา" + " " + innerhtml)
+           // removebutton.remove()
+          }
+          //checker is a lil bit weird
+          console.log("this is checker", checker)
+
+
+         // targetdiv.insertAdjacentHTML('afterend', this.state.booktime1);  
+         
+  
+        }
+      }
+    }
+    
 
 
 
   clickHe(value, idid)
   {
-    console.log("tong took laew pa")
-    console.log(this.state.active)
-    console.log(this.state.previousid)
+    
+    let montheng = ""
+    if (this.props.monthnumber == 5)
+    {
+      console.log("in here now?")
+      montheng = "June"
+    }
+    else if (this.props.monthnumber == 6)
+    {
+      montheng = "July"
+    }
+    else if (this.props.monthnumber == 7)
+    {
+      montheng = "August"
+    }
+    else 
+    {
+      montheng = "September"
+    }
+
+    let currentdate = montheng + " " + value + ", " + "2022"
+    const z = new Date(currentdate);
+    let dayy = z.getDay();
+
+    console.log("day experimentation2", dayy)
 
   
     console.log("successfull or nah")
     this.setState({
       active:value,
-      previousid:idid
+      previousid:idid,
+      dayclickedlower:dayy
     })
 
-    this.props.onClickDay(idid, value)
+    const button_time_rows = [];
+    let timesomething = ""
+    for (let j = 0; j < 6; j++)
+    {
+      timesomething = j + 1
+      button_time_rows.push(<BookingTimeRow monthnumber={this.props.monthnumber} timesomething={timesomething} active={value} onClickButton={this.pickTime}/>)
+    }
+
+    this.props.onClickDay(idid, value, button_time_rows)
   }
   
  
   render()
   {
+
+    
     const mystyle = {
       pointerEvents: 'none',
       opacity: 0.3
@@ -60,8 +351,6 @@ class BookLiveRow extends React.Component
       opacity: 1
     };
 
-
-  
     let idid = this.props.monthnumber.toString() + this.props.rowname.toString() 
     let what = ""
     
@@ -75,11 +364,8 @@ class BookLiveRow extends React.Component
         }
         what=<button style={mystyle} id={idid} class={this.state.active == this.props.rowname ? "active":"notactive"} onClick={() => this.clickHe(this.props.rowname, idid)}>{this.props.rowname}</button>
 
-
-
     }
   
-    
     return (
       <li>
         {what}
@@ -94,7 +380,6 @@ class BookLivePage extends React.Component{
         this.changeMonth = this.changeMonth.bind(this);
         this.monthConversion = this.monthConversion.bind(this);
         this.clickDay = this.clickDay.bind(this);
-        this.pickTime = this.pickTime.bind(this);
         this.dayThai = this.dayThai.bind(this);
         this.saveReserve = this.saveReserve.bind(this);
 
@@ -122,10 +407,8 @@ class BookLivePage extends React.Component{
             dayclicked:"",
             currentdateclicked:"",
             daysallow:[],
-            booktime1:"",
-            booktime2:"",
-            booktime3:""
-
+            constantbuttonrows:""
+          
           }
         }
       
@@ -187,6 +470,7 @@ class BookLivePage extends React.Component{
     }
     dayThai(clicked)
     {
+      console.log("is this in fuck me? 23", clicked)
       let daythai = ""
       if (clicked == 0)
         {
@@ -224,123 +508,16 @@ class BookLivePage extends React.Component{
         }
         return daythai
     }
-    pickTime(e)
-    {
-      console.log("background color", e.target.style.backgroundColor)
-      
-
-      let fakeid = e.target.getAttribute('data-fakeid')
-      console.log("does this work", fakeid)
-
-      let variable = "[data-fakeid=" + fakeid + "]"
-      
-
-  
-      if (this.state.currentdateclicked == "")
-      {
-        Swal.fire({
-          icon: 'error',
-          text: 'กรุณาเลือกวันที่ที่จะจองคอล',
-        })
-      }
-      else
-      {
-        
-        let experi = document.getElementById('time1')
-        let daythai = this.dayThai(this.state.dayclicked)
-        let whatttttt = this.monthConversion(this.state.monthnumber, "fadfadsf")
-        daythai = this.dayThai(this.state.dayclicked)
-        let idnumber = ""
-        let randomtext = ""
-        let randomtextagain = ""
-        let checker = 0
-
-        //append into an array or smthing
-        //if theres one in the array use booking two if theres two use booking 3
-        if (document.getElementById('booktimearrayid').children.length > 2)
-        {
-          console.log("cant add anymore mofo")
-        }
-        else
-        {
-        
-          let targetdiv = document.getElementById('booktimearrayid');
-          let div = document.createElement("div")
-          let button = document.createElement("button");
-          idnumber = ""
-
-          
-          if (document.getElementById('booktimearrayid').children.length == 0)
-          {
-            
-            idnumber = 1
-          }
-          else if (document.getElementById('booktimearrayid').children.length == 1)
-          {
-
-            idnumber = 2
-          }
-          else
-          {
-            idnumber = 3
-          }
-          button.innerHTML = "X";
-          button.onclick = function () {
-           
-           
-            let removebutton = document.getElementById("วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML)
-            removebutton.remove()
-          };
-
-          div.id = "วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML
-
-          for (let i = 0; i < targetdiv.children.length; i++)
-          {
-            randomtextagain = "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML
-            randomtext = targetdiv.children[i].innerHTML
-            randomtext = randomtext.replace('<button>X</button>','')
-
-            if (randomtext == randomtextagain)
-            {
-              checker = 1
-              console.log("ASHITA WA KIREI DA YO")
-            }
-          }
-          if (checker == 0)
-          {
-            console.log("check for targetdiv", targetdiv)
-            console.log("wakawaka1", document.getElementById('booktimearrayid'))
-            console.log("i dont know the", targetdiv)
-            targetdiv.append(div)
-
-
-            div.append("วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022" + "เวลา" + " " + e.target.innerHTML)
-            div.append(button)
-          }
-          else
-          {
-            Swal.fire({
-              icon: 'error',
-              text: 'กรุณาเลือกวันที่ที่ไม่ซํ้า',
-            })
-          }
-
-         // targetdiv.insertAdjacentHTML('afterend', this.state.booktime1);  
-         
-  
-        }
-      }
-    }
     
-    clickDay(idid, value)
+    clickDay(idid, value, buttonrows)
     {
+      
       console.log("this is the VALUE", value)
 
       console.log("this is the idid", this.state.notactive)
       console.log("this is clickday", idid)
       let firstchar1 = idid.charAt(0);
       let firstchar2 = this.state.notactive.charAt(0);
-
 
       console.log("whatever")
       console.log(this.state.monthnumber)
@@ -387,7 +564,7 @@ class BookLivePage extends React.Component{
       const z = new Date(currentdate);
       let dayy = z.getDay();
       console.log("day experimentation", dayy)
-      this.setState({notactive:idid,dayclicked:dayy,currentdateclicked:value})
+      this.setState({notactive:idid,dayclicked:dayy,currentdateclicked:value, constantbuttonrows:buttonrows})
     }
    
     monthConversion(month, check)
@@ -467,6 +644,7 @@ class BookLivePage extends React.Component{
         console.log("FAIL")
         console.log("this.state.notactive", this.state.notactive)
         try {
+          
           document.getElementById(this.state.notactive).className = "notactive"
         }
         catch(err) {
@@ -486,7 +664,6 @@ class BookLivePage extends React.Component{
         })
         tuatan = tuatan + 1
         this.monthConversion(tuatan)
-        console.log("walouch is the best", this.state.booktime1)
         
       }
       else
@@ -504,17 +681,7 @@ class BookLivePage extends React.Component{
      
       render() 
       {
-        /*
-         for (let i = 0; i < document.getElementById('coversallbooktimeid').children.length; i++)
-        {
-          console.log("walouch", document.getElementById('coversallbooktimeid').children[0].id)
-   
-            document.getElementById('coversallbooktimeid').children[0].style.backgroundColor = ""
 
-        }
-        */
-
-    
         console.log("STRESSING")
         let stateonearray = this.state.onearray
         let daythai = ""
@@ -522,9 +689,12 @@ class BookLivePage extends React.Component{
         let whatttttt = this.monthConversion(this.state.monthnumber, "fadfadsf")
         daythai = this.dayThai(this.state.dayclicked)
 
+        console.log("red hair", whatttttt)
+
         let combination = "วัน" + daythai + "ที่" + this.state.currentdateclicked + whatttttt + "2022"
 
         const date_rows = [];
+       
         console.log("ACTIVE", this.state.active)
         console.log("current month", this.state.currentmonth)
         console.log("month numberbrbrbrbrbrbrbr", this.state.monthnumber)
@@ -543,7 +713,7 @@ class BookLivePage extends React.Component{
           let usecase = this.state.currentmonth
           for (let i = 0; i < 14; i++)
           {
-            one = (this.state.active + 1 + i) % howmanydays
+            one = (this.state.active + i) % howmanydays
             if (one == 0)
             {
               one = howmanydays
@@ -564,10 +734,10 @@ class BookLivePage extends React.Component{
 
         for (let i = 1; i < howmanydays + 1; i++)
         {
-          date_rows.push(<BookLiveRow rowname={i} monthnumber={this.state.monthnumber} firstactive={this.state.active} currentmonth={this.state.currentmonth} onearray={onearray} onClickDay={this.clickDay}/>)
+          date_rows.push(<BookLiveRow rowname={i} monthnumber={this.state.monthnumber} firstactive={this.state.active} currentmonth={this.state.currentmonth} onearray={onearray} onClickDay={this.clickDay} onClickedDayThai={this.dayThai} onClickedMonthConversion={this.monthConversion} />)
         }
         console.log("NFT IS WEIRD", date_rows)
-
+     
 
       
         return (
@@ -575,16 +745,16 @@ class BookLivePage extends React.Component{
              
               <div class="calendar">
                 <div class="month d-flex justify-content-between">   
-                {this.state.currentmonth < this.state.monthnumber ?
-                <button onClick={() => this.changeMonth("back", onearray)}  class="btn prev">เดือนก่อนหน้า</button>:null}
+                  {this.state.currentmonth < this.state.monthnumber ?
+                  <button onClick={() => this.changeMonth("back", onearray)}  class="btn prev">เดือนก่อนหน้า</button>:null}
 
-                <div class="d-flex flex-column">
-                  <h5 class="whatmonth">{whatttttt}</h5>
-                </div>   
+                  <div class="d-flex flex-column">
+                    <h5 class="whatmonth">{whatttttt}</h5>
+                  </div>   
 
-                {this.state.monthnumber < 11 ? 
-                  <button onClick={() => this.changeMonth("next", onearray)} class="btn next">เดือนถัดไป</button>:null}
-                  
+                  {this.state.monthnumber < 11 ? 
+                    <button onClick={() => this.changeMonth("next", onearray)} class="btn next">เดือนถัดไป</button>:null}
+                    
                   </div>
 
     
@@ -593,15 +763,7 @@ class BookLivePage extends React.Component{
               </ul>
               <h1>{combination}</h1>
 
-              <div id="coversallbooktimeid">
-             
-                <button data-fakeid={this.state.monthnumber + "time1"} id={this.state.monthnumber + "time1"} onClick={this.pickTime}>12-12:30</button>
-                <button data-fakeid={this.state.monthnumber + "time2"} id={this.state.monthnumber + "time2"}onClick={this.pickTime}>12:30-13</button>
-                <button data-fakeid={this.state.monthnumber + "time3"} id={this.state.monthnumber + "time3"} onClick={this.pickTime}>13-13:30</button>     
-                <button data-fakeid={this.state.monthnumber + "time4"} id={this.state.monthnumber + "time4"} onClick={this.pickTime}>13:30-14</button>
-                <button data-fakeid={this.state.monthnumber + "time5"} id={this.state.monthnumber + "time5"} onClick={this.pickTime}>14-14:30</button>
-                <button data-fakeid={this.state.monthnumber + "time6"} id={this.state.monthnumber + "time6"} onClick={this.pickTime}>14:30-15</button>
-              </div>
+             {this.state.constantbuttonrows}
 
               <div id="booktimearrayid">
               </div>
@@ -619,8 +781,6 @@ class BookLivePage extends React.Component{
   </div>
         );
       }
-
-
   }
 
 document.addEventListener('DOMContentLoaded', function () {
