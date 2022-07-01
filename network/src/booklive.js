@@ -27,27 +27,54 @@ class BookingTimeRow extends React.Component
       buttonred2:"",
       buttonred3:""
     }
-
+    
   }
   clickButton(e)
   {
     console.log("remake", e.target.id)
+   
+    if (e.target.id == this.state.buttonred1)
+    {
+      this.setState({buttonred1:""})
+    }
+    else if (e.target.id == this.state.buttonred2)
+    {
+      this.setState({buttonred2:""})
+    }
+    else
+    {
+      this.setState({buttonred3:""})
+    }
+  
     if (document.getElementById('booktimearrayid').children.length == 0)
     {
+      console.log("when click1")
+      document.getElementById(e.target.id).style.backgroundColor = "red"
       this.setState({buttonred1:e.target.id})
     }
     else if (document.getElementById('booktimearrayid').children.length == 1)
     {
+      console.log("when click2")
+      document.getElementById(e.target.id).style.backgroundColor = "red"
+
+      console.log("when click2",document.getElementById(e.target.id))
+
       this.setState({buttonred2:e.target.id})
     }
     else if (document.getElementById('booktimearrayid').children.length == 2)
     {
+      console.log("when click3")
+      console.log("when click3",document.getElementById(e.target.id))
+      document.getElementById(e.target.id).style.backgroundColor = "red"
+
+
       this.setState({buttonred3:e.target.id})
     }
     this.props.onClickButton(e.target.innerHTML, e.target.id)
   }
   render()
   {
+    console.log("redbutton", this.state.buttonred1)
     
     console.log("remake needs to show twice")
     let buttons = ""
@@ -61,35 +88,39 @@ class BookingTimeRow extends React.Component
 
     let buttonid = this.props.monthnumber.toString() + this.props.active.toString() + "button" + this.props.timesomething.toString()
 
+    
 
     if (this.state.buttonred1 == buttonid || this.state.buttonred2 == buttonid || this.state.buttonred3 == buttonid)
     { 
 
       try {
-        if (document.getElementById(buttonid).style.backgroundColor == "red")
-      {
-        buttons = <button style={mystylenothing} id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
-
-      }
-      else
-      {
+  
+        console.log("in here != red")
         buttons = <button style={mystyle} id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
+        document.getElementById(buttonid).style.backgroundColor == "red"
 
       }
-      }
-
       catch(err) {
-      }
+        console.log("in here error")
+
+      
+       // buttons = <button style={mystyle} id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
+
+     } 
     }
     else
     {
-      buttons = <button class="buttontimenotactive" id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
+      console.log("waok")
+      buttons = <button style={mystylenothing} id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
     }
    
     console.log("WILACHAT IS THE BEST", this.state.buttonred1)
 
 
-    
+
+    console.log("hotel id", buttons.props.id)
+    console.log("hotel style", buttons.props.style)
+
 
     return (
         <div id="coversallbooktimeid" class="coversallbooktimeid">
@@ -165,7 +196,7 @@ class BookLiveRow extends React.Component
              
               if (randomtext == "วัน" + daythai + "ที่" + this.state.active + whatttttt + "2022" + "เวลา" + " " + innerhtml)
               {
-                document.getElementById(clickbuttonid).style.backgroundColor = ''
+                document.getElementById(clickbuttonid).style.backgroundColor = ""
                 document.getElementById('booktimearrayid').children[i].remove()
               }
             }
@@ -195,9 +226,13 @@ class BookLiveRow extends React.Component
           }
           button.innerHTML = "X";
           button.onclick = function () {
-            console.log("why isnt no please", clickbuttonid)
-            document.getElementById(clickbuttonid).style.backgroundColor = ""
             let removebutton = document.getElementById("วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + innerhtml)
+            console.log("removebutton id", removebutton)
+            try{
+              document.getElementById(clickbuttonid).style.backgroundColor = ""
+            }
+            catch(err){
+            }
             removebutton.remove()
           };
 
@@ -235,6 +270,7 @@ class BookLiveRow extends React.Component
             console.log("cocaine",clickbuttonid)
 
             console.log("cocaine",document.getElementById(clickbuttonid).style.backgroundColor)
+            
             document.getElementById(clickbuttonid).style.backgroundColor = ""
             console.log("cocaine",document.getElementById(clickbuttonid).style.backgroundColor)
 

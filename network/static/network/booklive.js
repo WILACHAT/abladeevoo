@@ -45,11 +45,31 @@ var BookingTimeRow = function (_React$Component) {
     key: 'clickButton',
     value: function clickButton(e) {
       console.log("remake", e.target.id);
+
+      if (e.target.id == this.state.buttonred1) {
+        this.setState({ buttonred1: "" });
+      } else if (e.target.id == this.state.buttonred2) {
+        this.setState({ buttonred2: "" });
+      } else {
+        this.setState({ buttonred3: "" });
+      }
+
       if (document.getElementById('booktimearrayid').children.length == 0) {
+        console.log("when click1");
+        document.getElementById(e.target.id).style.backgroundColor = "red";
         this.setState({ buttonred1: e.target.id });
       } else if (document.getElementById('booktimearrayid').children.length == 1) {
+        console.log("when click2");
+        document.getElementById(e.target.id).style.backgroundColor = "red";
+
+        console.log("when click2", document.getElementById(e.target.id));
+
         this.setState({ buttonred2: e.target.id });
       } else if (document.getElementById('booktimearrayid').children.length == 2) {
+        console.log("when click3");
+        console.log("when click3", document.getElementById(e.target.id));
+        document.getElementById(e.target.id).style.backgroundColor = "red";
+
         this.setState({ buttonred3: e.target.id });
       }
       this.props.onClickButton(e.target.innerHTML, e.target.id);
@@ -57,6 +77,7 @@ var BookingTimeRow = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log("redbutton", this.state.buttonred1);
 
       console.log("remake needs to show twice");
       var buttons = "";
@@ -72,29 +93,32 @@ var BookingTimeRow = function (_React$Component) {
       if (this.state.buttonred1 == buttonid || this.state.buttonred2 == buttonid || this.state.buttonred3 == buttonid) {
 
         try {
-          if (document.getElementById(buttonid).style.backgroundColor == "red") {
-            buttons = React.createElement(
-              'button',
-              { style: mystylenothing, id: buttonid, onClick: this.clickButton },
-              this.props.timesomething
-            );
-          } else {
-            buttons = React.createElement(
-              'button',
-              { style: mystyle, id: buttonid, onClick: this.clickButton },
-              this.props.timesomething
-            );
-          }
-        } catch (err) {}
+
+          console.log("in here != red");
+          buttons = React.createElement(
+            'button',
+            { style: mystyle, id: buttonid, onClick: this.clickButton },
+            this.props.timesomething
+          );
+          document.getElementById(buttonid).style.backgroundColor == "red";
+        } catch (err) {
+          console.log("in here error");
+
+          // buttons = <button style={mystyle} id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
+        }
       } else {
+        console.log("waok");
         buttons = React.createElement(
           'button',
-          { 'class': 'buttontimenotactive', id: buttonid, onClick: this.clickButton },
+          { style: mystylenothing, id: buttonid, onClick: this.clickButton },
           this.props.timesomething
         );
       }
 
       console.log("WILACHAT IS THE BEST", this.state.buttonred1);
+
+      console.log("hotel id", buttons.props.id);
+      console.log("hotel style", buttons.props.style);
 
       return React.createElement(
         'div',
@@ -172,7 +196,7 @@ var BookLiveRow = function (_React$Component2) {
             randomtext = fakramdomtext.replace('<button>X</button>', '');
 
             if (randomtext == "วัน" + daythai + "ที่" + this.state.active + whatttttt + "2022" + "เวลา" + " " + innerhtml) {
-              document.getElementById(clickbuttonid).style.backgroundColor = '';
+              document.getElementById(clickbuttonid).style.backgroundColor = "";
               document.getElementById('booktimearrayid').children[i].remove();
             }
           }
@@ -195,9 +219,11 @@ var BookLiveRow = function (_React$Component2) {
           }
           button.innerHTML = "X";
           button.onclick = function () {
-            console.log("why isnt no please", clickbuttonid);
-            document.getElementById(clickbuttonid).style.backgroundColor = "";
             var removebutton = document.getElementById("วัน" + daythai + "ที่" + idnumber + whatttttt + "2022" + "เวลา" + " " + innerhtml);
+            console.log("removebutton id", removebutton);
+            try {
+              document.getElementById(clickbuttonid).style.backgroundColor = "";
+            } catch (err) {}
             removebutton.remove();
           };
 
@@ -229,6 +255,7 @@ var BookLiveRow = function (_React$Component2) {
             console.log("cocaine", clickbuttonid);
 
             console.log("cocaine", document.getElementById(clickbuttonid).style.backgroundColor);
+
             document.getElementById(clickbuttonid).style.backgroundColor = "";
             console.log("cocaine", document.getElementById(clickbuttonid).style.backgroundColor);
 
