@@ -27,7 +27,7 @@ class BookingTimeRow extends React.Component
       buttonred2:"",
       buttonred3:""
     }
-    
+
   }
   clickButton(e)
   {
@@ -35,17 +35,24 @@ class BookingTimeRow extends React.Component
    
     if (e.target.id == this.state.buttonred1)
     {
+      document.getElementById(e.target.id).style.backgroundColor = ""
+
       this.setState({buttonred1:""})
     }
     else if (e.target.id == this.state.buttonred2)
     {
+      document.getElementById(e.target.id).style.backgroundColor = ""
+
       this.setState({buttonred2:""})
     }
     else
     {
+      document.getElementById(e.target.id).style.backgroundColor = ""
+
       this.setState({buttonred3:""})
     }
   
+    
     if (document.getElementById('booktimearrayid').children.length == 0)
     {
       console.log("when click1")
@@ -88,23 +95,20 @@ class BookingTimeRow extends React.Component
 
     let buttonid = this.props.monthnumber.toString() + this.props.active.toString() + "button" + this.props.timesomething.toString()
 
-    
+    console.log("buttonred1", this.state.buttonred1)
+    console.log("buttonred2", this.state.buttonred2)
+    console.log("buttonred3", this.state.buttonred3)
 
     if (this.state.buttonred1 == buttonid || this.state.buttonred2 == buttonid || this.state.buttonred3 == buttonid)
     { 
-
       try {
   
-        console.log("in here != red")
         buttons = <button style={mystyle} id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
         document.getElementById(buttonid).style.backgroundColor == "red"
 
       }
       catch(err) {
         console.log("in here error")
-
-      
-       // buttons = <button style={mystyle} id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
 
      } 
     }
@@ -275,12 +279,6 @@ class BookLiveRow extends React.Component
             console.log("cocaine",document.getElementById(clickbuttonid).style.backgroundColor)
 
 
-
-
-            console.log("daythai", daythai)
-            console.log("idnumber", idnumber)
-            console.log("whatttttt", whatttttt)
-            console.log("whatttttt2", this.state.active)
 
             let fakeidnumber = idnumber - 1
             let fakramdomtext = ""

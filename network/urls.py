@@ -71,6 +71,8 @@ urlpatterns = [
     path("aboutus", views.aboutus, name="aboutus"),
     path("legal", views.legal, name="legal"),
     path("setting", views.setting, name="setting"),
+    path("helpcenter", views.helpcenter, name="helpcenter"),
+
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),

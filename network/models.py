@@ -43,7 +43,9 @@ class Userinfo(models.Model):
     omiserecipent = models.CharField(max_length=256, null=True)
     price = models.IntegerField(null=True)
     points = models.IntegerField(null=True)
-
+    customvdo = models.BooleanField(default=True)
+    livevdo = models.BooleanField(default=True)
+    livevdotime = models.TextField(null=True)
 
 
     def serialize(self):
@@ -59,8 +61,12 @@ class Userinfo(models.Model):
             "influencer":str(self.influencer),
             "category":self.category,
             "price": self.price,
-            "points": self.points
+            "points": self.points,
+            "customvdo": self.customvdo,
+            "livevdo": self.livevdo,
+            "livevdotime":self.livevdotime
         } 
+
 class Views(models.Model):
     viewer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='viewer') 
     influencer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='influencer_view') 
@@ -140,8 +146,8 @@ class Reservationlive(models.Model):
     time1 = models.CharField(max_length=256, null=True)
     time2 = models.CharField(max_length=256, null=True)
     time3 = models.CharField(max_length=256, null=True)
-    minutes = models.CharField(max_length=256, null=True)
     liveroomid = models.CharField(max_length=256, null=True)
+    liveminutes = models.CharField(max_length=256, null=True)
     timeuse = models.CharField(max_length=256, null=True)
     liveinfo = models.CharField(max_length=256, null=True)
     order_id = models.CharField(max_length=256, null=True)
@@ -174,6 +180,7 @@ class Reservationlive(models.Model):
             "liveinfo":self.liveinfo,
             "timestamp":  self.creationtime,
             "completed":self.completed,
+            "liveminutes":self.liveminutes,
             "influencer_pic":pic,
             "username":str(self.user_id_reserver_live),
             "username_influencer":str(self.user_id_influencerreserve_live),

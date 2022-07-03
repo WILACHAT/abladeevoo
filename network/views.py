@@ -15,6 +15,7 @@ from django.db.models import Q, Count, Case, Value, When
 import re
 from datetime import datetime
 import time
+import ast
 from datetime import timedelta  
 from django.conf import settings
 from django.contrib.auth import login as authd_login
@@ -942,29 +943,99 @@ def legal(request):
     return render(request, "network/legal.html")
 
 def setting(request):
+   
+
     if request.method == "POST":
-        return_response = 1
-        print(request.body)
-        print(request.body)
-        what = str(request.body)
-        print("important", what)
-        if what == "b'delete'":
-            print("delete")
-            #User.objects.filter(id = request.user.id).delete()
-        elif what == "b'pause'":
-            User.objects.filter(id = request.user.id).update(accountstatus = 3)
-            return JsonResponse(return_response, safe=False)
+       
+        data = json.loads(request.body)
+
+        if data["type"] == "beginning":
+            influenceridall = Userinfo.objects.values('livevdotime', 'customvdo', 'livevdo').get(influencer_id=request.user.id)
+            influencerid = ast.literal_eval(influenceridall["livevdotime"])
+            customvdo = influenceridall["customvdo"]
+            livevdo = influenceridall["livevdo"]
+
+            return_response = {"time": influencerid, "customvdo":customvdo, "livevdo":livevdo}
+
+            
+        elif data["type"] == "settime":
+            Userinfo.objects.filter(influencer_id = request.user.id).update(livevdotime = data["arraytime"])
+            influencerid = Userinfo.objects.values('livevdotime').get(influencer_id=request.user.id)
+            influencerid = ast.literal_eval(influencerid["livevdotime"])
+            return_response = {"time": influencerid}
+        elif data["type"] == "pausecustom":
+            Userinfo.objects.filter(influencer_id = request.user.id).update(customvdo = False)
+
+            influenceridall = Userinfo.objects.values('livevdotime', 'customvdo', 'livevdo').get(influencer_id=request.user.id)
+            influencerid = ast.literal_eval(influenceridall["livevdotime"])
+            customvdo = influenceridall["customvdo"]
+            livevdo = influenceridall["livevdo"]
+
+            print("this is pause custom")
+            return_response = {"time": influencerid, "customvdo":customvdo, "livevdo":livevdo}
+        elif data["type"] == "unpausecustom":
+            Userinfo.objects.filter(influencer_id = request.user.id).update(customvdo = True)
+            influenceridall = Userinfo.objects.values('livevdotime', 'customvdo', 'livevdo').get(influencer_id=request.user.id)
+            influencerid = ast.literal_eval(influenceridall["livevdotime"])
+            customvdo = influenceridall["customvdo"]
+            livevdo = influenceridall["livevdo"]
+
+
+            return_response = {"time": influencerid, "customvdo":customvdo, "livevdo":livevdo}
+
+        elif data["type"] == "pauselive":
+            Userinfo.objects.filter(influencer_id = request.user.id).update(livevdo = False)
+            influenceridall = Userinfo.objects.values('livevdotime', 'customvdo', 'livevdo').get(influencer_id=request.user.id)
+            influencerid = ast.literal_eval(influenceridall["livevdotime"])
+            customvdo = influenceridall["customvdo"]
+            livevdo = influenceridall["livevdo"]
+            return_response = {"time": influencerid, "customvdo":customvdo, "livevdo":livevdo}
+
+
+        elif data["type"] == "unpauselive":
+            Userinfo.objects.filter(influencer_id = request.user.id).update(livevdo = True)
+            influenceridall = Userinfo.objects.values('livevdotime', 'customvdo', 'livevdo').get(influencer_id=request.user.id)
+            influencerid = ast.literal_eval(influenceridall["livevdotime"])
+            customvdo = influenceridall["customvdo"]
+            livevdo = influenceridall["livevdo"]
+            return_response = {"time": influencerid, "customvdo":customvdo, "livevdo":livevdo}
+
+
+
+
 
         
-        else:
-            User.objects.filter(id = request.user.id).update(accountstatus = 1)
-            return JsonResponse(return_response, safe=False)
+
+
+
+        return JsonResponse(return_response, safe=False)
+
+            # return render(request, "network/helpcenter.html", {"livevdotime": data["arraytime"]})
+
+            #do something
+        #if what == "b'delete'":
+         #   print("delete")
+            #User.objects.filter(id = request.user.id).delete()
+      #  elif what == "b'pause'":
+      #      User.objects.filter(id = request.user.id).update(accountstatus = 3)
+       #     return JsonResponse(return_response, safe=False)
+
+      #  elif what == "b'settingtime":
+      #      print("THIS IS SETTING TIME BRO", what)
+
+        
+       # else:
+        #    User.objects.filter(id = request.user.id).update(accountstatus = 1)
+        #    return JsonResponse(return_response, safe=False)
 
 
 
     return render(request, "network/helpcenter.html")
 
 #TWO BUTTONS WHICH IS TWO DIFFERENT FUNCTION IN THE REACT WAY
+
+def helpcenter(request):
+    return render(request, "network/helpcenterreal.html")
 
 
 def login_view(request):

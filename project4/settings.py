@@ -62,10 +62,7 @@ EMAIL_PORT=587
 #EMAIL_HOST_PASSWORD='fljkasdpnewdqfsx'
 #ADMIN_EMAIL='Vidma Team <noreply@vidma.tv'
 
-
-
 ALLOWED_HOSTS = ['plankton-app-d8rml.ondigitalocean.app', '127.0.0.1', 'localhost', '446f-171-97-47-123.ap.ngrok.io', '89c7-124-121-243-106.ap.ngrok.io']
-
 
 # Application definition
 
@@ -79,10 +76,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'django_twilio',
-
     'django_celery_results',
-
-
     'django_celery_beat'
     ]
 cloudinary.config( 
@@ -100,7 +94,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-
 ]
 
 ROOT_URLCONF = 'project4.urls'

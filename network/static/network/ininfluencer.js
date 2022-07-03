@@ -807,6 +807,63 @@ var InfluencerFeedTitle = function (_React$Component4) {
     value: function render() {
       var _this10 = this;
 
+      var statussad = false;
+      var livevdo = this.props.data["userinfodata"][0].livevdo;
+      var customvdo = this.props.data["userinfodata"][0].customvdo;
+      var customvdohtml = "";
+      var livevdohtml = "";
+
+      console.log("kook", livevdo);
+      console.log("kook", customvdo);
+
+      if (this.props.data["userinfodata"][0].livevdo == true && this.props.data["userinfodata"][0].customvdo == true) {
+        statussad = true;
+      }
+      if (customvdo == true) {
+
+        customvdohtml = React.createElement(
+          'div',
+          { 'class': this.state.bookingtype == "true" ? "coverbookingtype mr-3" : "coverbookingtypeye mr-3" },
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center' },
+            React.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this10.bookingType("true");
+                }, 'class': 'btn liveornotbuttons' },
+              '\u0E08\u0E2D\u0E07\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D'
+            )
+          )
+        );
+      } else {
+        customvdohtml = null;
+      }
+      if (livevdo == true) {
+
+        livevdohtml = React.createElement(
+          'div',
+          { 'class': this.state.bookingtype == "false" ? "coverbookingtype" : "coverbookingtypeye" },
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center' },
+            React.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this10.bookingType("false");
+                }, 'class': 'btn liveornotbuttons' },
+              '\u0E08\u0E2D\u0E07\u0E04\u0E2D\u0E25'
+            )
+          )
+        );
+      } else {
+        livevdohtml = null;
+      }
+      console.log("kookhtml", customvdohtml);
+      console.log("kookhtml", livevdohtml);
+
+      console.log("kook", statussad);
+
       var link = "";
       var videolink = "";
       console.log("pricelulu", this.props.data["userinfodata"][0]["price"]);
@@ -1109,46 +1166,22 @@ var InfluencerFeedTitle = function (_React$Component4) {
               React.createElement(
                 'div',
                 { 'class': 'd-flex justify-content-center mt-5' },
-                React.createElement(
+                this.props.data["userinfodata"][0]["price"] != null ? statussad == false ? this.props.data["sameperson"] != 1 ? React.createElement(
                   'div',
-                  { 'class': this.state.bookingtype == "true" ? "coverbookingtype mr-3" : "coverbookingtypeye mr-3" },
+                  null,
                   React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement(
-                      'button',
-                      { onClick: function onClick() {
-                          return _this10.bookingType("true");
-                        }, 'class': 'btn liveornotbuttons' },
-                      '\u0E08\u0E2D\u0E07\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D'
-                    )
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { 'class': this.state.bookingtype == "false" ? "coverbookingtype" : "coverbookingtypeye" },
+                    { 'class': 'd-flex justify-content-center mt-5' },
+                    customvdohtml,
+                    livevdohtml
+                  ),
                   React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement(
-                      'button',
-                      { onClick: function onClick() {
-                          return _this10.bookingType("false");
-                        }, 'class': 'btn liveornotbuttons' },
-                      '\u0E08\u0E2D\u0E07\u0E04\u0E2D\u0E25'
-                    )
+                    'a',
+                    { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
+                    '\u0E08\u0E2D\u0E07\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49: ',
+                    this.state.price,
+                    '\u0E3F'
                   )
-                )
-              ),
-              React.createElement(
-                'div',
-                { 'class': 'd-flex justify-content-center mt-5' },
-                this.props.data["userinfodata"][0]["price"] != null ? this.props.data.accountstatus == 1 ? this.props.data["sameperson"] != 1 ? React.createElement(
-                  'a',
-                  { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
-                  '\u0E08\u0E2D\u0E07\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49: ',
-                  this.state.price,
-                  '\u0E3F'
                 ) : React.createElement('div', null) : React.createElement(
                   'div',
                   null,

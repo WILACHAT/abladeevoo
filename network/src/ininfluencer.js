@@ -784,6 +784,56 @@ class InfluencerFeedTitle extends React.Component {
     
    
     render() {
+   
+
+      let statussad = false
+      let livevdo = this.props.data["userinfodata"][0].livevdo
+      let customvdo =  this.props.data["userinfodata"][0].customvdo
+      let customvdohtml = ""
+      let livevdohtml = ""
+
+      console.log("kook", livevdo)
+      console.log("kook", customvdo)
+
+
+      if (this.props.data["userinfodata"][0].livevdo == true && this.props.data["userinfodata"][0].customvdo == true)
+      {
+        statussad = true
+      }
+      if (customvdo == true)
+      {
+
+        customvdohtml = 
+        <div class={this.state.bookingtype == "true" ? "coverbookingtype mr-3" : "coverbookingtypeye mr-3"}>
+          <div class="d-flex justify-content-center">
+            <button onClick={() => this.bookingType("true")} class="btn liveornotbuttons">จองวีดีโอ</button>
+          </div>
+        </div>
+      }
+      else
+      {
+        customvdohtml = null
+      }
+      if (livevdo == true)
+      {
+             
+        livevdohtml = 
+        <div class={this.state.bookingtype == "false" ? "coverbookingtype" : "coverbookingtypeye"}>
+          <div class="d-flex justify-content-center">
+            <button onClick={() => this.bookingType("false")} class="btn liveornotbuttons">จองคอล</button>
+          </div>
+        </div>
+      }
+      else
+      {
+        livevdohtml = null
+      }
+      console.log("kookhtml", customvdohtml)
+      console.log("kookhtml", livevdohtml)
+
+
+      console.log("kook", statussad)
+
       let link = ""
       let videolink = ""
       console.log("pricelulu", this.props.data["userinfodata"][0]["price"])
@@ -998,26 +1048,18 @@ class InfluencerFeedTitle extends React.Component {
                              </div>
 
                               <div class="d-flex justify-content-center mt-5">
-                                <div class={this.state.bookingtype == "true" ? "coverbookingtype mr-3" : "coverbookingtypeye mr-3"}>
-                                  <div class="d-flex justify-content-center">
-                                    <button onClick={() => this.bookingType("true")} class="btn liveornotbuttons">จองวีดีโอ</button>
-                                  </div>
-                                </div>
-                               
-
-                                <div class={this.state.bookingtype == "false" ? "coverbookingtype" : "coverbookingtypeye"}>
-                                  <div class="d-flex justify-content-center">
-                                    <button onClick={() => this.bookingType("false")} class="btn liveornotbuttons">จองคอล</button>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="d-flex justify-content-center mt-5">
                               {this.props.data["userinfodata"][0]["price"] != null ?
 
                             
-                            this.props.data.accountstatus == 1 ? 
-                              this.props.data["sameperson"] != 1 ?  <a name="posterr" class="btn reservebutton"  href={bookhtmllink}>จองตอนนี้: {this.state.price}฿</a>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>
+                              statussad == false ? 
+                              this.props.data["sameperson"] != 1 ?   
+                              <div>
+                               <div class="d-flex justify-content-center mt-5">
+                                 {customvdohtml}
+                                 {livevdohtml}
+                               </div>
+                          
+        <a name="posterr" class="btn reservebutton"  href={bookhtmllink}>จองตอนนี้: {this.state.price}฿</a></div>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>
                             
                               :<div>สตาร์ยังไม่ได้ทําเรื่องการเงิน</div>} </div>
 

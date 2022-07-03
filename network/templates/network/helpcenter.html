@@ -1,4 +1,5 @@
 {% extends "network/layout.html" %}
+{% load static %}
 
 {% block body %}
     <script>
@@ -17,305 +18,38 @@
     }
     return cookieValue;
 }
-        function accountfunc(todo)
-        {
-            if (todo == "delete")
-            {
-                Swal.fire({
-        title: '<strong>HTML <u>example</u></strong>',
-        icon: 'info',
-        html:
-                    
-            'Are you <b>certain</b> that you want to delete the account. Everything will be deleted from the database and you will not be able to access your account again.',
       
-        showCloseButton: true,
-        showCancelButton: true,
-        focusConfirm: false,
-        confirmButtonText:
-            '<i class="fa fa-thumbs-up"></i> Delete Account',
-        confirmButtonAriaLabel: 'Thumbs up, great!',
-        cancelButtonText:
-        'No',
-        cancelButtonAriaLabel: 'Thumbs down '
-        })
-        .then((result) => { 
-            console.log(result) 
-            const getcooked = getCookie('csrftoken')
-            if (result["isConfirmed"] == true)
-            {
-                fetch(`/setting`, {
-                method: 'POST',
-                headers:{'X-CSRFToken': getcooked},
-                body: "delete"
-                })
-            }
-            
-        
-        })
-            }
-        else if (todo == "pause")
-        {
-            Swal.fire({
-        title: '<strong>HTML <u>example</u></strong>',
-        icon: 'info',
-        html:
-                    
-            'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
-      
-        showCloseButton: true,
-        showCancelButton: true,
-        focusConfirm: false,
-        confirmButtonText:
-            '<i class="fa fa-thumbs-up"></i> Pause Account',
-        confirmButtonAriaLabel: 'Thumbs up, great!',
-        cancelButtonText:
-        '<i class="fa fa-thumbs-up"></i> No',
-        cancelButtonAriaLabel: 'Thumbs down'
-        })
-        .then((result) => { 
-            console.log(result) 
-            const getcooked = getCookie('csrftoken')
-            if (result["isConfirmed"] == true)
-            {
-                fetch(`/setting`, {
-                method: 'POST',
-                headers:{'X-CSRFToken': getcooked},
-                body: "pause"
-                })
-                .then(response => response.json())
-                .then(data => {
-                    //if data returns successful show beautiful success stuff
-                    //if not show failed html
-                    location.reload();
-        
-                });
+       
+   
 
-            }
-        
-        })
-            
-    
-    }
-        else
-        {
-            Swal.fire({
-        title: '<strong>HTML <u>example</u></strong>',
-        icon: 'info',
-        html:
-                    
-            'Are you <b>certain</b> that you want to unpause the account?',
-      
-        showCloseButton: true,
-        showCancelButton: true,
-        focusConfirm: false,
-        confirmButtonText:
-            '<i class="fa fa-thumbs-up"></i> Unpause Account',
-        confirmButtonAriaLabel: 'Thumbs up, great!',
-        cancelButtonText:
-        '<i class="fa fa-thumbs-up"></i> No',
-        cancelButtonAriaLabel: 'Thumbs down'
-        })
-        .then((result) => { 
-            console.log(result) 
-            const getcooked = getCookie('csrftoken')
-            if (result["isConfirmed"] == true)
-            {
-                fetch(`/setting`, {
-                method: 'POST',
-                headers:{'X-CSRFToken': getcooked},
-                body: "unpause"
-                })
-                .then(response => response.json())
-                .then(data => {
-                //if data returns successful show beautiful success stuff
-                //if not show failed html
-                location.reload();
-          });
-            }
-        
-        })
-        }
-        }
-        
-           
-    
     </script>
+    
    
    <div class="d-flex justify-content-center">
 
     <div class="accountsettingfirstcolumn">
-        <h1 class="settingheading">บัญชีของคุณ</h1>
-        {% if user.influencer_ornot == 1 %}
-        {% if user.accountstatus == 1 %}
-        <button class="pauseaccountbtn mt-2" onclick="accountfunc('pause')">หยุดบัญชีชั่วคราว</button>
-        {% else %}
-        <button class="pauseaccountbtn mt-2" onclick="accountfunc('unpause')">ยกเลิกการหยุดบัญชี</button>
-        {% endif %}
-    {% endif %}       
+        <h1 class="settingheading">บัญชีของคุณ</h1> 
  </div>
 </div>
 
-<div class="d-flex justify-content-center">
-    <div class="accountsettingsecondcolumn mt-2">
-        <h1 class="settingheading">ศูนย์ช่วยเหลือ</h1>
-        <div class="d-flex justify-content-center">
-        <p class="helpcenterdescription">หากคุณมีปัญหาหรืออยากสอบถามเพิ่มเติม โปรดติดต่อ vidma@vidma.tv และทางทีมงานเราจะติดต่อกลับโดยเร็วที่สุด</p></div>
-        <h6 class="sarabun mt-2">ที่อยู่</h6>
 
-        <h6 class="sarabun">346 ลาดพร้าว คลองจั่น</h6>
-        <h6 class="sarabun">บางกะปิ กรุงเทพฯ 10240</h6>
-    </div>
-</div>
-<div class="d-flex justify-content-center">
-    <div class="bigbackgoundfaqpage">
-        <div class="d-flex justify-content-center">
-            <div class="divoffaqheader">
-                <h2 class="faqheadertext">คำถามที่พบบ่อย</h2>
-            </div>
-        </div>
 
-        <div class="d-flex justify-content-center">
-            <div class="d-flex mt-3">
-        <div class="topicsforfaq">
-            <h3 class="topicsforfaqtext">
-                ทั่วไป/การใช้งานเบื้องต้น
-            </h3>
-        </div>
-            </div>
-    </div>
-        <button type="button" class="questionsforfaq mt-3">อะไรคือ VIDMA?</button>
-            
-            <div class="answersforfaq">
-                <p>เว็ปไซท์ของเราชื่อ VIDMA (วิด-มา) VIDMA คือแพลตฟอร์มเว็ปไซท์ที่เชื่อมโยงให้แฟนคลับสามารถเข้ามารีเควสและซื้อวีดีโอจากสตาร์ (นักร้อง อินฟลูเอนเซอร์/เนทไอด่อล เกมเมอร์/สตรีมเมอร์)ได้ เว็ปไซท์ที่ให้ผู้ใช้สามารถสร้างบัญชีของตัวเองได้ หากสร้างบัญชีเสร็จสิ้นเรียบร้อย ผู้ใช้สามารถกดซื้อคลิปสั้นจากสตาร์บนเว็ปไซท์พวกเรา ความยาวไม่เกิน 45วินาที ที่สตาร์ของ VIDMA ถ่ายให้ผู้ซื้อวีดีโอโดยเฉพาะ ไม่ว่าจะเป็นวีดีโอสุขสันต์วันเกิด วีดีโอเผา ล้อเลียน หรือ วีดีโอแสดงความยินดี ผู้ใช้สามารถอธิบายความต้องการของวีดีโอได้ผ่านเว็ปไซท์ของเรา และหากผู้ใช้ท่านใดไม่ได้รับวีดีโอที่ตนสั่งไว้ ภายในเวลาที่ต้องการ (ลูกค้าจะต้องตั้งค่าว่าอยากได้วีดีโอภายในวันไหน) ลูกค้าจะได้รับเงินคืนทันที หากผู้ใช้ท่านใดมีฐานแฟนคลับแล้ว สามารถสมัครเป็นสตาร์ได้โดยการกรอกข้อมูลผ่านเว็ปไซต์และเราจะติดต่อกลับไปและอนุมัติ 
-                </p>
-             </div>
-        <button type="button" class="questionsforfaq">อยากทราบเรื่องเงื่อนไขและข้อกำหนด</button>
-            <div class="answersforfaq">
-                <p>โดยการเช้าถึงบริการของ VIDMA คุณต้องยอมรับเงื่อนไขและข้อกำหนดของเรา กดดูเงื่อนไขและข้อกำหนดของเรา <a target="_blank" href="/legal">ที่นี่</a></p>
-            </div>
-        <button type="button" class="questionsforfaq">จะสั่งซื้อวีดีโอของสตาร์ที่ชื่นชอบอย่างไร
-        </button>
-            <div class="answersforfaq">
-                <p>ท่านสามารถทำการสั่งซื้อวีดีโอ VIDMA ของสตาร์ที่ท่านชื่นชอบโดยการ คลิก ที่หน้าโปรไฟล์ของสตาร์ที่ท่านชอบในหน้าหลัก, คลิก 'จองตอนนี้' ทำการกรอกข้อมูล (ว่าท่านอยากให้สตาร์พูดหรือทำอะไรในวีดีโอ VIDMA บ้าง)ที่ระบุไว้ และทำการชำระเงินตามขั้นตอน</p>
-            </div>
 
-            <button type="button" class="questionsforfaq">ผู้ชมสามารถเข้าชมวิดิโอได้กี่ครั้งและสามารถดาวน์โหลดวิดิโอผ่านช่องทางไหนบ้าง
 
-            </button>
-                <div class="answersforfaq">
-                    <p>
-                        ในกรณีที่สตาร์อัพโหลดวิดีโอให้ลูกค้า ลูกค้าสามารถรับชมวีดีโอนั้นได้ตลอดไป ลูกค้าสามารถ copy link ของวีดีโอและเอา link นั้นไปแชร์ในแพลตฟอร์มต่างๆ เช่นไลน์ได้ หรือ ดาวน์โหลดวีดีโอและนํา วีดีโอนั้นๆไปแชร์ในแพลตฟอร์มต่างๆ เช่น Instagram หรือ Facebookได้ 
-                        </p>
-                </div>
-           
-        <hr></hr>
 
-        <div class="d-flex justify-content-center">
 
-        <div class="d-flex mt-3">
-            <div class="topicsforfaq">
-                <h3 class="topicsforfaqtext">
-                    เกี่ยวกับการชำระเงิน
 
-                </h3>
-            </div>
-            </div>
-        </div>
-      
-        <button type="button" class="questionsforfaq">ชำระเงินอย่างไร?            </button>
-            <div class="answersforfaq">
-                <p>หลังจากผู้ใช้ได้ทำการกรอกข้อมูลที่ระบุอย่างครบถ้วน และทำการบันทึกส่งให้สตาร์ที่ท่านชอบเรียบร้อย ท่านสามารถคลิก ชำระเงิน และทำการชำระเงินตามขั้นตอน ท่านสามารถทำการชำระวีดีโอ VIDMA ได้โดยใช้บัตรชำระเงินที่ถูกต้อง (เช่น: Visa หรือ MasterCard), TrueMoney Wallet และธนาคารออนไลน์ โดยที่ธุรกรรมทั้งหมดชำระเป็นเงินบาท</p>
-            </div>
-        <button type="button" class="questionsforfaq">นโยบายการคืนเงิน
-        </button>
-            <div class="answersforfaq">
-                <p>หากคุณซื้อหรือขอวิดีโอ Vidma ของเราด้วยบัตรเครดิต (เช่น: Visa หรือ MasterCard) และกระเป๋าเงิน TrueMoney คุณจะได้รับเงินคืนโดยอัตโนมัติในกรณีที่ (i) คุณไม่ได้รับวิดีโอ Vidma ที่ร้องขอจากบุคคลสาธารณะของเราก่อนเวลาที่่คุณขอ (ii) วิดีโอ Vidma ที่คุณได้รับไม่เป็นไปตามข้อกำหนดของเรา อย่างไรก็ตาม หากคุณชำระเงินสำหรับวิดีโอ Vidma ผ่านธนาคารออนไลน์และไม่ได้รับวิดีโอตามเวลาที่คุณขอ โปรดติดต่อฝ่ายบริการลูกค้าของเราเกี่ยวกับการคืนเงินได้ที่ vidma@vidma.tv หรือ +66 924159115  เราจะใช้ดุลยพินิจแต่เพียงผู้เดียวในการพิจารณาว่าข้อพิพาทเรื่องการเรียกเก็บเงินระหว่างเราจะได้รับการแก้ไขอย่างไร
-                </p>
-            </div>
-        <button type="button" class="questionsforfaq">ไม่สามารถทำการชำระเงินได้?</button>
-            <div class="answersforfaq">
-                <p>ในกรณีที่ท่านไม่สามารถทำการชำระเงินได้ หรือเกิดข้อบกพร่องระหว่างการชำระเงิน โปรดรีเฟรชหน้าจอลองใหม่อีกครั้ง และตรวจสอบให้แน่ใจว่ารายละเอียดในการทำธุรกรรมทั้งหมดนั้นถูกต้อง
-                </p>
-            </div>
-            <hr></hr>
 
-            <div class="d-flex justify-content-center">
-            <div class="d-flex mt-3">
-                
-                <div class="topicsforfaq">
-                    <h3 class="topicsforfaqtext">
-                        เกี่ยวกับสตาร์
+<div id="settingsreactid" ></div>
 
-                    </h3>
-                    </div>
 
-                </div>
-            </div>
-          
-            <button type="button" class="questionsforfaq">จะสมัครเป็นสตาร์ของ VIDMA อย่างไร?</button>
-                <div class="answersforfaq">
-                    <p><a target="_blank" href="/dara">คลิก</a>สมัครเป็นสมาชิคกับ VIDMA โดยการกรอกข้อมูลที่ระบุไว้ให้ครบ และหากเรามองว่าคุณมีฐานแฟนคลับที่เหมาะสมและหนาแน่นพอ เราจะอนุมัติให้คุณเป็นสตาร์โดยจะมีทีมงานของทางเราติดต่อกลับไปโดยเร็วที่สุด</p>
-                </div>
-            <button type="button" class="questionsforfaq">การเป็นสตาร์ของ VIDMA มีข้อหนดว่าอย่างไนบ้าง
-            </button>
-                <div class="answersforfaq">
-                    <p>สตาร์ของเราจะได้รับ 85% ต่อทุกๆวีดีโอที่ถ่ายให้ผู้ใช้ สัญญาระหว่างแพลตฟอร์มของเราและสตาร์ถูกระบุไว้ในเงื่อนไขและข้อกำหนดของเว็ปไซต์ และ สตาร์ทุกท่านต้องยอมรับเงื่อนไขการใช้งานก่อนที่จะเข้าใช้เว็ปไซท์ของเรา กดอ่านเพิ่มเติมเกี่ยวกับข้อกำหนดและเงื่อนไขของสตาร์ได้ <a target="_blank" href="/legal">ที่นี่</a>
-                    </p>
-                </div>
-            <button type="button" class="questionsforfaq">สตาร์สามารถปรับราคาของวีดีโอได้มั้ย
-            </button>
-                <div class="answersforfaq">
-                    <p>สตาร์ของ VIDMA ทุกท่าน เป็นผู้กำหนดราคาต่อคลิปของตนเอง ซึ่งสามารถปรับเปลี่ยนราคาต่อวีดีโอของตนเองได้ใน หน้า‘การเงิน’ ของเว็ปไซท์หลังจากที่สตาร์ได้ทำการกรอกข้อมูลธุรกรรมทางการเงินเรียบร้อยแล้วแต่ราคาต่อวีดีโอของสตาร์ต้องมีราคาอย่างน้อย 50บาทขึ้นไป
-                    </p>
-                </div>
-                <button type="button" class="questionsforfaq">สตาร์สามารถเลือกวีดีโอตัวอย่างได้ที่ไหน
 
-                </button>
-                    <div class="answersforfaq">
-                        <p>สตาร์ของ VIDMA ทุกท่านสามารถปรับเปลี่ยนแก้ไข หน้าโปรไฟล์ของท่านได้โดยการ คลิก ที่ชื่อผู้ใช้ (username) ของท่าน สตาร์ทุกท่านสามารถกดเลือกที่จะซ่อนหรือโชว์วีดีโอตัวอย่างตามที่ท่านต้องการ แต่วีดีโอตัวอย่างนั้นมีข้อจำกัดห้ามเกิน 9วีดีโอ
-                        </p>
-                    </div>
-
-                    <button type="button" class="questionsforfaq">หากทำการชำระเงินแล้ว จะได้รับวีดีโอตอนไหน
-                    </button>
-                        <div class="answersforfaq">
-                            <p>ก่อนที่ท่านจะสามารถทำการชำระเงินตามขั้นตอนได้ ท่านจะต้องกรอกข้อมูลรายละเอียดของวีดีโอ VIDMA ที่ท่านรีเควส เช่น วีดีโอนี้อยาทำให้ใคร เนื่องในโอกาสอะไร และต้องการรับวีดีโอก่อนวันที่เท่าไหร่ ท่านสามารถกดเลือกวันที่ ที่ท่านต้องการรับวีดีโอ VIDMA ได้ในฟอร์มนี้ (วันที่ที่ท่านเลือกต้องมากกว่าวันที่ท่านทำการกรอกฟอร์มอย่างน้อย 2 วัน) และหากสตาร์ที่คุณชื่นชอบบันทึกวีดีโอที่ท่านชำระไปไม่ทันวันที่ท่านกำหนด ท่านจะได้รับเงินคืนทั้งหมด 
-                            </p>
-                        </div>
-
-                        <button type="button" class="questionsforfaq">VIDMA มีการตรวจสอบคุณสมบัติและยืนยันตัวตนศิลปินที่สมัครเข้ามาอย่างไร
-                        </button>
-                            <div class="answersforfaq">
-                                <p>เว็ปไซต์ของเราอนุญาตให้ท่านสมัครเพื่อใช้แพลตฟอร์มได้ด้วยตนเอง แต่ทางเว็ปไซต์จะมีการตรวจคัดกรองคุณสมบัติของผู้สมัคร  ผู้ที่จะผ่านการคัดกรองของเรานั้นต้องมียอดคนตดตามเกนหนงหมนคน (10,000คน) ในแพลตฟอรมใดกได เชนหนงหมน Subscriber ใน Youtube หนงหมน Follower ใน Instagram เปนตนไป ในกรณทคณสมบตของผสมครไมผานการคดกรองของเรา ทางเราจะตดตอกลบไปในเมลของผสมครเพอแจงผสมคร
-                                </p>
-                            </div>
-     
-
-           
-
-                
-        <script>
-        var coll = document.getElementsByClassName("questionsforfaq");
-        var i;
-        for (i = 0; i < coll.length; i++) {
-          coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var answersforfaq = this.nextElementSibling;
-            if (answersforfaq.style.display === "block") {
-                answersforfaq.style.display = "none";
-            } else {
-                answersforfaq.style.display = "block";
-            }
-          });
-        }
-        </script>
-
-    </div>
-</div>
-</div>
-   
 
 {% endblock %}
+{% block script %}
+<script type="module" src="{% static 'network/setting.js' %}"></script>
+{% endblock %}
+
 
 
 

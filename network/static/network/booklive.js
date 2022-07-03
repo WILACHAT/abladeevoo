@@ -47,10 +47,16 @@ var BookingTimeRow = function (_React$Component) {
       console.log("remake", e.target.id);
 
       if (e.target.id == this.state.buttonred1) {
+        document.getElementById(e.target.id).style.backgroundColor = "";
+
         this.setState({ buttonred1: "" });
       } else if (e.target.id == this.state.buttonred2) {
+        document.getElementById(e.target.id).style.backgroundColor = "";
+
         this.setState({ buttonred2: "" });
       } else {
+        document.getElementById(e.target.id).style.backgroundColor = "";
+
         this.setState({ buttonred3: "" });
       }
 
@@ -90,11 +96,13 @@ var BookingTimeRow = function (_React$Component) {
 
       var buttonid = this.props.monthnumber.toString() + this.props.active.toString() + "button" + this.props.timesomething.toString();
 
-      if (this.state.buttonred1 == buttonid || this.state.buttonred2 == buttonid || this.state.buttonred3 == buttonid) {
+      console.log("buttonred1", this.state.buttonred1);
+      console.log("buttonred2", this.state.buttonred2);
+      console.log("buttonred3", this.state.buttonred3);
 
+      if (this.state.buttonred1 == buttonid || this.state.buttonred2 == buttonid || this.state.buttonred3 == buttonid) {
         try {
 
-          console.log("in here != red");
           buttons = React.createElement(
             'button',
             { style: mystyle, id: buttonid, onClick: this.clickButton },
@@ -103,8 +111,6 @@ var BookingTimeRow = function (_React$Component) {
           document.getElementById(buttonid).style.backgroundColor == "red";
         } catch (err) {
           console.log("in here error");
-
-          // buttons = <button style={mystyle} id={buttonid} onClick={this.clickButton}>{this.props.timesomething}</button>
         }
       } else {
         console.log("waok");
@@ -258,11 +264,6 @@ var BookLiveRow = function (_React$Component2) {
 
             document.getElementById(clickbuttonid).style.backgroundColor = "";
             console.log("cocaine", document.getElementById(clickbuttonid).style.backgroundColor);
-
-            console.log("daythai", daythai);
-            console.log("idnumber", idnumber);
-            console.log("whatttttt", whatttttt);
-            console.log("whatttttt2", this.state.active);
 
             var fakeidnumber = idnumber - 1;
             var _fakramdomtext = "";
