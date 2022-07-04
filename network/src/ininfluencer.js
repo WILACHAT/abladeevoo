@@ -785,24 +785,35 @@ class InfluencerFeedTitle extends React.Component {
    
     render() {
    
-
-      let statussad = false
+      let statussad = true
       let livevdo = this.props.data["userinfodata"][0].livevdo
       let customvdo =  this.props.data["userinfodata"][0].customvdo
       let customvdohtml = ""
       let livevdohtml = ""
+      let price = ""
 
-      console.log("kook", livevdo)
-      console.log("kook", customvdo)
-
-
-      if (this.props.data["userinfodata"][0].livevdo == true && this.props.data["userinfodata"][0].customvdo == true)
+      if (this.props.data["userinfodata"][0].livevdo == false && this.props.data["userinfodata"][0].customvdo == false)
       {
-        statussad = true
+        console.log("statussadin")
+        statussad = false
       }
-      if (customvdo == true)
-      {
 
+      let bookhtmllink = ""
+      if (this.state.bookingtype == "true")
+      {
+        bookhtmllink = "/book/"+this.props.data["username"]
+      }
+      else
+      {
+        bookhtmllink = "/booklive/"+this.props.data["username"]
+      }
+
+
+      if (customvdo == true && livevdo == false)
+      {
+        price = this.state.price
+
+        livevdohtml = null
         customvdohtml = 
         <div class={this.state.bookingtype == "true" ? "coverbookingtype mr-3" : "coverbookingtypeye mr-3"}>
           <div class="d-flex justify-content-center">
@@ -810,13 +821,33 @@ class InfluencerFeedTitle extends React.Component {
           </div>
         </div>
       }
-      else
+      else if (customvdo == false && livevdo == true)
       {
-        customvdohtml = null
+
+        price = this.props.data["userinfodata"][0]["price"] * 3
+
+
+        bookhtmllink = "/booklive/"+this.props.data["username"]
+        customvdohtml = null 
+        livevdohtml = 
+        <div class="coverbookingtype">
+          <div class="d-flex justify-content-center">
+            <button onClick={() => this.bookingType("false")} class="btn liveornotbuttons">จองคอล</button>
+          </div>
+        </div>
+        
       }
-      if (livevdo == true)
+      else if (customvdo == true && livevdo == true)
       {
-             
+        price = this.state.price
+
+        customvdohtml = 
+        <div class={this.state.bookingtype == "true" ? "coverbookingtype mr-3" : "coverbookingtypeye mr-3"}>
+          <div class="d-flex justify-content-center">
+            <button onClick={() => this.bookingType("true")} class="btn liveornotbuttons">จองวีดีโอ</button>
+          </div>
+        </div>
+
         livevdohtml = 
         <div class={this.state.bookingtype == "false" ? "coverbookingtype" : "coverbookingtypeye"}>
           <div class="d-flex justify-content-center">
@@ -826,8 +857,11 @@ class InfluencerFeedTitle extends React.Component {
       }
       else
       {
+        customvdohtml = null
         livevdohtml = null
       }
+      console.log("sono hito ha dare desuka", bookhtmllink)
+      
       console.log("kookhtml", customvdohtml)
       console.log("kookhtml", livevdohtml)
 
@@ -839,15 +873,7 @@ class InfluencerFeedTitle extends React.Component {
       console.log("pricelulu", this.props.data["userinfodata"][0]["price"])
       //THIS IS A NEW PROBLEM TO FIX
       //the user info data is fucked or essentially its blank and query anything
-      let bookhtmllink = ""
-      if (this.state.bookingtype == "true")
-      {
-        bookhtmllink = "/book/"+this.props.data["username"]
-      }
-      else
-      {
-        bookhtmllink = "/booklive/"+this.props.data["username"]
-      }
+     
 
       if (this.state.profilepic != "")
       {
@@ -1051,7 +1077,7 @@ class InfluencerFeedTitle extends React.Component {
                               {this.props.data["userinfodata"][0]["price"] != null ?
 
                             
-                              statussad == false ? 
+                              statussad == true ? 
                               this.props.data["sameperson"] != 1 ?   
                               <div>
                                <div class="d-flex justify-content-center mt-5">
@@ -1059,7 +1085,7 @@ class InfluencerFeedTitle extends React.Component {
                                  {livevdohtml}
                                </div>
                           
-        <a name="posterr" class="btn reservebutton"  href={bookhtmllink}>จองตอนนี้: {this.state.price}฿</a></div>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>
+        <a name="posterr" class="btn reservebutton"  href={bookhtmllink}>จองตอนนี้: {price}฿</a></div>: <div></div>:<div>บัญชีหยุดชั่วคราว</div>
                             
                               :<div>สตาร์ยังไม่ได้ทําเรื่องการเงิน</div>} </div>
 

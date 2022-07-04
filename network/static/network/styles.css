@@ -127,6 +127,13 @@ margin-top:20px;
   font-size:100%;
   margin-top: 20px;
 }
+.waoccasionlive
+{
+  color:#212121;
+  margin-left:15px;
+  font-family: 'Sarabun';
+  font-size:15px;
+}
 .nameininbox
 {
   color:#212121;
@@ -151,12 +158,28 @@ margin-top:20px;
   width:100%;
   margin-top: 20px;
 }
+.yeathenamelive
+{
+  margin-top: 20px;
+}
 .waduedate
 {
   color:#203354;
   font-family: 'Sarabun';
   font-size:15px;
   margin-bottom: 0px;
+}
+
+.livetochoosebtn
+{
+  background-color: #FF336F;
+  color:white;
+  border:none;
+  width:200px;
+  height:70px;
+  border-radius: 10px;
+  font-family: 'Sarabun';
+  padding:1%;
 }
 
 .myinboxcss
@@ -169,7 +192,27 @@ margin-top:20px;
   border-radius: 45px;
   font-family: 'Sarabun';
 }
+.mylive
+{
+  background-color: #0275d8;
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+}
 .myinboxclicked
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+}
+.myliveclicked
 {
   background-image: linear-gradient(90deg, #094FCB,#FF336F);
   color:white;
@@ -243,9 +286,8 @@ margin-top:20px;
 .dropdownbutton
 {
   color:#1c2e4a;
-
   font-family: 'Sarabun';
- 
+
 }
 .ngong
 {
@@ -417,6 +459,10 @@ margin-top:20px;
   padding-left:4%;
   padding-right:4%;
 
+}
+.faker
+{
+  margin-bottom: 0em;
 }
 .introwords
 {
@@ -599,7 +645,10 @@ padding: 10px;
   justify-content: center;
 }
 
-
+.verysmall
+{
+  font-size:14px;
+}
 
 .ineachrow
 {
@@ -614,11 +663,31 @@ padding: 10px;
   border: 1px solid #dbdcdc;
 
 }
+.ineachrowlive
+{
+  display: flex;
+
+  justify-content: center;
+  width:50%;
+  height:250px;
+  background-color: white;
+  border-radius: 1.5em;
+
+  border: 1px solid #dbdcdc;
+
+}
 
 .okseecolor
 {
   padding:3%;
   height:100%;
+  width:100%;
+
+}
+.okseecolorlive
+{
+  padding:3%;
+  height:350px;
   width:100%;
 
 }
@@ -635,7 +704,13 @@ padding: 10px;
   background-color: #f7efe9;
   padding:7px;
   border-radius: 20px;
-
+}
+.randomdesignlive
+{
+  background-color: #f7efe9;
+  padding:7px;
+  border-radius: 20px;
+  height:100%;
 }
 .button {
   display: inline-flex;

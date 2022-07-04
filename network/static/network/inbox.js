@@ -1311,11 +1311,61 @@ var InboxFeedRows = function (_React$Component2) {
         var _this2 = _possibleConstructorReturn(this, (InboxFeedRows.__proto__ || Object.getPrototypeOf(InboxFeedRows)).call(this, props));
 
         _this2.clickHref = _this2.clickHref.bind(_this2);
+        _this2.cancelLive = _this2.cancelLive.bind(_this2);
 
         return _this2;
     }
 
     _createClass(InboxFeedRows, [{
+        key: 'cancelLive',
+        value: function cancelLive(e) {
+            var _this3 = this;
+
+            console.log("wtf is this", paginationid);
+            var paginationid = 1;
+            var getcooked = getCookie('csrftoken');
+
+            console.log("length", document.getElementById('columninboxid').children);
+            console.log("length", document.getElementById('columninboxid').children.length);
+            console.log("this is to cancel live", e.target);
+
+            Swal.fire({
+                title: '<strong>HTML <u>example</u></strong>',
+                icon: 'info',
+                html: 'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
+
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Pause Account',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText: '<i class="fa fa-thumbs-up"></i> No',
+                cancelButtonAriaLabel: 'Thumbs down'
+            }).then(function (result) {
+
+                var getcooked = getCookie('csrftoken');
+
+                if (result["isConfirmed"] == true) {
+
+                    fetch('/gotozjguen484s9gj302g/' + paginationid, {
+                        method: 'PUT',
+                        headers: { 'X-CSRFToken': getcooked },
+                        body: JSON.stringify({
+                            reservationid: _this3.props.id,
+                            from: "inbox",
+                            type: "statuscancel"
+                        })
+                    }).then(function (response) {
+                        return response.json();
+                    }).then(function (data) {
+                        console.log("unicornbillions", data);
+                        location.reload();
+                        ReactDOM.render(React.createElement(InboxFeedInbox, { data: data }), document.querySelector('#mylivehtml'));
+                    });
+                }
+            });
+        }
+    }, {
         key: 'clickHref',
         value: function clickHref(e) {
 
@@ -1370,14 +1420,13 @@ var InboxFeedRows = function (_React$Component2) {
             var link = "";
 
             //this will 
-            if (this.props.type == "request" || this.props.type == "complete") {
+            if (this.props.type == "request" || this.props.type == "complete" || this.props.type == "live") {
                 if (this.props.normal_pic == null) {
                     link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
                 } else {
-                    console.log("i dont know what to do now hep");
                     link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.normal_pic + ".jpg";
                 }
-            } else {
+            } else if (this.props.type == "inbox") {
                 if (this.props.influencer_pic == null) {
                     link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png";
                 } else {
@@ -1385,114 +1434,214 @@ var InboxFeedRows = function (_React$Component2) {
                 }
             }
 
-            var occasion = checkforoccasiontype(this.props.whatoccasion);
+            if (this.props.type != "live") {
 
-            eachcontent = React.createElement(
-                'div',
-                { 'class': 'okseecolor' },
-                React.createElement(
+                var occasion = checkforoccasiontype(this.props.whatoccasion);
+
+                eachcontent = React.createElement(
                     'div',
-                    { 'class': 'randomdesign d-flex justify-content-between' },
+                    { 'class': 'okseecolor' },
                     React.createElement(
                         'div',
-                        { 'class': 'fakimgnoeditinbox d-flex justify-content-start ml-3' },
+                        { 'class': 'randomdesign d-flex justify-content-between' },
                         React.createElement(
                             'div',
-                            null,
-                            React.createElement('img', { 'class': 'imgnoeditinbox', src: link })
+                            { 'class': 'fakimgnoeditinbox d-flex justify-content-start ml-3' },
+                            React.createElement(
+                                'div',
+                                null,
+                                React.createElement('img', { 'class': 'imgnoeditinbox', src: link })
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex flex-column yeathename mt-2' },
+                                React.createElement(
+                                    'a',
+                                    { 'class': 'nameininbox' },
+                                    this.props.name
+                                ),
+                                React.createElement(
+                                    'h4',
+                                    { 'class': 'wanameinbox mt-2' },
+                                    this.props.giftornot == "someoneelse_html_id" ? "ของขวัญ" : "ตัวเอง"
+                                )
+                            )
                         ),
                         React.createElement(
                             'div',
-                            { 'class': 'd-flex flex-column yeathename mt-2' },
+                            { 'class': 'd-flex flex-column' },
                             React.createElement(
-                                'a',
-                                { 'class': 'nameininbox' },
-                                this.props.name
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement(
+                                    'h4',
+                                    { 'class': 'waoccasion' },
+                                    occasion
+                                )
                             ),
                             React.createElement(
-                                'h4',
-                                { 'class': 'wanameinbox mt-2' },
-                                this.props.giftornot == "someoneelse_html_id" ? "ของขวัญ" : "ตัวเอง"
+                                'div',
+                                { onClick: this.clickHref, 'class': 'button', id: 'button-7' },
+                                React.createElement('input', { type: 'hidden', id: 'divtogetid', value: this.props.id }),
+                                React.createElement(
+                                    'div',
+                                    { value: this.props.id, 'class': 'dub-arrow' },
+                                    React.createElement('img', { src: 'https://github.com/atloomer/atloomer.github.io/blob/master/img/iconmonstr-arrow-48-240.png?raw=true', alt: '' })
+                                ),
+                                React.createElement(
+                                    'a',
+                                    { 'class': 'letsgo', href: '#' },
+                                    '\u0E40\u0E02\u0E49\u0E32\u0E0A\u0E21'
+                                )
                             )
                         )
                     ),
                     React.createElement(
                         'div',
-                        { 'class': 'd-flex flex-column' },
-                        React.createElement(
+                        { 'class': 'd-flex justify-content-center mt-1' },
+                        this.props.completed == true ? React.createElement(
+                            'h6',
+                            { 'class': 'waduedatecomplete mt-3' },
+                            '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
+                        ) : checktime == 0 ? React.createElement(
+                            'div',
+                            { 'class': 'inboxtroublesome mt-1 ml-2' },
+                            React.createElement(
+                                'h6',
+                                { 'class': 'waduedate' },
+                                ' \u0E44\u0E21\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center mb-5' },
+                                React.createElement(
+                                    'h6',
+                                    { 'class': 'waduedate' },
+                                    '\u0E2A\u0E48\u0E07\u0E01\u0E48\u0E2D\u0E19:'
+                                ),
+                                React.createElement(
+                                    'h6',
+                                    { 'class': 'waduedate' },
+                                    this.props.duedate
+                                )
+                            )
+                        ) : React.createElement(
                             'div',
                             { 'class': 'd-flex justify-content-center' },
                             React.createElement(
                                 'h4',
-                                { 'class': 'waoccasion' },
-                                occasion
-                            )
-                        ),
-                        React.createElement(
-                            'div',
-                            { onClick: this.clickHref, 'class': 'button', id: 'button-7' },
-                            React.createElement('input', { type: 'hidden', id: 'divtogetid', value: this.props.id }),
-                            React.createElement(
-                                'div',
-                                { value: this.props.id, 'class': 'dub-arrow' },
-                                React.createElement('img', { src: 'https://github.com/atloomer/atloomer.github.io/blob/master/img/iconmonstr-arrow-48-240.png?raw=true', alt: '' })
-                            ),
-                            React.createElement(
-                                'a',
-                                { 'class': 'letsgo', href: '#' },
-                                '\u0E40\u0E02\u0E49\u0E32\u0E0A\u0E21'
+                                { 'class': 'waduedateexpire' },
+                                '\u0E2B\u0E21\u0E14\u0E2D\u0E32\u0E22\u0E38'
                             )
                         )
                     )
-                ),
-                React.createElement(
+                );
+            } else {
+                console.log("blind eye");
+
+                console.log(this.props.id);
+                console.log(this.props.liveinfo);
+                console.log(this.props.time1);
+                console.log(this.props.time2);
+                console.log(this.props.time3);
+                console.log(this.props.completed);
+                console.log(this.props.type);
+                console.log(this.props.influencer_pic);
+                console.log(this.props.normal_pic);
+
+                eachcontent = React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center mt-1' },
-                    this.props.completed == true ? React.createElement(
-                        'h6',
-                        { 'class': 'waduedatecomplete mt-3' },
-                        '\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
-                    ) : checktime == 0 ? React.createElement(
+                    { 'class': 'okseecolor' },
+                    React.createElement(
                         'div',
-                        { 'class': 'inboxtroublesome mt-1 ml-2' },
+                        { 'class': 'randomdesign d-flex justify-content-between' },
                         React.createElement(
-                            'h6',
-                            { 'class': 'waduedate' },
-                            ' \u0E44\u0E21\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
+                            'div',
+                            { 'class': 'fakimgnoeditinbox d-flex justify-content-start ml-3' },
+                            React.createElement(
+                                'div',
+                                null,
+                                React.createElement('img', { 'class': 'imgnoeditinbox', src: link })
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex flex-column yeathenamelive mt-2' },
+                                React.createElement(
+                                    'a',
+                                    { 'class': 'nameininbox' },
+                                    this.props.name
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { 'class': 'waoccasionlive' },
+                                    this.props.liveinfo
+                                )
+                            )
                         ),
                         React.createElement(
                             'div',
-                            { 'class': 'd-flex justify-content-center mb-5' },
+                            null,
                             React.createElement(
-                                'h6',
-                                { 'class': 'waduedate' },
-                                '\u0E2A\u0E48\u0E07\u0E01\u0E48\u0E2D\u0E19:'
-                            ),
-                            React.createElement(
-                                'h6',
-                                { 'class': 'waduedate' },
-                                this.props.duedate
+                                'button',
+                                { onClick: this.cancelLive, 'class': 'btn btn-danger mt-3 mr-3' },
+                                'X'
                             )
                         )
-                    ) : React.createElement(
+                    ),
+                    React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
                         React.createElement(
-                            'h4',
-                            { 'class': 'waduedateexpire' },
-                            '\u0E2B\u0E21\u0E14\u0E2D\u0E32\u0E22\u0E38'
+                            'p',
+                            { 'class': 'faker mt-2' },
+                            '\u0E01\u0E23\u0E38\u0E13\u0E32\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E2B\u0E19\u0E36\u0E48\u0E07\u0E40\u0E27\u0E25\u0E32\u0E17\u0E35\u0E48\u0E2A\u0E14\u0E27\u0E01:'
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { 'class': 'd-flex justify-content-between mt-1' },
+                        React.createElement(
+                            'button',
+                            { 'class': 'btn livetochoosebtn', onClick: this.clickHref },
+                            React.createElement(
+                                'p',
+                                { 'class': 'verysmall' },
+                                this.props.time1
+                            )
+                        ),
+                        React.createElement(
+                            'button',
+                            { 'class': 'btn livetochoosebtn', onClick: this.clickHref },
+                            React.createElement(
+                                'p',
+                                { 'class': 'verysmall' },
+                                this.props.time2
+                            )
+                        ),
+                        React.createElement(
+                            'button',
+                            { 'class': 'btn livetochoosebtn', onClick: this.clickHref },
+                            React.createElement(
+                                'p',
+                                { 'class': 'verysmall' },
+                                this.props.time3
+                            )
                         )
                     )
-                )
-            );
+                );
+            }
 
             return React.createElement(
                 'div',
                 { 'class': 'd-flex justify-content-center' },
-                React.createElement(
+                this.props.type != "live" ? React.createElement(
                     'div',
                     { 'class': 'ineachrow mt-4 mb-4' },
                     this.props.type == "inbox" ? eachcontent : this.props.completed == true ? eachcontent : checktime == 1 ? null : eachcontent
+                ) : React.createElement(
+                    'div',
+                    { 'class': 'ineachrowlive mt-4 mb-4' },
+                    eachcontent
                 )
             );
         }
@@ -1507,25 +1656,25 @@ var InboxFeedInbox = function (_React$Component3) {
     function InboxFeedInbox(props) {
         _classCallCheck(this, InboxFeedInbox);
 
-        var _this3 = _possibleConstructorReturn(this, (InboxFeedInbox.__proto__ || Object.getPrototypeOf(InboxFeedInbox)).call(this, props));
+        var _this4 = _possibleConstructorReturn(this, (InboxFeedInbox.__proto__ || Object.getPrototypeOf(InboxFeedInbox)).call(this, props));
 
-        _this3.changePage = _this3.changePage.bind(_this3);
-        _this3.hideCompleted = _this3.hideCompleted.bind(_this3);
-        _this3.sortTime = _this3.sortTime.bind(_this3);
+        _this4.changePage = _this4.changePage.bind(_this4);
+        _this4.hideCompleted = _this4.hideCompleted.bind(_this4);
+        _this4.sortTime = _this4.sortTime.bind(_this4);
 
-        _this3.state = {
-            newdata: _this3.props.data,
+        _this4.state = {
+            newdata: _this4.props.data,
             hide: "ซ่อนเสร็จสิ้น",
             sort: "เรียงตามวันครบกําหนด"
 
         };
-        return _this3;
+        return _this4;
     }
 
     _createClass(InboxFeedInbox, [{
         key: 'sortTime',
         value: function sortTime(e) {
-            var _this4 = this;
+            var _this5 = this;
 
             var type = "mysorttime";
             var csrftoken = getCookie('csrftoken');
@@ -1559,7 +1708,7 @@ var InboxFeedInbox = function (_React$Component3) {
                 }
 
                 console.log("e.target.value", sort);
-                _this4.setState({
+                _this5.setState({
                     newdata: data,
                     sort: sort
                 });
@@ -1568,7 +1717,7 @@ var InboxFeedInbox = function (_React$Component3) {
     }, {
         key: 'hideCompleted',
         value: function hideCompleted(e) {
-            var _this5 = this;
+            var _this6 = this;
 
             var type = "";
 
@@ -1601,7 +1750,7 @@ var InboxFeedInbox = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("mg pen kuay arai", _this5.props.data);
+                console.log("mg pen kuay arai", _this6.props.data);
 
                 var hide = "";
                 if (data["hide"] == 0) {
@@ -1612,7 +1761,7 @@ var InboxFeedInbox = function (_React$Component3) {
                 console.log("sentback", data);
                 console.log("sentback", data["paginationid"]);
 
-                _this5.setState({
+                _this6.setState({
                     newdata: data,
                     hide: hide,
                     pagination: data["paginationid"]
@@ -1623,7 +1772,7 @@ var InboxFeedInbox = function (_React$Component3) {
     }, {
         key: 'changePage',
         value: function changePage(e) {
-            var _this6 = this;
+            var _this7 = this;
 
             var pagination = e.target.id;
             var innerhtmlpage = e.target.innerHTML;
@@ -1675,15 +1824,15 @@ var InboxFeedInbox = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("gojo", _this6.props.data);
-                _this6.setState({
+                console.log("gojo", _this7.props.data);
+                _this7.setState({
                     newdata: data
 
                 });
 
-                console.log("gojo", _this6.state.newdata);
-                _this6.setState({
-                    pagination: _this6.state.newdata["paginationid"]
+                console.log("gojo", _this7.state.newdata);
+                _this7.setState({
+                    pagination: _this7.state.newdata["paginationid"]
                 });
             });
 
@@ -1692,6 +1841,7 @@ var InboxFeedInbox = function (_React$Component3) {
     }, {
         key: 'render',
         value: function render() {
+            console.log("calculator", this.props.data["type"]);
             console.log("CUCKOOOOOOOOOO", this.props.data);
             console.log("CUCKOOOOOOOOOO SECONDO", this.state.pagination);
 
@@ -1714,19 +1864,37 @@ var InboxFeedInbox = function (_React$Component3) {
             }
             if (this.state.newdata["data"] == null) {
                 console.log("looking to hire");
-            } else {
+            } else if (this.props.data["type"] == "live") {
+                console.log("yay this is live now", this.state.newdata["data"]);
+
                 for (var i = 0; i < this.state.newdata["data"].length; i++) {
-                    console.log("we wil lcccc", this.props.data["data"][i]);
                     rows.push(React.createElement(InboxFeedRows, {
                         id: this.state.newdata["data"][i].id,
                         name: this.props.data["type"] == "inbox" ? this.state.newdata["data"][i].username_influencer : this.state.newdata["data"][i].username,
-                        giftornot: this.state.newdata["data"][i].typeintro,
-                        whatoccasion: this.state.newdata["data"][i].typeoccasion,
+                        liveinfo: this.state.newdata["data"][i].liveinfo,
+                        time1: this.state.newdata["data"][i].time1,
+                        time2: this.state.newdata["data"][i].time2,
+                        time3: this.state.newdata["data"][i].time3,
                         completed: this.state.newdata["data"][i].completed,
-                        duedate: this.state.newdata["data"][i].duedate,
                         type: this.state.newdata["type"],
                         influencer_pic: this.state.newdata["data"][i].influencer_pic,
                         normal_pic: this.state.newdata["data"][i].normal_pic }));
+
+                    console.log("this is live now", i);
+                }
+            } else {
+                for (var _i = 0; _i < this.state.newdata["data"].length; _i++) {
+                    console.log("we wil lcccc", this.props.data["data"][_i]);
+                    rows.push(React.createElement(InboxFeedRows, {
+                        id: this.state.newdata["data"][_i].id,
+                        name: this.props.data["type"] == "inbox" ? this.state.newdata["data"][_i].username_influencer : this.state.newdata["data"][_i].username,
+                        giftornot: this.state.newdata["data"][_i].typeintro,
+                        whatoccasion: this.state.newdata["data"][_i].typeoccasion,
+                        completed: this.state.newdata["data"][_i].completed,
+                        duedate: this.state.newdata["data"][_i].duedate,
+                        type: this.state.newdata["type"],
+                        influencer_pic: this.state.newdata["data"][_i].influencer_pic,
+                        normal_pic: this.state.newdata["data"][_i].normal_pic }));
                 }
             }
 
@@ -1735,17 +1903,6 @@ var InboxFeedInbox = function (_React$Component3) {
                     pagination: 1
                 });
             }
-
-            console.log("WAKU WAKU", this.state.newdata["data"]);
-            console.log("WAKU FAKU", this.state.newdata["type"]);
-            console.log("waka paku", this.state.pagination);
-            console.log("waka naku", this.state.newdata);
-            console.log("waka naku", this.state.newdata["paginationid"]);
-
-            console.log("this");
-
-            console.log(this.state.newdata["num_pages"]);
-            console.log(this.state.pagination);
 
             var gotoindex = "/";
             var gotoaboutus = "/aboutus";
@@ -1772,7 +1929,7 @@ var InboxFeedInbox = function (_React$Component3) {
                     { 'class': 'inboxtable d-flex justify-content-center' },
                     React.createElement(
                         'div',
-                        { 'class': 'columninbox d-flex justify-content-center flex-column' },
+                        { id: this.state.newdata["type"] != "live" ? "columninboxidfake" : "columninboxid", 'class': 'columninbox d-flex justify-content-center flex-column' },
                         rows
                     )
                 ) : React.createElement(
@@ -1930,16 +2087,15 @@ var InboxFeedTitle = function (_React$Component4) {
     function InboxFeedTitle(props) {
         _classCallCheck(this, InboxFeedTitle);
 
-        var _this7 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
+        var _this8 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
 
-        _this7.changeFeedInbox = _this7.changeFeedInbox.bind(_this7);
-        _this7.state = {
+        _this8.changeFeedInbox = _this8.changeFeedInbox.bind(_this8);
+        _this8.state = {
             currentpage: "myinbox"
 
-            //document.querySelector('#maininfluencer').hidden = false;
-            //document.querySelector('#reviewsmainfluencer').hidden = true;
+        };
 
-        };return _this7;
+        return _this8;
     }
 
     _createClass(InboxFeedTitle, [{
@@ -1953,6 +2109,7 @@ var InboxFeedTitle = function (_React$Component4) {
                 document.querySelector('#mycompletehtml').hidden = true;
 
                 document.querySelector('#myinboxhtml').hidden = false;
+                document.querySelector('#mylivehtml').hidden = true;
 
                 type = "myinboxhtml";
                 this.setState({
@@ -1963,6 +2120,7 @@ var InboxFeedTitle = function (_React$Component4) {
                 document.querySelector('#myinboxhtml').hidden = true;
                 document.querySelector('#myrequesthtml').hidden = false;
                 document.querySelector('#mycompletehtml').hidden = true;
+                document.querySelector('#mylivehtml').hidden = true;
 
                 type = "myrequesthtml";
                 this.setState({
@@ -1974,22 +2132,41 @@ var InboxFeedTitle = function (_React$Component4) {
                 document.querySelector('#mycompletehtml').hidden = false;
                 document.querySelector('#myinboxhtml').hidden = true;
                 document.querySelector('#myrequesthtml').hidden = true;
+                document.querySelector('#mylivehtml').hidden = true;
 
                 type = "mycompletehtml";
                 this.setState({
                     currentpage: "mycomplete"
                 });
-            } else {
-                document.querySelector('#typeofpage').value = "request";
+            } else if (e.target.id == "myliveid") {
+                document.querySelector('#typeofpage').value = "live";
+                document.querySelector('#mycompletehtml').hidden = true;
+                document.querySelector('#myinboxhtml').hidden = true;
+                document.querySelector('#myrequesthtml').hidden = true;
+                document.querySelector('#mylivehtml').hidden = false;
+
+                type = "mylivehtml";
+                this.setState({
+                    currentpage: "clickedlive"
+                });
+            }
+
+            /*
+            else 
+            {
+                console.log("wahoowa")
+                document.querySelector('#typeofpage').value = "request"
                 document.querySelector('#myinboxhtml').hidden = false;
                 document.querySelector('#myrequesthtml').hidden = true;
                 document.querySelector('#mycompletehtml').hidden = true;
-
-                type = "myinboxhtml";
+                document.querySelector('#mylivehtml').hidden = true;
+                type = "myinboxhtml"
                 this.setState({
                     currentpage: "myinbox"
-                });
+                })
             }
+            */
+
             var paginationid = 1;
             fetch('/gotozjguen484s9gj302g/' + paginationid, {
                 method: 'PUT',
@@ -2002,6 +2179,7 @@ var InboxFeedTitle = function (_React$Component4) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
+                console.log("LIVE", data);
                 ReactDOM.render(React.createElement(InboxFeedInbox, { data: data }), document.querySelector('#' + type));
             });
         }
@@ -2047,7 +2225,16 @@ var InboxFeedTitle = function (_React$Component4) {
                         { id: 'mycompleteid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "mycomplete" ? "completecssclicked" : "completecss" },
                         '\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E17\u0E35\u0E48\u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19'
                     )
-                ) : null
+                ) : null,
+                React.createElement(
+                    'div',
+                    { 'class': 'wangong' },
+                    React.createElement(
+                        'button',
+                        { id: 'myliveid', onClick: this.changeFeedInbox, 'class': this.state.currentpage == "clickedlive" ? "myliveclicked" : "mylive" },
+                        '\u0E44\u0E25\u0E1F\u0E4C'
+                    )
+                )
             );
         }
     }]);

@@ -104,9 +104,6 @@ class Reservation(models.Model):
     chargestatus = models.BooleanField(default=False)
     order_id = models.CharField(max_length=256, null=True)
 
-
-
-
     def serialize(self):
        # print("checking if this is correct", self.user_id_reserver)
       #  user_username = User.objects.values('username').get(id = self.user_id_reserver)
@@ -159,13 +156,14 @@ class Reservationlive(models.Model):
     completiondate = models.DateTimeField(null=True)
     omisecharge = models.CharField(max_length=256, null=True)
     chargestatus = models.BooleanField(default=False)
+    status = models.CharField(max_length=256, null=True, default="ok")
 
 
 
     def serialize(self):
        
-        pic = User.objects.values('normal_user_pic').get(id = self.user_id_influencerreserve.id)
-        normalpic = User.objects.values('normal_user_pic').get(id = self.user_id_reserver.id)
+        pic = User.objects.values('normal_user_pic').get(id = self.user_id_influencerreserve_live.id)
+        normalpic = User.objects.values('normal_user_pic').get(id = self.user_id_reserver_live.id)
         pic = pic['normal_user_pic']
         normalpic = normalpic['normal_user_pic']
 
@@ -185,7 +183,9 @@ class Reservationlive(models.Model):
             "username":str(self.user_id_reserver_live),
             "username_influencer":str(self.user_id_influencerreserve_live),
             "normal_pic":normalpic,
-            "omisecharge":self.omisecharge
+            "omisecharge":self.omisecharge,
+            "status":self.status
+
         } 
 
 

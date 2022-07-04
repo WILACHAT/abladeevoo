@@ -807,19 +807,67 @@ var InfluencerFeedTitle = function (_React$Component4) {
     value: function render() {
       var _this10 = this;
 
-      var statussad = false;
+      var statussad = true;
       var livevdo = this.props.data["userinfodata"][0].livevdo;
       var customvdo = this.props.data["userinfodata"][0].customvdo;
       var customvdohtml = "";
       var livevdohtml = "";
+      var price = "";
 
-      console.log("kook", livevdo);
-      console.log("kook", customvdo);
-
-      if (this.props.data["userinfodata"][0].livevdo == true && this.props.data["userinfodata"][0].customvdo == true) {
-        statussad = true;
+      if (this.props.data["userinfodata"][0].livevdo == false && this.props.data["userinfodata"][0].customvdo == false) {
+        console.log("statussadin");
+        statussad = false;
       }
-      if (customvdo == true) {
+
+      var bookhtmllink = "";
+      if (this.state.bookingtype == "true") {
+        bookhtmllink = "/book/" + this.props.data["username"];
+      } else {
+        bookhtmllink = "/booklive/" + this.props.data["username"];
+      }
+
+      if (customvdo == true && livevdo == false) {
+        price = this.state.price;
+
+        livevdohtml = null;
+        customvdohtml = React.createElement(
+          'div',
+          { 'class': this.state.bookingtype == "true" ? "coverbookingtype mr-3" : "coverbookingtypeye mr-3" },
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center' },
+            React.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this10.bookingType("true");
+                }, 'class': 'btn liveornotbuttons' },
+              '\u0E08\u0E2D\u0E07\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D'
+            )
+          )
+        );
+      } else if (customvdo == false && livevdo == true) {
+
+        price = this.props.data["userinfodata"][0]["price"] * 3;
+
+        bookhtmllink = "/booklive/" + this.props.data["username"];
+        customvdohtml = null;
+        livevdohtml = React.createElement(
+          'div',
+          { 'class': 'coverbookingtype' },
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center' },
+            React.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this10.bookingType("false");
+                }, 'class': 'btn liveornotbuttons' },
+              '\u0E08\u0E2D\u0E07\u0E04\u0E2D\u0E25'
+            )
+          )
+        );
+      } else if (customvdo == true && livevdo == true) {
+        price = this.state.price;
 
         customvdohtml = React.createElement(
           'div',
@@ -836,10 +884,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
             )
           )
         );
-      } else {
-        customvdohtml = null;
-      }
-      if (livevdo == true) {
 
         livevdohtml = React.createElement(
           'div',
@@ -857,8 +901,11 @@ var InfluencerFeedTitle = function (_React$Component4) {
           )
         );
       } else {
+        customvdohtml = null;
         livevdohtml = null;
       }
+      console.log("sono hito ha dare desuka", bookhtmllink);
+
       console.log("kookhtml", customvdohtml);
       console.log("kookhtml", livevdohtml);
 
@@ -869,12 +916,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
       console.log("pricelulu", this.props.data["userinfodata"][0]["price"]);
       //THIS IS A NEW PROBLEM TO FIX
       //the user info data is fucked or essentially its blank and query anything
-      var bookhtmllink = "";
-      if (this.state.bookingtype == "true") {
-        bookhtmllink = "/book/" + this.props.data["username"];
-      } else {
-        bookhtmllink = "/booklive/" + this.props.data["username"];
-      }
+
 
       if (this.state.profilepic != "") {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
@@ -1166,7 +1208,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
               React.createElement(
                 'div',
                 { 'class': 'd-flex justify-content-center mt-5' },
-                this.props.data["userinfodata"][0]["price"] != null ? statussad == false ? this.props.data["sameperson"] != 1 ? React.createElement(
+                this.props.data["userinfodata"][0]["price"] != null ? statussad == true ? this.props.data["sameperson"] != 1 ? React.createElement(
                   'div',
                   null,
                   React.createElement(
@@ -1179,7 +1221,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
                     'a',
                     { name: 'posterr', 'class': 'btn reservebutton', href: bookhtmllink },
                     '\u0E08\u0E2D\u0E07\u0E15\u0E2D\u0E19\u0E19\u0E35\u0E49: ',
-                    this.state.price,
+                    price,
                     '\u0E3F'
                   )
                 ) : React.createElement('div', null) : React.createElement(

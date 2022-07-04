@@ -985,8 +985,68 @@ class InboxFeedRows extends React.Component {
     constructor(props) {
         super(props);
         this.clickHref = this.clickHref.bind(this);
+        this.cancelLive = this.cancelLive.bind(this);
 
 
+
+    }
+    cancelLive(e)
+    {
+        console.log("wtf is this", paginationid)
+        let paginationid = 1;
+        const getcooked = getCookie('csrftoken');
+
+
+
+        console.log("length", document.getElementById('columninboxid').children)
+        console.log("length", document.getElementById('columninboxid').children.length)
+        console.log("this is to cancel live", e.target)
+
+        Swal.fire({
+            title: '<strong>HTML <u>example</u></strong>',
+            icon: 'info',
+            html:
+                        
+                'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
+          
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:
+                '<i class="fa fa-thumbs-up"></i> Pause Account',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText:
+            '<i class="fa fa-thumbs-up"></i> No',
+            cancelButtonAriaLabel: 'Thumbs down'
+            })
+            .then((result) => { 
+               
+                const getcooked = getCookie('csrftoken')
+                
+                if (result["isConfirmed"] == true)
+                {
+                    
+                fetch(`/gotozjguen484s9gj302g/${paginationid}`, {
+                    method: 'PUT',
+                    headers:{'X-CSRFToken': getcooked},
+                    body: JSON.stringify({
+                        reservationid: this.props.id,
+                        from: "inbox",
+                        type:"statuscancel"
+                        })
+                    })
+                    .then(response => response.json())
+            
+                    .then(data => {
+                        console.log("unicornbillions", data)
+                        location.reload();
+                        ReactDOM.render(<InboxFeedInbox data={data}/>, document.querySelector('#mylivehtml'));
+                    });
+                }
+                
+            })
+   
+            
     }
     clickHref(e)
     {
@@ -1022,6 +1082,7 @@ class InboxFeedRows extends React.Component {
       
             }
     render() {
+       
 
         console.log("check for", this.props.completed)
        
@@ -1049,7 +1110,7 @@ class InboxFeedRows extends React.Component {
         let link = ""
 
         //this will 
-        if (this.props.type == "request" || this.props.type == "complete")
+        if (this.props.type == "request" || this.props.type == "complete" || this.props.type == "live")
         {
             if (this.props.normal_pic == null)
             {
@@ -1058,11 +1119,10 @@ class InboxFeedRows extends React.Component {
             }
             else
             {
-              console.log("i dont know what to do now hep")
               link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.normal_pic + ".jpg"
             }
         }
-        else
+        else if (this.props.type == "inbox")
         {
             if (this.props.influencer_pic == null)
             {
@@ -1074,8 +1134,13 @@ class InboxFeedRows extends React.Component {
               link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.influencer_pic + ".jpg"
             }
         }
+       
+
+        if (this.props.type != "live")
+        {
         
         var occasion = checkforoccasiontype(this.props.whatoccasion)
+
 
         eachcontent =  
         <div class="okseecolor">
@@ -1089,8 +1154,6 @@ class InboxFeedRows extends React.Component {
                     <h4 class="wanameinbox mt-2">{this.props.giftornot == "someoneelse_html_id" ? "ของขวัญ":"ตัวเอง"}</h4>
                     
                 </div>
-                   
-              
             </div>
         
 
@@ -1128,20 +1191,75 @@ class InboxFeedRows extends React.Component {
         
        
     </div>
+        }
+        else
+        {
+            console.log("blind eye")
+        
+            console.log(this.props.id)
+            console.log(this.props.liveinfo)
+            console.log(this.props.time1)
+            console.log(this.props.time2)
+            console.log(this.props.time3)
+            console.log(this.props.completed)
+            console.log(this.props.type)
+            console.log(this.props.influencer_pic)
+            console.log(this.props.normal_pic)
+
+            eachcontent = 
+            <div class="okseecolor">
+            <div class="randomdesign d-flex justify-content-between">
+                <div class="fakimgnoeditinbox d-flex justify-content-start ml-3">
+                    <div>
+                        <img class="imgnoeditinbox" src={link}></img>
+                    </div>
+                    <div class="d-flex flex-column yeathenamelive mt-2">
+                        <a class="nameininbox" >{this.props.name}</a> 
+                        <p class="waoccasionlive">{this.props.liveinfo}</p>
+                    </div>
+                </div>
+                <div>
+                    <button onClick={this.cancelLive} class="btn btn-danger mt-3 mr-3">X</button>
+                </div>
+               
+             
+
+            
+    
+            </div>
+            
+            <div class="d-flex justify-content-center">
+                <p class="faker mt-2">กรุณาเลือกหนึ่งเวลาที่สดวก:</p>
+            </div>
+
+            <div class="d-flex justify-content-between mt-1">
+                <button class="btn livetochoosebtn"onClick={this.clickHref}><p class="verysmall">{this.props.time1}</p></button>
+                <button class="btn livetochoosebtn"onClick={this.clickHref}><p class="verysmall" >{this.props.time2}</p></button>
+                <button class="btn livetochoosebtn"onClick={this.clickHref}><p class="verysmall">{this.props.time3}</p></button>
+            </div>
+                  
+             
+                 
+           
+            </div>
+            
+        }
 
 
         return(
             <div class="d-flex justify-content-center">
-            <div class="ineachrow mt-4 mb-4">
+                {this.props.type != "live" ? 
+                <div class="ineachrow mt-4 mb-4">
 
-                {this.props.type == "inbox" ? eachcontent: 
-                
-                this.props.completed == true ?  eachcontent:
-                
-                checktime == 1 ? null:
-                eachcontent}
+                    {this.props.type == "inbox" ? eachcontent: 
+                    
+                    this.props.completed == true ?  eachcontent:
+                    
+                    checktime == 1 ? null:
+                    eachcontent}
 
-            </div>
+                </div>:
+                 <div class="ineachrowlive mt-4 mb-4">{eachcontent}</div>}
             </div>
         )
     }
@@ -1371,10 +1489,9 @@ class InboxFeedInbox extends React.Component {
         window.scrollTo(0, 0)
     }
     render() {
+    console.log("calculator", this.props.data["type"])
     console.log("CUCKOOOOOOOOOO", this.props.data)
     console.log("CUCKOOOOOOOOOO SECONDO", this.state.pagination)
-
-
 
     const button = [];
     const rows = [];
@@ -1399,6 +1516,30 @@ class InboxFeedInbox extends React.Component {
         {
             console.log("looking to hire")            
         }
+        else if (this.props.data["type"] == "live")
+        {
+            console.log("yay this is live now", this.state.newdata["data"])
+
+            for (let i = 0; i < this.state.newdata["data"].length; i++)
+            {
+                rows.push( 
+                    <InboxFeedRows 
+                    id={this.state.newdata["data"][i].id}
+                    name={this.props.data["type"] == "inbox" ? this.state.newdata["data"][i].username_influencer:this.state.newdata["data"][i].username}
+                    liveinfo={this.state.newdata["data"][i].liveinfo}
+                    time1={this.state.newdata["data"][i].time1}
+                    time2={this.state.newdata["data"][i].time2}
+                    time3={this.state.newdata["data"][i].time3}
+                    completed={this.state.newdata["data"][i].completed}
+                    type={this.state.newdata["type"]}
+                    influencer_pic={this.state.newdata["data"][i].influencer_pic}
+                    normal_pic={this.state.newdata["data"][i].normal_pic}/>
+                );
+                
+                console.log("this is live now", i)
+            }
+        }
+        
         else
         {
             for (let i = 0; i < this.state.newdata["data"].length; i++)
@@ -1426,31 +1567,24 @@ class InboxFeedInbox extends React.Component {
             })
         }
         
-        console.log("WAKU WAKU", this.state.newdata["data"])
-        console.log("WAKU FAKU", this.state.newdata["type"])
-        console.log("waka paku", this.state.pagination)
-        console.log("waka naku", this.state.newdata)
-        console.log("waka naku", this.state.newdata["paginationid"])
-    
-        console.log("this")
-
-        console.log(this.state.newdata["num_pages"])
-        console.log(this.state.pagination)
-
+      
         let gotoindex = "/"
         let gotoaboutus = "/aboutus"
 
 
         return(
-            <div class="coversalldiv">      
+
+            
+            <div class="coversalldiv">     
+
                 <div class="d-flex justify-content-center">    
                     {this.state.newdata["type"] == "inbox" ? <button id="hidecompletedid" value={this.state.hide}class="sortbutton btn" onClick={this.hideCompleted}>{this.state.hide}</button>:null}
                     {this.state.newdata["type"] == "request" ? <button class="sortbutton btn" value={this.state.sort}onClick={this.sortTime}>{this.state.sort}</button>:null}
                </div> 
                 {this.state.newdata["data"] != "" ? 
-            
+
                 <div class="inboxtable d-flex justify-content-center">
-                    <div class="columninbox d-flex justify-content-center flex-column">
+                    <div id={this.state.newdata["type"] != "live" ? "columninboxidfake":"columninboxid"} class="columninbox d-flex justify-content-center flex-column">
                         {rows}
                     </div>
                 </div>: 
@@ -1501,12 +1635,11 @@ class InboxFeedInbox extends React.Component {
                                    
                                             </div>
                                     </div>
-
-                            
                             </div>}
                             </div>
                     </div>
             </div>}
+
                 {rows != "" ? 
         <div class="paginationcss">
         {this.state.newdata["num_pages"] != 0 ?
@@ -1530,10 +1663,6 @@ class InboxFeedTitle extends React.Component {
      
       }
 
-      
-    //document.querySelector('#maininfluencer').hidden = false;
-    //document.querySelector('#reviewsmainfluencer').hidden = true;
-      
     }
     
     changeFeedInbox(e)
@@ -1547,6 +1676,8 @@ class InboxFeedTitle extends React.Component {
             document.querySelector('#mycompletehtml').hidden = true;
 
             document.querySelector('#myinboxhtml').hidden = false;
+            document.querySelector('#mylivehtml').hidden = true;
+
 
             type = "myinboxhtml"  
             this.setState({
@@ -1560,6 +1691,8 @@ class InboxFeedTitle extends React.Component {
             document.querySelector('#myinboxhtml').hidden = true;
             document.querySelector('#myrequesthtml').hidden = false;
             document.querySelector('#mycompletehtml').hidden = true;
+            document.querySelector('#mylivehtml').hidden = true;
+
 
             type = "myrequesthtml"
             this.setState({
@@ -1573,29 +1706,44 @@ class InboxFeedTitle extends React.Component {
             document.querySelector('#mycompletehtml').hidden = false;
             document.querySelector('#myinboxhtml').hidden = true;
             document.querySelector('#myrequesthtml').hidden = true;
+            document.querySelector('#mylivehtml').hidden = true;
 
             type = "mycompletehtml"  
             this.setState({
                 currentpage: "mycomplete"
             })
-
-
         }
+        else if (e.target.id == "myliveid")
+        {
+            document.querySelector('#typeofpage').value = "live"
+            document.querySelector('#mycompletehtml').hidden = true;
+            document.querySelector('#myinboxhtml').hidden = true;
+            document.querySelector('#myrequesthtml').hidden = true;
+            document.querySelector('#mylivehtml').hidden = false;
+
+            type = "mylivehtml"  
+            this.setState({
+                currentpage: "clickedlive"
+            })
+        }
+
+        /*
         else 
         {
+            console.log("wahoowa")
             document.querySelector('#typeofpage').value = "request"
             document.querySelector('#myinboxhtml').hidden = false;
             document.querySelector('#myrequesthtml').hidden = true;
             document.querySelector('#mycompletehtml').hidden = true;
-
-
-
+            document.querySelector('#mylivehtml').hidden = true;
             type = "myinboxhtml"
             this.setState({
                 currentpage: "myinbox"
             })
-
         }
+        */
+
+
         let paginationid = 1
         fetch(`/gotozjguen484s9gj302g/${paginationid}`, {
             method: 'PUT',
@@ -1608,6 +1756,7 @@ class InboxFeedTitle extends React.Component {
         })        
         .then(response => response.json())
         .then(data => {
+            console.log("LIVE", data)
             ReactDOM.render(<InboxFeedInbox data={data}/>, document.querySelector('#' + type));
 
         });
@@ -1630,9 +1779,9 @@ class InboxFeedTitle extends React.Component {
             </div>
                 {this.props.data["checkifinfluencer"] == true ? <div class="wangong"> <button id="myrequestid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "myrequest" ? "requestcssclicked"  : "requestcss"}>รีเควส</button></div>:null}
                 {this.props.data["checkifinfluencer"] == true ? <div class="wangong"><button id="mycompleteid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "mycomplete" ? "completecssclicked"  : "completecss"}>วีดีโอที่เสร็จสิ้น</button></div>:null}
+                <div class="wangong"><button id="myliveid" onClick={this.changeFeedInbox} class={this.state.currentpage ==  "clickedlive" ? "myliveclicked" : "mylive"}>ไลฟ์</button></div>
             </div>
         )
-
     }
   }
 

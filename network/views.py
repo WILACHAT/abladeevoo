@@ -645,12 +645,31 @@ def hidepost(request):
 def booklive(request, username):
     currentuserid = request.user.id
     influencerid = User.objects.values('id', 'accountstatus').get(username=username)
+    influenceridall = Userinfo.objects.values('livevdotime').get(influencer_id=influencerid['id'])
+
+    try:
+        influenceridd = ast.literal_eval(influenceridall["livevdotime"])
+    except:
+        influenceridd = []
+
+    livevdotime = influenceridd
+    print("livevdotime", livevdotime)
+
+    if request.method == "POST":
+        print("in here??")
+        return_request = {"livevdotime":livevdotime}
+
+        
+        return JsonResponse(return_request, safe=False)
+
+
+
     accountstatus = influencerid.get('accountstatus')
     influencerid = influencerid["id"]
     waki = Userinfo.objects.filter(influencer_id = influencerid)
     for i in waki:
         price = int(i.price)
-    return render(request, "network/booklive.html", {'username': username, "price": price * 100 * 3, "accountstatus":accountstatus})
+    return render(request, "network/booklive.html", {'username': username, "price": price * 100 * 3, "accountstatus":accountstatus, "livevdotime":livevdotime})
 @login_required(login_url='/login') 
 def gotobooklive(request, username):
     currentuserid = request.user.id
@@ -728,7 +747,12 @@ def gotozjguen484s9gj302g(request, paginationid):
     
    # what = When(completed=False, then='Reservation', duedate__gte=day)
     reserveinfo = Reservation.objects.filter(Q(completed=True) | Q(duedate__gte=day), user_id_reserver = currentuser, chargestatus = True)
-
+    reserveinfolive = Reservationlive.objects.filter(user_id_reserver_live_id = currentuser)
+    for i in reserveinfolive:
+        print("this is reserveinfolive", i.time1)
+        print("this is reserveinfolive", i.time2)
+        print("this is reserveinfolive", i.time3)
+        print("this is reserveinfolive", i)
 
     type = "inbox"
     hide = 0
@@ -748,6 +772,21 @@ def gotozjguen484s9gj302g(request, paginationid):
             elif data["type"] == "mycompletehtml":
                 type= "complete"
                 reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = True, chargestatus = True)
+                hide = 0
+
+            elif data["type"] == "statuscancel":
+                type= "live"
+                Reservationlive.objects.filter(id = data["reservationid"]).update(status = 'canceled')
+                reserveinfo = Reservationlive.objects.filter(user_id_reserver_live_id = currentuser, status = 'ok')
+
+
+
+           
+            elif data["type"] == "mylivehtml":
+                type= "live"
+                reserveinfo = Reservationlive.objects.filter(user_id_reserver_live_id = currentuser, status = 'ok')
+                
+
                 hide = 0
 
             elif data["type"] == "hidecompleted":
@@ -798,9 +837,6 @@ def gotozjguen484s9gj302g(request, paginationid):
 
     newdata = []
     forpostdata = []
-
-
-
     # you are currently here right now waan next step is to do this
 
     for post in postandmessageinfo:
@@ -810,14 +846,12 @@ def gotozjguen484s9gj302g(request, paginationid):
         forpostdata.append(posta)
         forpostdata.append(videoa)
 
-    
     for reserve in reserveinfo:
+        print("popular", reserve)
         newdata.append(reserve.serialize())
 
     pagination = Paginator(newdata, 9)
     
-    
-
     paginationid = int(paginationid)
     print("why does this not change", paginationid)
     num_pages = pagination.num_pages
@@ -826,9 +860,11 @@ def gotozjguen484s9gj302g(request, paginationid):
 
     data = []
 
-
+    
     return_request = {"checkifinfluencer": checkifinfluencer, "data": newdata, "type":type, 
     "forpostdata":forpostdata, "reviewvalue":reviewvalue, "num_pages":num_pages, "paginationid":paginationid, "data":data, "hide":hide,"sort":sort, "propicandusername":propicandusername}
+
+    #print("this is the newdata", newdata)
 
     print("paginationid before doing the work", paginationid)
     for row in pagination.page(paginationid).object_list:  
@@ -950,14 +986,21 @@ def setting(request):
         data = json.loads(request.body)
 
         if data["type"] == "beginning":
-            influenceridall = Userinfo.objects.values('livevdotime', 'customvdo', 'livevdo').get(influencer_id=request.user.id)
-            influencerid = ast.literal_eval(influenceridall["livevdotime"])
-            customvdo = influenceridall["customvdo"]
-            livevdo = influenceridall["livevdo"]
+          
+                influenceridall = Userinfo.objects.values('livevdotime', 'customvdo', 'livevdo').get(influencer_id=request.user.id)
+                try:
+                    influencerid = ast.literal_eval(influenceridall["livevdotime"])
+                except:
+                    influencerid = []
 
-            return_response = {"time": influencerid, "customvdo":customvdo, "livevdo":livevdo}
+                customvdo = influenceridall["customvdo"]
+                livevdo = influenceridall["livevdo"]
+               
 
-            
+                return_response = {"time": influencerid, "customvdo":customvdo, "livevdo":livevdo}
+
+           
+        
         elif data["type"] == "settime":
             Userinfo.objects.filter(influencer_id = request.user.id).update(livevdotime = data["arraytime"])
             influencerid = Userinfo.objects.values('livevdotime').get(influencer_id=request.user.id)

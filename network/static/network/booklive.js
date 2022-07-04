@@ -331,9 +331,11 @@ var BookLiveRow = function (_React$Component2) {
 
       var button_time_rows = [];
       var timesomething = "";
-      for (var j = 0; j < 6; j++) {
+      console.log("kara", this.props.livevdotime);
+
+      for (var j = 0; j < this.props.livevdotime.length; j++) {
         timesomething = j + 1;
-        button_time_rows.push(React.createElement(BookingTimeRow, { monthnumber: this.props.monthnumber, timesomething: timesomething, active: value, onClickButton: this.pickTime }));
+        button_time_rows.push(React.createElement(BookingTimeRow, { monthnumber: this.props.monthnumber, timesomething: this.props.livevdotime[j], active: value, onClickButton: this.pickTime }));
       }
 
       this.props.onClickDay(idid, value, button_time_rows);
@@ -655,7 +657,7 @@ var BookLivePage = function (_React$Component3) {
       }
 
       for (var _i3 = 1; _i3 < howmanydays + 1; _i3++) {
-        date_rows.push(React.createElement(BookLiveRow, { rowname: _i3, monthnumber: this.state.monthnumber, firstactive: this.state.active, currentmonth: this.state.currentmonth, onearray: onearray, onClickDay: this.clickDay, onClickedDayThai: this.dayThai, onClickedMonthConversion: this.monthConversion }));
+        date_rows.push(React.createElement(BookLiveRow, { rowname: _i3, monthnumber: this.state.monthnumber, firstactive: this.state.active, currentmonth: this.state.currentmonth, onearray: onearray, livevdotime: this.props.livevdotime, onClickDay: this.clickDay, onClickedDayThai: this.dayThai, onClickedMonthConversion: this.monthConversion }));
       }
       console.log("NFT IS WEIRD", date_rows);
 
@@ -730,7 +732,22 @@ var BookLivePage = function (_React$Component3) {
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('#paymentpage').hidden = true;
   document.querySelector('#realpayment').hidden = true;
+  var getcooked = getCookie('csrftoken');
 
   var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-  ReactDOM.render(React.createElement(BookLivePage), document.querySelector('#livebookid'));
+  fetch('/booklive/' + influencerusername, {
+    method: 'POST',
+    headers: { 'X-CSRFToken': getcooked },
+    body: JSON.stringify({
+      type: "getlivevdotime"
+
+    })
+  }).then(function (response) {
+    return response.json();
+  }).then(function (data) {
+    console.log("livevdotime", data["livevdotime"]);
+    console.log("livevdotime", data["livevdotime"].length);
+
+    ReactDOM.render(React.createElement(BookLivePage, { livevdotime: data["livevdotime"] }), document.querySelector('#livebookid'));
+  });
 });
