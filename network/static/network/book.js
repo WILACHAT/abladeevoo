@@ -1170,7 +1170,7 @@ var BookPage = function (_React$Component2) {
                                 React.createElement(
                                     'h6',
                                     { id: 'birthdaybutton', onClick: this.changeOccasionReserve, 'class': 'wabuttontext' },
-                                    '\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14'
+                                    '\u0E27\u0E31\u0E19\u0E2A\u0E4D\u0E32\u0E04\u0E31\u0E0D'
                                 )
                             ),
                             React.createElement(

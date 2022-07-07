@@ -1,0 +1,2575 @@
+#checkercss{
+    color:red;
+}
+body
+{
+  background-color:#e6e9ee;
+  
+}
+
+#inboxmainid
+{
+  margin-top:100px;
+
+}
+#eachreserve
+{
+  margin-top:100px;
+
+}
+
+#toppart
+{
+  margin-top:100px;
+}
+.superuserclass
+{
+  margin-top:100px;
+}
+.godown
+{
+  margin-top:100px;
+}
+.beginningofbook
+{
+  margin-top:120px;
+  margin-bottom:20px;
+
+
+}
+
+html, body {
+  min-height: 100%;
+}
+
+
+  .imgnoedit
+{
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  object-fit: cover;
+
+}
+.imgnoeditinbox
+{
+  height: 5em;
+  width: 5em;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  object-fit: cover;
+
+}
+.staygrey
+{
+  font-size:2px;
+  color:#F8F9FA
+}
+.sadul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  }
+.page-footer
+{
+  background-color: #FFBE00;
+  margin-top: 2px;
+}
+.fakimgnoeditinbox
+{
+margin-top:20px;  
+
+}
+
+
+
+.videme
+{
+  color:#FF336F;
+  font-family: 'Bangers', cursive;
+  font-size:40px;
+}
+.videmedara
+{
+  color:#FF336F;
+  font-family: 'Bangers', cursive;
+  font-size:30px;
+}
+
+.wa
+{
+  color:#203354;
+
+  font-family: 'Sarabun';
+  
+}
+.wafooter
+{
+  color:#e2e5de;
+
+  font-family: 'Sarabun';
+  
+}
+.walegal
+{
+  color:#FFEF00;
+
+  font-family: 'Sarabun';
+}
+.waoccasion
+{
+  color:#212121;
+
+  font-family: 'Sarabun';
+  font-size:100%;
+  margin-top: 20px;
+}
+.nameininbox
+{
+  color:#212121;
+  font-family: 'Sarabun';
+  display:flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-left:15px;
+  font-size: 20px;
+
+}
+.wanameinbox
+{
+  font-family: 'Sarabun';
+  color:#212121;
+  font-size:100%;
+  margin-left:15px;
+
+}
+.yeathename
+{
+  width:100%;
+  margin-top: 20px;
+}
+.waduedate
+{
+  color:#203354;
+  font-family: 'Sarabun';
+  font-size:15px;
+  margin-bottom: 0px;
+}
+
+.myinboxcss
+{
+  background-color: #0275d8;
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+}
+.myinboxclicked
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+
+
+}
+.completecss
+{
+  background-color: #0275d8;
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+
+}
+.completecssclicked
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+
+}
+.requestcss
+{
+  background-color: #0275d8;
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+
+}
+.requestcssclicked
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:175px;
+  height:55px;
+  border-radius: 45px;
+  font-family: 'Sarabun';
+
+}
+
+
+
+.waduedatecomplete
+{
+  color:green;
+  font-family: 'Sarabun';
+  font-size:15px;
+}
+.waduedateexpire
+{
+  color:red;
+  font-family: 'Sarabun';
+  font-size:15px;
+}
+.dropdownbutton
+{
+  color:#1c2e4a;
+
+  font-family: 'Sarabun';
+ 
+}
+.ngong
+{
+  float: right;
+}
+.firstdivinmain
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  margin-top:80px;
+
+}
+@media only screen and (max-width: 800px) {
+  .firstdivinmain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+.introdiv
+{
+ 
+  width: 100%;
+  padding: 6rem 3rem;
+  justify-content: center;
+  background-color: #094FCB   ;
+  display: flex;
+  height:625px;
+
+}
+.secondintrodiv
+{
+  padding-bottom:2%;
+  width: 100%;
+  background-color:#094FCB;
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+
+  display: flex;
+  height:100%;
+}
+.okokok
+{
+  margin-top: 50px;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  overflow: auto;
+  background-color: white;
+  border-radius:15px;
+  padding-right:3%;
+  padding-left:3%;
+
+  padding-top: 3%;
+
+
+}
+
+.box {
+  display: flex;
+  min-height: min-content; /* needs vendor prefixes */
+}
+.goodmorning
+{
+  margin-right:80px;
+}
+.startitleindex
+{
+  font-size: 350%;
+  font-family: 'Sarabun';
+  color: #212121;
+}
+
+.imgindex
+{
+  border-radius: 7px;
+  object-fit: cover;
+
+}
+
+.hrindex
+{
+  visibility:hidden;
+}
+
+
+@media only screen and (max-width: 650px) {
+  #suggestions_por_react_popular {
+    display:none;
+  }
+  .content
+  {
+    flex: 1;
+    display: flex;
+    overflow: auto;
+    justify-content: center;
+    
+  
+    
+  }
+  .box
+  {
+    width:100%;
+    display: flex;
+    min-height: min-content; /* needs vendor prefixes */
+    flex-direction: column;
+    justify-content: center;
+  
+    
+  }
+  .goodmorning
+  {
+    margin-right:0;
+  }
+  .divofstartitle
+  {
+    text-align: center;
+  }
+  .imgindex
+  {
+    border-radius: 7px;
+    object-fit: cover;
+
+  }
+  .hrindex
+  {
+    visibility: visible;
+  }
+ 
+
+}
+
+
+.first_div.intro
+{
+  width:100%;
+  align-items: center;
+
+}
+.whatintrowords
+{
+  padding-left:4%;
+  padding-right:4%;
+
+}
+.introwords
+{
+  display:flex;
+  color:white;
+  font-size: 425%;
+  font-family: 'Sarabun';
+  margin-top:20px;
+}
+.introwords2
+{
+  color:white;
+  font-size: 225%;
+  font-family: 'Sarabun';
+}
+.introwordsseconddiv
+{
+  font-size: 900%;
+  font-family: 'Bangers';
+  color:#FF336F;
+  --animate-duration: 3s;
+
+
+}
+.forbox
+{
+
+  margin-top:100px;
+  justify-content: center;
+  display:flex;
+  flex-wrap: wrap;
+}
+.coversboxsug
+{
+  padding-left:1%;
+  padding-right:1%;
+  padding-top:1%;
+  padding-bottom:3%;
+
+
+
+}
+.boxsug1
+{
+  width:200px;
+  background-color: rgba(255,255,255,0.6);
+  height:150px;
+  border-radius: 10px;
+  padding:10px;
+  font-family: 'Sarabun';
+
+
+
+}
+.boxsug2
+{
+  width:200px;
+  background-color: white;
+  height:150px;
+  border-radius: 10px;
+  padding:10px;
+  font-family: 'Sarabun';
+
+
+}
+
+.inboxsugnumber
+{
+  background-image: linear-gradient(45deg, #094FCB,#FF336F);
+  opacity: 2;
+
+  border-radius: 100%;
+  width:22%;
+  
+}
+.inboxsugn
+{
+  color:white;
+  margin-top:8px;
+  font-size:125%;
+}
+.inboxsugt
+{
+  font-family: 'Sarabun';
+  font-size:110%;
+  color: #000000;
+  font-weight: bold;
+
+
+}
+.inboxsugtitle
+{
+  margin-top:12px;
+}
+
+
+
+/* CSS */
+.button-53 {
+  background-color: #FFEF00;;
+  border: 0 solid #E5E7EB;
+  box-sizing: border-box;
+  color: #212121;
+  display: flex;
+  font-family: 'Sarabun';
+  font-size: 1rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1.75rem;
+  padding: .75rem 1.65rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none #000000 solid;
+  width: 90%;
+  max-width: 460px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  border-radius: 40px;
+}
+
+.button-53:focus {
+  outline: 0;
+}
+
+
+
+.button-53:hover:after {
+  bottom: 2px;
+  left: 2px;
+}
+
+@media (min-width: 768px) {
+  .button-53 {
+    padding: .75rem 3rem;
+    font-size: 1.25rem;
+  }
+}
+.inputsearch
+{
+  width:100%;
+
+}
+.container {
+  overflow: auto;
+  white-space:nowrap;
+  width: 200%;
+  flex-direction: row;
+
+}
+.item {
+  padding: 10px;
+  border: 1px solid red;
+  display: inline-block;
+  vertical-align:top;
+  margin-right:20px;
+  white-space:normal;
+}
+
+
+.control-suggestions
+{
+  margin: auto;
+width: 90%;
+padding: 10px;
+
+
+}
+
+
+.columninbox
+{
+  width:100%;
+
+  justify-content: center;
+}
+
+
+
+.ineachrow
+{
+  display: flex;
+
+  justify-content: center;
+  width:50%;
+  height:210px;
+  background-color: white;
+  border-radius: 1.5em;
+
+  border: 1px solid #dbdcdc;
+
+}
+
+.okseecolor
+{
+  padding:3%;
+  height:100%;
+  width:100%;
+
+}
+.inboxtroublesome
+{
+  text-align: center;
+  justify-content: center;
+ 
+  width: 100%;
+  height: 100%;
+}
+.randomdesign
+{
+  background-color: #f7efe9;
+  padding:7px;
+  border-radius: 20px;
+
+}
+.button {
+  display: inline-flex;
+  height: 40px;
+  width: 150px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+
+  color: #BFC0C0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: .8em;
+  letter-spacing: 1.5px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 40px;
+  font-family:'Sarabun';
+}
+.letsgo {
+  font-family: 'Sarabun';
+  color: white;
+  letter-spacing: 1px;
+ 
+
+}
+#button-7 {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  color:white;
+  background-color:#FF336F;
+  
+}
+
+#button-7 a {
+  position: relative;
+  left: 0;
+  transition: all .1s ease-Out;
+}
+
+.dub-arrow {
+  width: 100%;
+  height: 100%;
+  background: #ffc500;
+  left: -200px;
+  position: absolute;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .1s ease-Out;
+  bottom: 0;
+}
+
+#button-7 img {
+  width: 20px;
+  height: auto;
+}
+
+#button-7:hover .dub-arrow {
+  left: 0;
+}
+
+#button-7:hover a {
+  left: 150px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .ineachrow {
+    width:80%;
+  }
+
+}
+@media only screen and (max-width: 800px) {
+  .ineachrow {
+    width:100%;
+  }
+  .nameininbox
+  { 
+    font-size:15px;
+  }
+  .waoccasion
+  {
+    font-size: 15px;
+  }
+  .button{
+    margin-left:0px;
+    width:100px;
+    margin-right:0px;
+  }
+  .okseecolor
+  {
+    justify-content: center;
+  }
+  
+}
+
+.sortbutton
+{
+  background-color: #ffc500;
+  height:40px;
+}
+
+
+
+/* Button Styles */
+
+
+.grid {
+  display: grid;
+  gap: 1px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.forfont
+{
+  padding-right:5%;
+
+}
+.reviewtext
+{
+  font-size:15px;
+}
+
+.catname
+{
+  font-size: 17px;
+}
+.beforehihi
+{
+  height:100%;
+  background-image: linear-gradient(45deg, #094FCB,#FF336F);
+  padding:3px;
+
+  border-radius: 40px; 
+
+  width:500px;
+
+
+
+}
+.insidehihi
+{
+  padding:2%;
+}
+.hihi
+{
+  background-color: white;
+  padding:10px;
+  width:100%;
+  border-radius: 40px; 
+  height:100%;
+  word-wrap: break-word;
+  
+
+}
+
+.biggestdivchecker
+{
+
+  word-wrap: break-word;
+}
+
+.publicbutton
+{
+  font-family: 'Sarabun';
+  background-color: #ffc500;
+  width:125px;
+  height:50px;
+  border-radius: 40px;
+}
+
+.controlininfluencer
+{
+  width:100%;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.videomaincover
+{
+  width:100%;
+  height:400px;
+  margin-right:50px;
+}
+.reviewmaincover
+{
+  width:400px;
+  height:50%;
+}
+.row
+{
+  width:100%;
+}
+.videouploadininfluencer
+{
+  width:100%;
+}
+.custom-file
+{
+  width:100%;
+}
+.custom-filee
+{
+  width:100%;
+  margin-left:33px;
+}
+.divcolumn
+{
+  display:flex;
+  flex:wrap;
+  flex-direction: column;
+  justify-content: center;
+  padding-top:3%;
+  width:50%;
+}
+
+.coversvdointro
+{
+  width:100%;
+  padding:3%;
+  padding-top:15%;
+  padding-right:20%;
+  
+
+
+  justify-content: center;
+}
+
+@media only screen and (max-width: 1170px) {
+  .divcolumn
+  {
+    width:100%;
+    padding-left:2%;
+  }
+
+
+}
+@media only screen and (max-width: 900px) {
+
+  .divcolumn
+  {
+    width:100%;
+    padding-right:2%;
+    padding-left:2%;
+
+  }
+  .almostvideovideowhenget
+  {
+    width:280px;   
+    height: 100%;   
+  }
+  .coversvdointro
+{
+  width:100%;
+  padding:3%;
+  padding-top:15%;
+
+
+  justify-content: center;
+}
+
+
+  .controlininfluencer
+  {
+    flex-direction: column;
+    display:flex;
+    flex-wrap: auto;
+    justify-content: center;
+    margin-bottom:75px;
+  }  
+  .hihi
+  {
+    margin-left:0px;
+    
+  }
+  .beforehihi
+  {
+    
+    width:80%;
+    margin-left: 0px;
+  }
+  .videomaincover
+  {
+    margin-right:0px;
+  }
+  .reviewmaincover
+  {
+    width:150px;
+    height:50%;
+  }
+  .reviewtext{
+    width:100px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: auto;
+
+  }
+  .enough{
+    margin-top:500px;
+  }
+ 
+}
+
+.centerreservebtn
+{
+  text-align: center;
+}
+.reservebutton
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  width:300px;
+  color:white;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  border-radius: 40px;
+
+}
+
+.flexclass
+{
+  display: flex;
+  flex-wrap: wrap;
+}
+.editbutton
+{
+  background-color: coral;
+  color:white;
+}
+.hidebutton
+{
+  color:white;
+  background-color:green;
+
+}
+.hidebuttonwrong
+{
+  color:white;
+  background-color: red;
+
+}
+
+.unhidediv
+{
+  background-color: #02d667;
+}
+.plsbegu
+{
+  width:50;
+
+  padding-top:3%;
+
+}
+.contentcenter
+{
+  justify-content: center;
+}
+
+
+
+.enough
+{
+  margin-top:50px;
+}
+
+.orderdetails
+{
+  width:50%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 10px 15px #FF336F;
+  ;
+  padding:15px;
+}
+.wraparoundimgandusername
+{
+  width:30%;
+}
+.imgnoeditinbox
+{
+  
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.orderfrom
+{
+  width:50%;
+  height:30%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 10px 15px #FF336F;
+  padding:15px;
+}
+
+.hr
+{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.insideorderdetail
+{
+  width:40%;
+  padding:10px;
+}
+
+.orderorder
+{
+  width:50%;
+  height:30%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 10px 15px #FF336F;
+  padding:15px;
+}
+.waka
+{
+  width:70%;
+  height:30%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 5px 10px #e2e5de;
+  padding:15px;
+}
+.watitle
+{
+  color:#203354;
+  font-family: 'Sarabun';
+  font-size: 20px;
+}
+.beforewainfo
+{
+  width:50%;
+}
+.wainfo
+{
+  color:#212121;
+  font-family: 'Sarabun';
+  font-size: 25px;
+}
+.wainfosaywhat
+{
+  text-align: center;
+  width:75%;
+  color:#212121;
+  font-family: 'Sarabun';
+  font-size: 25px;
+}
+
+.beforesavethelink
+{
+  padding-bottom:10%;
+}
+.biggersarabun
+{
+  font-size:350%;
+}
+.videowhenget
+{
+  width:100%;
+  height:100%;
+  background-image: linear-gradient( #094FCB, #FF336F);
+  justify-content: center;
+  padding-top:8%;
+}
+.donetitleafter
+{
+  width:100%;
+  height:100vh;
+  background-image: linear-gradient( #FF336F, #094FCB);
+  justify-content: center;
+  padding-top:5%;
+}
+.videovideowhenget
+{
+  width: 300px;   
+  height: 100%;   
+  margin-top:50px;
+
+}
+.almostvideovideowhenget
+{
+  width:300px;   
+  height: 100%;   
+}
+.beforedonetitle
+{
+  width:100%;
+  height:100vh;
+  background-image: linear-gradient(#e6e9ee,#e6e9ee, #FF336F);
+  display: flex;
+  justify-content: center;
+  margin-top:250px;
+
+}
+
+.testingimg
+{
+  width:100%;
+  height:100vh;
+}
+.donetitle
+{
+  width:100%;
+  height:100vh;
+  background-image: linear-gradient( #FF336F,#FF336F, #094FCB);
+  display: flex;
+ 
+
+}
+
+.donetext
+{
+  color:#203354;
+  font-family: 'Sarabun';
+  font-size:400%;
+}
+
+#sendingbacktorequest
+{
+  width: 50%;
+  outline: none;
+
+}
+.postoptionforinfluencer
+{
+ 
+  width:50%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 10px 15px #FF336F;
+  ;
+  padding:15px;
+  margin-bottom:20px;
+
+}
+.bookdetails
+{
+  width:70%;
+  background-color: white;
+  border-radius: 15px;
+  padding:15px;
+  border: 2px solid #dbdcdc;
+
+}
+.datechecker{
+  width: 45%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: transparent; 
+}
+#submitreservation
+{
+  background-color: #FF336F;
+  color:white;
+}
+.inputcheckbox
+{
+  width:25px;
+  height:25px;
+
+}
+.inputcheckboxdara
+{
+  width:20px;
+  height:20px;
+
+}
+
+@media only screen and (max-width: 800px) {
+  .postoptionforinfluencer
+  {
+    width:90%;
+  }
+  .orderorder 
+  {
+    width: 90%;
+  }
+  .orderfrom {
+    width: 90%;
+  }
+  .orderdetails
+  {
+    width: 90%;
+  }
+  .waitingforstar
+  {
+    width: 80%;
+    text-align: center;
+  }
+  .bookdetails
+  {
+    width:90%;
+  }
+  .datechecker{
+    width: 90%;
+   
+  }
+  
+}
+
+.messagefromin
+{
+  color:#203354;
+  font-family: 'Sarabun';
+  font-size: 30px;
+}
+.typeforreview
+{
+  width:200%;
+}
+.paginationcolor
+{
+  width:10%;
+  height:10%;
+  border: 0.5px solid grey;
+  text-align: center;
+  background-color: #e2e5de;
+
+
+
+}
+.paginationnocolor
+{
+  width:10%;
+  height:10%;  
+  border: 0.5px solid grey;
+  background-color: white;
+  text-align: center;
+
+}
+
+.nextbutton
+{
+  text-align: center;
+  width:15%;
+  height:10%;  
+  border: 0.5px solid grey;
+  background-color: white;
+}
+
+
+.norequestdiv
+{
+  align-content: center;
+  width:100%;
+  height:100vh;
+  background-color:#e6e9ee;
+  display: flex;
+  justify-content: center;
+}
+
+.coversalldiv
+{
+  background-color: #e6e9ee;
+}
+.buttonchoicesinbox
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  flex-wrap: wrap;
+}
+.usernameininfluencer
+{
+  text-align: center;
+  width:100%;
+}
+@media only screen and (max-width: 750px) {
+  .usernameininfluencer
+  {
+    font-size: 125%;
+  }
+  .forfont
+  {    font-size:15px;
+  }
+}
+.covercoverwanopostyet
+{
+  justify-content: center;
+  align-items: center;
+}
+.coverwanopostyet
+{
+  width:100%;
+  
+}
+.wanopostyet
+{
+  font-family: 'Sarabun';
+  font-size:35px;
+  color:red;
+  
+
+}
+.wanopostyetyet
+{
+  font-family: 'Sarabun';
+
+}
+.wangong
+{
+  padding-left:2%;
+  padding-right:2%;
+  padding-top:2%;
+  padding-bottom:2%;
+
+
+
+}
+
+.inputheho
+{
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:transparent;
+}
+.wabuttontext
+{
+  text-align: center;
+  margin: auto;
+  color:white;
+
+}
+.successbutton
+{
+  background-color: #FF336F;
+}
+.failbutton
+{
+  background-color: #094FCB;
+}
+
+.footerclass
+{
+
+   padding:4%;
+   padding-left: 6%;
+   padding-right: 6%;
+
+   background-image: linear-gradient(90deg, #094FCB,#FF336F);
+
+   height:100%;
+
+}
+.coverfootertext
+{
+  width:40%;
+}
+.vidmefooter
+{
+  color:#FF336F;
+  font-family: 'Bangers', cursive;
+  font-size:40px;
+}
+.copyrighttext
+{
+
+}
+.feedbackinputfooter
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #FFEF00;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: transparent;
+  color:white;
+
+  
+
+}
+.uploadfooter
+{
+  height:100%;
+  display: inline-block;
+  vertical-align: middle;
+  height:50px;
+  background-color: #FFEF00;
+
+
+}
+.divdivdiv
+{
+  justify-content: center;
+  display: inline-block;
+  vertical-align: middle;
+
+}
+
+
+@media only screen and (max-width: 750px) {
+  .letc
+  {
+    width:100%;
+  }
+  .coverfootertext
+  {
+    width:100%;
+  }
+ 
+  .maindivcoversfooter
+{
+  display:flex;
+  flex-wrap: wrap;
+}
+}
+.overlayreport
+{
+  margin-top: 80px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+
+}
+
+.paymentinput
+{
+  width: 120%;
+  padding: 8px 16px;
+  display: inline-block;
+  border: 1px solid #a9a9a9;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.labelpayment
+{
+margin-bottom: 0px;
+
+}
+.omise-checkout-button
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F); /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 100%;
+  border-radius: 40px;
+
+}
+ *:before, *:after {
+  box-sizing: inherit;
+}
+
+.firstrow{
+  width:100%;
+  height:800px;
+  text-align:center;
+  font-family:'Sarabun';
+  padding-top:50px;
+  background-image: linear-gradient( #094FCB, #FF336F, #FF336F, #FF336F,white);
+}
+.vidmaslogan
+{
+
+  font-size:100%;
+  color:white;
+  font-size:125%;
+}
+.whatisvidma
+{
+  margin-top: 225px;
+  font-size:300%;
+  color:white;
+
+}
+.vidmaaboutus{
+  font-family: 'Bangers';
+  color:#FFEF00;
+  text-shadow: 3px 3px #FF336F;
+  font-size:900%;
+  margin-bottom:5px;
+
+}
+
+
+
+
+
+
+.firstpara{
+  float:left;
+  font-size:25px;
+  margin-left:200px;
+  margin-right:1000px;
+  display:flex;
+  background-color: white;
+}
+.divsecondpartbefore
+{
+  color:white;
+}
+.beforeboxcover
+{
+  margin-top:200px;
+}
+.beforeboxsug
+{
+
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+.beforeboxsug2
+{
+
+padding:25px;
+}
+
+.divsecondpart
+{
+  justify-content: center;
+  display:flex;
+  flex-wrap: wrap;
+  background-color:white;
+  width:100%;
+  height:100%;
+  
+
+}
+.divsecondpartt
+{
+  
+  background-color: #FF336F;
+  width:100%;
+  height:120%;
+  padding-left: 5%;
+  padding-top:5%;
+  padding-bottom:5%;
+  padding-right:5%;
+}
+.aboutusvidvid
+{
+  width:700px;
+  margin-bottom:85px;
+  height:100%;
+}
+.aboutusvid
+{
+  
+ width:90%;
+}
+.coveraboutusvid
+{
+  padding-top:4%;
+  padding-left:1%;
+  padding-right:1%;
+
+
+}
+#secondpart{
+ 
+  text-align:center;
+  color:white;
+  font-size:350%;
+  
+}
+.boxcoverwvd1
+{
+  background-color: #008fff;
+  width:300px;
+  height:95%;
+  border-radius: 10px;
+  box-shadow: 15px 15px #273f87;
+  vertical-align: middle;
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-top: 7%;
+  padding-bottom: 15%;
+
+}
+ 
+.paginationcolor:hover
+{
+  cursor: pointer;
+}
+.paginationnocolor:hover
+{
+  cursor: pointer;
+}
+.nextbutton
+{
+  cursor: pointer;
+
+}
+.staywhite
+{
+  background-color: white;
+  color: white;
+  height:50px;
+}
+.titlehowtobuy
+{
+  
+  height:100px;
+}
+.whatisvidmadet1
+{ 
+  text-align:center;
+  color:white;
+  font-size:200%;
+  font-family: 'Sarabun';
+  margin-top:5%;
+
+}
+.whatisvidmadet2
+{ 
+  text-align:center;
+  color:white;
+  font-size:200%;
+  font-family: 'Sarabun';
+
+}.whatisvidmadet3
+{ 
+  text-align:center;
+  color:white;
+  font-size:200%;
+  font-family: 'Sarabun';
+  margin-top:15%;
+
+}.whatisvidmadet4
+{ 
+  text-align:center;
+  color:white;
+  font-size:200%;
+  font-family: 'Sarabun';
+  margin-top:15%;
+
+}
+
+.video1{
+
+ float:right;
+ 
+}
+.boxbtn
+{
+  margin-top:10px;
+  
+}
+
+
+.buttonaboutus{
+  margin:left;
+  width: 200px;
+  font-size:120%;
+  text-align:center;
+
+  padding:2.2%;
+
+  border-radius: 40px;
+  background-color: #FFEF00;
+  color:black;
+  border:2px solid #FF336F;
+}
+
+.button:hover{
+  background-color: #470000;
+  color: white;
+  border: 2px solid #470000;
+}
+
+
+
+#title2{
+  text-align:center;
+  color:#094FCB;
+  text-shadow: 2px 2px #62EE1E;
+  font-family: 'Bangers';
+  font-style:oblique;
+  padding-top:50px;
+  font-size:50px;
+}
+
+video{
+ border:12px #e0e0e0;
+}
+
+.fa-instagram {
+  background: radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%);
+  color: white;
+  border-radius:10px;
+  font-size:30px;
+ padding:5px;
+ width:39;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+  border-radius:10px;
+  font-size:30px;
+ padding:5px;
+ width:37px;
+ text-align:center;
+}
+
+.earthpic{
+  width:159px;
+}
+
+.waanpic{
+  width:159px;
+}
+
+.columnaboutus {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  margin-left: 200px;
+  padding-top:30px;
+  padding-right: 30px;
+  padding-left:50px;
+  padding-bottom:30px;
+  border:2px solid black;
+  border-radius:8px;
+}
+
+.containeraboutus{
+  font-size:25px;
+  float:right;
+}
+
+.title {
+  color: grey;
+}
+
+#title2{
+  color:whitesmoke;
+  text-shadow: 4px 4px #FF336F;
+  font-size:70px;
+  font-family: 'Bangers';
+  text-align:center;
+}
+
+#textbox1
+{
+  background-color: white;
+}
+.indexusername
+{
+  color:#353535
+}
+.indexfullname
+{
+  color:#353535
+
+}
+.coversboxcoverwvd
+{
+  padding-left:1%;
+  padding-right:1%;
+  padding-bottom:3%;
+
+}
+.parallax
+{
+  background-image: url('https://res.cloudinary.com/ablaze-project/image/upload/v1651002804/8842d4b2-c59a-11ec-8fd4-acde480011225.png');
+  height: 100%; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.registerbtnsavelink
+{
+  background-color: #ffc500;
+  color:black;
+  border:none;
+  width:120px;
+  height:40px;
+  border-radius: 45px;
+}
+.registerbtnforupload
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:120px;
+  height:40px;
+  border-radius: 45px;
+}
+.registersmall
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:120px;
+  height:100%;
+  border-radius: 40px;
+}
+.registerback
+{
+  background-color:#FF336F;
+  color:white;
+  border:none;
+  width:120px;
+  height:100%;
+  border-radius: 100px;
+}
+.registerbtn
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:200px;
+  height:60px;
+  border-radius: 45px;
+}
+.registerbtnlog
+{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:200px;
+  height:50px;
+  border-radius: 45px;
+}
+.registerbtnloglog
+{
+  background-color: #FF336F;
+  color:white;
+  border:none;
+  width:100px;
+  height:45px;
+  border-radius: 45px;
+}
+.registertitle
+{
+  font-family: 'Sarabun';
+}
+.registertitleprice
+{
+  font-family: 'Sarabun';
+  font-size:200%;
+
+}
+.coversprice
+{
+  width:400px;
+  height:100%;
+  padding:2%;
+  background-color:white;
+  border-radius: 10px;
+}
+.coverchoosefile
+{
+  word-wrap: break-word;
+
+}
+.wanoresult
+{
+  padding-bottom:7%;
+}
+@media only screen and (max-width: 600px) {
+  .wanoresult {
+    padding-bottom:3%;
+    padding-top:3%;
+    padding-left:3%;
+
+
+
+  }
+}
+
+
+.coversbank
+{
+  width:400px;
+  height:100%;
+  padding:2%;
+  background-color:white;
+  border-radius: 10px;
+}
+.inputhehosearch
+{
+  width: 500px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1.5px solid #094FCB;
+  border-radius: 40px;
+  box-sizing: border-box;
+  background:transparent;
+  height:45px;
+}
+@media only screen and (max-width: 600px) {
+  .inputhehosearch {
+    width:100%;
+
+  }
+}
+
+.inputhehore
+{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+.inputhehorere
+{
+  width: 500px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+.inputhehorelog
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+#wilachatrocks
+{
+  width:100%;
+}
+.settingbackground{
+  margin-top:100px;
+  background-color:white;
+  border:2px solid #dbdcdc;
+  text-align:center;
+  padding-top:5%;
+  padding-bottom:5%;
+  width:800px;
+  border-radius:20px;
+
+}
+
+.headingsetting{
+  font-size:25px;
+  font-family:'Sarabun';
+
+}
+
+.labelsetting{
+  font-size:18px;
+  color:#00002a;
+  
+}
+.settinginput{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+
+.godownmore
+{
+  margin-top:147px;
+}
+.godownmiddle
+{
+  margin-top:120px;
+}
+.biggestdivdara{ 
+  width:800px;
+  margin:auto;
+  background-color: white;
+  padding:7%;
+  border: 2px solid #dbdcdc;
+  border-radius:20px;
+}
+@media only screen and (max-width: 800px) {
+  .biggestdivdara {
+    width:100%;
+
+  }
+}
+
+.h2dara{ 
+  text-align: center;
+  font-size: 20px;
+  color:black;
+  font-family:'Sarabun'
+
+}
+
+.inputdara{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:transparent;
+
+}
+
+
+.inputdara:focus{
+  border:1px solid #FF336F;
+}
+.labeldara{
+  color:black;
+  font-family: 'Sarabun';
+}
+
+
+.buttondara:hover{
+  background-color: #470000;
+  color: white;
+  border: 2px solid #470000;
+}
+
+.background12345{
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:30px;
+  width:800px;
+  border-radius:20px;
+}
+
+#id_submit_btn{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:105px;
+  height:35px;
+  border-radius: 45px;
+}
+
+.h3{
+  font-size:20px;
+  color:#00002a;
+  font-family: 'Sarabun';
+}
+
+#id_email{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+.resetpasswordpage{
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding:5%;
+  padding-bottom:30px;
+  width:800px;
+  border-radius:20px;
+}
+.newpasswordbackground{
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:15px;
+  padding-bottom:30px;
+  width:800px;
+  border-radius:20px;
+}
+
+.setnewpwbutton{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:105px;
+  height:35px;
+  border-radius: 45px;
+}
+
+.godownnewrahus{
+  font-size:25px;
+  font-family: 'Sarabun';
+  margin-top:80px;
+}
+
+ul{
+  list-style-type: circle;
+  text-align:left;
+}
+
+.newpasswodwholesec{
+  text-align:left;
+}
+
+#formnewpassword{
+  margin-left:50px;
+}
+
+.newpasswordinput{
+  width: 90%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #094FCB;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background:white;
+}
+
+.newpasswordtext{
+  font-size:18px;
+  color:#00002a;
+}
+.coverslogin
+{
+  width:30%;
+}
+@media only screen and (max-width: 650px) {
+  .coverslogin
+  {
+    width:90%;
+  }
+}
+
+.legalcovers
+{
+  display:flex;
+  flex-wrap: wrap;
+  margin-top: 120px;
+  text-align: center;
+
+
+}
+.legalbutton{
+  
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  width:250px;
+  height:100%;
+  border-radius:20px;
+  margin-left:2.5%;
+  padding:15px;
+  word-wrap: break-word;
+  text-align: center;
+  font-family: 'Sarabun';
+
+}
+
+
+
+.legalintroduction{
+  
+  margin-top: 50px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:left;
+  padding:2%;
+  width:50%;
+  border-radius:20px;
+  font-family:'Sarabun';
+}
+.legalsubtopics{
+  margin-top: 20px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:left;
+  padding:2%;
+  width:50%;
+  border-radius:20px;
+
+}
+.legallastubtopics{
+  margin-top: 20px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:left;
+  padding:2%;
+  width:50%;
+  border-radius:20px;
+  margin-bottom:80px;
+}
+
+
+.legalbiggestheading{
+  font-size:200%;
+  font-weight:400;
+}
+
+.legalboldtext{
+  font-weight:bold;
+  font-size:100%;
+}
+
+.legaldescription{
+  font-size:100%;
+}
+
+.gobacktotop{
+  margin-bottom:1%;
+  font-size:120%;
+  color:black;
+}
+
+.legalitalictext{
+  font-style:italic;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+.accountsettingfirstcolumn{
+  margin-top: 80px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:30px;
+  width:50%;
+  border-radius:20px;
+  font-family:'sarabun';
+}
+
+.pauseaccountbtn{
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:200px;
+  height:40px;
+  border-radius: 45px;
+}
+
+.accountsettingsecondcolumn{
+  margin-top: 20px;;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:30px;
+  width:50%;
+  border-radius:20px;
+  font-family:'sarabun';
+}
+
+.helpcenterdescription{
+  width:50%;
+}
+
+.settingheading{
+  font-size:190%;
+}
+.failpaymentcolumn{
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:30px;
+  padding-left:30px;
+  padding-right:30px;
+  width:600px;
+  border-radius:20px;
+}
+
+.failpaymentheading
+{
+  color:red;
+  font-family: 'Sarabun';
+  font-size:130%;
+}
+.successpaymentcolumn{
+  margin-top: 20px;;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:30px;
+  padding-left:30px;
+  padding-right:30px;
+  width:600px;
+  border-radius:20px;
+
+}
+
+.successpaymentheading{
+  font-size:130%;
+  color:#02d667;
+  font-family: 'Sarabun';
+
+}
+.sarabun
+{
+    font-family: 'Sarabun';
+
+}
+
+.noorderyet{
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:left;
+  width:600px;
+  height:50%;
+  border-radius:40px;
+  margin-top:40px;
+  padding-left: 8%;
+  padding-right: 8%;
+  padding-top: 12%;
+  padding-bottom: 12%;
+}
+@media only screen and (max-width: 600px) {
+  .noorderyet {
+    width:90%;
+  }
+}
+
+
+.waa{
+  font-size:18px;
+  font-family: 'Sarabun';
+}
+.waheading{
+  font-size:200%;
+  font-family: 'Sarabun';
+}
+.norequestyet{
+  margin-top: 20px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  text-align:left;
+  padding:2%;
+  width:100%;
+  border-radius:20px;
+
+}
+
+
+.checked {
+  color: #FF336F;
+}
+.unchecked
+{
+  color: black;
+}
+
+.fa-star
+{
+  width:20px;
+}
+.beforewrapper
+{
+  width:100%;
+}
+.wrapperwrapper{
+  width:50%;
+  height:100vh;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+}
+
+.contentvideosed{
+  background-color:white;
+  border:2px solid #dbccdc;
+
+  padding:3.5%;
+  width:40%;
+  border-radius:40px;
+}
+
+
+.videosedlaewsection{
+  width:100%;
+  height:100vh;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align:start;
+
+}
+
+.textvideosed{
+  font-size:300%;
+  text-align:center;
+  color:black;
+  padding-bottom:2%;
+}
+.videoseddescription{
+
+  font-size:150%;
+  text-align:center;
+  color:#212121;
+}
+#oneoneone{
+  background-image:linear-gradient(to right,#094fcb,#ff33f6);
+}
+
+#twotwotwo{
+  background-image:linear-gradient(to right,#094fcb,#ff33f6);
+}
+
+
+/* Tooltip text */
+.jesus .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.jesus .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.jesus:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+.wapassword
+{
+  font-size:15px;
+  
+}
+.bigbackgoundfaqpage{
+  margin-top: 80px;
+  background-color:white;
+  border:1.5px solid #dbccdc;
+  width:50%;
+  height:50%;
+  border-radius:20px;
+  padding:30px;
+}
+
+.faqheadertext{
+  font-size:220%;
+  font-family: 'Sarabun';
+}
+
+.topicsforfaqtext{
+  font-size:170%;
+  font-size: 'Sarabun';
+
+}
+.divoffaqheader{
+  padding:10px;
+}
+
+.questionsforfaq {
+  font-family: 'Sarabun';
+  background-color: #dddddd;
+  color: #212121;
+  box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  border: solid 3px transparent;
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(30deg,#ff336f,#ff336f,#094fcb, #094fcb );
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #fff inset;
+  border-radius:30px;
+  cursor: pointer;
+  padding: 1.5%;
+  width: 100%;
+  height:70px;
+  margin-bottom:3%;
+  text-align: center;
+  padding-top:1%;
+  outline: none;
+  font-size: 110%;
+}
+
+
+.answersforfaq {
+
+
+  display: none;
+  overflow: hidden;
+  text-align:center;
+  background-color: white;
+}
+
+@media only screen and (max-width: 800px) {
+  .bigbackgoundfaqpage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width:95%;
+  }
+  .accountsettingfirstcolumn
+  {
+    width:95%;
+  }
+  .accountsettingsecondcolumn
+  {
+    width:95%;
+  }
+  .questionsforfaq
+  {
+    height:100%;
+  }
+  .legalintroduction
+  {
+    width:95%;
+  }
+  .legalsubtopics
+  {
+    width:95%;
+  }
+  .legallastubtopics
+  {
+    width:95%;
+  }
+}

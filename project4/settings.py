@@ -17,6 +17,11 @@ import cloudinary.api
 CELERY_BROKER_URL = 'redis://localhost:6379'   
 CELERY_TIMEZONE = 'Asia/Bangkok'
 
+TWILIO_ACCOUNT_SID = 'ACc07ad825a0ca00cd52e5fb7e47356963'
+TWILIO_AUTH_TOKEN = '55c9bfc84659f8f93cdefbd06d3a38d9'
+#echo "export TWILIO_ACCOUNT_SID='ACf29368bea963bcae69dd8fa07268e603'" > twilio.env
+#echo "export TWILIO_AUTH_TOKEN='31f3e2bfd4b394b65179e5b34c462142'" >> twilio.env
+#source ./twilio.env#
 
 
 #SITE KEY RECAPTCHA
@@ -44,7 +49,7 @@ ANYMAIL = {
 
 SENDINBLUE_API_URL = "https://api.sendinblue.com/v3/"
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 #if DEBUG:
     #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
@@ -57,10 +62,7 @@ EMAIL_PORT=587
 #EMAIL_HOST_PASSWORD='fljkasdpnewdqfsx'
 #ADMIN_EMAIL='Vidma Team <noreply@vidma.tv'
 
-
-
-ALLOWED_HOSTS = ['plankton-app-d8rml.ondigitalocean.app', '127.0.0.1']
-
+ALLOWED_HOSTS = ['plankton-app-d8rml.ondigitalocean.app', '127.0.0.1', 'localhost', '446f-171-97-47-123.ap.ngrok.io', '89c7-124-121-243-106.ap.ngrok.io']
 
 # Application definition
 
@@ -74,8 +76,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'django_celery_results',
-
-
     'django_celery_beat'
     ]
 cloudinary.config( 
@@ -93,7 +93,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-
 ]
 
 ROOT_URLCONF = 'project4.urls'
@@ -115,8 +114,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project4.wsgi.application'
-'''
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

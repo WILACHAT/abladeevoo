@@ -923,7 +923,7 @@ class BookPage extends React.Component {
                 
                     <hr class="hr"/>
                     <div class="d-flex justify-content-center mt-4 mb-5">
-                        <button type="button" class= {this.state.colorof2 == "birthday" ? "btn successbutton mr-3": "btn failbutton mr-3"} id="birthdaybutton" onClick={this.changeOccasionReserve}><h6 id="birthdaybutton" onClick={this.changeOccasionReserve} class="wabuttontext">วันเกิด</h6></button>
+                        <button type="button" class= {this.state.colorof2 == "birthday" ? "btn successbutton mr-3": "btn failbutton mr-3"} id="birthdaybutton" onClick={this.changeOccasionReserve}><h6 id="birthdaybutton" onClick={this.changeOccasionReserve} class="wabuttontext">วันสําคัญ</h6></button>
                         <button type="button" class= {this.state.colorof2 == "peptalk" ? "btn successbutton mr-3": "btn failbutton mr-3"} id="peptalkbutton" onClick={this.changeOccasionReserve}><h6 id="peptalkbutton" onClick={this.changeOccasionReserve} class="wabuttontext">กําลังใจ</h6></button>
                         <button type="button" class= {this.state.colorof2 == "roast" ? "btn successbutton mr-3": "btn failbutton mr-3"} id="roastbutton" onClick={this.changeOccasionReserve}><h6 id="roastbutton" onClick={this.changeOccasionReserve} class="wabuttontext">เผา</h6></button>
                         <button type="button" class= {this.state.colorof2 == "other" ? "btn successbutton": "btn failbutton"} id="otherbutton" onClick={this.changeOccasionReserve}><h6 id="otherbutton" onClick={this.changeOccasionReserve} class="wabuttontext">อื่นๆ</h6></button>              

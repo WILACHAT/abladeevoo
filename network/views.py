@@ -23,6 +23,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
 from django.contrib.auth.decorators import login_required
 import time
+import random
+
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 from pprint import pprint
@@ -143,6 +145,110 @@ def index(request):
   #  print(portals)
     return render(request, "network/index.html", {"portalshown": influencers})
 
+def allstars(request):
+    print("at least its here??")
+    return render(request, "network/allstars.html")
+
+def functionforsorting(value):
+
+    print("this is value", value)
+    newdata = []
+    #influencers = User.objects.all().filter(influencer_ornot=1)
+    if value == "" or value == "none":
+        influencers = Userinfo.objects.filter()
+    elif value == "pricehighlow":
+        influencers = Userinfo.objects.filter().order_by('-price').exclude(price__isnull=True)
+
+    elif value == "pricelowhigh":
+        influencers = Userinfo.objects.filter().order_by('price').exclude(price__isnull=True)
+
+    elif value == "followershighlow":
+        print("hi")
+
+    elif value == "followerslowhigh":
+        print("hi")
+
+    elif value == "numreviews":
+        newlist = []
+        review = Reviews.objects.values('user_id_reviewed_id').annotate(dcount=Count('user_id_reviewed_id')).order_by('-dcount')[:10]
+        for i in range(len(review)):
+            print(review[i]['user_id_reviewed_id'])
+            newlist.append(review[i]['user_id_reviewed_id'])
+            influencers = Userinfo.objects.filter(influencer_id__in = newlist)
+
+            #print("review count", review[i]['user_id_reviewed_id'])
+
+    elif value == "catinflu":
+        influencers = Userinfo.objects.filter(category = 'influencer')
+        print(influencers)
+
+    elif value == "catactor":
+        influencers = Userinfo.objects.filter(category = 'actor')
+
+    
+    elif value == "catathelete":
+        influencers = Userinfo.objects.filter(category = 'athelete')
+
+    
+    elif value == "catstreamer":
+        influencers = Userinfo.objects.filter(category = 'gamer')
+
+    
+    elif value == "catothers":
+        influencers = Userinfo.objects.filter(category = 'others')
+
+
+    
+    for influencer in influencers:
+        puller = influencer.serialize()
+        checker = User.objects.filter(id = influencer.influencer_id)
+
+        for i in checker:
+            puller["username"] = i.username
+
+        newdata.append(puller)
+        newdata = newdata
+        return_request = newdata
+
+
+    return return_request
+
+def allstarsapi(request):
+    print("what is going on?")
+    if request.method == "POST":
+        data = json.loads(request.body)
+        if data["type"] == "sort":
+            print("this is data sorting value", data['sortingvalue'])
+            return_request = functionforsorting(data['sortingvalue'])
+        else:
+            listofcloseuser = searchyea(data["searchvalue"], "allstarpage")
+            print("listofcloser", listofcloseuser)
+            influencers = Userinfo.objects.filter(influencer_id__in = listofcloseuser)
+
+            newdata = []
+            for influencer in influencers:
+                puller = influencer.serialize()
+                checker = User.objects.filter(id = influencer.influencer_id)
+
+                for i in checker:
+                    puller["username"] = i.username
+
+                newdata.append(puller)
+
+            newdata = newdata
+            print("this is newdata", newdata)
+            return_request = newdata
+
+    else:
+        return_request = functionforsorting("")
+  
+
+
+    return JsonResponse(return_request, safe=False)
+
+
+
+
 def usersetting(request):
 
   
@@ -188,14 +294,45 @@ def usersettingapi(request):
 
     return JsonResponse(return_request, safe=False)
     
+def searchyea(searchvalue, wheresearch):
+    print("this is wheresearch", wheresearch)
+    listofcloseuser = []
+    newinfluencers = User.objects.all().filter(influencer_ornot=1)
+    print("this is fucking print")
+    print(newinfluencers.count())
+    wa = Userinfo.objects.filter()
+ 
+    for i in newinfluencers:
+        match = re.search(f"{searchvalue}",i.username, re.IGNORECASE)
+        
+        if match:
+            listofcloseuser.append(i.id)
+    
+    for a in wa:
+        match = re.search(f"{searchvalue}", str(a.profile_fullname), re.IGNORECASE)
+        
+        if match:
+            listofcloseuser.append(a.influencer_id)
+
+   
+
+    
+    return listofcloseuser
 
 def inzwerg4jgnsd9aadif67(request):
 
     #influencer essentially a page that uses serialize to display all the influencers
-    influencers = User.objects.all().filter(influencer_ornot=1)[:10]
+    randomnumber = Userinfo.objects.all().count()
+    randomstuff  = random.sample(range(1, randomnumber), 9)
+    
+
+
+    influencers = Userinfo.objects.filter(id__in = randomstuff)
     checker = Userinfo.objects.all().filter()
-    view = Views.objects.values('influencer_id').annotate(dcount=Count('influencer_id')).order_by('-dcount')[:10]
+    view = Views.objects.values('influencer_id').annotate(dcount=Count('influencer_id')).order_by('-dcount')[:9]
     populardata = []
+    newdata = []
+
     
     
     t1 = current_milli_time()
@@ -222,57 +359,22 @@ def inzwerg4jgnsd9aadif67(request):
     if request.method == "POST":
         print("ok in here forsearch")
         data = json.loads(request.body)
-        searchvalue = data["searchvalue"]
-        print("this is the search value", searchvalue)
-        if searchvalue != "":
-
-            listofcloseuser = []
-            newinfluencers = User.objects.all().filter(influencer_ornot=1)
-            print("this is fucking print")
-            print(newinfluencers.count())
-            wa = Userinfo.objects.filter()
-          #  for q in wa:
-           #     print("hehe", q.profile_fullname)
-
-           # for z in newinfluencers:
-           #     print("hehe",z.username)
-
-
-           # print(len(wa))
-
-            #for i,a in zip(newinfluencers, wa):
-             #   match = re.search(f"{searchvalue}",i.username, a.profile_fullname)
-                
-              #  if match:
-               #     listofcloseuser.append(i.id)
-
-
-            for i in newinfluencers:
-                match = re.search(f"{searchvalue}",i.username, re.IGNORECASE)
-                
-                if match:
-                    listofcloseuser.append(i.id)
+        if data["searchvalue"] != "":
+            listofcloseuser = searchyea(data["searchvalue"], "mainpage")
+        else:
+            listofcloseuser = randomstuff
             
-            for a in wa:
-                match = re.search(f"{searchvalue}", str(a.profile_fullname), re.IGNORECASE)
-                
-                if match:
-                    listofcloseuser.append(a.influencer_id)
-
+   
+      
             
+        influencers = Userinfo.objects.filter(influencer_id__in = listofcloseuser)
             
-            influencers = User.objects.filter(id__in = listofcloseuser)
-            
-       
-    newdata = []
     for influencer in influencers:
         puller = influencer.serialize()
-        
-        checker = Userinfo.objects.filter(influencer = puller["id"])
-        for i in checker:
-            puller["profile_picture"] = i.profile_picture
-            puller["fullname"] = i.profile_fullname
+        checker = User.objects.filter(id = influencer.influencer_id)
 
+        for i in checker:
+            puller["username"] = i.username
 
         newdata.append(puller)
 
@@ -280,7 +382,6 @@ def inzwerg4jgnsd9aadif67(request):
     what = ""
     return_request = {"newdata":newdata, "populardata":populardata}
     return JsonResponse(return_request, safe=False)
-
 
 def ininfluencer(request, ininfluencer):
     '''the request, ininfluencer -> ininfluencer came from urls.py
