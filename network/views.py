@@ -325,7 +325,7 @@ def inzwerg4jgnsd9aadif67(request):
     randomnumber = Userinfo.objects.all().count()
     print("randomstuff1", randomnumber)
     if randomnumber <= 9:
-        randomstuff  = random.sample(range(1, randomnumber), randomnumber)
+        randomstuff  = random.sample(range(1, randomnumber), 5)
         print("randomstuff2", randomnumber)
 
 
