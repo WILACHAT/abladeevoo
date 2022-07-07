@@ -323,8 +323,14 @@ def inzwerg4jgnsd9aadif67(request):
 
     #influencer essentially a page that uses serialize to display all the influencers
     randomnumber = Userinfo.objects.all().count()
-    randomstuff  = random.sample(range(1, randomnumber), 9)
-    
+    if randomnumber < 9:
+        randomstuff  = random.sample(range(1, randomnumber), randomnumber)
+
+    else:
+        randomstuff  = random.sample(range(1, randomnumber), 9)
+
+
+
 
 
     influencers = Userinfo.objects.filter(id__in = randomstuff)
@@ -337,7 +343,6 @@ def inzwerg4jgnsd9aadif67(request):
     
     t1 = current_milli_time()
     for i in view:
-        print(i["influencer_id"])
         newinfluencers = Userinfo.objects.filter(influencer_id=i["influencer_id"])
         for w in newinfluencers:
 
@@ -348,8 +353,7 @@ def inzwerg4jgnsd9aadif67(request):
             for user in users:
                 popularpuller["username"] = user.username
 
-            print(w.profile_picture)
-            print(w.profile_fullname)
+        
 
             populardata.append(popularpuller)
     t2 = current_milli_time()
@@ -357,7 +361,6 @@ def inzwerg4jgnsd9aadif67(request):
     #influencers = Views.objects.all()order_by('-pub_date', 'headline')
 
     if request.method == "POST":
-        print("ok in here forsearch")
         data = json.loads(request.body)
         if data["searchvalue"] != "":
             listofcloseuser = searchyea(data["searchvalue"], "mainpage")

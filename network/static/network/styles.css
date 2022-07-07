@@ -361,6 +361,7 @@ min-height: min-content; /* needs vendor prefixes */
 .goodmorning
 {
 margin-right:80px;
+
 }
 
 .goodmorningallstars:hover
@@ -2073,6 +2074,11 @@ border-radius: 45px;
 .registertitle
 {
 font-family: 'Sarabun';
+}
+.goodmorning:hover
+{
+  transform: translate(0, -5px);
+
 }
 .undergoodmorning:hover
 {
