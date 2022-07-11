@@ -115,7 +115,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project4.wsgi.application'
 
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -139,8 +139,6 @@ DATABASES = {
         
     }
 }
-
-
 
 POSTGRES_DB = os.environ.get("POSTGRES_DB")
 POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
@@ -167,7 +165,7 @@ if POSTGRES_READY:
             "PORT": POSTGRES_PORT,
         }
     }
-
+'''
 AUTH_USER_MODEL = "network.User"
 
 # Password validation

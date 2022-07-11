@@ -113,30 +113,42 @@ var InfluencerFeedRows = function (_React$Component) {
         //aab9d9bdb4bdfb65a5a030a5836762e2
         var _link = "";
         if (this.props.data["picture"] == null) {
-          _link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
+          _link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png";
         } else {
           _link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["picture"] + ".jpg";
         }
         console.log("this is the link", _link);
         thewholereturn = React.createElement(
           'div',
-          { 'class': 'grid' },
+          { 'class': 'd-flex justify-content-start' },
           React.createElement(
             'div',
-            { 'class': 'reviewmaincover d-flex justify-content-center' },
+            { 'class': 'd-flex justify-content-start reviewbigdiv' },
             React.createElement(
               'div',
-              { 'class': 'd-flex flex-column d-flex justify-content-start mt-3' },
-              React.createElement('img', { 'class': 'imgnoedit', src: _link }),
+              { 'class': 'd-flex justify-content-center' },
+              React.createElement('img', { 'class': 'imgnoeditreview', src: _link })
+            ),
+            React.createElement(
+              'div',
+              { 'class': 'd-flex flex-column' },
               React.createElement(
-                'h4',
-                null,
-                this.props.data["username"]
+                'div',
+                { 'class': 'ml-2' },
+                React.createElement(
+                  'h3',
+                  { 'class': 'usernamereviewtext' },
+                  this.props.data["username"]
+                )
               ),
               React.createElement(
-                'h6',
-                { 'class': 'reviewtext' },
-                this.props.data["review"]
+                'div',
+                { 'class': 'ml-2' },
+                React.createElement(
+                  'p',
+                  { 'class': 'actualreview' },
+                  this.props.data["review"]
+                )
               )
             )
           )
@@ -172,6 +184,8 @@ var InfluencerFeedTable = function (_React$Component2) {
       console.log("datamofo", this.props.data["feedtype"]);
       var rows = [];
       console.log("HAHAHAHAH", this.props.data["alldata"]);
+      console.log("shinpai inai iyo", this.props.data["feedtype"]);
+      console.log("shinpai", this.props.data["alldata"]);
 
       for (var i = 0; i < this.props.data["alldata"].length; i++) {
         rows.push(React.createElement(InfluencerFeedRows, {
@@ -231,8 +245,21 @@ var InfluencerFeedTable = function (_React$Component2) {
             )
           ) : React.createElement(
             'div',
-            { 'class': 'row d-flex justify-content-center' },
-            rows
+            { 'class': 'd-flex justify-content-center' },
+            React.createElement(
+              'div',
+              { 'class': 'biggestdivreview mb-5' },
+              React.createElement(
+                'div',
+                { 'class': 'd-flex justify-content-center' },
+                React.createElement(
+                  'div',
+                  { 'class': 'vidmareviewverybigdiv' },
+                  React.createElement('div', { 'class': 'd-flex justify-content-center' }),
+                  rows
+                )
+              )
+            )
           )
         )
       );

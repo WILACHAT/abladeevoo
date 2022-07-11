@@ -14,9 +14,6 @@ class User(AbstractUser):
     normal_user_pic = models.CharField(max_length=256, null=True)
     accountstatus = models.IntegerField(null=False, default = 1)
 
-    
-
-
     pass
     def serialize(self):
         return {
@@ -95,6 +92,8 @@ class Reservation(models.Model):
     show = models.BooleanField(default=False)
     omisecharge = models.CharField(max_length=256, null=True)
     chargestatus = models.BooleanField(default=False)
+    orderid = models.CharField(max_length=256, null=True)
+
 
 
     def serialize(self):
@@ -126,7 +125,9 @@ class Reservation(models.Model):
             "influencer_pic":pic,
             "normal_pic":normalpic,
             "show":self.show,
-            "omisecharge":self.omisecharge
+            "omisecharge":self.omisecharge,
+            "orderid":self.orderid
+
         } 
 
 

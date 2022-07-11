@@ -53,6 +53,16 @@ cursor: pointer;
 object-fit: cover;
 
 }
+.imgnoeditreview
+{
+height: 85px;
+width: 85px;
+border-radius: 50%;
+display: inline-block;
+cursor: pointer;
+object-fit: cover;
+
+}
 .imgnoeditinbox
 {
 height: 5em;
@@ -314,15 +324,15 @@ margin-top:80px;
 .introdiv
 {
 
-  width: 100%;
-  padding-top:6rem;
-  padding-left:3rem;
-  padding-right:3rem;
-  
-  justify-content: center;
-  background-color: #e6e9ee  ;
-  display: flex;
-  height:475px;
+width: 100%;
+padding-top:6rem;
+padding-left:3rem;
+padding-right:3rem;
+
+justify-content: center;
+background-color: #e6e9ee  ;
+display: flex;
+height:475px;
 
 }
 .secondintrodiv
@@ -361,9 +371,13 @@ min-height: min-content; /* needs vendor prefixes */
 .goodmorning
 {
 margin-right:80px;
-
 }
 
+.goodmorning:hover
+{
+  transform: translate(0, -5px);
+
+}
 .goodmorningallstars:hover
 {
 transform: translate(0, -5px);
@@ -491,8 +505,6 @@ font-family: 'Sarabun';
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   --animate-duration: 3s;
-
-
 }
 .forbox
 {
@@ -1661,10 +1673,10 @@ background-image: linear-gradient(  #FF336F, #FF336F, #FF336F);
 .vidmaslogan
 {
 
-font-size:100%;
-color:#212121;
-font-size:125%;
-}
+  font-size:100%;
+  color:#212121;
+  font-size:125%;
+  }
 .whatisvidma
 {
   margin-top: 5px;
@@ -1762,12 +1774,9 @@ padding-right:5%;
 }
 .aboutusvidvid
 {
-width:600px;
+width:700px;
 margin-bottom:85px;
 height:100%;
-object-fit: cover;
-
-
 }
 .aboutusvid
 {
@@ -2074,11 +2083,6 @@ border-radius: 45px;
 .registertitle
 {
 font-family: 'Sarabun';
-}
-.goodmorning:hover
-{
-  transform: translate(0, -5px);
-
 }
 .undergoodmorning:hover
 {
@@ -2959,4 +2963,72 @@ cursor: pointer;
 {
 margin-bottom: 0px;
 margin:auto;
+}
+
+.biggestdivreview{
+  padding-bottom:3%;
+  margin-top:20px;
+  width:700px;
+  background:white;
+  height: 450px;
+  border:1.5px solid #dbccdc;
+  border-radius:30px;
+}
+
+.vidmareviewverybigdiv
+{
+  margin-top:50px;
+  background: white;
+  height: 350px;
+  width:80%;
+  
+  padding-left:6%;
+  overflow: auto;
+  border-radius:30px;
+  margin-right:50px;
+  
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .biggestdivreview{
+    width:90%;
+
+  }
+  }
+  
+.reviewbigdiv{
+  margin-bottom:10%;
+
+}
+.vidmareviewverybigdiv::-webkit-scrollbar-thumb {
+  background-image: linear-gradient( #094FCB,#FF336F);
+  border-radius:50px;
+}
+
+
+.vidmareviewverybigdiv::-webkit-scrollbar {
+  width: 20px;
+  
+}
+
+
+
+.usernamereviewtext{
+  font-size:120%;
+  margin-top:2%;
+}
+
+.reviewbigtext{
+  font-family: 'Sarabun';
+  font-size:170%;
+  margin-bottom:5%;
+  margin-left:50px;
+
+}
+
+.circleprofilepic{
+  width:10%;
+  border-radius: 50%;
 }

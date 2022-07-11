@@ -614,7 +614,7 @@ def gotozjguen484s9gj302g(request, paginationid):
 
     
    # what = When(completed=False, then='Reservation', duedate__gte=day)
-    reserveinfo = Reservation.objects.filter(Q(completed=True) | Q(duedate__gte=day), user_id_reserver = currentuser, chargestatus = True)
+    reserveinfo = Reservation.objects.filter(Q(completed=True) | Q(duedate__gte=day), user_id_reserver = currentuser, chargestatus = True, expired = False)
 
 
     type = "inbox"
@@ -629,12 +629,12 @@ def gotozjguen484s9gj302g(request, paginationid):
             print("cehck data type", data["type"])
             if data["type"] == "myrequesthtml":
                 type= "request"
-                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False, duedate__gte=date.today(), chargestatus = True)
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False, expired = False, duedate__gte=date.today(), chargestatus = True)
                 hide = 0
             #some of this will have to change so yea
             elif data["type"] == "mycompletehtml":
                 type= "complete"
-                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = True, chargestatus = True)
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, expired = False, completed = True, chargestatus = True)
                 hide = 0
 
             elif data["type"] == "hidecompleted":
@@ -642,18 +642,19 @@ def gotozjguen484s9gj302g(request, paginationid):
                 type= "inbox"
                 hide = 1
 
-                reserveinfo = Reservation.objects.filter(user_id_reserver = currentuser, completed = False, duedate__gte=day, chargestatus = True)
+                reserveinfo = Reservation.objects.filter(user_id_reserver = currentuser, expired = False, completed = False, duedate__gte=day, chargestatus = True)
                 for i in reserveinfo:
                     print(i.id)
                     print(i.reviewcompleted)
 
             elif data["type"] == "mysorttime":
-                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, completed = False, duedate__gte=date.today(), chargestatus = True).order_by('duedate')
+                reserveinfo = Reservation.objects.filter(user_id_influencerreserve = currentuser, expired = False, completed = False, duedate__gte=date.today(), chargestatus = True).order_by('duedate')
                 type = "request"
                 for i in reserveinfo:
                     print(i.duedate)
                     hide = 0
                     sort = 1
+
 
         elif data["from"] == "eachreserve":
             print("data", data)
@@ -662,7 +663,7 @@ def gotozjguen484s9gj302g(request, paginationid):
                 type = "request"
 
 
-            reserveinfo = Reservation.objects.filter(id = data["reservationid"], chargestatus = True)
+            reserveinfo = Reservation.objects.filter(id = data["reservationid"], expired = False, chargestatus = True)
 
             for i in reserveinfo:
             #print("reserveeeeeeeeeeeeeeeee;leme;lme;lme;emleeeeeee", reserveinfo.user_id_reserver_id)
@@ -767,7 +768,7 @@ def gotoeachreserve(request):
      #   ['waanwaanwilachat@gmail.com'],
      #   )
 
-            reservethingy = Reservation.objects.filter(id=data["reserveid"])
+            reservethingy = Reservation.objects.filter(id=data["reserveid"], expired = False)
             for i in reservethingy:
                 reservethingy = i.user_id_reserver_id
                 reserveinfluencer = i.user_id_influencerreserve_id
@@ -819,10 +820,19 @@ def gotoeachreserve(request):
 
     elif request.method == "PUT":
         data = json.loads(request.body)
-       
-        reporttable = ReportTable(reservation_foreign_id = data["reservationid"], influencer = data["influencer"],
-        requester = data["requester"], report_value = data["value"])
-        reporttable.save()
+        #there needs to be a mail for report and for mai ao ok??
+        if data["type"] == "report":
+            print("print for no reason")
+            reporttable = ReportTable(reservation_foreign_id = data["reservationid"], influencer = data["influencer"],
+            requester = data["requester"], report_value = data["value"])
+            reporttable.save()
+            Reservation.objects.filter(id=data["reservationid"]).update(expired = True)
+
+        else:
+            print("unlucky really")
+            Reservation.objects.filter(id=data["reservationid"]).update(expired = True)
+
+
 
     return_request = {"reservationid":"hi"}
 
@@ -1481,7 +1491,7 @@ def paymentapi(request, username):
             amount=price,
             currency="thb",
             capture=True,
-            return_uri = "https://plankton-app-d8rml.ondigitalocean.app/paymentresponse",
+            return_uri = "http://127.0.0.1:8000/paymentresponse",
             source=token
             )
 
@@ -1495,10 +1505,13 @@ def paymentapi(request, username):
             capture=True,
             card=token)
 
+        id = uuid.uuid1()
+        uniqueid = str(id) + str(request.user.id)
+
         bookrequest =  Reservation(typeintro=data['typeintro'],
         tointro=data['tointro'], fromintro=data['fromintro'], typeoccasion=data['typeoccasion'],
         firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
-        thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],
+        thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],orderid = uniqueid,
         user_id_reserver_id=request.user.id,user_id_influencerreserve_id=influencerid, duedate=data["datetime"], 
         show=data["inputcheck"], omisecharge = charge.id)
         

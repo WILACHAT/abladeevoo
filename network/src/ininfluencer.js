@@ -96,7 +96,7 @@ render()
     let link = ""
     if (this.props.data["picture"] == null)
     {
-      link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
+      link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png"
 
     }
     else
@@ -105,16 +105,22 @@ render()
     }
     console.log("this is the link", link)
     thewholereturn =  
-    <div class="grid">
-      <div class="reviewmaincover d-flex justify-content-center">
-      <div class="d-flex flex-column d-flex justify-content-start mt-3">
-
-        <img class="imgnoedit" src={link}></img>
-          <h4>{this.props.data["username"]}</h4>
-          <h6 class="reviewtext">{this.props.data["review"]}</h6>
-      </div>
-      </div>
-      </div>
+   
+<div class="d-flex justify-content-start">
+<div class="d-flex justify-content-start reviewbigdiv">
+    <div class="d-flex justify-content-center">
+        <img class="imgnoeditreview" src={link}></img>
+    </div>
+    <div class="d-flex flex-column">
+      <div class="ml-2">
+          <h3 class="usernamereviewtext">{this.props.data["username"]}</h3>
+      </div> 
+      <div class="ml-2">
+        <p class="actualreview">{this.props.data["review"]}</p>
+     </div>
+  </div>
+</div>
+</div>
     
   }
   
@@ -136,6 +142,8 @@ class InfluencerFeedTable extends React.Component {
       console.log("datamofo", this.props.data["feedtype"])
       const rows = [];
       console.log("HAHAHAHAH", this.props.data["alldata"])
+      console.log("shinpai inai iyo", this.props.data["feedtype"])
+      console.log("shinpai", this.props.data["alldata"])
 
     
         for (let i = 0; i < this.props.data["alldata"].length; i++)
@@ -153,6 +161,7 @@ class InfluencerFeedTable extends React.Component {
     
       return (
         <div>
+
       
             {this.props.data["feedtype"] == "main" ? <div><div class="d-flex justify-content-center"><h1 class="wa mt-3">วีดีโอตัวอย่าง</h1></div>{this.props.data["alldata"] == "" ? 
             <div class="d-flex justify-content-center mt-3 mb-5">
@@ -164,7 +173,7 @@ class InfluencerFeedTable extends React.Component {
            
            <div>
                   <div class="d-flex justify-content-center">
-                    <h1 class="wa mt-3">ริวิว</h1>
+                      <h1 class="wa mt-3">ริวิว</h1>
                   </div> 
                   {this.props.data["alldata"] == "" ? 
                   
@@ -172,8 +181,17 @@ class InfluencerFeedTable extends React.Component {
                   <h6 class="wanopostyetyet">ยังไม่มีรีวิว</h6>
                 </div>: 
 
-                  <div class="row d-flex justify-content-center">
-                    {rows}
+                  <div class="d-flex justify-content-center">
+                     <div class="biggestdivreview mb-5">
+
+                        <div class="d-flex justify-content-center">
+                          <div class="vidmareviewverybigdiv">
+                            <div class="d-flex justify-content-center">
+                            </div>  
+                            {rows}
+                          </div>
+                       </div>
+                      </div>
                   </div>}
             </div>}
            

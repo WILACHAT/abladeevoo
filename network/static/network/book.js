@@ -22,530 +22,23 @@ function getCookie(name) {
     return cookieValue;
 }
 
-var PaymentPage = function (_React$Component) {
-    _inherits(PaymentPage, _React$Component);
-
-    function PaymentPage(props) {
-        _classCallCheck(this, PaymentPage);
-
-        var _this = _possibleConstructorReturn(this, (PaymentPage.__proto__ || Object.getPrototypeOf(PaymentPage)).call(this, props));
-
-        _this.backPage = _this.backPage.bind(_this);
-        _this.submitCc = _this.submitCc.bind(_this);
-        _this.changePage = _this.changePage.bind(_this);
-        _this.submitIb = _this.submitIb.bind(_this);
-        _this.submitPp = _this.submitPp.bind(_this);
-        _this.submitTm = _this.submitTm.bind(_this);
-
-        _this.saveInfo = _this.saveInfo.bind(_this);
-        _this.backButton = _this.backButton.bind(_this);
-
-        _this.state = {
-            statusib: "ksbtnid",
-            divofpaymentpage: React.createElement(
-                'div',
-                { 'class': 'd-flex justify-content-center' },
-                React.createElement(
-                    'div',
-                    null,
-                    React.createElement('div', { id: 'token_errors' }),
-                    React.createElement('input', { type: 'hidden', name: 'omise_token' }),
-                    React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-start' },
-                            React.createElement(
-                                'label',
-                                { 'class': 'labelpayment' },
-                                'Name'
-                            )
-                        ),
-                        React.createElement(
-                            'div',
-                            null,
-                            React.createElement('input', { 'class': 'paymentinput', type: 'text', 'data-omise': 'holder_name' })
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        null,
-                        'Number',
-                        React.createElement('br', null),
-                        React.createElement('input', { 'class': 'paymentinput', type: 'text', 'data-omise': 'number' })
-                    ),
-                    React.createElement(
-                        'div',
-                        null,
-                        'Date',
-                        React.createElement('br', null),
-                        React.createElement('input', { type: 'text', 'data-omise': 'expiration_month', size: '4' }),
-                        React.createElement('input', { type: 'text', 'data-omise': 'expiration_year', size: '8' })
-                    ),
-                    React.createElement(
-                        'div',
-                        null,
-                        'Security Code',
-                        React.createElement('br', null),
-                        React.createElement('input', { 'class': 'paymentinput', type: 'text', 'data-omise': 'security_code', size: '8' })
-                    ),
-                    React.createElement('input', { id: 'tokenhiddenid', type: 'hidden', 'data-tokenid': '' }),
-                    React.createElement('input', { type: 'submit', onClick: _this.submitCc, id: 'create_token' })
-                )
-            )
-        };
-        return _this;
-    }
-
-    _createClass(PaymentPage, [{
-        key: 'backButton',
-        value: function backButton(e) {
-            document.querySelector('#paymentpage').hidden = true;
-            document.querySelector('#wholereservepage').hidden = false;
-        }
-    }, {
-        key: 'submitTm',
-        value: function submitTm(e) {
-            Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
-            this.saveInfo();
-            console.log("lenght", document.querySelector('#phonenumberid').value.length);
-            console.log("[0]", document.querySelector('#phonenumberid').value[0]);
-
-            if (document.querySelector('#phonenumberid').value[0] == "0" && document.querySelector('#phonenumberid').value.length == 10) {
-                console.log("correct");
-                /*
-                    Omise.createSource('truemoney', {
-                        "amount":parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
-                        "currency": "THB",
-                        "phone_number": document.querySelector('#phonenumberid').value
-                    }, function(statusCode, response) {
-                    console.log("ftw", response['id'])
-                    console.log("this is the amount i have to fucking pay", document.querySelector('#getinfluencerprice').dataset.price)
-                
-                    const getcooked = getCookie('csrftoken')
-                    let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-                
-                    
-                    fetch(`/paymentapi/${influencerusername}`, {
-                    method: 'POST',
-                    headers:{'X-CSRFToken': getcooked},
-                    body: JSON.stringify({
-                        token: response["id"],
-                        type: "truemoneypayment"
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        //if data returns successful show beautiful success stuff
-                        window.location.href = data['url']
-                        
-                        })
-                    });
-                  */
-            } else {
-                alert("Invalid Phone Number");
-            }
-        }
-    }, {
-        key: 'submitPp',
-        value: function submitPp(e) {
-            console.log("yay promptpay");
-            this.saveInfo();
-
-            Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
-
-            Omise.createSource('promptpay', {
-                "amount": parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
-                "currency": "THB"
-            }, function (statusCode, response) {
-                console.log("ftw", response['id']);
-                var getcooked = getCookie('csrftoken');
-                var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
-                fetch('/paymentapi/' + influencerusername, {
-                    method: 'POST',
-                    headers: { 'X-CSRFToken': getcooked },
-                    body: JSON.stringify({
-                        token: response["id"],
-                        type: "promptpaypayment"
-                    })
-                }).then(function (response) {
-                    return response.json();
-                }).then(function (data) {
-                    //if data returns successful show beautiful success stuff
-                    window.location.href = data['url'];
-                });
-            });
-        }
-    }, {
-        key: 'submitIb',
-        value: function submitIb(id) {
-
-            this.saveInfo();
-            Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
-
-            console.log("what what");
-            Omise.createSource(document.querySelector('#selectbankid').value, {
-                "amount": parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
-                "currency": "THB"
-            }, function (statusCode, response) {
-                console.log("this is the fucking respones", response["id"]);
-                var getcooked = getCookie('csrftoken');
-                var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
-                fetch('/paymentapi/' + influencerusername, {
-                    method: 'POST',
-                    headers: { 'X-CSRFToken': getcooked },
-                    body: JSON.stringify({
-                        token: response["id"],
-                        type: "internetbankingpayment"
-                    })
-                }).then(function (response) {
-                    return response.json();
-                }).then(function (data) {
-                    console.log("bacl here or nah?");
-                    //if data returns successful show beautiful success stuff
-                    //if not show failed html
-                    window.location.href = data['url'];
-
-                    console.log(data);
-                });
-            });
-        }
-    }, {
-        key: 'changePage',
-        value: function changePage(id) {
-
-            if (id == "creditcardbtnid") {
-                this.setState({
-                    divofpaymentpage: React.createElement(
-                        'div',
-                        { 'class': 'd-flex justify-content-center' },
-                        React.createElement(
-                            'div',
-                            null,
-                            React.createElement('div', { id: 'token_errors' }),
-                            React.createElement('input', { type: 'hidden', name: 'omise_token' }),
-                            React.createElement(
-                                'div',
-                                null,
-                                'Name',
-                                React.createElement('br', null),
-                                React.createElement('input', { type: 'text', 'data-omise': 'holder_name' })
-                            ),
-                            React.createElement(
-                                'div',
-                                null,
-                                'Number',
-                                React.createElement('br', null),
-                                React.createElement('input', { type: 'text', 'data-omise': 'number' })
-                            ),
-                            React.createElement(
-                                'div',
-                                null,
-                                'Date',
-                                React.createElement('br', null),
-                                React.createElement('input', { type: 'text', 'data-omise': 'expiration_month', size: '4' }),
-                                React.createElement('input', { type: 'text', 'data-omise': 'expiration_year', size: '8' })
-                            ),
-                            React.createElement(
-                                'div',
-                                null,
-                                'Security Code',
-                                React.createElement('br', null),
-                                React.createElement('input', { type: 'text', 'data-omise': 'security_code', size: '8' })
-                            ),
-                            React.createElement('input', { id: 'tokenhiddenid', type: 'hidden', 'data-tokenid': '' }),
-                            React.createElement(
-                                'div',
-                                { 'class': 'field-container' },
-                                React.createElement(
-                                    'label',
-                                    { 'for': 'name' },
-                                    'Name'
-                                ),
-                                React.createElement('input', { id: 'name', maxlength: '20', type: 'text' })
-                            ),
-                            React.createElement('input', { type: 'submit', onClick: this.submitCc, id: 'create_token' })
-                        )
-                    )
-                });
-            } else if (id == "truemoneybtnid") {
-                this.setState({
-                    divofpaymentpage: React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'h1',
-                            null,
-                            'True Money'
-                        ),
-                        React.createElement('input', { id: 'phonenumberid' }),
-                        React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-center' },
-                            React.createElement(
-                                'button',
-                                { onClick: this.submitTm, 'class': 'btn btn-primary' },
-                                'True Money'
-                            )
-                        )
-                    )
-
-                });
-            } else if (id == "internetbankingbtnid") {
-                console.log("state", this.state.statusib);
-                this.setState({
-                    divofpaymentpage: React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'h1',
-                            null,
-                            'internetbanking'
-                        ),
-                        React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-center' },
-                            React.createElement(
-                                'select',
-                                { name: 'selectbank', id: 'selectbankid' },
-                                React.createElement('option', { value: 'nothing' }),
-                                React.createElement(
-                                    'option',
-                                    { value: 'internet_banking_bbl' },
-                                    'Bangkok Bank'
-                                ),
-                                React.createElement(
-                                    'option',
-                                    { value: 'internet_banking_bay' },
-                                    'Krungsri Bank'
-                                ),
-                                React.createElement(
-                                    'option',
-                                    { value: 'internet_banking_ktb' },
-                                    'Krungthai Bank'
-                                ),
-                                React.createElement(
-                                    'option',
-                                    { value: 'internet_banking_scb' },
-                                    'Siam Commercial Bank'
-                                )
-                            )
-                        ),
-                        React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-center' },
-                            React.createElement(
-                                'button',
-                                { onClick: this.submitIb, 'class': 'btn btn-primary' },
-                                'Submit'
-                            )
-                        )
-                    )
-
-                });
-            } else if (id == "promptpaybtnid") {
-                this.setState({
-                    divofpaymentpage: React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'h1',
-                            null,
-                            'PromptPay'
-                        ),
-                        React.createElement(
-                            'div',
-                            { 'class': 'd-flex justify-content-center' },
-                            React.createElement(
-                                'button',
-                                { onClick: this.submitPp, 'class': 'btn btn-primary' },
-                                'Promptpay'
-                            )
-                        )
-                    )
-
-                });
-            }
-        }
-    }, {
-        key: 'submitCc',
-        value: function submitCc(e) {
-            this.saveInfo();
-
-            Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
-
-            console.log("what the fuck");
-
-            var card = {
-                "name": document.querySelector('[data-omise=holder_name]').value,
-                "number": document.querySelector('[data-omise=number]').value,
-                "expiration_month": document.querySelector('[data-omise=expiration_month]').value,
-                "expiration_year": document.querySelector('[data-omise=expiration_year]').value,
-                "security_code": document.querySelector('[data-omise=security_code]').value
-
-            };
-            var status = "";
-
-            console.log("this is card", card);
-            var tokenn = Omise.createToken("card", card, function (statusCode, response) {
-                console.log("inside the create token");
-                console.log("inside the create lol");
-
-                if (response.object == "error" || !response.card.security_code_check) {
-                    // Display an error message.
-                    var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
-                    if (response.object == "error") {
-                        message_text = response.message;
-                    }
-                    $("#token_errors").html(message_text);
-
-                    // Re-enable the submit button.
-                    document.querySelector('#create_token').disabled = true;
-                } else {
-                    // Then fill the omise_token.
-                    document.querySelector('[name=omise_token]').value = response.id;
-
-                    // Remove card number from form before submiting to server.
-                    document.querySelector('[data-omise=number]').value = "";
-                    document.querySelector('[data-omise=security_code]').value = "";
-
-                    var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
-                    var getcooked = getCookie('csrftoken');
-
-                    fetch('/paymentapi/' + influencerusername, {
-                        method: 'POST',
-                        headers: { 'X-CSRFToken': getcooked },
-                        body: JSON.stringify({
-                            token: response["id"],
-                            type: "creditcardpayment"
-                        })
-                    }).then(function (response) {
-                        return response.json();
-                    }).then(function (data) {
-                        //if data returns successful show beautiful success stuff
-                        //if not show failed html
-                        console.log(data["status"]);
-                        window.location.href = "http://127.0.0.1:8000/paymentresponse";
-                    });
-                }
-            });
-        }
-    }, {
-        key: 'backPage',
-        value: function backPage(e) {
-            document.querySelector('#paymentpage').hidden = true;
-            document.querySelector('#wholereservepage').hidden = false;
-        }
-    }, {
-        key: 'saveInfo',
-        value: function saveInfo(data) {
-
-            var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
-            var getcooked = getCookie('csrftoken');
-            fetch('/book/' + influencerusername, {
-                method: 'POST',
-                headers: { 'X-CSRFToken': getcooked },
-                body: JSON.stringify({
-                    typeintro: this.props.data["typeintro"],
-                    tointro: this.props.data["tointro"],
-                    fromintro: this.props.data["fromintro"],
-                    typeoccasion: this.props.data["typeoccasion"],
-                    firstinputocca: this.props.data["firstinputocca"],
-                    secondinputocca: this.props.data["secondinputocca"],
-                    thirdinputocca: this.props.data["thirdinputocca"],
-                    fourthinputocca: this.props.data["fourthinputocca"],
-                    datetime: this.props.data["datetime"],
-                    inputcheck: this.props.data["inputcheck"]
-                })
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            return React.createElement(
-                'div',
-                null,
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement(
-                        'button',
-                        { 'class': 'btn btn-primary', onClick: this.backPage },
-                        'Back'
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement(
-                        'h1',
-                        null,
-                        'yo wassup this is the payment page'
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { 'class': 'd-flex justify-content-center' },
-                    React.createElement(
-                        'button',
-                        { onClick: function onClick() {
-                                return _this2.changePage("creditcardbtnid");
-                            }, id: 'creditcardbtnid', 'class': 'btn btn-primary' },
-                        'Credit Card'
-                    ),
-                    React.createElement(
-                        'button',
-                        { onClick: function onClick() {
-                                return _this2.changePage("truemoneybtnid");
-                            }, id: 'truemoneybtnid', 'class': 'btn btn-primary' },
-                        'True Money'
-                    ),
-                    React.createElement(
-                        'button',
-                        { onClick: function onClick() {
-                                return _this2.changePage("internetbankingbtnid");
-                            }, id: 'internetbankingbtnid', 'class': 'btn btn-primary' },
-                        'Internet Banking'
-                    ),
-                    React.createElement(
-                        'button',
-                        { onClick: function onClick() {
-                                return _this2.changePage("promptpaybtnid");
-                            }, id: 'promptpaybtnid', 'class': 'btn btn-primary' },
-                        'PromptPay'
-                    )
-                ),
-                this.state.divofpaymentpage,
-                React.createElement('h1', null)
-            );
-        }
-    }]);
-
-    return PaymentPage;
-}(React.Component);
-
-var BookPage = function (_React$Component2) {
-    _inherits(BookPage, _React$Component2);
+var BookPage = function (_React$Component) {
+    _inherits(BookPage, _React$Component);
 
     function BookPage(props) {
         _classCallCheck(this, BookPage);
 
-        var _this3 = _possibleConstructorReturn(this, (BookPage.__proto__ || Object.getPrototypeOf(BookPage)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (BookPage.__proto__ || Object.getPrototypeOf(BookPage)).call(this, props));
 
-        _this3.changeIntroReserve = _this3.changeIntroReserve.bind(_this3);
-        _this3.changeOccasionReserve = _this3.changeOccasionReserve.bind(_this3);
-        _this3.saveReserve = _this3.saveReserve.bind(_this3);
+        _this.changeIntroReserve = _this.changeIntroReserve.bind(_this);
+        _this.changeOccasionReserve = _this.changeOccasionReserve.bind(_this);
+        _this.saveReserve = _this.saveReserve.bind(_this);
+        _this.onType = _this.onType.bind(_this);
+
         document.querySelector('#paymentpage').hidden = true;
 
         //the number of steps can be state as well i believe
-        _this3.state = {
+        _this.state = {
             reserve_into_html: React.createElement(
                 'div',
                 { name: 'introname', id: 'someoneelse_html_id' },
@@ -564,7 +57,7 @@ var BookPage = function (_React$Component2) {
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { 'class': 'inputheho', required: true, id: 'from_intro', placeholder: '\u0E08\u0E32\u0E01\u0E43\u0E04\u0E23' })
+                        React.createElement('input', { maxlength: '60', 'class': 'inputheho', required: true, id: 'from_intro', placeholder: '\u0E08\u0E32\u0E01\u0E43\u0E04\u0E23' })
                     )
                 )
             ),
@@ -580,13 +73,13 @@ var BookPage = function (_React$Component2) {
                         React.createElement(
                             'label',
                             { 'class': 'wa' },
-                            '\u0E40\u0E01\u0E34\u0E14\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                            '\u0E40\u0E19\u0E37\u0E48\u0E2D\u0E07\u0E43\u0E19\u0E27\u0E31\u0E19\u0E2A\u0E4D\u0E32\u0E04\u0E31\u0E0D\u0E2D\u0E30\u0E44\u0E23'
                         )
                     ),
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07: 20 \u0E01\u0E23\u0E01\u0E0E\u0E32\u0E04\u0E21, 20/7' })
+                        React.createElement('input', { maxlength: '100', 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14, \u0E27\u0E31\u0E19\u0E04\u0E23\u0E1A\u0E23\u0E2D\u0E1A, \u0E07\u0E32\u0E19\u0E1A\u0E27\u0E0A' })
                     ),
                     React.createElement(
                         'div',
@@ -594,13 +87,13 @@ var BookPage = function (_React$Component2) {
                         React.createElement(
                             'label',
                             { 'class': 'wa' },
-                            '\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                            '\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E40\u0E01\u0E35\u0E48\u0E22\u0E27\u0E01\u0E31\u0E1A\u0E27\u0E31\u0E19\u0E2A\u0E4D\u0E32\u0E04\u0E31\u0E0D'
                         )
                     ),
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E2D\u0E32\u0E22\u0E38 20 \u0E1B\u0E35\u0E19\u0E35\u0E49' })
+                        React.createElement('input', { id: 'inputage1', maxlength: '100', 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E40\u0E01\u0E34\u0E14\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48 7 \u0E01\u0E23\u0E01\u0E0F\u0E32\u0E04\u0E21 \u0E02\u0E36\u0E49\u0E19 20 \u0E1B\u0E35, \u0E04\u0E23\u0E1A\u0E23\u0E2D\u0E1A\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48 7 \u0E01\u0E23\u0E01\u0E0F\u0E32\u0E04\u0E21 \u0E02\u0E36\u0E49\u0E19 20 \u0E1B\u0E35' })
                     ),
                     React.createElement(
                         'div',
@@ -609,12 +102,22 @@ var BookPage = function (_React$Component2) {
                             'label',
                             { 'class': 'wa' },
                             '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
+                        ),
+                        React.createElement(
+                            'p',
+                            { id: 'daytext1', 'class': 'ml-5' },
+                            '0'
+                        ),
+                        React.createElement(
+                            'p',
+                            null,
+                            '/250'
                         )
                     ),
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa3', placeholder: '\u0E23\u0E49\u0E2D\u0E07\u0E40\u0E1E\u0E25\u0E07\u0E2A\u0E38\u0E02\u0E2A\u0E31\u0E19\u0E15\u0E4C\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14 \u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E04\u0E33\u0E2D\u0E27\u0E22\u0E1E\u0E23' })
+                        React.createElement('input', { maxlength: '250', 'data-yea': 'day1', onChange: _this.onType, 'class': 'inputheho', required: true, name: 'occa3', placeholder: '\u0E23\u0E49\u0E2D\u0E07\u0E40\u0E1E\u0E25\u0E07\u0E2A\u0E38\u0E02\u0E2A\u0E31\u0E19\u0E15\u0E4C\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14 \u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E04\u0E33\u0E2D\u0E27\u0E22\u0E1E\u0E23' })
                     ),
                     React.createElement(
                         'div',
@@ -622,13 +125,23 @@ var BookPage = function (_React$Component2) {
                         React.createElement(
                             'label',
                             { 'class': 'wa' },
-                            '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C:'
+                            '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                        ),
+                        React.createElement(
+                            'p',
+                            { id: 'daytext2', 'class': 'ml-5' },
+                            '0'
+                        ),
+                        React.createElement(
+                            'p',
+                            null,
+                            '/250'
                         )
                     ),
                     React.createElement(
                         'div',
                         { 'class': 'd-flex justify-content-center' },
-                        React.createElement('input', { id: 'optional/occa4', 'class': 'inputheho', name: 'occa4', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E01\u0E32\u0E23\u0E41\u0E2A\u0E14\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
+                        React.createElement('input', { maxlength: '250', 'data-yea': 'day2', onChange: _this.onType, 'class': 'inputheho', id: 'optional/occa4', name: 'occa4', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
                     )
                 )
             ),
@@ -636,10 +149,36 @@ var BookPage = function (_React$Component2) {
             colorof2: "birthday"
         };
 
-        return _this3;
+        return _this;
     }
 
     _createClass(BookPage, [{
+        key: 'onType',
+        value: function onType(e) {
+            console.log("yoyoyo");
+            console.log("this is the targets", e);
+            console.log("this is the targets", e.target.value);
+            console.log("this is the targets", e.target.value.length);
+            console.log("this is the targets", e.target.dataset.yea);
+            if (e.target.dataset.yea == "gumlungjai1") {
+                document.getElementById('gumlungjaitext1').innerHTML = e.target.value.length;
+            } else if (e.target.dataset.yea == "gumlungjai2") {
+                document.getElementById('gumlungjaitext2').innerHTML = e.target.value.length;
+            } else if (e.target.dataset.yea == "pao1") {
+                document.getElementById('paotext1').innerHTML = e.target.value.length;
+            } else if (e.target.dataset.yea == "pao2") {
+                document.getElementById('paotext2').innerHTML = e.target.value.length;
+            } else if (e.target.dataset.yea == "other1") {
+                document.getElementById('othertext1').innerHTML = e.target.value.length;
+            } else if (e.target.dataset.yea == "other2") {
+                document.getElementById('othertext2').innerHTML = e.target.value.length;
+            } else if (e.target.dataset.yea == "day1") {
+                document.getElementById('daytext1').innerHTML = e.target.value.length;
+            } else if (e.target.dataset.yea == "day2") {
+                document.getElementById('daytext2').innerHTML = e.target.value.length;
+            }
+        }
+    }, {
         key: 'saveReserve',
         value: function saveReserve(e) {
             var typeintro = "";
@@ -824,7 +363,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, id: 'from_intro', placeholder: '\u0E08\u0E32\u0E01\u0E43\u0E04\u0E23' })
+                                React.createElement('input', { maxlength: '60', 'class': 'inputheho', required: true, id: 'from_intro', placeholder: '\u0E08\u0E32\u0E01\u0E43\u0E04\u0E23' })
                             )
                         )
                     ),
@@ -841,6 +380,51 @@ var BookPage = function (_React$Component2) {
     }, {
         key: 'changeOccasionReserve',
         value: function changeOccasionReserve(e) {
+
+            try {
+                document.getElementsByName("occa1")[0].value = "";
+            } catch (err) {}
+
+            try {
+                document.getElementsByName("occa2")[0].value = "";
+            } catch (err) {}
+
+            try {
+                document.getElementsByName("occa3")[0].value = "";
+            } catch (err) {}
+
+            try {
+                document.getElementsByName("occa4")[0].value = "";
+            } catch (err) {}
+
+            try {
+                document.getElementById('gumlungjaitext1').innerHTML = "0";
+            } catch (err) {}
+
+            try {
+                document.getElementById('gumlungjaitext2').innerHTML = "0";
+            } catch (err) {}
+
+            try {
+                document.getElementById('paotext1').innerHTML = "0";
+            } catch (err) {}
+
+            try {
+                document.getElementById('paotext2').innerHTML = "0";
+            } catch (err) {}
+            try {
+                document.getElementById('othertext1').innerHTML = "0";
+            } catch (err) {}
+            try {
+                document.getElementById('othertext2').innerHTML = "0";
+            } catch (err) {}
+            try {
+                document.getElementById('daytext1').innerHTML = "0";
+            } catch (err) {}
+            try {
+                document.getElementById('daytext2').innerHTML = "0";
+            } catch (err) {}
+
             console.log("this is e", e);
             if (e.target.id == "birthdaybutton") {
                 console.log("birthday");
@@ -857,13 +441,13 @@ var BookPage = function (_React$Component2) {
                                 React.createElement(
                                     'label',
                                     { 'class': 'wa' },
-                                    '\u0E40\u0E01\u0E34\u0E14\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                                    '\u0E40\u0E19\u0E37\u0E48\u0E2D\u0E07\u0E43\u0E19\u0E27\u0E31\u0E19\u0E2A\u0E4D\u0E32\u0E04\u0E31\u0E0D\u0E2D\u0E30\u0E44\u0E23'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E15\u0E31\u0E27\u0E2D\u0E22\u0E48\u0E32\u0E07: 20 \u0E01\u0E23\u0E01\u0E0E\u0E32\u0E04\u0E21, 20/7' })
+                                React.createElement('input', { maxlength: '100', 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14, \u0E27\u0E31\u0E19\u0E04\u0E23\u0E1A\u0E23\u0E2D\u0E1A, \u0E07\u0E32\u0E19\u0E1A\u0E27\u0E0A' })
                             ),
                             React.createElement(
                                 'div',
@@ -871,13 +455,13 @@ var BookPage = function (_React$Component2) {
                                 React.createElement(
                                     'label',
                                     { 'class': 'wa' },
-                                    '\u0E2D\u0E32\u0E22\u0E38\u0E02\u0E36\u0E49\u0E19\u0E40\u0E17\u0E48\u0E32\u0E44\u0E2B\u0E23\u0E48'
+                                    '\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E40\u0E01\u0E35\u0E48\u0E22\u0E27\u0E01\u0E31\u0E1A\u0E27\u0E31\u0E19\u0E2A\u0E4D\u0E32\u0E04\u0E31\u0E0D'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E2D\u0E32\u0E22\u0E38 20 \u0E1B\u0E35\u0E19\u0E35\u0E49' })
+                                React.createElement('input', { id: 'inputage1', maxlength: '100', 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E40\u0E01\u0E34\u0E14\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48 7 \u0E01\u0E23\u0E01\u0E0F\u0E32\u0E04\u0E21 \u0E02\u0E36\u0E49\u0E19 20 \u0E1B\u0E35, \u0E04\u0E23\u0E1A\u0E23\u0E2D\u0E1A\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48 7 \u0E01\u0E23\u0E01\u0E0F\u0E32\u0E04\u0E21 \u0E02\u0E36\u0E49\u0E19 20 \u0E1B\u0E35' })
                             ),
                             React.createElement(
                                 'div',
@@ -886,12 +470,22 @@ var BookPage = function (_React$Component2) {
                                     'label',
                                     { 'class': 'wa' },
                                     '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { id: 'daytext1', 'class': 'ml-5' },
+                                    '0'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    null,
+                                    '/250'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa3', placeholder: '\u0E23\u0E49\u0E2D\u0E07\u0E40\u0E1E\u0E25\u0E07\u0E2A\u0E38\u0E02\u0E2A\u0E31\u0E19\u0E15\u0E4C\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14 \u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E04\u0E33\u0E2D\u0E27\u0E22\u0E1E\u0E23' })
+                                React.createElement('input', { maxlength: '250', 'data-yea': 'day1', onChange: this.onType, 'class': 'inputheho', required: true, name: 'occa3', placeholder: '\u0E23\u0E49\u0E2D\u0E07\u0E40\u0E1E\u0E25\u0E07\u0E2A\u0E38\u0E02\u0E2A\u0E31\u0E19\u0E15\u0E4C\u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14 \u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E04\u0E33\u0E2D\u0E27\u0E22\u0E1E\u0E23' })
                             ),
                             React.createElement(
                                 'div',
@@ -900,12 +494,22 @@ var BookPage = function (_React$Component2) {
                                     'label',
                                     { 'class': 'wa' },
                                     '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { id: 'daytext2', 'class': 'ml-5' },
+                                    '0'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    null,
+                                    '/250'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', id: 'optional/occa4', name: 'occa4', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
+                                React.createElement('input', { maxlength: '250', 'data-yea': 'day2', onChange: this.onType, 'class': 'inputheho', id: 'optional/occa4', name: 'occa4', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
                             )
                         )
                     ),
@@ -933,7 +537,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E43\u0E2B\u0E49\u0E01\u0E33\u0E25\u0E31\u0E07\u0E43\u0E08 \u0E15\u0E31\u0E49\u0E07\u0E43\u0E08\u0E17\u0E33\u0E07\u0E32\u0E19' }),
+                                React.createElement('input', { maxlength: '100', 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E43\u0E2B\u0E49\u0E01\u0E33\u0E25\u0E31\u0E07\u0E43\u0E08 \u0E15\u0E31\u0E49\u0E07\u0E43\u0E08\u0E17\u0E33\u0E07\u0E32\u0E19' }),
                                 React.createElement('br', null)
                             ),
                             React.createElement(
@@ -943,12 +547,22 @@ var BookPage = function (_React$Component2) {
                                     'label',
                                     { 'class': 'wa' },
                                     '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { id: 'gumlungjaitext1', 'class': 'ml-5' },
+                                    '0'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    null,
+                                    '/250'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E1E\u0E39\u0E14\u0E43\u0E2B\u0E49\u0E01\u0E33\u0E25\u0E31\u0E07\u0E43\u0E08 \u0E43\u0E2B\u0E49\u0E21\u0E35\u0E44\u0E1F\u0E17\u0E33\u0E07\u0E32\u0E19' }),
+                                React.createElement('input', { id: 'inputgumlungjai1', 'data-yea': 'gumlungjai1', onChange: this.onType, maxlength: '250', 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E1E\u0E39\u0E14\u0E43\u0E2B\u0E49\u0E01\u0E33\u0E25\u0E31\u0E07\u0E43\u0E08 \u0E43\u0E2B\u0E49\u0E21\u0E35\u0E44\u0E1F\u0E17\u0E33\u0E07\u0E32\u0E19' }),
                                 React.createElement('br', null)
                             ),
                             React.createElement(
@@ -958,12 +572,22 @@ var BookPage = function (_React$Component2) {
                                     'label',
                                     { 'class': 'wa' },
                                     '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { id: 'gumlungjaitext2', 'class': 'ml-5' },
+                                    '0'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    null,
+                                    '/250'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { id: 'optional/occa3', 'class': 'inputheho', name: 'occa3', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' }),
+                                React.createElement('input', { 'data-yea': 'gumlungjai2', onChange: this.onType, maxlength: '250', id: 'optional/occa3', 'class': 'inputheho', name: 'occa3', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' }),
                                 React.createElement('br', null)
                             )
                         )
@@ -987,12 +611,22 @@ var BookPage = function (_React$Component2) {
                                     'label',
                                     { 'class': 'wa' },
                                     '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E25\u0E49\u0E2D\u0E40\u0E25\u0E35\u0E22\u0E19\u0E27\u0E48\u0E32\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23\u0E1A\u0E49\u0E32\u0E07'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { id: 'paotext1', 'class': 'ml-5' },
+                                    '0'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    null,
+                                    '/250'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E25\u0E49\u0E2D\u0E40\u0E25\u0E35\u0E22\u0E19 \u0E43\u0E2B\u0E49\u0E15\u0E31\u0E49\u0E07\u0E43\u0E08\u0E15\u0E34\u0E27\u0E2B\u0E19\u0E31\u0E07\u0E2A\u0E37\u0E2D' })
+                                React.createElement('input', { maxlength: '250', 'data-yea': 'pao1', onChange: this.onType, 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E25\u0E49\u0E2D\u0E40\u0E25\u0E35\u0E22\u0E19\u0E43\u0E2B\u0E49\u0E15\u0E31\u0E49\u0E07\u0E43\u0E08\u0E15\u0E34\u0E27\u0E2B\u0E19\u0E31\u0E07\u0E2A\u0E37\u0E2D' })
                             ),
                             React.createElement(
                                 'div',
@@ -1001,12 +635,22 @@ var BookPage = function (_React$Component2) {
                                     'label',
                                     { 'class': 'wa' },
                                     '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { id: 'paotext2', 'class': 'ml-5' },
+                                    '0'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    null,
+                                    '/250'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { id: 'optional/occa2', 'class': 'inputheho', name: 'occa2', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
+                                React.createElement('input', { maxlength: '250', 'data-yea': 'pao2', onChange: this.onType, id: 'optional/occa2', 'class': 'inputheho', name: 'occa2', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
                             )
                         )
                     ),
@@ -1033,7 +677,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E40\u0E23\u0E35\u0E22\u0E19\u0E08\u0E1A\u0E1B\u0E23\u0E34\u0E0D\u0E0D\u0E32\u0E15\u0E23\u0E35' })
+                                React.createElement('input', { maxlength: '250', 'class': 'inputheho', required: true, name: 'occa1', placeholder: '\u0E40\u0E23\u0E35\u0E22\u0E19\u0E08\u0E1A\u0E1B\u0E23\u0E34\u0E0D\u0E0D\u0E32\u0E15\u0E23\u0E35' })
                             ),
                             React.createElement(
                                 'div',
@@ -1042,12 +686,22 @@ var BookPage = function (_React$Component2) {
                                     'label',
                                     { 'class': 'wa' },
                                     '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { id: 'othertext1', 'class': 'ml-5' },
+                                    '0'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    null,
+                                    '/250'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E2D\u0E27\u0E22\u0E1E\u0E23 \u0E41\u0E25\u0E30\u0E1E\u0E39\u0E14\u0E41\u0E2A\u0E14\u0E07\u0E04\u0E27\u0E32\u0E21\u0E22\u0E34\u0E19\u0E14\u0E35' })
+                                React.createElement('input', { maxlength: '250', 'data-yea': 'other1', onChange: this.onType, 'class': 'inputheho', required: true, name: 'occa2', placeholder: '\u0E2D\u0E27\u0E22\u0E1E\u0E23 \u0E41\u0E25\u0E30\u0E1E\u0E39\u0E14\u0E41\u0E2A\u0E14\u0E07\u0E04\u0E27\u0E32\u0E21\u0E22\u0E34\u0E19\u0E14\u0E35' })
                             ),
                             React.createElement(
                                 'div',
@@ -1056,12 +710,22 @@ var BookPage = function (_React$Component2) {
                                     'label',
                                     { 'class': 'wa' },
                                     '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { id: 'othertext2', 'class': 'ml-5' },
+                                    '0'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    null,
+                                    '/250'
                                 )
                             ),
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { id: 'optional/occa3', 'class': 'inputheho', name: 'occa3', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
+                                React.createElement('input', { maxlength: '250', 'data-yea': 'other2', onChange: this.onType, id: 'optional/occa3', 'class': 'inputheho', name: 'occa3', placeholder: '\u0E23\u0E2D\u0E0A\u0E21\u0E1C\u0E25\u0E07\u0E32\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E19\u0E30!' })
                             )
                         )
                     ),
@@ -1139,7 +803,7 @@ var BookPage = function (_React$Component2) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center' },
-                                React.createElement('input', { 'class': 'inputheho', required: true, id: 'to_intro', placeholder: '\u0E16\u0E36\u0E07\u0E43\u0E04\u0E23' })
+                                React.createElement('input', { maxlength: '60', 'class': 'inputheho', required: true, id: 'to_intro', placeholder: '\u0E16\u0E36\u0E07\u0E43\u0E04\u0E23' })
                             )
                         ),
                         this.state.reserve_into_html
@@ -1225,7 +889,7 @@ var BookPage = function (_React$Component2) {
                 React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center' },
-                    React.createElement('input', { 'class': 'datechecker', equired: true, id: 'date_inputid', name: 'date_inputname', type: 'date' })
+                    React.createElement('input', { 'class': 'datechecker', required: true, id: 'date_inputid', name: 'date_inputname', type: 'date' })
                 ),
                 React.createElement(
                     'div',

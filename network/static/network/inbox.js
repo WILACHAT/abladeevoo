@@ -76,6 +76,8 @@ var EachReserve = function (_React$Component) {
         _this.chooseFile = _this.chooseFile.bind(_this);
         _this.saveUrl = _this.saveUrl.bind(_this);
         _this.reportButton = _this.reportButton.bind(_this);
+        _this.deleteRequest = _this.deleteRequest.bind(_this);
+
         _this.overlayCancel = _this.overlayCancel.bind(_this);
         _this.submitReport = _this.submitReport.bind(_this);
         _this.checkStar = _this.checkStar.bind(_this);
@@ -85,11 +87,68 @@ var EachReserve = function (_React$Component) {
 
         console.log("kaido is ded2", document.querySelector('#typeofpage'));
         console.log("bruh", _this.props.data["type"]);
+        console.log("2 weeks until one piece", _this.props.id);
 
         return _this;
     }
 
     _createClass(EachReserve, [{
+        key: 'deleteRequest',
+        value: function deleteRequest(id) {
+            var _this2 = this;
+
+            Swal.fire({
+                title: '<strong>HTML <u>example</u></strong>',
+                icon: 'info',
+                html: 'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
+
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Pause Account',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText: '<i class="fa fa-thumbs-up"></i> No',
+                cancelButtonAriaLabel: 'Thumbs down'
+            }).then(function (result) {
+                console.log(result);
+                var getcooked = getCookie('csrftoken');
+                var type = "";
+                if (result["isConfirmed"] == true) {
+
+                    console.log("beam", _this2.props.data["data"][0].id);
+                    console.log("beam", _this2.props.data["data"][0].username_influencer);
+                    console.log("beam", _this2.props.data["data"][0].username);
+
+                    fetch('/gotoeachreserve', {
+                        method: 'PUT',
+                        headers: { 'X-CSRFToken': getcooked },
+                        body: JSON.stringify({
+                            type: "deleterequest",
+                            reservationid: _this2.props.data["data"][0].id,
+                            requester: _this2.props.data["data"][0].username,
+                            influencer: _this2.props.data["data"][0].username_influencer
+                        })
+                    }).then(function (result) {
+                        console.log("deletes result", result);
+                        document.querySelector('#myinboxhtml').hidden = true;
+                        document.querySelector('#myrequesthtml').hidden = false;
+                        document.querySelector('#mycompletehtml').hidden = true;
+                        document.querySelector('#eachreserve').hidden = true;
+                        document.querySelector('#inboxmainid').hidden = false;
+
+                        console.log("wawawawa1", document.getElementById('requesttableid'));
+
+                        for (var i = 0; i < document.getElementById('inboxtableid').children.length; i++) {
+                            if (document.getElementById('inboxtableid').children[i].id == id) {
+                                document.getElementById('inboxtableid').children[i].remove();
+                            }
+                        }
+                    });
+                }
+            });
+            console.log("this is to delete request");
+        }
+    }, {
         key: 'checkStar',
         value: function checkStar(e) {
             var rest = 0;
@@ -114,27 +173,63 @@ var EachReserve = function (_React$Component) {
         }
     }, {
         key: 'submitReport',
-        value: function submitReport(e) {
-            console.log("very close", document.querySelector('#reportinputid').value);
-            console.log("requester", this.props.data["data"][0].username);
-            console.log("reservationid", this.props.data["data"][0].id);
+        value: function submitReport(id) {
+            var _this3 = this;
 
-            var getcooked = getCookie('csrftoken');
+            Swal.fire({
+                title: '<strong>HTML <u>example</u></strong>',
+                icon: 'info',
+                html: 'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
 
-            fetch('/gotoeachreserve', {
-                method: 'PUT',
-                headers: { 'X-CSRFToken': getcooked },
-                body: JSON.stringify({
-                    value: document.querySelector('#reportinputid').value,
-                    reservationid: this.props.data["data"][0].id,
-                    requester: this.props.data["data"][0].username,
-                    influencer: this.props.data["data"][0].username_influencer
-                })
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Pause Account',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText: '<i class="fa fa-thumbs-up"></i> No',
+                cancelButtonAriaLabel: 'Thumbs down'
             }).then(function (result) {
-                console.log("this is the result", result);
-                document.querySelector('#reportinputid').value = "";
+                console.log(result);
+                var type = "";
+                if (result["isConfirmed"] == true) {
 
-                document.querySelector('#overlayreportid').hidden = true;
+                    console.log("beam", _this3.props.data["data"][0].id);
+                    console.log("beam", _this3.props.data["data"][0].username_influencer);
+                    console.log("beam", _this3.props.data["data"][0].username);
+
+                    var getcooked = getCookie('csrftoken');
+
+                    fetch('/gotoeachreserve', {
+                        method: 'PUT',
+                        headers: { 'X-CSRFToken': getcooked },
+                        body: JSON.stringify({
+                            value: document.querySelector('#reportinputid').value,
+                            type: "report",
+                            reservationid: _this3.props.data["data"][0].id,
+                            requester: _this3.props.data["data"][0].username,
+                            influencer: _this3.props.data["data"][0].username_influencer
+                        })
+                    }).then(function (result) {
+                        console.log("this is the result", result);
+                        document.querySelector('#reportinputid').value = "";
+
+                        document.querySelector('#overlayreportid').hidden = true;
+                        document.querySelector('#myinboxhtml').hidden = true;
+                        document.querySelector('#myrequesthtml').hidden = false;
+                        document.querySelector('#mycompletehtml').hidden = true;
+                        document.querySelector('#eachreserve').hidden = true;
+                        document.querySelector('#inboxmainid').hidden = false;
+
+                        console.log("mario", document.getElementById('requesttableid'));
+                        console.log("mario", document.getElementById('inboxtableid'));
+
+                        for (var i = 0; i < document.getElementById('inboxtableid').children.length; i++) {
+                            if (document.getElementById('inboxtableid').children[i].id == id) {
+                                document.getElementById('inboxtableid').children[i].remove();
+                            }
+                        }
+                    });
+                }
             });
         }
     }, {
@@ -337,6 +432,8 @@ var EachReserve = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this4 = this;
+
             console.log("hahahahahahheheheheheh", document.querySelector('#typeofpage').value);
             var videoandstuff = "";
             link = "https://res.cloudinary.com/ablaze-project/video/upload/l_9687f7ee-e194-11ec-a149-3af9d3ce8c1e1.png,w_160,h_60,g_south_west/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4";
@@ -660,7 +757,7 @@ var EachReserve = function (_React$Component) {
                             React.createElement(
                                 'div',
                                 { 'class': 'd-flex justify-content-center mt-2 mb-3' },
-                                React.createElement('input', { 'class': 'inputhehorere', id: 'typeforreview', placeholder: '\u0E23\u0E35\u0E27\u0E34\u0E27' })
+                                React.createElement('input', { maxlength: '250', 'class': 'inputhehorere', id: 'typeforreview', placeholder: '\u0E23\u0E35\u0E27\u0E34\u0E27' })
                             ),
                             React.createElement(
                                 'div',
@@ -703,7 +800,7 @@ var EachReserve = function (_React$Component) {
             }
             var occasion = checkforoccasiontype(this.props.data["data"][0].typeoccasion);
             console.log("check for the occasion", occasion);
-            if (occasion == "Birthday") {
+            if (occasion == "วันเกิด") {
                 occasion = React.createElement(
                     'div',
                     null,
@@ -823,7 +920,7 @@ var EachReserve = function (_React$Component) {
                         )
                     )
                 );
-            } else if (occasion == "Pep Talk") {
+            } else if (occasion == "กําลังใจ") {
                 occasion = React.createElement(
                     'div',
                     null,
@@ -920,7 +1017,7 @@ var EachReserve = function (_React$Component) {
                         )
                     )
                 );
-            } else if (occasion == "Roast") {
+            } else if (occasion == "เผา") {
                 occasion = React.createElement(
                     'div',
                     null,
@@ -1122,7 +1219,9 @@ var EachReserve = function (_React$Component) {
                             { 'class': 'd-flex justify-content-center mt-2' },
                             React.createElement(
                                 'button',
-                                { onClick: this.submitReport, 'class': 'btn btn-primary mr-2' },
+                                { onClick: function onClick() {
+                                        return _this4.submitReport(_this4.props.id);
+                                    }, 'class': 'btn btn-primary mr-2' },
                                 '\u0E23\u0E32\u0E22\u0E07\u0E32\u0E19'
                             ),
                             React.createElement(
@@ -1145,6 +1244,13 @@ var EachReserve = function (_React$Component) {
                         'button',
                         { 'class': 'backbutton btn btn-danger mb-3 ml-3', onClick: this.reportButton },
                         '\u0E23\u0E32\u0E22\u0E07\u0E32\u0E19'
+                    ) : null,
+                    this.props.data["type"] == "request" ? React.createElement(
+                        'button',
+                        { 'class': 'backbutton btn btn-danger mb-3 ml-3', onClick: function onClick() {
+                                return _this4.deleteRequest(_this4.props.id);
+                            } },
+                        '\u0E44\u0E21\u0E48\u0E17\u0E4D\u0E32'
                     ) : null
                 ),
                 React.createElement(
@@ -1308,17 +1414,18 @@ var InboxFeedRows = function (_React$Component2) {
     function InboxFeedRows(props) {
         _classCallCheck(this, InboxFeedRows);
 
-        var _this2 = _possibleConstructorReturn(this, (InboxFeedRows.__proto__ || Object.getPrototypeOf(InboxFeedRows)).call(this, props));
+        var _this5 = _possibleConstructorReturn(this, (InboxFeedRows.__proto__ || Object.getPrototypeOf(InboxFeedRows)).call(this, props));
 
-        _this2.clickHref = _this2.clickHref.bind(_this2);
+        _this5.clickHref = _this5.clickHref.bind(_this5);
 
-        return _this2;
+        return _this5;
     }
 
     _createClass(InboxFeedRows, [{
         key: 'clickHref',
-        value: function clickHref(e) {
+        value: function clickHref(id) {
 
+            console.log("wilachat", id);
             document.querySelector('#eachreserve').hidden = false;
             document.querySelector('#inboxmainid').hidden = true;
             document.querySelector('#myinboxhtml').hidden = true;
@@ -1344,12 +1451,13 @@ var InboxFeedRows = function (_React$Component2) {
                 return response.json();
             }).then(function (data) {
                 console.log("unicornbillions", data);
-                ReactDOM.render(React.createElement(EachReserve, { data: data }), document.querySelector('#eachreserve'));
+                ReactDOM.render(React.createElement(EachReserve, { data: data, id: id }), document.querySelector('#eachreserve'));
             });
         }
     }, {
         key: 'render',
         value: function render() {
+            var _this6 = this;
 
             console.log("check for", this.props.completed);
 
@@ -1386,6 +1494,7 @@ var InboxFeedRows = function (_React$Component2) {
             }
 
             var occasion = checkforoccasiontype(this.props.whatoccasion);
+            var id = this.props.id + "eachrow";
 
             eachcontent = React.createElement(
                 'div',
@@ -1430,7 +1539,9 @@ var InboxFeedRows = function (_React$Component2) {
                         ),
                         React.createElement(
                             'div',
-                            { onClick: this.clickHref, 'class': 'button', id: 'button-7' },
+                            { onClick: function onClick() {
+                                    return _this6.clickHref(id);
+                                }, 'class': 'button', id: 'button-7' },
                             React.createElement('input', { type: 'hidden', id: 'divtogetid', value: this.props.id }),
                             React.createElement(
                                 'div',
@@ -1488,7 +1599,7 @@ var InboxFeedRows = function (_React$Component2) {
 
             return React.createElement(
                 'div',
-                { 'class': 'd-flex justify-content-center' },
+                { id: id, 'class': 'd-flex justify-content-center' },
                 React.createElement(
                     'div',
                     { 'class': 'ineachrow mt-4 mb-4' },
@@ -1507,25 +1618,26 @@ var InboxFeedInbox = function (_React$Component3) {
     function InboxFeedInbox(props) {
         _classCallCheck(this, InboxFeedInbox);
 
-        var _this3 = _possibleConstructorReturn(this, (InboxFeedInbox.__proto__ || Object.getPrototypeOf(InboxFeedInbox)).call(this, props));
+        var _this7 = _possibleConstructorReturn(this, (InboxFeedInbox.__proto__ || Object.getPrototypeOf(InboxFeedInbox)).call(this, props));
 
-        _this3.changePage = _this3.changePage.bind(_this3);
-        _this3.hideCompleted = _this3.hideCompleted.bind(_this3);
-        _this3.sortTime = _this3.sortTime.bind(_this3);
+        _this7.changePage = _this7.changePage.bind(_this7);
+        _this7.hideCompleted = _this7.hideCompleted.bind(_this7);
+        _this7.sortTime = _this7.sortTime.bind(_this7);
 
-        _this3.state = {
-            newdata: _this3.props.data,
+        _this7.state = {
+            newdata: _this7.props.data,
             hide: "ซ่อนเสร็จสิ้น",
-            sort: "เรียงตามวันครบกําหนด"
+            sort: "เรียงตามวันครบกําหนด",
+            rowsstate: []
 
         };
-        return _this3;
+        return _this7;
     }
 
     _createClass(InboxFeedInbox, [{
         key: 'sortTime',
         value: function sortTime(e) {
-            var _this4 = this;
+            var _this8 = this;
 
             var type = "mysorttime";
             var csrftoken = getCookie('csrftoken');
@@ -1559,7 +1671,7 @@ var InboxFeedInbox = function (_React$Component3) {
                 }
 
                 console.log("e.target.value", sort);
-                _this4.setState({
+                _this8.setState({
                     newdata: data,
                     sort: sort
                 });
@@ -1568,7 +1680,7 @@ var InboxFeedInbox = function (_React$Component3) {
     }, {
         key: 'hideCompleted',
         value: function hideCompleted(e) {
-            var _this5 = this;
+            var _this9 = this;
 
             var type = "";
 
@@ -1601,7 +1713,7 @@ var InboxFeedInbox = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("mg pen kuay arai", _this5.props.data);
+                console.log("mg pen kuay arai", _this9.props.data);
 
                 var hide = "";
                 if (data["hide"] == 0) {
@@ -1612,7 +1724,7 @@ var InboxFeedInbox = function (_React$Component3) {
                 console.log("sentback", data);
                 console.log("sentback", data["paginationid"]);
 
-                _this5.setState({
+                _this9.setState({
                     newdata: data,
                     hide: hide,
                     pagination: data["paginationid"]
@@ -1623,7 +1735,7 @@ var InboxFeedInbox = function (_React$Component3) {
     }, {
         key: 'changePage',
         value: function changePage(e) {
-            var _this6 = this;
+            var _this10 = this;
 
             var pagination = e.target.id;
             var innerhtmlpage = e.target.innerHTML;
@@ -1675,15 +1787,15 @@ var InboxFeedInbox = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("gojo", _this6.props.data);
-                _this6.setState({
+                console.log("gojo", _this10.props.data);
+                _this10.setState({
                     newdata: data
 
                 });
 
-                console.log("gojo", _this6.state.newdata);
-                _this6.setState({
-                    pagination: _this6.state.newdata["paginationid"]
+                console.log("gojo", _this10.state.newdata);
+                _this10.setState({
+                    pagination: _this10.state.newdata["paginationid"]
                 });
             });
 
@@ -1692,6 +1804,7 @@ var InboxFeedInbox = function (_React$Component3) {
     }, {
         key: 'render',
         value: function render() {
+            console.log("barb");
             console.log("CUCKOOOOOOOOOO", this.props.data);
             console.log("CUCKOOOOOOOOOO SECONDO", this.state.pagination);
 
@@ -1715,6 +1828,7 @@ var InboxFeedInbox = function (_React$Component3) {
             if (this.state.newdata["data"] == null) {
                 console.log("looking to hire");
             } else {
+
                 for (var i = 0; i < this.state.newdata["data"].length; i++) {
                     console.log("we wil lcccc", this.props.data["data"][i]);
                     rows.push(React.createElement(InboxFeedRows, {
@@ -1728,6 +1842,9 @@ var InboxFeedInbox = function (_React$Component3) {
                         influencer_pic: this.state.newdata["data"][i].influencer_pic,
                         normal_pic: this.state.newdata["data"][i].normal_pic }));
                 }
+                console.log("this is rows inboxtableid", document.getElementById('inboxtableid'));
+                console.log("this is rows", rows);
+                console.log("this is rows myrequesthtml", document.querySelector('#myrequesthtml'));
             }
 
             if (this.state.pagination == null) {
@@ -1772,7 +1889,7 @@ var InboxFeedInbox = function (_React$Component3) {
                     { 'class': 'inboxtable d-flex justify-content-center' },
                     React.createElement(
                         'div',
-                        { 'class': 'columninbox d-flex justify-content-center flex-column' },
+                        { id: 'inboxtableid', 'class': 'columninbox d-flex justify-content-center flex-column' },
                         rows
                     )
                 ) : React.createElement(
@@ -1930,16 +2047,16 @@ var InboxFeedTitle = function (_React$Component4) {
     function InboxFeedTitle(props) {
         _classCallCheck(this, InboxFeedTitle);
 
-        var _this7 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
+        var _this11 = _possibleConstructorReturn(this, (InboxFeedTitle.__proto__ || Object.getPrototypeOf(InboxFeedTitle)).call(this, props));
 
-        _this7.changeFeedInbox = _this7.changeFeedInbox.bind(_this7);
-        _this7.state = {
+        _this11.changeFeedInbox = _this11.changeFeedInbox.bind(_this11);
+        _this11.state = {
             currentpage: "myinbox"
 
             //document.querySelector('#maininfluencer').hidden = false;
             //document.querySelector('#reviewsmainfluencer').hidden = true;
 
-        };return _this7;
+        };return _this11;
     }
 
     _createClass(InboxFeedTitle, [{
@@ -1948,6 +2065,10 @@ var InboxFeedTitle = function (_React$Component4) {
             var type = "";
             var csrftoken = getCookie('csrftoken');
             if (e.target.id == "myinboxid") {
+                try {
+                    document.getElementById('requesttableid').id = "inboxtableid";
+                } catch (err) {}
+
                 document.querySelector('#typeofpage').value = "inbox";
                 document.querySelector('#myrequesthtml').hidden = true;
                 document.querySelector('#mycompletehtml').hidden = true;
@@ -1959,6 +2080,9 @@ var InboxFeedTitle = function (_React$Component4) {
                     currentpage: "myinbox"
                 });
             } else if (e.target.id == "myrequestid") {
+                try {
+                    document.getElementById('inboxtableid').id = "requesttableid";
+                } catch (err) {}
                 document.querySelector('#typeofpage').value = "request";
                 document.querySelector('#myinboxhtml').hidden = true;
                 document.querySelector('#myrequesthtml').hidden = false;
@@ -1969,6 +2093,9 @@ var InboxFeedTitle = function (_React$Component4) {
                     currentpage: "myrequest"
                 });
             } else if (e.target.id == "mycompleteid") {
+                try {
+                    document.getElementById('requesttableid').id = "inboxtableid";
+                } catch (err) {}
                 console.log("kaido is dedd");
                 document.querySelector('#typeofpage').value = "completed";
                 document.querySelector('#mycompletehtml').hidden = false;

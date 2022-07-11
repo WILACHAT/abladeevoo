@@ -14,417 +14,7 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-class PaymentPage extends React.Component {
-    constructor(props) {
-    super(props);
-    this.backPage = this.backPage.bind(this);
-    this.submitCc = this.submitCc.bind(this);
-    this.changePage = this.changePage.bind(this);
-    this.submitIb = this.submitIb.bind(this);
-    this.submitPp = this.submitPp.bind(this);
-    this.submitTm = this.submitTm.bind(this);
-    
-    this.saveInfo = this.saveInfo.bind(this);
-    this.backButton = this.backButton.bind(this);
 
-    this.state = {
-        statusib: "ksbtnid",
-        divofpaymentpage: 
-        <div class="d-flex justify-content-center">
-      
-
-        <div>
-            <div id="token_errors"></div>
-        
-            <input type="hidden" name="omise_token"></input>
-        
-            <div>
-                <div class="d-flex justify-content-start">
-                    <label class="labelpayment">Name</label>
-                </div>
-                <div>
-                    <input class="paymentinput" type="text" data-omise="holder_name"></input>
-                </div>
-            </div>
-            
-            <div>
-            Number<br></br>
-            <input class="paymentinput" type="text" data-omise="number"></input>
-            </div>
-            <div>
-            Date<br></br>
-            <input type="text" data-omise="expiration_month" size="4"></input>
-            <input type="text" data-omise="expiration_year" size="8"></input>
-            </div>
-            <div>
-            Security Code<br></br>
-            <input class="paymentinput" type="text" data-omise="security_code" size="8"></input>
-            </div>
-            <input id="tokenhiddenid"type="hidden" data-tokenid=""></input>
-          
-            <input type="submit" onClick={this.submitCc} id="create_token"></input>
-
-        </div>
-    </div>                 
-    }
-  }
-
-  backButton(e)
-  {
-      document.querySelector('#paymentpage').hidden = true
-      document.querySelector('#wholereservepage').hidden = false
-  }
-  submitTm(e)
-  {
-    Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
-    this.saveInfo()
-    console.log("lenght", document.querySelector('#phonenumberid').value.length)
-    console.log("[0]", document.querySelector('#phonenumberid').value[0])
-
-
-    if (document.querySelector('#phonenumberid').value[0] == "0" && document.querySelector('#phonenumberid').value.length == 10)
-    {
-        console.log("correct")
-/*
-    Omise.createSource('truemoney', {
-        "amount":parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
-        "currency": "THB",
-        "phone_number": document.querySelector('#phonenumberid').value
-    }, function(statusCode, response) {
-    console.log("ftw", response['id'])
-    console.log("this is the amount i have to fucking pay", document.querySelector('#getinfluencerprice').dataset.price)
-
-    const getcooked = getCookie('csrftoken')
-    let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
-    
-    fetch(`/paymentapi/${influencerusername}`, {
-    method: 'POST',
-    headers:{'X-CSRFToken': getcooked},
-    body: JSON.stringify({
-        token: response["id"],
-        type: "truemoneypayment"
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        //if data returns successful show beautiful success stuff
-        window.location.href = data['url']
-        
-        })
-    });
-  */
-    }
-
-    else
-    {
-        alert("Invalid Phone Number")
-    }
-    
-}
-
-  
-  submitPp(e)
-  {
-    console.log("yay promptpay")
-    this.saveInfo()
-
-    Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
-
-    Omise.createSource('promptpay', {
-    "amount": parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
-    "currency": "THB"
-    }, function(statusCode, response) {
-    console.log("ftw", response['id'])
-    const getcooked = getCookie('csrftoken')
-    let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
-    
-    fetch(`/paymentapi/${influencerusername}`, {
-    method: 'POST',
-    headers:{'X-CSRFToken': getcooked},
-    body: JSON.stringify({
-        token: response["id"],
-        type: "promptpaypayment"
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        //if data returns successful show beautiful success stuff
-        window.location.href = data['url']
-        
-        })
-    });
-  }
-
-  submitIb(id)
-  {
-
-    this.saveInfo()
-    Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
-
-      console.log("what what")
-      Omise.createSource(document.querySelector('#selectbankid').value,
-        {
-            "amount": parseInt(document.querySelector('#getinfluencerprice').dataset.price) * 100,
-            "currency": "THB"
-        },
-        function(statusCode, response) {
-            console.log("this is the fucking respones", response["id"])
-            const getcooked = getCookie('csrftoken')
-            let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
-            fetch(`/paymentapi/${influencerusername}`, {
-            method: 'POST',
-            headers:{'X-CSRFToken': getcooked},
-            body: JSON.stringify({
-                token: response["id"],
-                type: "internetbankingpayment"
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("bacl here or nah?")
-                //if data returns successful show beautiful success stuff
-                //if not show failed html
-                window.location.href = data['url']
-
-                console.log(data)
-            });
-        });
-  }
-
-  changePage(id)
-  {
- 
-    if (id == "creditcardbtnid")
-    {
-        this.setState({
-            divofpaymentpage: 
-            <div class="d-flex justify-content-center">
-        <div>
-            <div id="token_errors"></div>
-        
-            <input type="hidden" name="omise_token"></input>
-        
-            <div>
-            Name<br></br>
-            <input type="text" data-omise="holder_name"></input>
-            </div>
-            <div>
-            Number<br></br>
-            <input type="text" data-omise="number"></input>
-            </div>
-            <div>
-            Date<br></br>
-            <input type="text" data-omise="expiration_month" size="4"></input>
-            <input type="text" data-omise="expiration_year" size="8"></input>
-            </div>
-            <div>
-            Security Code<br></br>
-            <input type="text" data-omise="security_code" size="8"></input>
-            </div>
-            <input id="tokenhiddenid"type="hidden" data-tokenid=""></input>
-
-            <div class="field-container">
-            <label for="name">Name</label>
-            <input id="name" maxlength="20" type="text"></input>
-            </div>            
-
-        
-            <input type="submit" onClick={this.submitCc} id="create_token"></input>
-
-        </div>
-    </div>            
-        })
-
-    }
-    else if (id == "truemoneybtnid")
-    {
-        this.setState({
-            divofpaymentpage: 
-            <div>
-            <h1>True Money</h1>
-            <input id="phonenumberid"></input>
-             <div class="d-flex justify-content-center">
-               <button onClick={this.submitTm} class="btn btn-primary">True Money</button>
-             </div>
-       </div>
-
-            
-        })
-    }
-    else if (id == "internetbankingbtnid")
-    {
-        console.log("state", this.state.statusib)
-        this.setState({
-            divofpaymentpage: 
-            <div>
-                <h1>internetbanking</h1>
-                <div class="d-flex justify-content-center">
-                      <select name="selectbank" id="selectbankid">
-                          <option value="nothing"></option>
-                          <option value="internet_banking_bbl">Bangkok Bank</option>
-                          <option value="internet_banking_bay">Krungsri Bank</option>
-                          <option value="internet_banking_ktb">Krungthai Bank</option>
-                          <option value="internet_banking_scb">Siam Commercial Bank</option>
-                      </select>
-                  </div>
-                  <div class="d-flex justify-content-center">
-                    <button onClick={this.submitIb} class="btn btn-primary">Submit</button>
-                  </div>
-
-            </div>
-
-            
-        })
-    }
-    else if (id == "promptpaybtnid")
-    {
-        this.setState({
-            divofpaymentpage: 
-            <div>
-                 <h1>PromptPay</h1>
-                  <div class="d-flex justify-content-center">
-                    <button onClick={this.submitPp} class="btn btn-primary">Promptpay</button>
-                  </div>
-            </div>
-
-            
-        })
-    }
-  }
-  submitCc(e)
-  {
-    this.saveInfo()
-
-    Omise.setPublicKey("pkey_test_5rsv5lm4gxeb5fc9i2k");
-
-      console.log("what the fuck")
-
-      let card = {
-        "name": document.querySelector('[data-omise=holder_name]').value,
-        "number": document.querySelector('[data-omise=number]').value,
-        "expiration_month": document.querySelector('[data-omise=expiration_month]').value,
-        "expiration_year": document.querySelector('[data-omise=expiration_year]').value,
-        "security_code": document.querySelector('[data-omise=security_code]').value 
-        
-    }
-    let status = ""
-    
-    console.log("this is card", card)
-    let tokenn = Omise.createToken("card", card, function (statusCode, response) {
-      console.log("inside the create token")
-      console.log("inside the create lol")
-
-
-      if (response.object == "error" || !response.card.security_code_check) {
-          // Display an error message.
-          var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
-          if(response.object == "error") {
-          message_text = response.message;
-          }
-          $("#token_errors").html(message_text);
-
-          // Re-enable the submit button.
-          document.querySelector('#create_token').disabled = true
-      } else {
-          // Then fill the omise_token.
-          document.querySelector('[name=omise_token]').value = response.id
-
-
-          // Remove card number from form before submiting to server.
-          document.querySelector('[data-omise=number]').value = ""
-          document.querySelector('[data-omise=security_code]').value = ""
-    
-          let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
-          const getcooked = getCookie('csrftoken')
-          
-          fetch(`/paymentapi/${influencerusername}`, {
-          method: 'POST',
-          headers:{'X-CSRFToken': getcooked},
-          body: JSON.stringify({
-              token: response["id"],
-              type: "creditcardpayment"
-              })
-          })
-  
-          .then(response => response.json())
-          .then(data => {
-              //if data returns successful show beautiful success stuff
-              //if not show failed html
-              console.log(data["status"])
-              window.location.href = "http://127.0.0.1:8000/paymentresponse"
-  
-          });
-          
-      }
-    })  
-           
-            
-        
-         
-
-  }
-  backPage(e)
-  {
-    document.querySelector('#paymentpage').hidden = true
-    document.querySelector('#wholereservepage').hidden = false
-  }
-  saveInfo(data)
-  {
-
-        let influencerusername = document.getElementById('getinfluencerusername').dataset.username;
-
-        const getcooked = getCookie('csrftoken')
-        fetch(`/book/${influencerusername}`, {
-        method: 'POST',
-        headers:{'X-CSRFToken': getcooked},
-        body: JSON.stringify({
-            typeintro: this.props.data["typeintro"],
-            tointro: this.props.data["tointro"],
-            fromintro: this.props.data["fromintro"],
-            typeoccasion: this.props.data["typeoccasion"],
-            firstinputocca: this.props.data["firstinputocca"],
-            secondinputocca: this.props.data["secondinputocca"],
-            thirdinputocca: this.props.data["thirdinputocca"],
-            fourthinputocca: this.props.data["fourthinputocca"],
-            datetime: this.props.data["datetime"],
-            inputcheck: this.props.data["inputcheck"]
-            })
-        })
-          
-  }
-
-  render() {
-    
-    return (
-    <div>
-        <div class="d-flex justify-content-center">
-            <button class="btn btn-primary" onClick={this.backPage}>Back</button>
-        </div>
-        <div class="d-flex justify-content-center">
-            <h1>yo wassup this is the payment page</h1>
-        </div>
-
-        <div class="d-flex justify-content-center">
-            <button onClick={() => this.changePage("creditcardbtnid")} id="creditcardbtnid" class="btn btn-primary">Credit Card</button>
-            <button onClick={() => this.changePage("truemoneybtnid")} id="truemoneybtnid" class="btn btn-primary">True Money</button>
-            <button onClick={() => this.changePage("internetbankingbtnid")} id="internetbankingbtnid"class="btn btn-primary">Internet Banking</button>
-            <button onClick={() => this.changePage("promptpaybtnid")} id="promptpaybtnid"class="btn btn-primary">PromptPay</button>
-        </div>
-
-        {this.state.divofpaymentpage}
-     
-        <h1></h1>
-   
-    </div>
-    )
-
-    
-  }
-}
 
 class BookPage extends React.Component {
     constructor(props) {
@@ -432,6 +22,8 @@ class BookPage extends React.Component {
       this.changeIntroReserve = this.changeIntroReserve.bind(this);
       this.changeOccasionReserve = this.changeOccasionReserve.bind(this);
       this.saveReserve = this.saveReserve.bind(this);
+      this.onType = this.onType.bind(this);
+
       document.querySelector('#paymentpage').hidden = true
 
 
@@ -444,7 +36,7 @@ class BookPage extends React.Component {
                         <label class="wa">จากใคร (ชื่อเล่น/ชื่อจริง)</label>
                     </div>                    
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required id="from_intro" placeholder="จากใคร"></input>
+                        <input maxlength="60" class="inputheho" required id="from_intro" placeholder="จากใคร"></input>
                     </div>
                 </div>
 
@@ -454,31 +46,35 @@ class BookPage extends React.Component {
             <div name="occasionname"id="birthday_html_id">
                 <div>
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">เกิดวันที่เท่าไหร่</label>
+                        <label class="wa">เนื่องในวันสําคัญอะไร</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa1" placeholder="ตัวอย่าง: 20 กรกฎาคม, 20/7"></input>
+                        <input maxlength="100"  class="inputheho" required name="occa1" placeholder="วันเกิด, วันครบรอบ, งานบวช"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">อายุขึ้นเท่าไหร่</label>
+                        <label class="wa">ข้อมูลเพิ่มเติมเกี่ยวกับวันสําคัญ</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa2" placeholder="อายุ 20 ปีนี้"></input>
+                        <input id="inputage1"maxlength="100" class="inputheho" required name="occa2" placeholder="เกิดวันที่ 7 กรกฏาคม ขึ้น 20 ปี, ครบรอบวันที่ 7 กรกฏาคม ขึ้น 20 ปี"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
                         <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
+                        <p id="daytext1" class="ml-5">0</p>
+                        <p>/250</p>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa3"placeholder="ร้องเพลงสุขสันต์วันเกิด พร้อมคำอวยพร"></input>
+                        <input maxlength="250" data-yea="day1" onChange={this.onType}class="inputheho" required name="occa3"placeholder="ร้องเพลงสุขสันต์วันเกิด พร้อมคำอวยพร"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์:</label>
+                        <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                        <p id="daytext2" class="ml-5">0</p>
+                        <p>/250</p>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input id="optional/occa4" class="inputheho" name="occa4" placeholder="รอชมผลงานการแสดงอยู่นะ!"></input>
+                        <input maxlength="250" data-yea="day2" onChange={this.onType} class="inputheho" id="optional/occa4" name="occa4" placeholder="รอชมผลงานอยู่นะ!"></input>
                     </div>
 
                 </div>
@@ -487,6 +83,51 @@ class BookPage extends React.Component {
         colorof2:"birthday"
       }
 
+    }
+
+    onType(e)
+    {
+        console.log("yoyoyo")
+        console.log("this is the targets", e)
+        console.log("this is the targets", e.target.value)
+        console.log("this is the targets", e.target.value.length)
+        console.log("this is the targets", e.target.dataset.yea)
+        if (e.target.dataset.yea == "gumlungjai1")
+        {
+            document.getElementById('gumlungjaitext1').innerHTML = e.target.value.length
+        }
+        else if (e.target.dataset.yea == "gumlungjai2")
+        {
+            document.getElementById('gumlungjaitext2').innerHTML = e.target.value.length
+        }
+        else if (e.target.dataset.yea == "pao1")
+        {
+            document.getElementById('paotext1').innerHTML = e.target.value.length
+        }
+        else if (e.target.dataset.yea == "pao2")
+        {
+            document.getElementById('paotext2').innerHTML = e.target.value.length
+        }
+        else if (e.target.dataset.yea == "other1")
+        {
+            document.getElementById('othertext1').innerHTML = e.target.value.length
+        }
+        else if (e.target.dataset.yea == "other2")
+        {
+            document.getElementById('othertext2').innerHTML = e.target.value.length
+        }
+        else if (e.target.dataset.yea == "day1")
+        {
+            document.getElementById('daytext1').innerHTML = e.target.value.length
+        }
+        else if (e.target.dataset.yea == "day2")
+        {
+            document.getElementById('daytext2').innerHTML = e.target.value.length
+        }
+
+
+
+     
     }
 
     saveReserve(e)
@@ -711,7 +352,7 @@ class BookPage extends React.Component {
                                 <label class="wa">จากใคร (ชื่อเล่น/ชื่อจริง)</label>
                             </div>                    
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" required id="from_intro" placeholder="จากใคร"></input>
+                                <input maxlength="60"class="inputheho" required id="from_intro" placeholder="จากใคร"></input>
                             </div>
                         </div>
                      </div>,
@@ -732,6 +373,67 @@ class BookPage extends React.Component {
     }
     changeOccasionReserve(e)
     {
+
+        
+        try 
+        {
+            document.getElementsByName("occa1")[0].value = ""
+        } catch(err) {}
+
+        try 
+        {
+            document.getElementsByName("occa2")[0].value = ""
+        } catch(err) {}
+
+        try 
+        {
+            document.getElementsByName("occa3")[0].value = ""
+        } catch(err) {}
+
+        try 
+        {
+            document.getElementsByName("occa4")[0].value = ""
+        } catch(err) {}
+
+        try 
+        {
+            document.getElementById('gumlungjaitext1').innerHTML = "0"
+        } catch(err) {}
+
+        try 
+        {
+            document.getElementById('gumlungjaitext2').innerHTML = "0"
+        } catch(err) {}
+        
+        try 
+        {
+            document.getElementById('paotext1').innerHTML = "0"
+        } catch(err) {}
+
+        try 
+        {
+            document.getElementById('paotext2').innerHTML = "0"
+        } catch(err) {}
+        try 
+        {
+            document.getElementById('othertext1').innerHTML = "0"
+        } catch(err) {}
+        try 
+        {
+            document.getElementById('othertext2').innerHTML = "0"
+        } catch(err) {}
+        try 
+        {
+            document.getElementById('daytext1').innerHTML = "0"
+        } catch(err) {}
+        try 
+        {
+            document.getElementById('daytext2').innerHTML = "0"
+        } catch(err) {}
+
+
+
+
         console.log("this is e", e)
         if (e.target.id == "birthdaybutton")
         {
@@ -741,31 +443,37 @@ class BookPage extends React.Component {
                     <div name="occasionname" id="birthday_html_id">
                         <div>
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">เกิดวันที่เท่าไหร่</label>
+                        <label class="wa">เนื่องในวันสําคัญอะไร</label>
                     </div>
+
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa1" placeholder="ตัวอย่าง: 20 กรกฎาคม, 20/7"></input>
+                        <input maxlength="100"  class="inputheho" required name="occa1" placeholder="วันเกิด, วันครบรอบ, งานบวช"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">อายุขึ้นเท่าไหร่</label>
+                        <label class="wa">ข้อมูลเพิ่มเติมเกี่ยวกับวันสําคัญ</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa2" placeholder="อายุ 20 ปีนี้"></input>
+                        <input id="inputage1"maxlength="100" class="inputheho" required name="occa2" placeholder="เกิดวันที่ 7 กรกฏาคม ขึ้น 20 ปี, ครบรอบวันที่ 7 กรกฏาคม ขึ้น 20 ปี"></input>
                     </div>
+                    
 
                     <div class="d-flex justify-content-center mt-2">
                         <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
+                        <p id="daytext1" class="ml-5">0</p>
+                        <p>/250</p>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" required name="occa3"placeholder="ร้องเพลงสุขสันต์วันเกิด พร้อมคำอวยพร"></input>
+                        <input maxlength="250" data-yea="day1" onChange={this.onType} class="inputheho" required name="occa3"placeholder="ร้องเพลงสุขสันต์วันเกิด พร้อมคำอวยพร"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
                         <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                        <p id="daytext2" class="ml-5">0</p>
+                        <p>/250</p>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input class="inputheho" id="optional/occa4" name="occa4" placeholder="รอชมผลงานอยู่นะ!"></input>
+                        <input maxlength="250" data-yea="day2" onChange={this.onType} class="inputheho" id="optional/occa4" name="occa4" placeholder="รอชมผลงานอยู่นะ!"></input>
                     </div>
 
                 </div>
@@ -785,21 +493,26 @@ class BookPage extends React.Component {
                                 <label class="wa">ทําไมถึงอยากได้กําลังใจ</label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" required name="occa1" placeholder="ให้กำลังใจ ตั้งใจทำงาน"></input><br></br>
+                                <input maxlength="100" class="inputheho" required name="occa1" placeholder="ให้กำลังใจ ตั้งใจทำงาน"></input><br></br>
                             </div>
 
                             <div class="d-flex justify-content-center mt-2">
                                 <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
+                                <p id="gumlungjaitext1" class="ml-5">0</p>
+                                <p>/250</p>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" required name="occa2" placeholder="พูดให้กำลังใจ ให้มีไฟทำงาน"></input><br></br>
+                                <input id="inputgumlungjai1" data-yea="gumlungjai1"onChange={this.onType} maxlength="250" class="inputheho" required name="occa2" placeholder="พูดให้กำลังใจ ให้มีไฟทำงาน"></input><br></br>
                             </div>
+                        
 
                             <div class="d-flex justify-content-center mt-2">
                                 <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                                <p id="gumlungjaitext2" class="ml-5">0</p>
+                                <p>/250</p>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input id="optional/occa3" class="inputheho" name="occa3" placeholder="รอชมผลงานอยู่นะ!"></input><br></br>
+                                <input data-yea="gumlungjai2" onChange={this.onType} maxlength="250" id="optional/occa3" class="inputheho" name="occa3" placeholder="รอชมผลงานอยู่นะ!"></input><br></br>
                             </div>
                            
                         </div>
@@ -818,18 +531,22 @@ class BookPage extends React.Component {
                         <div>
                             <div class="d-flex justify-content-center mt-2">
                                 <label class="wa">อยากให้สตาร์ล้อเลียนว่าอย่างไรบ้าง</label>
+                                <p id="paotext1" class="ml-5">0</p>
+                                <p>/250</p>
                             </div>
 
                             <div class="d-flex justify-content-center"> 
-                                <input class="inputheho" required name="occa1" placeholder="ล้อเลียน ให้ตั้งใจติวหนังสือ"></input>
+                                <input maxlength="250" data-yea="pao1" onChange={this.onType} class="inputheho" required name="occa1" placeholder="ล้อเลียนให้ตั้งใจติวหนังสือ"></input>
                             </div>
 
                             <div class="d-flex justify-content-center mt-2">
                                 <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                                <p id="paotext2" class="ml-5">0</p>
+                                <p>/250</p>
                             </div>
 
                             <div class="d-flex justify-content-center">
-                                <input id="optional/occa2" class="inputheho" name="occa2" placeholder="รอชมผลงานอยู่นะ!"></input>
+                                <input maxlength="250" data-yea="pao2" onChange={this.onType} id="optional/occa2" class="inputheho" name="occa2" placeholder="รอชมผลงานอยู่นะ!"></input>
                             </div>
                         </div>
                     </div>,
@@ -848,21 +565,25 @@ class BookPage extends React.Component {
                                 <label class="wa">เนื่องในโอกาสอะไร</label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" required name="occa1" placeholder="เรียนจบปริญญาตรี"></input>
+                                <input maxlength="250" class="inputheho" required name="occa1" placeholder="เรียนจบปริญญาตรี"></input>
                             </div>
                            
                             <div class="d-flex justify-content-center mt-2">
                                 <label class="wa">อยากให้สตาร์พูด/ทําอะไร</label>
+                                <p id="othertext1" class="ml-5">0</p>
+                                <p>/250</p>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input class="inputheho" required name="occa2" placeholder="อวยพร และพูดแสดงความยินดี"></input>
+                                <input maxlength="250" data-yea="other1" onChange={this.onType} class="inputheho" required name="occa2" placeholder="อวยพร และพูดแสดงความยินดี"></input>
                             </div>
                            
                             <div class="d-flex justify-content-center mt-2">
                                 <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                                <p id="othertext2" class="ml-5">0</p>
+                                <p>/250</p>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <input id="optional/occa3" class="inputheho" name="occa3" placeholder="รอชมผลงานอยู่นะ!"/>
+                                <input maxlength="250" data-yea="other2" onChange={this.onType} id="optional/occa3" class="inputheho" name="occa3" placeholder="รอชมผลงานอยู่นะ!"/>
                             </div>
                         </div>
                     </div>,
@@ -906,7 +627,7 @@ class BookPage extends React.Component {
                             <label class="wa">ถึงใคร (ชื่อเล่น/ชื่อจริง)</label>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <input class="inputheho" required id="to_intro" placeholder="ถึงใคร"></input>
+                            <input maxlength="60" class="inputheho" required id="to_intro" placeholder="ถึงใคร"></input>
                         </div>
                     </div>
                     {this.state.reserve_into_html}
@@ -940,7 +661,7 @@ class BookPage extends React.Component {
                 <label class="wa">ต้องการก่อนวันที่เท่าไหร่</label>
             </div>
             <div class="d-flex justify-content-center">
-                <input class="datechecker" equired id="date_inputid" name="date_inputname" type="date"></input>
+                <input class="datechecker" required id="date_inputid" name="date_inputname" type="date"></input>
             </div>
 
             <div class="d-flex justify-content-center mt-1">

@@ -70,12 +70,11 @@ class EachReserve extends React.Component{
         this.chooseFile = this.chooseFile.bind(this);
         this.saveUrl = this.saveUrl.bind(this);
         this.reportButton = this.reportButton.bind(this);
+        this.deleteRequest = this.deleteRequest.bind(this);
+
         this.overlayCancel = this.overlayCancel.bind(this);
         this.submitReport = this.submitReport.bind(this);
         this.checkStar = this.checkStar.bind(this);
-
-
-
 
 
         console.log("right in the constructor")
@@ -83,7 +82,77 @@ class EachReserve extends React.Component{
 
         console.log("kaido is ded2", document.querySelector('#typeofpage'))
         console.log("bruh", this.props.data["type"])
+        console.log("2 weeks until one piece", this.props.id)
         
+    }
+    deleteRequest(id)
+    {
+        
+        Swal.fire({
+            title: '<strong>HTML <u>example</u></strong>',
+            icon: 'info',
+            html:
+                        
+                'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
+          
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:
+                '<i class="fa fa-thumbs-up"></i> Pause Account',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText:
+            '<i class="fa fa-thumbs-up"></i> No',
+            cancelButtonAriaLabel: 'Thumbs down'
+            })
+            .then((result) => { 
+                console.log(result) 
+                const getcooked = getCookie('csrftoken')
+                let type = ""
+                if (result["isConfirmed"] == true)
+                {
+    
+                    console.log("beam", this.props.data["data"][0].id)
+                    console.log("beam", this.props.data["data"][0].username_influencer)
+                    console.log("beam", this.props.data["data"][0].username)
+
+                    fetch(`/gotoeachreserve`, {
+                        method: 'PUT',
+                        headers:{'X-CSRFToken': getcooked},
+                        body: JSON.stringify({
+                          type:"deleterequest",
+                          reservationid: this.props.data["data"][0].id,
+                          requester:this.props.data["data"][0].username,
+                          influencer: this.props.data["data"][0].username_influencer
+                        })
+                      })
+                    
+                      .then(result => {
+                        console.log("deletes result", result)
+                        document.querySelector('#myinboxhtml').hidden = true;
+                        document.querySelector('#myrequesthtml').hidden = false;
+                        document.querySelector('#mycompletehtml').hidden = true;
+                        document.querySelector('#eachreserve').hidden = true;
+                        document.querySelector('#inboxmainid').hidden = false;
+
+                        console.log("wawawawa1", document.getElementById('requesttableid'))
+
+                        for (let i = 0; i < document.getElementById('inboxtableid').children.length; i++)
+                        {
+                            if (document.getElementById('inboxtableid').children[i].id == id)
+                            {
+                                document.getElementById('inboxtableid').children[i].remove()
+                            }
+                        }
+
+                         
+                      });
+                    
+                    
+                }
+            
+            })
+        console.log("this is to delete request")
     }
     checkStar(e)
     {
@@ -110,33 +179,80 @@ class EachReserve extends React.Component{
             document.querySelector('#star'+j).className = "fa fa-star unchecked"
         }
     }
-    submitReport(e)
+    submitReport(id)
     {
-        console.log("very close", document.querySelector('#reportinputid').value)
-        console.log("requester", this.props.data["data"][0].username)
-        console.log("reservationid", this.props.data["data"][0].id)        
-
-
-        const getcooked = getCookie('csrftoken');
-
-        fetch(`/gotoeachreserve`, {
-            method: 'PUT',
-            headers:{'X-CSRFToken': getcooked},
-            body: JSON.stringify({
-              value: document.querySelector('#reportinputid').value,
-              reservationid: this.props.data["data"][0].id,
-              requester:this.props.data["data"][0].username,
-              influencer: this.props.data["data"][0].username_influencer
+            
+        Swal.fire({
+            title: '<strong>HTML <u>example</u></strong>',
+            icon: 'info',
+            html:
+                        
+                'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
+          
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:
+                '<i class="fa fa-thumbs-up"></i> Pause Account',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText:
+            '<i class="fa fa-thumbs-up"></i> No',
+            cancelButtonAriaLabel: 'Thumbs down'
             })
-          })
-        
-          .then(result => {
-            console.log("this is the result", result)
-            document.querySelector('#reportinputid').value = ""
+            .then((result) => { 
+                console.log(result) 
+                let type = ""
+                if (result["isConfirmed"] == true)
+                {
+    
+                    console.log("beam", this.props.data["data"][0].id)
+                    console.log("beam", this.props.data["data"][0].username_influencer)
+                    console.log("beam", this.props.data["data"][0].username)
 
-            document.querySelector('#overlayreportid').hidden = true
+                    const getcooked = getCookie('csrftoken');
 
-          });
+                    fetch(`/gotoeachreserve`, {
+                        method: 'PUT',
+                        headers:{'X-CSRFToken': getcooked},
+                        body: JSON.stringify({
+                          value: document.querySelector('#reportinputid').value,
+                          type:"report",
+                          reservationid: this.props.data["data"][0].id,
+                          requester:this.props.data["data"][0].username,
+                          influencer: this.props.data["data"][0].username_influencer
+                        })
+                      })
+                    
+                      .then(result => {
+                        console.log("this is the result", result)
+                        document.querySelector('#reportinputid').value = ""
+            
+                        document.querySelector('#overlayreportid').hidden = true
+                        document.querySelector('#myinboxhtml').hidden = true;
+                        document.querySelector('#myrequesthtml').hidden = false;
+                        document.querySelector('#mycompletehtml').hidden = true;
+                        document.querySelector('#eachreserve').hidden = true;
+                        document.querySelector('#inboxmainid').hidden = false;
+            
+                        console.log("mario", document.getElementById('requesttableid'))
+                        console.log("mario", document.getElementById('inboxtableid'))
+            
+            
+                        for (let i = 0; i < document.getElementById('inboxtableid').children.length; i++)
+                        {
+                            if (document.getElementById('inboxtableid').children[i].id == id)
+                            {
+                                document.getElementById('inboxtableid').children[i].remove()
+                            }
+                        }
+            
+                      });
+
+                }
+            
+            })
+
+
         
     }
     overlayCancel(e)
@@ -590,11 +706,9 @@ class EachReserve extends React.Component{
                         </div>
 
                         <div class="d-flex justify-content-center mt-2 mb-3">
-                            <input class="inputhehorere" id="typeforreview" placeholder="รีวิว"></input>
+                            <input maxlength="250" class="inputhehorere" id="typeforreview" placeholder="รีวิว"></input>
                         </div>
 
-                       
-                        
                         <div class="d-flex justify-content-center mb-5">
                             <button onClick={this.submitReview} class="btn btn-primary">Submit</button>
                         </div>
@@ -618,7 +732,7 @@ class EachReserve extends React.Component{
         }
         var occasion = checkforoccasiontype(this.props.data["data"][0].typeoccasion)
         console.log("check for the occasion", occasion)
-        if (occasion == "Birthday") 
+        if (occasion == "วันเกิด") 
         {
             occasion = 
             
@@ -696,7 +810,7 @@ class EachReserve extends React.Component{
 
             </div>
         } 
-        else if (occasion == "Pep Talk")
+        else if (occasion == "กําลังใจ")
         { 
             occasion = 
             <div>
@@ -752,7 +866,7 @@ class EachReserve extends React.Component{
 
             </div>
         }
-        else if (occasion == "Roast")
+        else if (occasion == "เผา")
         {
             occasion = 
             <div>
@@ -893,7 +1007,7 @@ class EachReserve extends React.Component{
     
                     </div>
                     <div class="d-flex justify-content-center mt-2">
-                        <button onClick={this.submitReport}class="btn btn-primary mr-2">รายงาน</button>
+                        <button onClick={() => this.submitReport(this.props.id)}class="btn btn-primary mr-2">รายงาน</button>
                         <button onClick={this.overlayCancel} class="btn btn-danger">ยกเลิก</button>
                     </div>
                     </div>
@@ -901,6 +1015,8 @@ class EachReserve extends React.Component{
                 <div class="d-flex justify-content-center">
                     <button class="backbutton btn btn-primary mb-3"onClick={this.goBack}>กลับ</button>
                     {this.props.data["type"] == "request" ? <button class="backbutton btn btn-danger mb-3 ml-3"onClick={this.reportButton}>รายงาน</button>:null}
+                    {this.props.data["type"] == "request" ? <button class="backbutton btn btn-danger mb-3 ml-3"onClick={() => this.deleteRequest(this.props.id)}>ไม่ทํา</button>:null}
+
 
 
                 </div>
@@ -988,9 +1104,10 @@ class InboxFeedRows extends React.Component {
 
 
     }
-    clickHref(e)
+    clickHref(id)
     {
         
+        console.log("wilachat", id)
         document.querySelector('#eachreserve').hidden = false;
         document.querySelector('#inboxmainid').hidden = true;
         document.querySelector('#myinboxhtml').hidden = true;
@@ -1017,7 +1134,7 @@ class InboxFeedRows extends React.Component {
 
         .then(data => {
             console.log("unicornbillions", data)
-            ReactDOM.render(<EachReserve data={data}/>, document.querySelector('#eachreserve'));
+            ReactDOM.render(<EachReserve data={data} id={id} />, document.querySelector('#eachreserve'));
             });
       
             }
@@ -1076,6 +1193,8 @@ class InboxFeedRows extends React.Component {
         }
         
         var occasion = checkforoccasiontype(this.props.whatoccasion)
+        let id = this.props.id + "eachrow"
+
 
         eachcontent =  
         <div class="okseecolor">
@@ -1098,7 +1217,7 @@ class InboxFeedRows extends React.Component {
                 <div class="d-flex justify-content-center">
                     <h4 class="waoccasion">{occasion}</h4>
                 </div>
-                <div onClick={this.clickHref} class="button" id="button-7">
+                <div onClick={() => this.clickHref(id)} class="button" id="button-7">
                     <input type="hidden" id="divtogetid" value={this.props.id}></input>
                     <div value={this.props.id}  class="dub-arrow">
                         <img src="https://github.com/atloomer/atloomer.github.io/blob/master/img/iconmonstr-arrow-48-240.png?raw=true" alt="" />
@@ -1131,7 +1250,7 @@ class InboxFeedRows extends React.Component {
 
 
         return(
-            <div class="d-flex justify-content-center">
+            <div id={id}class="d-flex justify-content-center">
             <div class="ineachrow mt-4 mb-4">
 
                 {this.props.type == "inbox" ? eachcontent: 
@@ -1159,7 +1278,8 @@ class InboxFeedInbox extends React.Component {
         {
           newdata: this.props.data,
           hide: "ซ่อนเสร็จสิ้น",
-          sort: "เรียงตามวันครบกําหนด"
+          sort: "เรียงตามวันครบกําหนด",
+          rowsstate:[]
 
         }
     }
@@ -1371,6 +1491,7 @@ class InboxFeedInbox extends React.Component {
         window.scrollTo(0, 0)
     }
     render() {
+        console.log("barb")
     console.log("CUCKOOOOOOOOOO", this.props.data)
     console.log("CUCKOOOOOOOOOO SECONDO", this.state.pagination)
 
@@ -1401,6 +1522,7 @@ class InboxFeedInbox extends React.Component {
         }
         else
         {
+            
             for (let i = 0; i < this.state.newdata["data"].length; i++)
             {
                 console.log("we wil lcccc", this.props.data["data"][i])
@@ -1416,7 +1538,10 @@ class InboxFeedInbox extends React.Component {
                     influencer_pic={this.state.newdata["data"][i].influencer_pic}
                     normal_pic={this.state.newdata["data"][i].normal_pic}/>
                 );
-            } 
+            }
+            console.log("this is rows inboxtableid", document.getElementById('inboxtableid'))
+            console.log("this is rows", rows)
+            console.log("this is rows myrequesthtml", document.querySelector('#myrequesthtml'))
         }
 
         if (this.state.pagination == null)
@@ -1450,7 +1575,7 @@ class InboxFeedInbox extends React.Component {
                 {this.state.newdata["data"] != "" ? 
             
                 <div class="inboxtable d-flex justify-content-center">
-                    <div class="columninbox d-flex justify-content-center flex-column">
+                    <div id="inboxtableid" class="columninbox d-flex justify-content-center flex-column">
                         {rows}
                     </div>
                 </div>: 
@@ -1542,6 +1667,11 @@ class InboxFeedTitle extends React.Component {
         const csrftoken = getCookie('csrftoken');
         if (e.target.id == "myinboxid")
         {
+            try {
+                document.getElementById('requesttableid').id = "inboxtableid"
+            }
+              catch(err) {}
+
             document.querySelector('#typeofpage').value = "inbox"
             document.querySelector('#myrequesthtml').hidden = true;
             document.querySelector('#mycompletehtml').hidden = true;
@@ -1556,6 +1686,10 @@ class InboxFeedTitle extends React.Component {
         }
         else if(e.target.id == "myrequestid")
         {
+            try {
+                document.getElementById('inboxtableid').id = "requesttableid"
+            }
+              catch(err) {}
             document.querySelector('#typeofpage').value = "request"
             document.querySelector('#myinboxhtml').hidden = true;
             document.querySelector('#myrequesthtml').hidden = false;
@@ -1568,6 +1702,10 @@ class InboxFeedTitle extends React.Component {
         }
         else if (e.target.id == "mycompleteid")
         {
+            try {
+                document.getElementById('requesttableid').id = "inboxtableid"
+            }
+              catch(err) {}
             console.log("kaido is dedd")
             document.querySelector('#typeofpage').value = "completed"
             document.querySelector('#mycompletehtml').hidden = false;
