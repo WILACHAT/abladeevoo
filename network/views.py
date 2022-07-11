@@ -322,6 +322,7 @@ def searchyea(searchvalue, wheresearch):
 def inzwerg4jgnsd9aadif67(request):
 
     #influencer essentially a page that uses serialize to display all the influencers
+    '''
     randomnumber = Userinfo.objects.all().count()
     print("randomstuff1", randomnumber)
     if randomnumber <= 9:
@@ -332,6 +333,10 @@ def inzwerg4jgnsd9aadif67(request):
     else:
         randomstuff  = random.sample(range(1, randomnumber), 9)
         print("randomstuff3", randomnumber)
+    '''
+
+    randomnumber = Userinfo.objects.all().count()
+    randomstuff  = random.sample(range(1, randomnumber), 9)
 
 
 
