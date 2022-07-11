@@ -1491,10 +1491,10 @@ def paymentapi(request, username):
             amount=price,
             currency="thb",
             capture=True,
-            return_uri = "http://127.0.0.1:8000/paymentresponse",
+            return_uri = "https://plankton-app-d8rml.ondigitalocean.app/paymentresponse",
             source=token
             )
-
+         
         else:
             token = request.POST['omiseToken']
             print("this is token", token)
