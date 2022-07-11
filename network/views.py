@@ -335,10 +335,13 @@ def inzwerg4jgnsd9aadif67(request):
         print("randomstuff3", randomnumber)
     '''
 
-    randomnumber = Userinfo.objects.all().count()
-    print("this is to check for randomstuff", randomnumber)
+    list = []
+    randomnumber = Userinfo.objects.all()
+    for i in randomnumber:
+        list.append(i.influencer_id)
 
-    randomstuff  = random.sample(range(1, randomnumber), 9)
+    randomstuff = random.sample(list, 8)
+    
     print("this is to check for randomstuff", randomstuff)
 
 
@@ -389,12 +392,17 @@ def inzwerg4jgnsd9aadif67(request):
 
         for i in checker:
             puller["username"] = i.username
+            
+            w = Userinfo.objects.filter(influencer_id = i.id)
+            for j in w:
+                print("this", j.profile_fullname)
+                puller["profile_fullname"] = j.profile_fullname
+
 
         newdata.append(puller)
 
     newdata = newdata
     print("this is newdata", newdata)
-    print("this is populardata", populardata)
 
     what = ""
     return_request = {"newdata":newdata, "populardata":populardata}
