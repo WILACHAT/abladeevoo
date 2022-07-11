@@ -336,14 +336,15 @@ def inzwerg4jgnsd9aadif67(request):
     '''
 
     randomnumber = Userinfo.objects.all().count()
+    print("this is to check for randomstuff", randomnumber)
+
     randomstuff  = random.sample(range(1, randomnumber), 9)
-
-
-
+    print("this is to check for randomstuff", randomstuff)
 
 
 
     influencers = Userinfo.objects.filter(id__in = randomstuff)
+    print("this is to check for influencers", influencers)
     checker = Userinfo.objects.all().filter()
     view = Views.objects.values('influencer_id').annotate(dcount=Count('influencer_id')).order_by('-dcount')[:9]
     populardata = []
@@ -392,6 +393,9 @@ def inzwerg4jgnsd9aadif67(request):
         newdata.append(puller)
 
     newdata = newdata
+    print("this is newdata", newdata)
+    print("this is populardata", populardata)
+
     what = ""
     return_request = {"newdata":newdata, "populardata":populardata}
     return JsonResponse(return_request, safe=False)
