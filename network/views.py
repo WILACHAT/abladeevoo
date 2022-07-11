@@ -343,7 +343,7 @@ def inzwerg4jgnsd9aadif67(request):
 
 
 
-    influencers = Userinfo.objects.filter(id__in = randomstuff)
+    influencers = Userinfo.objects.filter(influencer_id__in = randomstuff)
     print("this is to check for influencers", influencers)
     checker = Userinfo.objects.all().filter()
     view = Views.objects.values('influencer_id').annotate(dcount=Count('influencer_id')).order_by('-dcount')[:9]
