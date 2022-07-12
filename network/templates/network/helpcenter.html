@@ -22,7 +22,7 @@
             if (todo == "delete")
             {
                 Swal.fire({
-        title: '<strong>HTML <u>example</u></strong>',
+        title: '<strong>หยุดบัญชีชั่วคราว/strong>',
         icon: 'info',
         html:
                     
@@ -56,21 +56,19 @@
         else if (todo == "pause")
         {
             Swal.fire({
-        title: '<strong>HTML <u>example</u></strong>',
+        title: '<strong>คุณกําลังจะกดหยุดบัญชีชั่วคราว</strong>',
         icon: 'info',
         html:
-                    
-            'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
-      
-        showCloseButton: true,
-        showCancelButton: true,
-        focusConfirm: false,
-        confirmButtonText:
-            '<i class="fa fa-thumbs-up"></i> Pause Account',
-        confirmButtonAriaLabel: 'Thumbs up, great!',
-        cancelButtonText:
-        '<i class="fa fa-thumbs-up"></i> No',
-        cancelButtonAriaLabel: 'Thumbs down'
+                        
+                'คุณมั่นใจว่าจะ <b>หยุดบัญชี</b> นี้ <br><br>(คุณสามารถกดยกเลิกการหยุดบัญชีได้ทุกเมื่อ)<br><br>(จะไม่มีใครสามารถสั่งซื้อรีเควสของคุณในขณะที่คุณหยุดบัญชี)',
+          
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:
+                'มั่นใจ',
+            cancelButtonText:
+            'ยกเลิก',
         })
         .then((result) => { 
             console.log(result) 
@@ -91,10 +89,7 @@
                 });
 
             }
-        
         })
-            
-    
     }
         else
         {

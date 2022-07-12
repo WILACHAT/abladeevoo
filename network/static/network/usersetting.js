@@ -92,7 +92,7 @@ var Information = function (_React$Component) {
       var formData = new FormData();
       formData.append("media", fileInput);
 
-      var type = "imageinprofile";
+      var type = "imageinprofilefornormal";
       console.log("formdata", formData);
       fetch('/forupload/' + type, {
         method: 'POST',
@@ -106,13 +106,13 @@ var Information = function (_React$Component) {
         if (result["error"] != null) {
           Swal.fire({
             icon: 'error',
-            title: 'อุ๊ยยย',
+            title: 'มีปัญหา',
             text: 'ต้องเป็นรูปแต่ดันอัพโหลดวีดีโอ!'
           });
         } else {
           Swal.fire({
             icon: 'success',
-            title: 'อิอิ',
+            title: 'สําเร็จ',
             text: 'เปลี่ยนรูปสําเร็จ!'
           });
           document.querySelector('#profilepicture').value = result['url'];
@@ -222,7 +222,12 @@ var Information = function (_React$Component) {
               React.createElement(
                 'div',
                 { 'class': 'd-flex justify-content-center mt-3' },
-                React.createElement('input', { id: 'choosefile', 'class': 'choosefile', onChange: this.chooseFile, type: 'file' })
+                React.createElement(
+                  'label',
+                  { 'class': 'chooseprofile1label', 'for': 'choosefile' },
+                  '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E39\u0E1B',
+                  React.createElement('input', { id: 'choosefile', 'class': 'chooseprofile1', onChange: this.chooseFile, type: 'file' })
+                )
               )
             ),
             React.createElement('br', null),

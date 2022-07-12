@@ -82,13 +82,6 @@ var EachReserve = function (_React$Component) {
         _this.submitReport = _this.submitReport.bind(_this);
         _this.checkStar = _this.checkStar.bind(_this);
 
-        console.log("right in the constructor");
-        console.log("this.props.data", _this.props.data);
-
-        console.log("kaido is ded2", document.querySelector('#typeofpage'));
-        console.log("bruh", _this.props.data["type"]);
-        console.log("2 weeks until one piece", _this.props.id);
-
         return _this;
     }
 
@@ -98,17 +91,15 @@ var EachReserve = function (_React$Component) {
             var _this2 = this;
 
             Swal.fire({
-                title: '<strong>HTML <u>example</u></strong>',
+                title: '<strong>คุณกําลังจะกดไม่ทําการสั่งซื้อนี้ของแฟนคลับ</strong>',
                 icon: 'info',
-                html: 'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
+                html: 'คุณมั่นใจว่าจะ <b>ไม่ทํา</b> รีเควสของแฟนคนนี้ <br><br>(แฟนคลับจะได้รับเงินคืน)',
 
                 showCloseButton: true,
                 showCancelButton: true,
                 focusConfirm: false,
-                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Pause Account',
-                confirmButtonAriaLabel: 'Thumbs up, great!',
-                cancelButtonText: '<i class="fa fa-thumbs-up"></i> No',
-                cancelButtonAriaLabel: 'Thumbs down'
+                confirmButtonText: 'มั่นใจ',
+                cancelButtonText: 'ยกเลิก'
             }).then(function (result) {
                 console.log(result);
                 var getcooked = getCookie('csrftoken');
@@ -177,17 +168,15 @@ var EachReserve = function (_React$Component) {
             var _this3 = this;
 
             Swal.fire({
-                title: '<strong>HTML <u>example</u></strong>',
+                title: '<strong>คุณกําลังจะกดรีพอร์ตคําสั่งซื้อนี้</strong>',
                 icon: 'info',
-                html: 'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
+                html: 'คุณมั่นใจว่าจะ <b>รีพอร์ต</b> รีเควสนี้ <br><br>(คนที่รีเควสจะไม่ได้รับเงินคืน)',
 
                 showCloseButton: true,
                 showCancelButton: true,
                 focusConfirm: false,
-                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Pause Account',
-                confirmButtonAriaLabel: 'Thumbs up, great!',
-                cancelButtonText: '<i class="fa fa-thumbs-up"></i> No',
-                cancelButtonAriaLabel: 'Thumbs down'
+                confirmButtonText: 'มั่นใจ',
+                cancelButtonText: 'ยกเลิก'
             }).then(function (result) {
                 console.log(result);
                 var type = "";
@@ -487,20 +476,16 @@ var EachReserve = function (_React$Component) {
                                 null,
                                 React.createElement(
                                     'div',
-                                    { 'class': 'd-flex justify-content-center' },
-                                    React.createElement(
-                                        'label',
-                                        { 'class': 'wa', htmlFor: 'edit_post_txt' },
-                                        '\u0E04\u0E25\u0E34\u0E4A\u0E01\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E25\u0E37\u0E2D\u0E01 Vid \u0E42\u0E1E\u0E2A\u0E15\u0E4C: '
-                                    )
-                                ),
-                                React.createElement(
-                                    'div',
                                     { 'class': 'custom-file' },
                                     React.createElement(
                                         'div',
                                         { 'class': 'd-flex justify-content-center' },
-                                        React.createElement('input', { type: 'file', onChange: this.chooseFile, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                                        React.createElement(
+                                            'label',
+                                            { 'class': 'chooseprofile4label', 'for': 'inputGroupFile01' },
+                                            '\u0E01\u0E14\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E17\u0E35\u0E48\u0E08\u0E30\u0E2A\u0E48\u0E07\u0E43\u0E2B\u0E49\u0E41\u0E1F\u0E19\u0E04\u0E25\u0E31\u0E1A',
+                                            React.createElement('input', { type: 'file', onChange: this.chooseFile, 'class': 'chooseprofile1', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                                        )
                                     )
                                 ),
                                 React.createElement(

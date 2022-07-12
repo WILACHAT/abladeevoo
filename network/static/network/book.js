@@ -99,19 +99,27 @@ var BookPage = function (_React$Component) {
                         'div',
                         { 'class': 'd-flex justify-content-center mt-2' },
                         React.createElement(
-                            'label',
-                            { 'class': 'wa' },
-                            '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
-                        ),
-                        React.createElement(
-                            'p',
-                            { id: 'daytext1', 'class': 'ml-5' },
-                            '0'
-                        ),
-                        React.createElement(
-                            'p',
-                            null,
-                            '/250'
+                            'div',
+                            { 'class': 'd-flex flex-column' },
+                            React.createElement(
+                                'label',
+                                { 'class': 'wa' },
+                                '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement(
+                                    'p',
+                                    { id: 'daytext1', 'class': 'watsarabun' },
+                                    '0'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { 'class': 'watsarabun' },
+                                    '/250'
+                                )
+                            )
                         )
                     ),
                     React.createElement(
@@ -123,19 +131,27 @@ var BookPage = function (_React$Component) {
                         'div',
                         { 'class': 'd-flex justify-content-center mt-2' },
                         React.createElement(
-                            'label',
-                            { 'class': 'wa' },
-                            '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
-                        ),
-                        React.createElement(
-                            'p',
-                            { id: 'daytext2', 'class': 'ml-5' },
-                            '0'
-                        ),
-                        React.createElement(
-                            'p',
-                            null,
-                            '/250'
+                            'div',
+                            { 'class': 'd-flex flex-column' },
+                            React.createElement(
+                                'label',
+                                { 'class': 'wa' },
+                                '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                            ),
+                            React.createElement(
+                                'div',
+                                { 'class': 'd-flex justify-content-center' },
+                                React.createElement(
+                                    'p',
+                                    { id: 'daytext2', 'class': 'watsarabun' },
+                                    '0'
+                                ),
+                                React.createElement(
+                                    'p',
+                                    { 'class': 'watsarabun' },
+                                    '/250'
+                                )
+                            )
                         )
                     ),
                     React.createElement(
@@ -467,19 +483,27 @@ var BookPage = function (_React$Component) {
                                 'div',
                                 { 'class': 'd-flex justify-content-center mt-2' },
                                 React.createElement(
-                                    'label',
-                                    { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    { id: 'daytext1', 'class': 'ml-5' },
-                                    '0'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    null,
-                                    '/250'
+                                    'div',
+                                    { 'class': 'd-flex flex-column' },
+                                    React.createElement(
+                                        'label',
+                                        { 'class': 'wa' },
+                                        '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'p',
+                                            { id: 'daytext1', 'class': 'watsarabun' },
+                                            '0'
+                                        ),
+                                        React.createElement(
+                                            'p',
+                                            { 'class': 'watsarabun' },
+                                            '/250'
+                                        )
+                                    )
                                 )
                             ),
                             React.createElement(
@@ -491,19 +515,27 @@ var BookPage = function (_React$Component) {
                                 'div',
                                 { 'class': 'd-flex justify-content-center mt-2' },
                                 React.createElement(
-                                    'label',
-                                    { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    { id: 'daytext2', 'class': 'ml-5' },
-                                    '0'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    null,
-                                    '/250'
+                                    'div',
+                                    { 'class': 'd-flex flex-column' },
+                                    React.createElement(
+                                        'label',
+                                        { 'class': 'wa' },
+                                        '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'p',
+                                            { id: 'daytext2', 'class': 'watsarabun' },
+                                            '0'
+                                        ),
+                                        React.createElement(
+                                            'p',
+                                            { 'class': 'watsarabun' },
+                                            '/250'
+                                        )
+                                    )
                                 )
                             ),
                             React.createElement(
@@ -544,19 +576,27 @@ var BookPage = function (_React$Component) {
                                 'div',
                                 { 'class': 'd-flex justify-content-center mt-2' },
                                 React.createElement(
-                                    'label',
-                                    { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    { id: 'gumlungjaitext1', 'class': 'ml-5' },
-                                    '0'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    null,
-                                    '/250'
+                                    'div',
+                                    { 'class': 'd-flex flex-column' },
+                                    React.createElement(
+                                        'label',
+                                        { 'class': 'wa' },
+                                        '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E43\u0E2B\u0E49'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'p',
+                                            { id: 'gumlungjaitext1', 'class': 'watsarabun' },
+                                            '0'
+                                        ),
+                                        React.createElement(
+                                            'p',
+                                            { 'class': 'watsarabun' },
+                                            '/250'
+                                        )
+                                    )
                                 )
                             ),
                             React.createElement(
@@ -569,19 +609,27 @@ var BookPage = function (_React$Component) {
                                 'div',
                                 { 'class': 'd-flex justify-content-center mt-2' },
                                 React.createElement(
-                                    'label',
-                                    { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    { id: 'gumlungjaitext2', 'class': 'ml-5' },
-                                    '0'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    null,
-                                    '/250'
+                                    'div',
+                                    { 'class': 'd-flex flex-column' },
+                                    React.createElement(
+                                        'label',
+                                        { 'class': 'wa' },
+                                        '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'p',
+                                            { id: 'gumlungjaitext2', 'class': 'watsarabun' },
+                                            '0'
+                                        ),
+                                        React.createElement(
+                                            'p',
+                                            { 'class': 'watsarabun' },
+                                            '/250'
+                                        )
+                                    )
                                 )
                             ),
                             React.createElement(
@@ -608,19 +656,27 @@ var BookPage = function (_React$Component) {
                                 'div',
                                 { 'class': 'd-flex justify-content-center mt-2' },
                                 React.createElement(
-                                    'label',
-                                    { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E25\u0E49\u0E2D\u0E40\u0E25\u0E35\u0E22\u0E19\u0E27\u0E48\u0E32\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23\u0E1A\u0E49\u0E32\u0E07'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    { id: 'paotext1', 'class': 'ml-5' },
-                                    '0'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    null,
-                                    '/250'
+                                    'div',
+                                    { 'class': 'd-flex flex-column' },
+                                    React.createElement(
+                                        'label',
+                                        { 'class': 'wa' },
+                                        '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E25\u0E49\u0E2D\u0E40\u0E25\u0E35\u0E22\u0E19\u0E27\u0E48\u0E32\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23\u0E1A\u0E49\u0E32\u0E07'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'p',
+                                            { id: 'paotext1', 'class': 'watsarabun' },
+                                            '0'
+                                        ),
+                                        React.createElement(
+                                            'p',
+                                            { 'class': 'watsarabun' },
+                                            '/250'
+                                        )
+                                    )
                                 )
                             ),
                             React.createElement(
@@ -632,19 +688,27 @@ var BookPage = function (_React$Component) {
                                 'div',
                                 { 'class': 'd-flex justify-content-center mt-2' },
                                 React.createElement(
-                                    'label',
-                                    { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    { id: 'paotext2', 'class': 'ml-5' },
-                                    '0'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    null,
-                                    '/250'
+                                    'div',
+                                    { 'class': 'd-flex flex-column' },
+                                    React.createElement(
+                                        'label',
+                                        { 'class': 'wa' },
+                                        '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'p',
+                                            { id: 'paotext2', 'class': 'watsarabun' },
+                                            '0'
+                                        ),
+                                        React.createElement(
+                                            'p',
+                                            { 'class': 'watsarabun' },
+                                            '/250'
+                                        )
+                                    )
                                 )
                             ),
                             React.createElement(
@@ -683,19 +747,27 @@ var BookPage = function (_React$Component) {
                                 'div',
                                 { 'class': 'd-flex justify-content-center mt-2' },
                                 React.createElement(
-                                    'label',
-                                    { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    { id: 'othertext1', 'class': 'ml-5' },
-                                    '0'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    null,
-                                    '/250'
+                                    'div',
+                                    { 'class': 'd-flex flex-column' },
+                                    React.createElement(
+                                        'label',
+                                        { 'class': 'wa' },
+                                        '\u0E2D\u0E22\u0E32\u0E01\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E1E\u0E39\u0E14/\u0E17\u0E4D\u0E32\u0E2D\u0E30\u0E44\u0E23'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'p',
+                                            { id: 'othertext1', 'class': 'watsarabun' },
+                                            '0'
+                                        ),
+                                        React.createElement(
+                                            'p',
+                                            { 'class': 'watsarabun' },
+                                            '/250'
+                                        )
+                                    )
                                 )
                             ),
                             React.createElement(
@@ -707,19 +779,27 @@ var BookPage = function (_React$Component) {
                                 'div',
                                 { 'class': 'd-flex justify-content-center mt-2' },
                                 React.createElement(
-                                    'label',
-                                    { 'class': 'wa' },
-                                    '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    { id: 'othertext2', 'class': 'ml-5' },
-                                    '0'
-                                ),
-                                React.createElement(
-                                    'p',
-                                    null,
-                                    '/250'
+                                    'div',
+                                    { 'class': 'd-flex flex-column' },
+                                    React.createElement(
+                                        'label',
+                                        { 'class': 'wa' },
+                                        '\u0E2D\u0E22\u0E32\u0E01\u0E1A\u0E2D\u0E01\u0E2D\u0E30\u0E44\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E15\u0E34\u0E21\u0E01\u0E31\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                                    ),
+                                    React.createElement(
+                                        'div',
+                                        { 'class': 'd-flex justify-content-center' },
+                                        React.createElement(
+                                            'p',
+                                            { id: 'othertext2', 'class': 'watsarabun' },
+                                            '0'
+                                        ),
+                                        React.createElement(
+                                            'p',
+                                            { 'class': 'watsarabun' },
+                                            '/250'
+                                        )
+                                    )
                                 )
                             ),
                             React.createElement(

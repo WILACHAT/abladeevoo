@@ -31,6 +31,8 @@ var InfluencerFeedRows = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (InfluencerFeedRows.__proto__ || Object.getPrototypeOf(InfluencerFeedRows)).call(this, props));
 
     _this.hideFunction = _this.hideFunction.bind(_this);
+    _this.testerfunction = _this.testerfunction.bind(_this);
+
     if (_this.props.hide == true) {
       _this.state = {
         hide: "Unhide"
@@ -45,25 +47,34 @@ var InfluencerFeedRows = function (_React$Component) {
   }
 
   _createClass(InfluencerFeedRows, [{
+    key: 'testerfunction',
+    value: function testerfunction(e) {
+      console.log("this is to test");
+    }
+  }, {
     key: 'hideFunction',
-    value: function hideFunction(e) {
+    value: function hideFunction(dataid) {
       var _this2 = this;
 
-      if (e.target.value == "Hide") {
+      console.log("fuck pls work");
+
+      var findid = dataid + "ininfluencer";
+
+      if (document.getElementById(dataid).value == "Hide") {
         this.setState({ hide: "Unhide" });
       } else {
         this.setState({ hide: "Hide" });
       }
-      var publicid = e.target.id;
+      var publicid = dataid;
       var getcooked = getCookie('csrftoken');
-      console.log("what is the value", e.target.value);
 
       fetch('/hidepost', {
         method: 'POST',
         headers: { 'X-CSRFToken': getcooked },
         body: JSON.stringify({
           publicid: publicid,
-          hide: e.target.value
+          hide: document.getElementById(dataid).value
+
         })
       }).then(function (response) {
         return response.json();
@@ -77,6 +88,9 @@ var InfluencerFeedRows = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
+      var waid = this.props.data + "ininfluencer";
       console.log("wawa", this.props.data);
       var thewholereturn = "";
       if (this.props.feedtype == "main") {
@@ -84,29 +98,39 @@ var InfluencerFeedRows = function (_React$Component) {
         var link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4";
         thewholereturn = React.createElement(
           'div',
-          { 'class': 'd-flex justify-comlumn' },
+          null,
           React.createElement(
             'div',
-            { 'class': 'videomaincover mt-3 ml-2' },
+            { id: waid, 'class': this.props.sameperson == 1 ? this.state.hide == "Hide" ? "backgroundhide mt-5 ml-2 mr-2" : "backgroundhidewrong mt-5 ml-2 mr-2" : null },
             React.createElement(
               'div',
-              { 'class': 'd-flex justify-content-center' },
+              { 'class': 'beforevideomaincover' },
               React.createElement(
-                'video',
-                { autoplay: 'true', 'class': 'videoshow', muted: 'true', id: 'testervideo', width: '320', height: '240', controls: true },
-                React.createElement('source', { src: link, type: 'video/mp4' }),
-                'Your browser does not support the video tag.'
+                'div',
+                { 'class': 'videomaincover mt-3' },
+                React.createElement(
+                  'div',
+                  { 'class': 'd-flex justify-content-center' },
+                  React.createElement(
+                    'video',
+                    { 'class': 'videoshow', muted: 'true', id: 'testervideo', controls: true },
+                    React.createElement('source', { src: link, type: 'video/mp4' }),
+                    'Your browser does not support the video tag.'
+                  )
+                )
               )
-            ),
-            React.createElement(
-              'div',
-              { 'class': 'd-flex justify-content-center mt-3' },
-              this.props.sameperson == 1 ? React.createElement(
-                'button',
-                { id: this.props.data, value: this.state.hide, 'class': this.state.hide == "Hide" ? "btn hidebutton" : "btn hidebuttonwrong", onClick: this.hideFunction },
-                this.state.hide == "Hide" ? "ซ้อน" : "เลิกซ่อน"
-              ) : null
             )
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'd-flex justify-content-center mt-3' },
+            this.props.sameperson == 1 ? React.createElement(
+              'button',
+              { id: this.props.data, value: this.state.hide, 'class': this.state.hide == "Hide" ? "btn hidebutton" : "btn hidebuttonwrong", onClick: function onClick() {
+                  return _this3.hideFunction(_this3.props.data);
+                } },
+              this.state.hide == "Hide" ? "ซ้อน" : "เลิกซ่อน"
+            ) : null
           )
         );
       } else {
@@ -172,10 +196,10 @@ var InfluencerFeedTable = function (_React$Component2) {
   function InfluencerFeedTable(props) {
     _classCallCheck(this, InfluencerFeedTable);
 
-    var _this3 = _possibleConstructorReturn(this, (InfluencerFeedTable.__proto__ || Object.getPrototypeOf(InfluencerFeedTable)).call(this, props));
+    var _this4 = _possibleConstructorReturn(this, (InfluencerFeedTable.__proto__ || Object.getPrototypeOf(InfluencerFeedTable)).call(this, props));
 
-    console.log("accountstatus", _this3.props.data.accountstatus);
-    return _this3;
+    console.log("accountstatus", _this4.props.data.accountstatus);
+    return _this4;
   }
 
   _createClass(InfluencerFeedTable, [{
@@ -275,23 +299,23 @@ var EditPost = function (_React$Component3) {
   function EditPost(props) {
     _classCallCheck(this, EditPost);
 
-    var _this4 = _possibleConstructorReturn(this, (EditPost.__proto__ || Object.getPrototypeOf(EditPost)).call(this, props));
+    var _this5 = _possibleConstructorReturn(this, (EditPost.__proto__ || Object.getPrototypeOf(EditPost)).call(this, props));
 
-    _this4.editPost = _this4.editPost.bind(_this4);
-    _this4.editCancel = _this4.editCancel.bind(_this4);
-    _this4.checkTxtArea = _this4.checkTxtArea.bind(_this4);
-    console.log("this.props.fillname", _this4.props.fullname);
-    console.log("rengoku", _this4.props.profilepic);
+    _this5.editPost = _this5.editPost.bind(_this5);
+    _this5.editCancel = _this5.editCancel.bind(_this5);
+    _this5.checkTxtArea = _this5.checkTxtArea.bind(_this5);
+    console.log("this.props.fillname", _this5.props.fullname);
+    console.log("rengoku", _this5.props.profilepic);
 
-    _this4.state = {
-      fullname: _this4.props.fullname,
-      description: _this4.props.description,
-      first_url: _this4.props.first_url,
-      second_url: _this4.props.second_url,
-      third_url: _this4.props.third_url
+    _this5.state = {
+      fullname: _this5.props.fullname,
+      description: _this5.props.description,
+      first_url: _this5.props.first_url,
+      second_url: _this5.props.second_url,
+      third_url: _this5.props.third_url
 
     };
-    return _this4;
+    return _this5;
   }
 
   _createClass(EditPost, [{
@@ -396,27 +420,27 @@ var InfluencerFeedTitle = function (_React$Component4) {
   function InfluencerFeedTitle(props) {
     _classCallCheck(this, InfluencerFeedTitle);
 
-    var _this5 = _possibleConstructorReturn(this, (InfluencerFeedTitle.__proto__ || Object.getPrototypeOf(InfluencerFeedTitle)).call(this, props));
+    var _this6 = _possibleConstructorReturn(this, (InfluencerFeedTitle.__proto__ || Object.getPrototypeOf(InfluencerFeedTitle)).call(this, props));
 
-    _this5.changeFeedPortal = _this5.changeFeedPortal.bind(_this5);
-    _this5.editProfile = _this5.editProfile.bind(_this5);
-    _this5.editDes = _this5.editDes.bind(_this5);
+    _this6.changeFeedPortal = _this6.changeFeedPortal.bind(_this6);
+    _this6.editProfile = _this6.editProfile.bind(_this6);
+    _this6.editDes = _this6.editDes.bind(_this6);
 
-    _this5.cancel = _this5.cancel.bind(_this5);
-    _this5.cancelDes = _this5.cancelDes.bind(_this5);
+    _this6.cancel = _this6.cancel.bind(_this6);
+    _this6.cancelDes = _this6.cancelDes.bind(_this6);
 
     //  this.showImg = this.showImg.bind(this);
-    _this5.sendEditPost = _this5.sendEditPost.bind(_this5);
-    _this5.sendEditDes = _this5.sendEditDes.bind(_this5);
+    _this6.sendEditPost = _this6.sendEditPost.bind(_this6);
+    _this6.sendEditDes = _this6.sendEditDes.bind(_this6);
 
-    _this5.chooseFile = _this5.chooseFile.bind(_this5);
-    _this5.chooseFileVideo = _this5.chooseFileVideo.bind(_this5);
-    _this5.checkTxtArea = _this5.checkTxtArea.bind(_this5);
+    _this6.chooseFile = _this6.chooseFile.bind(_this6);
+    _this6.chooseFileVideo = _this6.chooseFileVideo.bind(_this6);
+    _this6.checkTxtArea = _this6.checkTxtArea.bind(_this6);
 
     document.querySelector('#maininfluencer').hidden = false;
     document.querySelector('#reviewsmainfluencer').hidden = true;
 
-    console.log("waearth", _this5.props.data);
+    console.log("waearth", _this6.props.data);
 
     var fullname = "";
     var description = "";
@@ -428,31 +452,31 @@ var InfluencerFeedTitle = function (_React$Component4) {
     var trackername = 0;
     var trackerdes = 0;
 
-    if (_this5.props.data["userinfodata"][0] != null) {
-      if (_this5.props.data["userinfodata"][0].profile_fullname != null) {
-        fullname = _this5.props.data["userinfodata"][0].profile_fullname;
+    if (_this6.props.data["userinfodata"][0] != null) {
+      if (_this6.props.data["userinfodata"][0].profile_fullname != null) {
+        fullname = _this6.props.data["userinfodata"][0].profile_fullname;
       }
-      if (_this5.props.data["userinfodata"][0].profile_description != null) {
-        description = _this5.props.data["userinfodata"][0].profile_description;
+      if (_this6.props.data["userinfodata"][0].profile_description != null) {
+        description = _this6.props.data["userinfodata"][0].profile_description;
       }
-      if (_this5.props.data["userinfodata"][0].first_url != null) {
-        first_url = _this5.props.data["userinfodata"][0].first_url;
+      if (_this6.props.data["userinfodata"][0].first_url != null) {
+        first_url = _this6.props.data["userinfodata"][0].first_url;
       }
-      if (_this5.props.data["userinfodata"][0].second_url != null) {
-        second_url = _this5.props.data["userinfodata"][0].second_url;
+      if (_this6.props.data["userinfodata"][0].second_url != null) {
+        second_url = _this6.props.data["userinfodata"][0].second_url;
       }
-      if (_this5.props.data["userinfodata"][0].third_url != null) {
-        third_url = _this5.props.data["userinfodata"][0].third_url;
+      if (_this6.props.data["userinfodata"][0].third_url != null) {
+        third_url = _this6.props.data["userinfodata"][0].third_url;
       }
-      if (_this5.props.data["userinfodata"][0].profile_picture != null) {
-        profilepic = _this5.props.data["userinfodata"][0].profile_picture;
+      if (_this6.props.data["userinfodata"][0].profile_picture != null) {
+        profilepic = _this6.props.data["userinfodata"][0].profile_picture;
       }
-      if (_this5.props.data["userinfodata"][0].profile_video != null) {
-        profilevideo = _this5.props.data["userinfodata"][0].profile_video;
+      if (_this6.props.data["userinfodata"][0].profile_video != null) {
+        profilevideo = _this6.props.data["userinfodata"][0].profile_video;
       }
     }
 
-    _this5.state = {
+    _this6.state = {
       fullname: fullname,
       description: description,
       first_url: first_url,
@@ -466,7 +490,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
       edit: React.createElement('div', { 'class': 'biggestdivchecker' })
 
     };
-    return _this5;
+    return _this6;
   }
 
   _createClass(InfluencerFeedTitle, [{
@@ -505,7 +529,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }, {
     key: 'chooseFile',
     value: function chooseFile(e) {
-      var _this6 = this;
+      var _this7 = this;
 
       //function above
       /*
@@ -554,7 +578,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
           });
           console.log("result", result);
           console.log(result['url']);
-          _this6.setState({
+          _this7.setState({
             profilepic: result['url']
           });
         });
@@ -611,7 +635,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }, {
     key: 'sendEditDes',
     value: function sendEditDes() {
-      var _this7 = this;
+      var _this8 = this;
 
       var iddescription = document.getElementById("iddescription").value;
       var csrftoken = getCookie('csrftoken');
@@ -628,7 +652,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
         return response.json();
       }).then(function (result) {
 
-        _this7.setState({
+        _this8.setState({
           description: iddescription,
           trackerdes: 1
 
@@ -640,7 +664,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
   }, {
     key: 'sendEditPost',
     value: function sendEditPost() {
-      var _this8 = this;
+      var _this9 = this;
 
       console.log("ok this is in send edit post");
       var idfullname = document.getElementById("idfullname").value;
@@ -662,7 +686,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
       }).then(function (result) {
         console.log("this is result", idfullname);
 
-        _this8.setState({
+        _this9.setState({
           fullname: idfullname,
           trackername: 1
 
@@ -855,17 +879,13 @@ var InfluencerFeedTitle = function (_React$Component4) {
                         { 'class': 'd-flex flex-column mt-3' },
                         React.createElement(
                           'div',
-                          { 'class': 'd-flex justify-content-center' },
+                          { 'class': 'd-flex justify-content-center coverchoosefile' },
                           React.createElement(
                             'label',
-                            null,
-                            '\u0E01\u0E14\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E39\u0E1B\u0E42\u0E1B\u0E23\u0E44\u0E1F\u0E25\u0E4C'
+                            { 'class': 'chooseprofile2label', 'for': 'choosefile' },
+                            '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E39\u0E1B',
+                            React.createElement('input', { id: 'choosefile', 'class': 'chooseprofile1 ml-5', onChange: this.chooseFile, type: 'file' })
                           )
-                        ),
-                        React.createElement(
-                          'div',
-                          { 'class': 'd-flex justify-content-center coverchoosefile' },
-                          React.createElement('input', { id: 'choosefile', 'class': 'choosefile ml-5', onChange: this.chooseFile, type: 'file' })
                         )
                       ) : null,
                       React.createElement(
@@ -1093,11 +1113,16 @@ var InfluencerFeedTitle = function (_React$Component4) {
                     ),
                     this.props.data["sameperson"] == 1 ? React.createElement(
                       'div',
-                      { 'class': 'custom-filee' },
+                      { 'class': 'custom-filee mt-2' },
                       React.createElement(
                         'div',
                         { 'class': 'videouploadininfluencer' },
-                        React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                        React.createElement(
+                          'label',
+                          { 'class': 'chooseprofile3label', 'for': 'inputGroupFile01' },
+                          '\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27',
+                          React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'chooseprofile1', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                        )
                       )
                     ) : null
                   )
@@ -1123,23 +1148,19 @@ var InfluencerFeedTitle = function (_React$Component4) {
                     null,
                     React.createElement(
                       'div',
-                      { 'class': 'd-flex justify-content-center mt-2' },
-                      React.createElement(
-                        'label',
-                        { htmlFor: 'edit_post_txt' },
-                        '\u0E01\u0E14\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27'
-                      )
-                    ),
-                    React.createElement(
-                      'div',
                       null,
                       React.createElement(
                         'div',
-                        { 'class': 'custom-file' },
+                        { 'class': 'custom-file mt-2' },
                         React.createElement(
                           'div',
                           { 'class': 'videouploadininfluencer' },
-                          React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'editintrovid', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                          React.createElement(
+                            'label',
+                            { 'class': 'chooseprofile3label', 'for': 'inputGroupFile01' },
+                            '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E41\u0E19\u0E30\u0E19\u0E4D\u0E32\u0E15\u0E31\u0E27',
+                            React.createElement('input', { type: 'file', onChange: this.chooseFileVideo, 'class': 'chooseprofile1', id: 'inputGroupFile01', 'aria-describedby': 'inputGroupFileAddon01' })
+                          )
                         )
                       )
                     )
@@ -1169,7 +1190,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
           React.createElement(
             'h6',
             null,
-            '*\u0E40\u0E27\u0E47\u0E1B\u0E44\u0E0B\u0E15\u0E4C\u0E08\u0E30\u0E42\u0E0A\u0E22\u0E4C 9 \u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E25\u0E48\u0E32\u0E2A\u0E38\u0E14\u0E16\u0E49\u0E32\u0E44\u0E21\u0E48\u0E44\u0E14\u0E49\u0E0B\u0E48\u0E2D\u0E19\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D*'
+            '*\u0E40\u0E27\u0E47\u0E1B\u0E44\u0E0B\u0E15\u0E4C\u0E08\u0E30\u0E42\u0E0A\u0E22\u0E4C 9 \u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D\u0E25\u0E48\u0E32\u0E2A\u0E38\u0E14\u0E16\u0E49\u0E32\u0E44\u0E21\u0E48\u0E44\u0E14\u0E49\u0E0B\u0E49\u0E2D\u0E19\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D*'
           )
         ) : null
       );

@@ -108,6 +108,11 @@ color:#FF336F;
 font-family: 'Bangers', cursive;
 font-size:30px;
 }
+.watsarabun
+{
+  margin-bottom: 0px;
+  margin-top:0px;
+}
 
 .wa
 {
@@ -841,9 +846,6 @@ height:40px;
 
 
 .grid {
-display: grid;
-gap: 1px;
-display: flex;
 flex-wrap: wrap;
 }
 
@@ -915,11 +917,23 @@ justify-content: center;
 
 }
 
+.beforevideomaincover
+{
+  padding-top:5px;
+  padding-right:25px;
+  padding-left:25px;
+  padding-bottom:10px;
+}
 .videomaincover
 {
-width:100%;
-height:400px;
-margin-right:50px;
+width:250px;
+height:450px;
+}
+.videoshow
+{
+  margin: auto;
+  width:100%;
+  height:100%;
 }
 .reviewmaincover
 {
@@ -941,7 +955,6 @@ width:100%;
 .custom-filee
 {
 width:100%;
-margin-left:33px;
 }
 .divcolumn
 {
@@ -1117,15 +1130,26 @@ color:white;
 .hidebutton
 {
 color:white;
-background-color:green;
+background-color:#FF336F;
 
 }
 .hidebuttonwrong
 {
 color:white;
-background-color: red;
+background-color:#094FCB;
+}
+.backgroundhide
+{
+  border-radius: 10px;
+  background-color:#FF336F;
+}
+.backgroundhidewrong
+{
+  border-radius: 20px;
+
 
 }
+
 
 .unhidediv
 {
@@ -2108,6 +2132,65 @@ border-radius: 10px;
 word-wrap: break-word;
 
 }
+.chooseprofile1
+{
+  display: none;
+
+}
+text
+{
+  margin-top:5px;
+}
+.chooseprofile1label
+{
+  padding-top: 8px;
+ 
+
+  cursor: pointer;
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:120px;
+  height:40px;
+  border-radius: 5px;
+}
+.chooseprofile2label
+{
+  padding-top: 8px;
+  text-align: center;
+  cursor: pointer;
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:120px;
+  height:40px;
+  border-radius: 5px;
+}
+
+.chooseprofile3label
+{
+  padding-top: 8px;
+  text-align: center;
+  cursor: pointer;
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:100%;
+  height:40px;
+  border-radius: 5px;
+}
+.chooseprofile4label
+{
+  padding-top: 8px;
+  text-align: center;
+  cursor: pointer;
+  background-image: linear-gradient(90deg, #094FCB,#FF336F);
+  color:white;
+  border:none;
+  width:300px;
+  height:40px;
+  border-radius: 5px;
+}
 .wanoresult
 {
 padding-bottom:7%;
@@ -2634,7 +2717,6 @@ font-family: 'Sarabun';
 .sarabun
 {
   font-family: 'Sarabun';
-
 }
 
 .noorderyet{
@@ -2813,7 +2895,7 @@ background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)
 background-origin: border-box;
 background-clip: content-box, border-box;
 box-shadow: 2px 1000px 1px #fff inset;
-border-radius:30px;
+border-radius:40px;
 cursor: pointer;
 padding: 1.5%;
 width: 100%;
@@ -2938,7 +3020,7 @@ cursor: pointer;
 .active {
 padding: 5px;
 background: #1abc9c;
-color: white !important
+color: #212121 !important
 }
 .active:hover {
 cursor: pointer;

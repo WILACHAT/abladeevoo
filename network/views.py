@@ -481,7 +481,7 @@ def gotoinfluencer(request, username, feedtype):
             #postandmessage = Postandmessage.objects.filter(poster_id = influencerid)
             
             if sameperson == 1:
-                postandmessage = Postandmessage.objects.filter(poster_id = influencerid ,reservation_ofpost__show__icontains=False)
+                postandmessage = Postandmessage.objects.filter(poster_id = influencerid ,reservation_ofpost__show__icontains=False).order_by('-id')
                 for i in postandmessage:
                     alldata.append(i.video)
                     hidedata.append(i.hide)
@@ -976,6 +976,8 @@ def forupload(request, type):
            # print("check wtf is going on with id", uniquepostingid)
             print("this is THE TYPE", type)
             if type == "video":
+                print("BUGGY IN VIDEO 1")
+
                 print("inside video?")
                 request.FILES['media']
 
@@ -984,11 +986,15 @@ def forupload(request, type):
                 return_response = {"url": uploaded_response['public_id']}
 
             elif type == "image":
+                print("BUGGY IN IMAGE 2")
+
                 print("whawhatwha", uniquepostingid)
                 uploaded_response = upload_files(request.FILES['media'], uniquepostingid)
                 return_response = {"url": uploaded_response['resources'][0]['url']}
 
             elif type == "imageinprofile":
+                print("BUGGY IN IMAGE 3")
+
                 uploaded_response = upload_files(request.FILES['media'], uniquepostingid)
                 print("this is something wrong lolololol", uploaded_response)
                 if uploaded_response != "error":
@@ -1004,8 +1010,15 @@ def forupload(request, type):
                     return_response = {"url": uploaded_response['resources'][0]['public_id']}
                 else:
                     return_response = {"error": "pic but upload vid"}
-            
+            elif type == "imageinprofilefornormal":
+                uploaded_response = upload_files(request.FILES['media'], uniquepostingid)
+                if uploaded_response != "error":
+                    User.objects.filter(id = request.user.id).update(normal_user_pic = uploaded_response['resources'][0]['public_id'])
+                    return_response = {"url": uploaded_response['resources'][0]['public_id']}
+                else:
+                    return_response = {"error": "pic but upload vid"}
             else:
+                print("BUGGY IN 4")
                 uploaded_response = upload_files_videos(request.FILES['media'], uniquepostingid)
                 checker = Userinfo.objects.filter(influencer_id = request.user.id)
                 if checker.exists():

@@ -77,33 +77,25 @@ class EachReserve extends React.Component{
         this.checkStar = this.checkStar.bind(this);
 
 
-        console.log("right in the constructor")
-        console.log("this.props.data", this.props.data)
-
-        console.log("kaido is ded2", document.querySelector('#typeofpage'))
-        console.log("bruh", this.props.data["type"])
-        console.log("2 weeks until one piece", this.props.id)
         
     }
     deleteRequest(id)
     {
         
         Swal.fire({
-            title: '<strong>HTML <u>example</u></strong>',
+            title: '<strong>คุณกําลังจะกดไม่ทําการสั่งซื้อนี้ของแฟนคลับ</strong>',
             icon: 'info',
             html:
                         
-                'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
+                'คุณมั่นใจว่าจะ <b>ไม่ทํา</b> รีเควสของแฟนคนนี้ <br><br>(แฟนคลับจะได้รับเงินคืน)',
           
             showCloseButton: true,
             showCancelButton: true,
             focusConfirm: false,
             confirmButtonText:
-                '<i class="fa fa-thumbs-up"></i> Pause Account',
-            confirmButtonAriaLabel: 'Thumbs up, great!',
+                'มั่นใจ',
             cancelButtonText:
-            '<i class="fa fa-thumbs-up"></i> No',
-            cancelButtonAriaLabel: 'Thumbs down'
+            'ยกเลิก',
             })
             .then((result) => { 
                 console.log(result) 
@@ -183,21 +175,19 @@ class EachReserve extends React.Component{
     {
             
         Swal.fire({
-            title: '<strong>HTML <u>example</u></strong>',
+            title: '<strong>คุณกําลังจะกดรีพอร์ตคําสั่งซื้อนี้</strong>',
             icon: 'info',
             html:
                         
-                'Are you <b>certain</b> that you want to hide the account. Customer would not be able to request but you would still be able to complete request that is already requested.',
+                'คุณมั่นใจว่าจะ <b>รีพอร์ต</b> รีเควสนี้ <br><br>(คนที่รีเควสจะไม่ได้รับเงินคืน)',
           
             showCloseButton: true,
             showCancelButton: true,
             focusConfirm: false,
             confirmButtonText:
-                '<i class="fa fa-thumbs-up"></i> Pause Account',
-            confirmButtonAriaLabel: 'Thumbs up, great!',
+                'มั่นใจ',
             cancelButtonText:
-            '<i class="fa fa-thumbs-up"></i> No',
-            cancelButtonAriaLabel: 'Thumbs down'
+            'ยกเลิก',
             })
             .then((result) => { 
                 console.log(result) 
@@ -527,13 +517,15 @@ class EachReserve extends React.Component{
                 <div class="d-flex justify-content-center mb-3">
                     <div class="postoptionforinfluencer">
                         <div>
-                              <div class="d-flex justify-content-center">
-                                  <label class="wa" htmlFor="edit_post_txt">คลิ๊กเพื่อเลือก Vid โพสต์: </label>
-                              </div>
                               <div class="custom-file">
                                   <div class="d-flex justify-content-center">
-                                      <input type="file" onChange={this.chooseFile} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
-                                  </div>
+                                    <label class="chooseprofile4label" for="inputGroupFile01">
+                                        กดเพื่อเลือกวีดีโอที่จะส่งให้แฟนคลับ
+                                        <input type="file" onChange={this.chooseFile} class="chooseprofile1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                                      </label>                                  
+                                    </div>
+
+        
                               </div>
                               <div class="d-flex justify-content-center">
                         <video autoplay="true" muted="true" hidden id="testervideo" class="videovideowhenget" controls>

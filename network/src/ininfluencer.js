@@ -18,6 +18,8 @@ class InfluencerFeedRows extends React.Component {
 constructor(props) {
   super(props);
   this.hideFunction = this.hideFunction.bind(this);
+  this.testerfunction = this.testerfunction.bind(this);
+
   if (this.props.hide == true)
   {
     this.state = {
@@ -33,9 +35,17 @@ constructor(props) {
  
 
 }
-hideFunction(e)
+testerfunction(e)
 {
-  if (e.target.value == "Hide")
+  console.log("this is to test")
+}
+hideFunction(dataid)
+{
+  console.log("fuck pls work")
+  
+  let findid = dataid + "ininfluencer"
+
+  if (document.getElementById(dataid).value == "Hide")
   {
     this.setState({hide : "Unhide"})
   }
@@ -43,16 +53,16 @@ hideFunction(e)
   {
     this.setState({hide : "Hide"})
   }
-  let publicid = e.target.id
+  let publicid = dataid
   const getcooked = getCookie('csrftoken');
-  console.log("what is the value", e.target.value)
 
         fetch(`/hidepost`, {
             method: 'POST',
             headers:{'X-CSRFToken': getcooked},
             body: JSON.stringify({
               publicid: publicid,
-              hide: e.target.value
+              hide: document.getElementById(dataid).value
+
             })
           })
             .then(response => response.json())
@@ -68,6 +78,7 @@ hideFunction(e)
 }
 render()
 {  
+  let waid = this.props.data + "ininfluencer"
   console.log("wawa", this.props.data)
   let thewholereturn = ""
   if (this.props.feedtype == "main")
@@ -75,20 +86,26 @@ render()
 
     let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4"
     thewholereturn = 
-    <div class="d-flex justify-comlumn">
-      <div  class="videomaincover mt-3 ml-2">
-        <div class="d-flex justify-content-center">
-          <video autoplay="true" class="videoshow" muted="true"  id="testervideo" width="320" height="240" controls >
-            <source src={link} type="video/mp4"></source>
-            Your browser does not support the video tag.
-          </video>
-        
-        </div>
+
+      <div>
+        <div id={waid}   class={this.props.sameperson == 1 ?  this.state.hide == "Hide" ? "backgroundhide mt-5 ml-2 mr-2":"backgroundhidewrong mt-5 ml-2 mr-2":null}>
+            <div class="beforevideomaincover">
+              <div class="videomaincover mt-3">
+                  <div class="d-flex justify-content-center">
+                    <video class="videoshow" muted="true" id="testervideo" controls >
+                      <source src={link} type="video/mp4"></source>
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+              </div>
+            </div>
+            </div>
+
         <div class="d-flex justify-content-center mt-3">
-              {this.props.sameperson == 1 ?  <button id={this.props.data} value={this.state.hide} class={this.state.hide == "Hide" ? "btn hidebutton":"btn hidebuttonwrong"} onClick={this.hideFunction}>{this.state.hide == "Hide" ? "ซ้อน":"เลิกซ่อน"}</button>:null}
+          {this.props.sameperson == 1 ?  <button id={this.props.data} value={this.state.hide} class={this.state.hide == "Hide" ? "btn hidebutton":"btn hidebuttonwrong"} onClick={() => this.hideFunction(this.props.data)}>{this.state.hide == "Hide" ? "ซ้อน":"เลิกซ่อน"}</button>:null}
         </div>
       </div>
-    </div>
+   
   }
   else
   {
@@ -829,11 +846,12 @@ class InfluencerFeedTitle extends React.Component {
                                   {this.props.data["sameperson"] == 1 ?                
                                 
                                       <div class="d-flex flex-column mt-3">
-                                          <div class="d-flex justify-content-center">
-                                              <label >กดเพื่อเปลี่ยนรูปโปรไฟล์</label>
-                                          </div>
+      
                                           <div class="d-flex justify-content-center coverchoosefile">
-                                              <input id="choosefile" class="choosefile ml-5" onChange={this.chooseFile} type="file"></input>                  
+                                          <label class="chooseprofile2label" for="choosefile">
+                                          เปลี่ยนรูป
+                                          <input id="choosefile" class="chooseprofile1 ml-5" onChange={this.chooseFile} type="file"></input>
+                                        </label>
                                           </div>
                                       </div> 
                                   :null}
@@ -949,9 +967,12 @@ class InfluencerFeedTitle extends React.Component {
                                       </video>:null}
                                    </div>
                                    {this.props.data["sameperson"] == 1 ? 
-                                  <div class="custom-filee">
+                                  <div class="custom-filee mt-2">
                                       <div class="videouploadininfluencer">
-                                          <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                                      <label class="chooseprofile3label" for="inputGroupFile01">
+                                        เลือกวีดีโอแนะนําตัว
+                                        <input type="file" onChange={this.chooseFileVideo} class="chooseprofile1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                                      </label>
                                       </div>
                                   </div>:null}
 
@@ -974,13 +995,14 @@ class InfluencerFeedTitle extends React.Component {
                                 </div>
                                 {this.props.data["sameperson"] == 1 ?   
                                     <div>
-                                        <div class="d-flex justify-content-center mt-2">
-                                          <label htmlFor="edit_post_txt">กดเพื่อเปลี่ยนวีดีโอแนะนําตัว</label>
-                                      </div>
                                         <div>
-                                            <div class="custom-file">
+                                            <div class="custom-file mt-2">
                                                 <div class="videouploadininfluencer">
-                                                    <input type="file" onChange={this.chooseFileVideo} class="editintrovid" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                                                <label class="chooseprofile3label" for="inputGroupFile01">
+                                                เปลี่ยนวีดีโอแนะนําตัว
+                                                <input type="file" onChange={this.chooseFileVideo} class="chooseprofile1" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"></input>
+                                              </label>
+                                                  
                                                 </div>
                                             </div>
                                         </div>
@@ -1004,8 +1026,7 @@ class InfluencerFeedTitle extends React.Component {
             </div>
             {this.props.data["sameperson"] == 1 ?
               <div class="d-flex justify-content-center">
-                  <h6>*เว็ปไซต์จะโชย์ 9 วีดีโอล่าสุดถ้าไม่ได้ซ่อนวีดีโอ*</h6>
-
+                  <h6>*เว็ปไซต์จะโชย์ 9 วีดีโอล่าสุดถ้าไม่ได้ซ้อนวีดีโอ*</h6>
               </div>
               :null}
          </div>

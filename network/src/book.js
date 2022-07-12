@@ -60,18 +60,27 @@ class BookPage extends React.Component {
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
-                        <p id="daytext1" class="ml-5">0</p>
-                        <p>/250</p>
+                        <div class="d-flex flex-column">
+                            <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
+                                <div class="d-flex justify-content-center">
+                                    <p id="daytext1" class="watsarabun">0</p>
+                                    <p class="watsarabun">/250</p>
+                                </div>
+                        </div>
                     </div>
+
                     <div class="d-flex justify-content-center">
                         <input maxlength="250" data-yea="day1" onChange={this.onType}class="inputheho" required name="occa3"placeholder="ร้องเพลงสุขสันต์วันเกิด พร้อมคำอวยพร"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
-                        <p id="daytext2" class="ml-5">0</p>
-                        <p>/250</p>
+                        <div class="d-flex flex-column">
+                            <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                            <div class="d-flex justify-content-center">
+                                <p id="daytext2" class="watsarabun">0</p>
+                                <p class="watsarabun">/250</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-center">
                         <input maxlength="250" data-yea="day2" onChange={this.onType} class="inputheho" id="optional/occa4" name="occa4" placeholder="รอชมผลงานอยู่นะ!"></input>
@@ -457,20 +466,28 @@ class BookPage extends React.Component {
                         <input id="inputage1"maxlength="100" class="inputheho" required name="occa2" placeholder="เกิดวันที่ 7 กรกฏาคม ขึ้น 20 ปี, ครบรอบวันที่ 7 กรกฏาคม ขึ้น 20 ปี"></input>
                     </div>
                     
-
+                 
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
-                        <p id="daytext1" class="ml-5">0</p>
-                        <p>/250</p>
+                        <div class="d-flex flex-column">
+                            <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
+                            <div class="d-flex justify-content-center">
+                                <p id="daytext1" class="watsarabun">0</p>
+                                <p class="watsarabun">/250</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-center">
                         <input maxlength="250" data-yea="day1" onChange={this.onType} class="inputheho" required name="occa3"placeholder="ร้องเพลงสุขสันต์วันเกิด พร้อมคำอวยพร"></input>
                     </div>
 
                     <div class="d-flex justify-content-center mt-2">
-                        <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
-                        <p id="daytext2" class="ml-5">0</p>
-                        <p>/250</p>
+                        <div class="d-flex flex-column">
+                            <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                            <div class="d-flex justify-content-center">
+                                <p id="daytext2" class="watsarabun">0</p>
+                                <p class="watsarabun">/250</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-center">
                         <input maxlength="250" data-yea="day2" onChange={this.onType} class="inputheho" id="optional/occa4" name="occa4" placeholder="รอชมผลงานอยู่นะ!"></input>
@@ -497,9 +514,13 @@ class BookPage extends React.Component {
                             </div>
 
                             <div class="d-flex justify-content-center mt-2">
-                                <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
-                                <p id="gumlungjaitext1" class="ml-5">0</p>
-                                <p>/250</p>
+                                <div class="d-flex flex-column">
+                                    <label class="wa">อยากให้สตาร์พูด/ทําอะไรให้</label>
+                                    <div class="d-flex justify-content-center">
+                                        <p id="gumlungjaitext1" class="watsarabun">0</p>
+                                        <p class="watsarabun">/250</p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <input id="inputgumlungjai1" data-yea="gumlungjai1"onChange={this.onType} maxlength="250" class="inputheho" required name="occa2" placeholder="พูดให้กำลังใจ ให้มีไฟทำงาน"></input><br></br>
@@ -507,9 +528,13 @@ class BookPage extends React.Component {
                         
 
                             <div class="d-flex justify-content-center mt-2">
-                                <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
-                                <p id="gumlungjaitext2" class="ml-5">0</p>
-                                <p>/250</p>
+                                <div class="d-flex flex-column">
+                                    <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                                    <div class="d-flex justify-content-center">
+                                        <p id="gumlungjaitext2" class="watsarabun">0</p>
+                                        <p class="watsarabun">/250</p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <input data-yea="gumlungjai2" onChange={this.onType} maxlength="250" id="optional/occa3" class="inputheho" name="occa3" placeholder="รอชมผลงานอยู่นะ!"></input><br></br>
@@ -530,9 +555,13 @@ class BookPage extends React.Component {
                     <div name="occasionname" id="roastbutton_html_id">
                         <div>
                             <div class="d-flex justify-content-center mt-2">
-                                <label class="wa">อยากให้สตาร์ล้อเลียนว่าอย่างไรบ้าง</label>
-                                <p id="paotext1" class="ml-5">0</p>
-                                <p>/250</p>
+                                <div class="d-flex flex-column">
+                                    <label class="wa">อยากให้สตาร์ล้อเลียนว่าอย่างไรบ้าง</label>
+                                    <div class="d-flex justify-content-center">
+                                        <p id="paotext1" class="watsarabun">0</p>
+                                        <p class="watsarabun">/250</p>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="d-flex justify-content-center"> 
@@ -540,9 +569,13 @@ class BookPage extends React.Component {
                             </div>
 
                             <div class="d-flex justify-content-center mt-2">
-                                <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
-                                <p id="paotext2" class="ml-5">0</p>
-                                <p>/250</p>
+                                <div class="d-flex flex-column">
+                                    <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                                    <div class="d-flex justify-content-center">
+                                        <p id="paotext2" class="watsarabun">0</p>
+                                        <p class="watsarabun">/250</p>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="d-flex justify-content-center">
@@ -569,18 +602,26 @@ class BookPage extends React.Component {
                             </div>
                            
                             <div class="d-flex justify-content-center mt-2">
-                                <label class="wa">อยากให้สตาร์พูด/ทําอะไร</label>
-                                <p id="othertext1" class="ml-5">0</p>
-                                <p>/250</p>
+                                <div class="d-flex flex-column">
+                                    <label class="wa">อยากให้สตาร์พูด/ทําอะไร</label>
+                                    <div class="d-flex justify-content-center">
+                                        <p id="othertext1" class="watsarabun">0</p>
+                                        <p class="watsarabun">/250</p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <input maxlength="250" data-yea="other1" onChange={this.onType} class="inputheho" required name="occa2" placeholder="อวยพร และพูดแสดงความยินดี"></input>
                             </div>
                            
                             <div class="d-flex justify-content-center mt-2">
-                                <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
-                                <p id="othertext2" class="ml-5">0</p>
-                                <p>/250</p>
+                                <div class="d-flex flex-column">
+                                    <label class="wa">อยากบอกอะไรเพิ่มเติมกับสตาร์</label>
+                                    <div class="d-flex justify-content-center">
+                                        <p id="othertext2" class="watsarabun">0</p>
+                                        <p class="watsarabun">/250</p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <input maxlength="250" data-yea="other2" onChange={this.onType} id="optional/occa3" class="inputheho" name="occa3" placeholder="รอชมผลงานอยู่นะ!"/>

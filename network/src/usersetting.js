@@ -87,7 +87,7 @@ class Information extends React.Component{
       formData.append("media", fileInput);
 
 
-        let type = "imageinprofile"
+        let type = "imageinprofilefornormal"
         console.log("formdata", formData)
         fetch(`/forupload/${type}`, {
           method: 'POST',
@@ -103,7 +103,7 @@ class Information extends React.Component{
             {
               Swal.fire({
                 icon: 'error',
-                title: 'อุ๊ยยย',
+                title: 'มีปัญหา',
                 text: 'ต้องเป็นรูปแต่ดันอัพโหลดวีดีโอ!',
               })
             }
@@ -111,7 +111,7 @@ class Information extends React.Component{
             {
               Swal.fire({
                 icon: 'success',
-                title: 'อิอิ',
+                title: 'สําเร็จ',
                 text: 'เปลี่ยนรูปสําเร็จ!',
               })
               document.querySelector('#profilepicture').value = result['url']
@@ -220,7 +220,10 @@ class Information extends React.Component{
                 <img id="profilepicture" class="imgnoedit" value="" src={link}></img>
             </div>
             <div class="d-flex justify-content-center mt-3">
-              <input id="choosefile" class="choosefile" onChange={this.chooseFile} type="file"></input>
+            <label class="chooseprofile1label" for="choosefile">
+              เปลี่ยนรูป
+              <input id="choosefile" class="chooseprofile1" onChange={this.chooseFile} type="file"></input>
+            </label>
             </div>
           </div>
 
