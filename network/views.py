@@ -342,12 +342,10 @@ def inzwerg4jgnsd9aadif67(request):
 
     randomstuff = random.sample(list, 8)
     
-    print("this is to check for randomstuff", randomstuff)
 
 
 
     influencers = Userinfo.objects.filter(influencer_id__in = randomstuff)
-    print("this is to check for influencers", influencers)
     checker = Userinfo.objects.all().filter()
     view = Views.objects.values('influencer_id').annotate(dcount=Count('influencer_id')).order_by('-dcount')[:9]
     populardata = []
@@ -395,14 +393,12 @@ def inzwerg4jgnsd9aadif67(request):
             
             w = Userinfo.objects.filter(influencer_id = i.id)
             for j in w:
-                print("this", j.profile_fullname)
                 puller["profile_fullname"] = j.profile_fullname
 
 
         newdata.append(puller)
 
     newdata = newdata
-    print("this is newdata", newdata)
 
     what = ""
     return_request = {"newdata":newdata, "populardata":populardata}
@@ -434,11 +430,7 @@ def gotoinfluencer(request, username, feedtype):
 
     viewcheck = Views.objects.filter(viewer_id = request.user.id, influencer_id = influencerid)
     
-    print("here it comes")
-    print(request.user.id)
-    print(influencerid)
 
-    print(viewcheck)
     if viewcheck.exists():
         print("what")
     else:
@@ -448,7 +440,6 @@ def gotoinfluencer(request, username, feedtype):
     reviewedinfo = Reviews.objects.filter(user_id_reviewed = influencerid)
     averagestars = 0
     for i in reviewedinfo:
-        print("this is the review stars", i.review_stars)
         averagestars = i.review_stars + averagestars
 
     if len(reviewedinfo) == 0:
@@ -470,14 +461,12 @@ def gotoinfluencer(request, username, feedtype):
     else:
         print("doesnt fucking exists")
     
-    print("this is userinfodata", userinfodata)
     currentuserid = request.user.id
     sameperson = 0
     if influencerid == currentuserid:
         sameperson = 1
 
     if feedtype == "main":
-            print("this is main")
             #postandmessage = Postandmessage.objects.filter(poster_id = influencerid)
             
             if sameperson == 1:
@@ -493,7 +482,6 @@ def gotoinfluencer(request, username, feedtype):
             #do something
             #query something from the influencer's post and send it back 
     else:
-        print("this is review")
         #can be fixed somehow??
         reviews = Reviews.objects.filter(user_id_reviewed_id = influencerid)
         for i in reviews:
@@ -507,7 +495,6 @@ def gotoinfluencer(request, username, feedtype):
                 break
             alldata.append(reviewdict)
    
-    print("this is alldata", alldata)
     
     return_request = {"username":username, "sameperson": sameperson, "accountstatus": accountstatus, "alldata":alldata, "feedtype":feedtype, "userinfodata":userinfodata, "hidedata":hidedata,
     "reviewnum":reviewnum, "averagestars":averagestars}
@@ -517,7 +504,6 @@ def gotoinfluencer(request, username, feedtype):
 
 def editprofile(request):
     if request.method == "POST":
-        print(request.user.id)
 
         data = json.loads(request.body)
         if data["type"] == "fullname":
@@ -549,8 +535,7 @@ def hidepost(request):
         data = json.loads(request.body)
         hide = ""
         checker = Postandmessage.objects.filter(poster_id = request.user.id, video = data["publicid"])
-        print("publicid", data["publicid"])
-        print("hide", data["hide"])
+        
 
         if (data["hide"] == "Unhide"):
             checker.update(hide = 0)
@@ -1521,7 +1506,7 @@ def paymentapi(request, username):
             amount=price,
             currency="thb",
             capture=True,
-            return_uri = "https://plankton-app-d8rml.ondigitalocean.app/paymentresponse",
+            return_uri = "http://127.0.0.1:8000/paymentresponse",
             source=token
             )
          

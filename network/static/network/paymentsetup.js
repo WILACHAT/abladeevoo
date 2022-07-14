@@ -38,7 +38,6 @@ var PaymentSetup = function (_React$Component) {
         _this.cancelPriceChange = _this.cancelPriceChange.bind(_this);
 
         _this.setPrice = _this.setPrice.bind(_this);
-        console.log("printplease", _this.props.data);
 
         if (document.querySelector('#checkexistid').value != "exist") {
             _this.state = {
@@ -236,7 +235,7 @@ var PaymentSetup = function (_React$Component) {
                     { 'class': 'd-flex justify-content-center mt-5' },
                     React.createElement(
                         'div',
-                        { 'class': 'coversbank' },
+                        { 'class': 'coversbank mb-5' },
                         React.createElement(
                             'div',
                             { 'class': 'd-flex justify-content-center' },
@@ -396,7 +395,6 @@ var PaymentSetup = function (_React$Component) {
 
                 //if data returns successful show beautiful success stuff
                 //if not show failed html
-                console.log(data);
             });
         }
     }, {
@@ -404,10 +402,8 @@ var PaymentSetup = function (_React$Component) {
         value: function onSubmit(status) {
             var _this3 = this;
 
-            console.log("this is status", status);
             var type = "";
             var price = "";
-            console.log("what is the status");
             if (status == "change") {
                 type = "existpostupdate";
             } else {
@@ -419,7 +415,6 @@ var PaymentSetup = function (_React$Component) {
             }
 
             var checker = 0;
-            console.log("bank value", document.querySelector('#selectbankid').value);
             if (document.querySelector('#selectbankid').value == "nothing") {
                 checker = 1;
             } else if (document.querySelector('#accountnumberid').value == "") {
@@ -431,7 +426,6 @@ var PaymentSetup = function (_React$Component) {
             }
 
             if (checker == 0) {
-                console.log("yoooo");
                 //send the info here to python
                 var getcooked = getCookie('csrftoken');
                 fetch('/paymentsetupapi', {
@@ -453,20 +447,13 @@ var PaymentSetup = function (_React$Component) {
                         icon: 'success',
                         title: 'สําเร็จ!'
                     });
-                    console.log("suk mah dik", data);
-                    console.log("suk mah dik", data["brand"]);
-                    console.log("suk mah dik", data["number"]);
-                    console.log("suk mah dik", data["email"]);
-                    console.log("suk mah dik", data["number"]);
-                    console.log("pricey", data["price"]);
+
                     document.querySelector('#checkexistid').value = "exist";
 
                     //if data returns successful show beautiful success stuff
                     //if not show failed html
-                    console.log();
 
                     if (data["lol"] == "dumb" || data["lol"] != null) {
-                        console.log("is this in here wtf pls dont be in here");
                         _this3.setState({
                             price: data["price"],
                             innerpricediv: React.createElement(
@@ -764,7 +751,6 @@ var PaymentSetup = function (_React$Component) {
     }, {
         key: 'changePrice',
         value: function changePrice(e) {
-            console.log("this is in changeprice");
             if (document.querySelector('#checkexistid').value == "exist") {
                 this.setState({
                     innerpricediv: React.createElement(
@@ -820,8 +806,6 @@ var PaymentSetup = function (_React$Component) {
         key: 'changePayment',
         value: function changePayment(e) {
             var _this4 = this;
-
-            console.log("this is in changepayment");
 
             if (document.querySelector('#checkexistid').value == "exist") {
                 this.setState({
@@ -960,12 +944,7 @@ var PaymentSetup = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log("what the fuck is this", this.props.data);
-            console.log("what the fuck is this", this.props.data["brand"]);
-            console.log("what the fuck is this", this.props.data["name"]);
-            console.log("what the fuck is this", this.props.data["number"]);
-            console.log("what the fuck is this", this.props.data["price"]);
-            console.log("exists?", document.querySelector('#checkexistid').value);
+
             /* <div class="d-flex justify-content-center">
                               <label>Set Price (THB)</label>
                           </div>
@@ -1008,7 +987,6 @@ document.addEventListener('DOMContentLoaded', function () {
         type = "notexistnotpost";
     }
 
-    console.log("this is type", type);
     var getcooked = getCookie('csrftoken');
     fetch('/paymentsetupapi', {
         method: 'POST',
@@ -1020,7 +998,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log("sscary", data);
 
         //if data returns successful show beautiful success stuff
         //if not show failed html

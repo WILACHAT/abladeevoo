@@ -89,7 +89,6 @@ var SuggestionTable = function (_React$Component2) {
     value: function mainSearch(searchtext) {
       var _this3 = this;
 
-      console.log("searchtext", searchtext);
       this.setState({ searchtext: searchtext });
       var getcooked = getCookie('csrftoken');
       fetch('/inzwerg4jgnsd9aadif67', {
@@ -103,8 +102,6 @@ var SuggestionTable = function (_React$Component2) {
       }).then(function (response) {
         return response.json();
       }).then(function (data) {
-        console.log("checker checky for newdata", _this3.state.newdata);
-        console.log("this is dataaaaaa mama mama", data);
         _this3.setState({
           newdata: data["newdata"]
         });
@@ -114,7 +111,6 @@ var SuggestionTable = function (_React$Component2) {
     key: 'render',
     value: function render() {
       var suggestion_rows = [];
-      console.log("this.state.new", this.state.newdata);
       /*
       <div id="control-suggestions">
       <div class="d-flex justify-content-start">
@@ -125,8 +121,6 @@ var SuggestionTable = function (_React$Component2) {
 
       if (this.state.newdata.length != 0) {
         for (var i = 0; i < this.state.newdata.length; i++) {
-          console.log("bakano");
-          //console.log("lol wtf", this.props.data[i])
           suggestion_rows.push(React.createElement(SuggestionsRow, {
             id: this.state.newdata[i].id,
             username: this.state.newdata[i].username,
@@ -144,8 +138,6 @@ var SuggestionTable = function (_React$Component2) {
           lengthh: this.state.newdata.length
         }));
       }
-
-      console.log(this.props.type);
       return React.createElement(
         'div',
         { id: 'control-suggestions', 'class': 'control-suggestions' },
@@ -214,7 +206,6 @@ var SuggestionsRow = function (_React$Component3) {
       //not sure wa mee tummai but geb whai gorn
       //<h5>{this.props.influencer_ornot}</h5>
       //<h5>{this.props.freeze_account}</h5>
-      console.log("bakayarou", this.props.lengthh);
 
       return React.createElement(
         'div',
@@ -259,8 +250,6 @@ document.addEventListener('DOMContentLoaded', function () {
   fetch('/inzwerg4jgnsd9aadif67').then(function (response) {
     return response.json();
   }).then(function (data) {
-    console.log("this is newdata", data["newdata"]);
-    console.log("this is populardata", data["populardata"]);
 
     ReactDOM.render(React.createElement(SuggestionTable, { data: data["newdata"], type: 'main' }), document.querySelector('#suggestions_por_react'));
     ReactDOM.render(React.createElement(SuggestionTable, { data: data["populardata"], type: 'popular' }), document.querySelector('#suggestions_por_react_popular'));

@@ -27,7 +27,6 @@ class SearchBar extends React.Component{
       //  document.querySelector('#suggestions_por_react_popular').hidden = true;
       //}
       this.props.oncheckSearch(e.target.value);
-      console.log("kaidoded", e.target.value)
 
     }
       render() 
@@ -80,19 +79,16 @@ class AllStarsTable extends React.Component {
           })
           .then(response => response.json())
           .then(data => {
-              console.log("tra1", data)
 
             this.setState({
                 newdata: data
               })
-              console.log("tra", this.state.newdata)
          
           });
     }
     mainSearch(searchtext)
     {
       
-      console.log("searchtext", searchtext)
       this.setState({searchtext: searchtext})
       const getcooked = getCookie('csrftoken')
       fetch(`/allstarsapi`, {
@@ -107,12 +103,10 @@ class AllStarsTable extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-        console.log("checker checky for newdata", this.state.newdata)
-         console.log("this is dataaaaaa mama mama", data)
+      
          this.setState({
           newdata: data
         })
-        console.log("kaidoded2", this.state.newdata)
     
     
         });
@@ -123,8 +117,6 @@ class AllStarsTable extends React.Component {
             const allstars_row = [];
             for (let i = 0; i < this.state.newdata.length; i++)
                 {
-                    console.log(i)
-                    //console.log("lol wtf", this.props.data[i])
                     allstars_row.push(
                         <AllStarsRow
                         id={this.state.newdata[i].id}
@@ -160,7 +152,9 @@ class AllStarsTable extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center twooneallstar">{allstars_row}</div>
+                {allstars_row == "" ? 
+                <div class="d-flex justify-content-center mt-5"><h4 class="sarabun">ไม่ค้นพบสตาร์ที่คุณค้นหา</h4></div>
+                :<div class="d-flex justify-content-center twooneallstar mb-5">{allstars_row}</div>}
             </div>
 
                   
@@ -188,8 +182,7 @@ class AllStarsTable extends React.Component {
                 }
                 const ininfluencer_link = "/ininfluencer/"+this.props.username
 
-                console.log("fullname", this.props.fullname)
-                console.log("username", this.props.username)
+              
 
                 return(
                 
@@ -217,7 +210,6 @@ class AllStarsTable extends React.Component {
         fetch(`/allstarsapi`)
         .then(response => response.json())
         .then(data => {        
-            console.log("this is data", data)
      
   
         

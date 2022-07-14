@@ -41,7 +41,6 @@ testerfunction(e)
 }
 hideFunction(dataid)
 {
-  console.log("fuck pls work")
   
   let findid = dataid + "ininfluencer"
 
@@ -68,9 +67,7 @@ hideFunction(dataid)
             .then(response => response.json())
 
           .then(result => {
-            console.log(result)
-            console.log("result", result["hide"])
-
+           
            this.setState({hide: result["hide"]})
 
           });
@@ -79,7 +76,6 @@ hideFunction(dataid)
 render()
 {  
   let waid = this.props.data + "ininfluencer"
-  console.log("wawa", this.props.data)
   let thewholereturn = ""
   if (this.props.feedtype == "main")
   {
@@ -87,10 +83,10 @@ render()
     let link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4"
     thewholereturn = 
 
-      <div>
-        <div id={waid}   class={this.props.sameperson == 1 ?  this.state.hide == "Hide" ? "backgroundhide mt-5 ml-2 mr-2":"backgroundhidewrong mt-5 ml-2 mr-2":null}>
+      <div class="ngongcover">
+        <div id={waid} class={this.props.sameperson == 1 ?  this.state.hide == "Hide" ? "backgroundhide mt-5 ml-2 mr-2":"backgroundhidewrong mt-5 ml-2 mr-2":null}>
             <div class="beforevideomaincover">
-              <div class="videomaincover mt-3">
+              <div class="videomaincover">
                   <div class="d-flex justify-content-center">
                     <video class="videoshow" muted="true" id="testervideo" controls >
                       <source src={link} type="video/mp4"></source>
@@ -120,7 +116,6 @@ render()
     {
       link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["picture"] + ".jpg"
     }
-    console.log("this is the link", link)
     thewholereturn =  
    
 <div class="d-flex justify-content-start">
@@ -152,16 +147,11 @@ render()
 class InfluencerFeedTable extends React.Component {
   constructor(props) {
     super(props);
-    console.log("accountstatus", this.props.data.accountstatus)
   }
     render()
     {
-      console.log("datamofo", this.props.data["feedtype"])
       const rows = [];
-      console.log("HAHAHAHAH", this.props.data["alldata"])
-      console.log("shinpai inai iyo", this.props.data["feedtype"])
-      console.log("shinpai", this.props.data["alldata"])
-
+      
     
         for (let i = 0; i < this.props.data["alldata"].length; i++)
         {
@@ -184,7 +174,7 @@ class InfluencerFeedTable extends React.Component {
             <div class="d-flex justify-content-center mt-3 mb-5">
               <h6 class="wanopostyetyet">ยังไม่มีโพส</h6>
             </div>: 
-            <div class="grid d-flex justify-content-center">
+            <div class="grid d-flex justify-content-center mb-5">
               {rows}
             </div>}</div>:
            
@@ -224,11 +214,7 @@ class InfluencerFeedTable extends React.Component {
       this.editPost = this.editPost.bind(this);
       this.editCancel = this.editCancel.bind(this);
       this.checkTxtArea = this.checkTxtArea.bind(this);
-      console.log("this.props.fillname", this.props.fullname)
-      console.log("rengoku", this.props.profilepic)
-
-  
-
+   
       this.state = {
         fullname: this.props.fullname,
         description: this.props.description,
@@ -248,10 +234,8 @@ class InfluencerFeedTable extends React.Component {
     }
     checkTxtArea(e)
     {
-        console.log("check the e target id", e.target.id)
         if (e.target.id == "idfullname")
         {
-            console.log("hi")
             if (e.target.value.length > 0) {
                 this.setState({fullname: e.target.value});
             }
@@ -262,7 +246,6 @@ class InfluencerFeedTable extends React.Component {
         if (e.target.id == "iddescription")
         {
             if (e.target.value.length > 0) {
-                console.log(e.target.value)
                 this.setState({description: e.target.value});
             }
             else {
@@ -330,7 +313,6 @@ class InfluencerFeedTitle extends React.Component {
       document.querySelector('#maininfluencer').hidden = false;
       document.querySelector('#reviewsmainfluencer').hidden = true;
       
-      console.log("waearth", this.props.data)
 
       let fullname = ""
       let description = ""
@@ -405,20 +387,10 @@ class InfluencerFeedTitle extends React.Component {
 
       document.querySelector('#thefullnameidprofile').hidden = true
       document.querySelector('#thefullnameidedit').hidden = false
-      console.log("iphone15", e.target.id)
-      console.log("iphone15 value", e.target.value)
-      console.log("iphone15", e.target.value.length)
-
-      console.log("iphone15", this.state.fullname)
-
-
-
+ 
       if (e.target.id == "idfullname")
-      {
-          console.log("iphone success")
-           
+      {           
           if (e.target.value.length > 0) {
-              console.log("iphone16", e.target.value)
               this.setState({fullname: e.target.value});
           }
           else {
@@ -426,13 +398,9 @@ class InfluencerFeedTitle extends React.Component {
           }
       }
 
-
-
-      console.log("iphone after", this.state.fullname)
       if (e.target.id == "iddescription")
       {
           if (e.target.value.length > 0) {
-              console.log(e.target.value)
               this.setState({description: e.target.value});
           }
           else {
@@ -473,13 +441,9 @@ class InfluencerFeedTitle extends React.Component {
       else
       {
 
-        console.log("this is fileinput", fileInput)
-        console.log("this is in choose file")
-
         let formData = new FormData();
         formData.append("media", fileInput);
         let type = "imageinprofile"
-        console.log("formdata", formData)
         fetch(`/forupload/${type}`, {
           method: 'POST',
           headers: {'X-CSRFToken': getcooked
@@ -492,8 +456,6 @@ class InfluencerFeedTitle extends React.Component {
               icon: 'success',
               text: 'เปลี่ยนรูปสําเร็จ',
             })
-              console.log("result", result)
-              console.log(result['url'])
               this.setState({
                 profilepic : result['url']
               })
@@ -518,17 +480,13 @@ class InfluencerFeedTitle extends React.Component {
       else
       {
 
-        console.log("CHOOSEFILEVIDEOOOOOO")
+       
         const getcooked = getCookie('csrftoken')
-        console.log("this is fileinput", fileInput)
-  
-        console.log("this is in choose file")
-  
+    
         let formData = new FormData();
         formData.append("media", fileInput);
         let type = "videoinprofile"
-        console.log("what the fuck is thye type", type)
-        console.log("formdata", formData)
+
         Swal.fire({
           icon: 'info',
           title: 'กําลังเซฟวีดีโอ',
@@ -542,9 +500,7 @@ class InfluencerFeedTitle extends React.Component {
       })
       .then(response => response.json())
           .then(result =>{
-              console.log("in result immediately?")
-              console.log("result", result)
-              console.log("waan weesakul", result['url'])
+
               document.querySelector('#introvideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + result['url'] + ".mp4"
               Swal.fire({
                 icon: 'success',
@@ -569,7 +525,6 @@ class InfluencerFeedTitle extends React.Component {
             iddescription: iddescription,
             type: "description"
 
-   
         })
     })
     .then(response => response.json())
@@ -591,12 +546,10 @@ class InfluencerFeedTitle extends React.Component {
     }
     sendEditPost()
     {
-      console.log("ok this is in send edit post")
       let idfullname = document.getElementById("idfullname").value
       
       const csrftoken = getCookie('csrftoken');
       let type = "normal"
-      console.log("what is going on")
       fetch(`/editprofile`, {
         method: 'POST',
         headers: {'X-CSRFToken': csrftoken
@@ -610,7 +563,6 @@ class InfluencerFeedTitle extends React.Component {
     })
     .then(response => response.json())
         .then(result =>{
-          console.log("this is result", idfullname)
 
         this.setState({
         fullname: idfullname,
@@ -688,13 +640,6 @@ class InfluencerFeedTitle extends React.Component {
       
       document.querySelector('#thefullnameidprofile').hidden = true
       document.querySelector('#thefullnameidedit').hidden = false
-
-
-      
-
-      
-
-      console.log("iphone pls dont be in here")
  
       
     }
@@ -703,7 +648,6 @@ class InfluencerFeedTitle extends React.Component {
         const getcooked = getCookie('csrftoken');
         if (e.target.id == "publicfeedbutid")
         {
-          console.log("this", this.props.data)
             document.querySelector('#maininfluencer').hidden = false;
             document.querySelector('#reviewsmainfluencer').hidden = true;
             var feedtype = "main"
@@ -711,7 +655,6 @@ class InfluencerFeedTitle extends React.Component {
             .then(response => response.json())
             .then(data => {
                 
-                console.log("gimme data", data)
                 ReactDOM.render(<InfluencerFeedTable data={data}/>, document.querySelector('#maininfluencer'));
 
           });
@@ -722,11 +665,9 @@ class InfluencerFeedTitle extends React.Component {
             document.querySelector('#maininfluencer').hidden = true;
             document.querySelector('#reviewsmainfluencer').hidden = false;
             var feedtype = "review"
-            console.log("this.props", this.props.data)
             fetch(`/gotoinfluencer/${this.props.data["username"]}/${feedtype}`)
             .then(response => response.json())
             .then(data => {
-                console.log("gimme data", data)
              
               ReactDOM.render(<InfluencerFeedTable data={data}/>, document.querySelector('#reviewsmainfluencer'));
 
@@ -740,7 +681,6 @@ class InfluencerFeedTitle extends React.Component {
     render() {
       let link = ""
       let videolink = ""
-      console.log("pricelulu", this.props.data["userinfodata"][0]["price"])
       //THIS IS A NEW PROBLEM TO FIX
       //the user info data is fucked or essentially its blank and query anything
       let bookhtmllink = "/book/"+this.props.data["username"]
@@ -748,7 +688,6 @@ class InfluencerFeedTitle extends React.Component {
       if (this.state.profilepic != "")
       {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg"
-        console.log("this is the new type of if in image")
       }
       else
       {
@@ -758,10 +697,10 @@ class InfluencerFeedTitle extends React.Component {
       if (this.state.profilevideo != "")
       {
         videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4"
-        console.log("this is the new type of if in video")
 
       }
 
+      /*
       if (this.props.data["userinfodata"] != "")
       {
        
@@ -773,20 +712,17 @@ class InfluencerFeedTitle extends React.Component {
           {
             console.log("userinfodat is not blank fak u bak")
           }
-          console.log("sameperson", this.props.data["sameperson"])
           
           if (this.props.data["sameperson"] == 1)
           {
             console.log("ok we start doing the edit from here")
           }
       }
+      */
       let averagestars= Math.round(10*this.props.data["averagestars"])/10; 
 
       let categoryname = ""
-      
-      console.log("first")
-      console.log(this.props.data)
-      console.log(this.props.data["userinfodata"].length)
+
 
 
       if (this.props.data["userinfodata"].length == 0)
@@ -822,10 +758,6 @@ class InfluencerFeedTitle extends React.Component {
           }
       }
 
-      console.log("earthwa", this.props.data["userinfodata"][0]["price"])
-      
-
-      console.log("daijoubu dayou", this.props.data)
         
         return (
          <div>
@@ -835,7 +767,7 @@ class InfluencerFeedTitle extends React.Component {
                         <div class="divcolumn">
        
                           
-                          <div class="d-flex justify-content-center">
+                          <div class="wud1">
                          <div class="beforehihi">
                             <div class="hihi">
                               <div class="insidehihi">
@@ -901,7 +833,7 @@ class InfluencerFeedTitle extends React.Component {
                           </div>
                           </div>
 
-                            <div class="d-flex justify-content-center">
+                            <div class="wud2">
                               <div class="beforehihi mt-3">
                                 <div class="hihi">
                                   <div class="insidehihi">
@@ -980,10 +912,12 @@ class InfluencerFeedTitle extends React.Component {
                               </div>
                             </div>
                             </div>
-                                : <div class="coversvdointro d-flex justify-content-center">
+
+                                : 
+                                <div class="d-flex justify-content-center">
                                
 
-                                <div class="d-flex flex-column ">
+                                <div class="d-flex flex-column">
                                     <div class="d-flex justify-content-center ">
                                    {videolink == "" ? 
                                   null:
@@ -996,7 +930,7 @@ class InfluencerFeedTitle extends React.Component {
                                 {this.props.data["sameperson"] == 1 ?   
                                     <div>
                                         <div>
-                                            <div class="custom-file mt-2">
+                                            <div class="custom-file mt-4">
                                                 <div class="videouploadininfluencer">
                                                 <label class="chooseprofile3label" for="inputGroupFile01">
                                                 เปลี่ยนวีดีโอแนะนําตัว
@@ -1037,15 +971,12 @@ class InfluencerFeedTitle extends React.Component {
   
   }
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("walachat")
     var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
     var feedtype = "main"
-    console.log("influencer username", influencerusername)
 
     fetch(`/gotoinfluencer/${influencerusername}/${feedtype}`)
     .then(response => response.json())
     .then(data => {
-        console.log("gimme data", data)
 
       ReactDOM.render(<InfluencerFeedTitle data={data}/>, document.querySelector('#toppart'));
       ReactDOM.render(<InfluencerFeedTable data={data}/>, document.querySelector('#maininfluencer'));

@@ -171,11 +171,7 @@ var BookPage = function (_React$Component) {
     _createClass(BookPage, [{
         key: 'onType',
         value: function onType(e) {
-            console.log("yoyoyo");
-            console.log("this is the targets", e);
-            console.log("this is the targets", e.target.value);
-            console.log("this is the targets", e.target.value.length);
-            console.log("this is the targets", e.target.dataset.yea);
+
             if (e.target.dataset.yea == "gumlungjai1") {
                 document.getElementById('gumlungjaitext1').innerHTML = e.target.value.length;
             } else if (e.target.dataset.yea == "gumlungjai2") {
@@ -254,11 +250,9 @@ var BookPage = function (_React$Component) {
             }
 
             if (document.getElementsByName("occa4").length != 0) {
-                console.log("fuck this in 4");
                 if (document.getElementsByName("occa4")[0].id == "") {
                     fourthinputocca = document.getElementsByName("occa4")[0].value;
-                    console.log("fourstinputocca", fourthinputocca);
-                    console.log("ok what is going on", document.getElementsByName("occa4")[0].id);
+
                     if (fourthinputocca == "") {
                         checkblank = 5;
                     }
@@ -276,12 +270,9 @@ var BookPage = function (_React$Component) {
             var today = new Date().toISOString().slice(0, 10);
             var tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
-            console.log("this is today", today);
             tomorrow.toISOString().slice(0, 10);
-            console.log("first tomorrow", tomorrow);
 
             var g1 = new Date(tomorrow);
-            console.log("get time", g1.getTime());
 
             var g2 = new Date(datetime);
 
@@ -359,7 +350,6 @@ var BookPage = function (_React$Component) {
         value: function changeIntroReserve(e) {
 
             if (e.target.id == "someoneelsehtml") {
-                console.log("is it someoneelsehtml");
                 this.setState({
                     reserve_into_html: React.createElement(
                         'div',
@@ -386,7 +376,6 @@ var BookPage = function (_React$Component) {
                     colorof1: "someoneelsehtml"
                 });
             } else {
-                console.log("is it anotherpeoplehtml");
                 this.setState({
                     reserve_into_html: React.createElement('div', { name: 'introname', id: 'myself_html_id' }),
                     colorof1: "myselfhtml"
@@ -441,9 +430,7 @@ var BookPage = function (_React$Component) {
                 document.getElementById('daytext2').innerHTML = "0";
             } catch (err) {}
 
-            console.log("this is e", e);
             if (e.target.id == "birthdaybutton") {
-                console.log("birthday");
                 this.setState({
                     reserve_occasion_html: React.createElement(
                         'div',
@@ -549,7 +536,6 @@ var BookPage = function (_React$Component) {
 
                 });
             } else if (e.target.id == "peptalkbutton") {
-                console.log("peptalk");
                 this.setState({
                     reserve_occasion_html: React.createElement(
                         'div',
@@ -644,7 +630,6 @@ var BookPage = function (_React$Component) {
 
                 });
             } else if (e.target.id == "roastbutton") {
-                console.log("roast");
                 this.setState({
                     reserve_occasion_html: React.createElement(
                         'div',
@@ -721,7 +706,6 @@ var BookPage = function (_React$Component) {
                     colorof2: "roast"
                 });
             } else {
-                console.log("other lets go");
                 this.setState({
                     reserve_occasion_html: React.createElement(
                         'div',
@@ -816,16 +800,8 @@ var BookPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log("this.state.colorof1", this.state.colorof1);
             var waan = { name: "val", name2: "val" };
             waan = JSON.stringify(waan);
-            console.log(waan);
-
-            //document.getElementById('dicttest').value = "waan"
-            //console.log("checkery checkcheck", document.getElementById('dicttest').value)
-            //console.log(Object.values(document.getElementById('dicttest').value))
-            //console.log(Object.keys(document.getElementById('dicttest').value))
-
 
             return React.createElement(
                 'div',

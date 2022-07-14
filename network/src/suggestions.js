@@ -65,7 +65,6 @@ function getCookie(name) {
     mainSearch(searchtext)
     {
       
-      console.log("searchtext", searchtext)
       this.setState({searchtext: searchtext})
       const getcooked = getCookie('csrftoken')
       fetch(`/inzwerg4jgnsd9aadif67`, {
@@ -80,8 +79,6 @@ function getCookie(name) {
     
     .then(response => response.json())
     .then(data => {
-    console.log("checker checky for newdata", this.state.newdata)
-     console.log("this is dataaaaaa mama mama", data)
      this.setState({
       newdata: data["newdata"]
     })
@@ -91,7 +88,6 @@ function getCookie(name) {
     }
     render() {
       const suggestion_rows = [];
-      console.log("this.state.new", this.state.newdata)
       /*
       <div id="control-suggestions">
       <div class="d-flex justify-content-start">
@@ -106,8 +102,6 @@ function getCookie(name) {
       {
         for (let i = 0; i < this.state.newdata.length; i++)
         {
-          console.log("bakano")
-          //console.log("lol wtf", this.props.data[i])
           suggestion_rows.push(
             <SuggestionsRow
                 id={this.state.newdata[i].id}
@@ -133,9 +127,7 @@ function getCookie(name) {
 
 
       }
-  
-      console.log(this.props.type)
-        return (
+          return (
           <div id="control-suggestions" class="control-suggestions">
             
             {this.props.type == "main" ? <div class="d-flex justify-content-center">
@@ -185,7 +177,6 @@ function getCookie(name) {
       //not sure wa mee tummai but geb whai gorn
       //<h5>{this.props.influencer_ornot}</h5>
       //<h5>{this.props.freeze_account}</h5>
-      console.log("bakayarou", this.props.lengthh)
 
         return (
           <div>
@@ -213,10 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fetch(`/inzwerg4jgnsd9aadif67`)
       .then(response => response.json())
       .then(data => {        
-        console.log("this is newdata", data["newdata"])
-        console.log("this is populardata", data["populardata"])
-
-      
+       
         ReactDOM.render(<SuggestionTable data={data["newdata"]} type="main"/>, document.querySelector('#suggestions_por_react'));
         ReactDOM.render(<SuggestionTable data={data["populardata"]} type="popular"/>, document.querySelector('#suggestions_por_react_popular'));
   

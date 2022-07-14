@@ -57,7 +57,6 @@ var Information = function (_React$Component) {
       }
       if (e.target.id == "lastname") {
         if (e.target.value.length > 0) {
-          console.log(e.target.value);
           this.setState({ lastname: e.target.value });
         } else {
           this.setState({ lastname: "" });
@@ -65,7 +64,6 @@ var Information = function (_React$Component) {
       }
       if (e.target.id == "username") {
         if (e.target.value.length > 0) {
-          console.log(e.target.value);
           this.setState({ username: e.target.value });
         } else {
           this.setState({ username: "" });
@@ -73,7 +71,6 @@ var Information = function (_React$Component) {
       }
       if (e.target.id == "email") {
         if (e.target.value.length > 0) {
-          console.log(e.target.value);
           this.setState({ email: e.target.value });
         } else {
           this.setState({ email: "" });
@@ -85,15 +82,11 @@ var Information = function (_React$Component) {
     value: function chooseFile(e) {
       var getcooked = getCookie('csrftoken');
       var fileInput = document.querySelector('#choosefile').files[0];
-      console.log("this is fileinput", fileInput);
-
-      console.log("this is in choose file");
 
       var formData = new FormData();
       formData.append("media", fileInput);
 
       var type = "imageinprofilefornormal";
-      console.log("formdata", formData);
       fetch('/forupload/' + type, {
         method: 'POST',
         headers: { 'X-CSRFToken': getcooked
@@ -102,7 +95,6 @@ var Information = function (_React$Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (result) {
-        console.log("profilepicresult", result);
         if (result["error"] != null) {
           Swal.fire({
             icon: 'error',
@@ -129,7 +121,6 @@ var Information = function (_React$Component) {
       var lastname = document.querySelector('#lastname').value;
       var email = document.querySelector('#email').value;
       var username = document.querySelector('#username').value;
-      console.log("something wrong in profilepic", profilepic);
 
       var getcooked = getCookie('csrftoken');
       fetch('/usersettingapi', {
@@ -146,7 +137,6 @@ var Information = function (_React$Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (result) {
-        console.log("resul error", result["error"]);
         if (result["error"] != null) {
           if (result["error"] == "mail") {
             Swal.fire({
@@ -177,15 +167,12 @@ var Information = function (_React$Component) {
     key: 'render',
     value: function render() {
       var link = "";
-      console.log("what", this.state.profilepic);
       if (this.state.profilepic != null) {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
-        console.log("this is the new type of if in image");
       } else {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
       }
 
-      console.log("this", this.props.data["data"][0]);
       return React.createElement(
         'div',
         null,
@@ -194,7 +181,7 @@ var Information = function (_React$Component) {
           { 'class': 'd-flex justify-content-center' },
           React.createElement(
             'div',
-            { 'class': 'settingbackground' },
+            { 'class': 'settingbackground mb-5' },
             React.createElement(
               'label',
               { 'class': 'headingsetting' },
@@ -281,7 +268,6 @@ document.addEventListener('DOMContentLoaded', function () {
   fetch('/usersettingapi').then(function (response) {
     return response.json();
   }).then(function (data) {
-    console.log("this is data wtf", data);
     ReactDOM.render(React.createElement(Information, { data: data }), document.querySelector('#inputforchange'));
   });
 });

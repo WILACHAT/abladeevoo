@@ -43,7 +43,6 @@ var SearchBar = function (_React$Component) {
             //  document.querySelector('#suggestions_por_react_popular').hidden = true;
             //}
             this.props.oncheckSearch(e.target.value);
-            console.log("kaidoded", e.target.value);
         }
     }, {
         key: 'render',
@@ -104,12 +103,10 @@ var AllStarsTable = function (_React$Component2) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("tra1", data);
 
                 _this3.setState({
                     newdata: data
                 });
-                console.log("tra", _this3.state.newdata);
             });
         }
     }, {
@@ -117,7 +114,6 @@ var AllStarsTable = function (_React$Component2) {
         value: function mainSearch(searchtext) {
             var _this4 = this;
 
-            console.log("searchtext", searchtext);
             this.setState({ searchtext: searchtext });
             var getcooked = getCookie('csrftoken');
             fetch('/allstarsapi', {
@@ -132,12 +128,10 @@ var AllStarsTable = function (_React$Component2) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("checker checky for newdata", _this4.state.newdata);
-                console.log("this is dataaaaaa mama mama", data);
+
                 _this4.setState({
                     newdata: data
                 });
-                console.log("kaidoded2", _this4.state.newdata);
             });
         }
     }, {
@@ -145,8 +139,6 @@ var AllStarsTable = function (_React$Component2) {
         value: function render() {
             var allstars_row = [];
             for (var i = 0; i < this.state.newdata.length; i++) {
-                console.log(i);
-                //console.log("lol wtf", this.props.data[i])
                 allstars_row.push(React.createElement(AllStarsRow, {
                     id: this.state.newdata[i].id,
                     username: this.state.newdata[i].username,
@@ -223,9 +215,17 @@ var AllStarsTable = function (_React$Component2) {
                         )
                     )
                 ),
-                React.createElement(
+                allstars_row == "" ? React.createElement(
                     'div',
-                    { 'class': 'd-flex justify-content-center twooneallstar' },
+                    { 'class': 'd-flex justify-content-center mt-5' },
+                    React.createElement(
+                        'h4',
+                        { 'class': 'sarabun' },
+                        '\u0E44\u0E21\u0E48\u0E04\u0E49\u0E19\u0E1E\u0E1A\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E17\u0E35\u0E48\u0E04\u0E38\u0E13\u0E04\u0E49\u0E19\u0E2B\u0E32'
+                    )
+                ) : React.createElement(
+                    'div',
+                    { 'class': 'd-flex justify-content-center twooneallstar mb-5' },
                     allstars_row
                 )
             );
@@ -254,9 +254,6 @@ var AllStarsRow = function (_React$Component3) {
                 link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png";
             }
             var ininfluencer_link = "/ininfluencer/" + this.props.username;
-
-            console.log("fullname", this.props.fullname);
-            console.log("username", this.props.username);
 
             return React.createElement(
                 'div',
@@ -296,7 +293,6 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('/allstarsapi').then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log("this is data", data);
 
         ReactDOM.render(React.createElement(AllStarsTable, { data: data }), document.querySelector('#allstarscover'));
     });

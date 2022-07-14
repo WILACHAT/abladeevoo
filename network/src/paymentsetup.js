@@ -25,7 +25,6 @@ class PaymentSetup extends React.Component {
     this.cancelPriceChange = this.cancelPriceChange.bind(this);
 
     this.setPrice = this.setPrice.bind(this);
-    console.log("printplease", this.props.data)
 
 
     if (document.querySelector('#checkexistid').value != "exist")
@@ -123,7 +122,7 @@ class PaymentSetup extends React.Component {
            
             innerpaymentdiv: 
             <div class="d-flex justify-content-center mt-5">
-                <div class="coversbank">
+                <div class="coversbank mb-5">
                     <div class="d-flex justify-content-center">
                         <label>ธนาคารที่ใช้อยู่</label>
                     </div>
@@ -213,16 +212,13 @@ class PaymentSetup extends React.Component {
               
               //if data returns successful show beautiful success stuff
               //if not show failed html
-              console.log(data)
           });      
 
   }
   onSubmit(status)
   {
-      console.log("this is status", status)
       let type = ""
       let price = ""
-      console.log("what is the status")
       if (status == "change")
       {
          type = "existpostupdate"
@@ -238,7 +234,6 @@ class PaymentSetup extends React.Component {
       }
 
       let checker = 0
-      console.log("bank value", document.querySelector('#selectbankid').value)
       if (document.querySelector('#selectbankid').value == "nothing")
       {
         checker = 1
@@ -259,7 +254,6 @@ class PaymentSetup extends React.Component {
 
       if (checker == 0)
       {
-            console.log("yoooo")
             //send the info here to python
             const getcooked = getCookie('csrftoken')
             fetch(`/paymentsetupapi`, {
@@ -281,21 +275,14 @@ class PaymentSetup extends React.Component {
                     icon: 'success',
                     title: 'สําเร็จ!',
                   })
-                console.log("suk mah dik", data)
-                console.log("suk mah dik", data["brand"])
-                console.log("suk mah dik", data["number"])
-                console.log("suk mah dik", data["email"])
-                console.log("suk mah dik", data["number"])
-                console.log("pricey", data["price"])
+
                 document.querySelector('#checkexistid').value = "exist"
     
                 //if data returns successful show beautiful success stuff
                 //if not show failed html
-                console.log()
     
                 if (data["lol"] == "dumb" || data["lol"] != null)
                 {
-                    console.log("is this in here wtf pls dont be in here")
                     this.setState({
                         price : data["price"],
                         innerpricediv: 
@@ -459,7 +446,6 @@ class PaymentSetup extends React.Component {
   }
   changePrice(e)
   {
-        console.log("this is in changeprice")
         if (document.querySelector('#checkexistid').value == "exist")
         {
             this.setState({
@@ -490,7 +476,6 @@ class PaymentSetup extends React.Component {
   }
   changePayment(e)
   {
-        console.log("this is in changepayment")
 
 
       if (document.querySelector('#checkexistid').value == "exist")
@@ -570,12 +555,7 @@ class PaymentSetup extends React.Component {
   }
   
   render() {
-      console.log("what the fuck is this", this.props.data)
-      console.log("what the fuck is this", this.props.data["brand"])
-      console.log("what the fuck is this", this.props.data["name"])
-      console.log("what the fuck is this", this.props.data["number"])
-      console.log("what the fuck is this", this.props.data["price"])
-      console.log("exists?", document.querySelector('#checkexistid').value)
+     
       /* <div class="d-flex justify-content-center">
                         <label>Set Price (THB)</label>
                     </div>
@@ -617,7 +597,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     
-    console.log("this is type", type)
     const getcooked = getCookie('csrftoken')
     fetch(`/paymentsetupapi`, {
       method: 'POST',
@@ -629,7 +608,6 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .then(response => response.json())
       .then(data => {
-            console.log("sscary", data)
 
           //if data returns successful show beautiful success stuff
           //if not show failed html

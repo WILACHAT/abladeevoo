@@ -46,7 +46,6 @@ class Information extends React.Component{
       if (e.target.id == "lastname")
       {
           if (e.target.value.length > 0) {
-              console.log(e.target.value)
               this.setState({lastname: e.target.value});
           }
           else {
@@ -56,7 +55,6 @@ class Information extends React.Component{
       if (e.target.id == "username")
       {
           if (e.target.value.length > 0) {
-              console.log(e.target.value)
               this.setState({username: e.target.value});
           }
           else {
@@ -66,7 +64,6 @@ class Information extends React.Component{
       if (e.target.id == "email")
       {
           if (e.target.value.length > 0) {
-              console.log(e.target.value)
               this.setState({email: e.target.value});
           }
           else {
@@ -79,16 +76,13 @@ class Information extends React.Component{
     {
       const getcooked = getCookie('csrftoken')
       let fileInput = document.querySelector('#choosefile').files[0]
-      console.log("this is fileinput", fileInput)
 
-      console.log("this is in choose file")
 
       let formData = new FormData();
       formData.append("media", fileInput);
 
 
         let type = "imageinprofilefornormal"
-        console.log("formdata", formData)
         fetch(`/forupload/${type}`, {
           method: 'POST',
           headers: {'X-CSRFToken': getcooked
@@ -98,7 +92,6 @@ class Information extends React.Component{
       
           .then(response => response.json())
           .then(result =>{
-            console.log("profilepicresult", result)
             if (result["error"] != null)
             {
               Swal.fire({
@@ -137,7 +130,6 @@ class Information extends React.Component{
       let lastname = document.querySelector('#lastname').value
       let email = document.querySelector('#email').value
       let username = document.querySelector('#username').value
-      console.log("something wrong in profilepic", profilepic)
 
       
         let getcooked = getCookie('csrftoken');
@@ -155,7 +147,6 @@ class Information extends React.Component{
     })
     .then(response => response.json())
         .then(result =>{
-          console.log("resul error", result["error"])
           if (result["error"] != null)
           {
             if (result["error"] == "mail")
@@ -194,23 +185,20 @@ class Information extends React.Component{
       render() 
       {
       let link = ""
-      console.log("what", this.state.profilepic)
       if (this.state.profilepic != null)
       {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg"
-        console.log("this is the new type of if in image")
       }
       else
       {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg"
       }
    
-        console.log("this", this.props.data["data"][0])
         return (
           <div>
           <div class="d-flex justify-content-center">
 
-          <div class="settingbackground">
+          <div class="settingbackground mb-5">
           <label class="headingsetting">เปลี่ยนการตั้งค่าหรือเพิ่มข้อมูล</label><br></br>
           <div class="d-flex flex-column">
               <div class="d-flex justify-content-center">
@@ -266,7 +254,6 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch(`/usersettingapi`)
     .then(response => response.json())
     .then(data => {        
-      console.log("this is data wtf", data)
       ReactDOM.render(<Information data={data}/>, document.querySelector('#inputforchange'));
   
     });

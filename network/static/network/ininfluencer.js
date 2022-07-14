@@ -56,8 +56,6 @@ var InfluencerFeedRows = function (_React$Component) {
     value: function hideFunction(dataid) {
       var _this2 = this;
 
-      console.log("fuck pls work");
-
       var findid = dataid + "ininfluencer";
 
       if (document.getElementById(dataid).value == "Hide") {
@@ -79,8 +77,6 @@ var InfluencerFeedRows = function (_React$Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (result) {
-        console.log(result);
-        console.log("result", result["hide"]);
 
         _this2.setState({ hide: result["hide"] });
       });
@@ -91,14 +87,13 @@ var InfluencerFeedRows = function (_React$Component) {
       var _this3 = this;
 
       var waid = this.props.data + "ininfluencer";
-      console.log("wawa", this.props.data);
       var thewholereturn = "";
       if (this.props.feedtype == "main") {
 
         var link = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.props.data + ".mp4";
         thewholereturn = React.createElement(
           'div',
-          null,
+          { 'class': 'ngongcover' },
           React.createElement(
             'div',
             { id: waid, 'class': this.props.sameperson == 1 ? this.state.hide == "Hide" ? "backgroundhide mt-5 ml-2 mr-2" : "backgroundhidewrong mt-5 ml-2 mr-2" : null },
@@ -107,7 +102,7 @@ var InfluencerFeedRows = function (_React$Component) {
               { 'class': 'beforevideomaincover' },
               React.createElement(
                 'div',
-                { 'class': 'videomaincover mt-3' },
+                { 'class': 'videomaincover' },
                 React.createElement(
                   'div',
                   { 'class': 'd-flex justify-content-center' },
@@ -141,7 +136,6 @@ var InfluencerFeedRows = function (_React$Component) {
         } else {
           _link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["picture"] + ".jpg";
         }
-        console.log("this is the link", _link);
         thewholereturn = React.createElement(
           'div',
           { 'class': 'd-flex justify-content-start' },
@@ -196,20 +190,13 @@ var InfluencerFeedTable = function (_React$Component2) {
   function InfluencerFeedTable(props) {
     _classCallCheck(this, InfluencerFeedTable);
 
-    var _this4 = _possibleConstructorReturn(this, (InfluencerFeedTable.__proto__ || Object.getPrototypeOf(InfluencerFeedTable)).call(this, props));
-
-    console.log("accountstatus", _this4.props.data.accountstatus);
-    return _this4;
+    return _possibleConstructorReturn(this, (InfluencerFeedTable.__proto__ || Object.getPrototypeOf(InfluencerFeedTable)).call(this, props));
   }
 
   _createClass(InfluencerFeedTable, [{
     key: 'render',
     value: function render() {
-      console.log("datamofo", this.props.data["feedtype"]);
       var rows = [];
-      console.log("HAHAHAHAH", this.props.data["alldata"]);
-      console.log("shinpai inai iyo", this.props.data["feedtype"]);
-      console.log("shinpai", this.props.data["alldata"]);
 
       for (var i = 0; i < this.props.data["alldata"].length; i++) {
         rows.push(React.createElement(InfluencerFeedRows, {
@@ -244,7 +231,7 @@ var InfluencerFeedTable = function (_React$Component2) {
             )
           ) : React.createElement(
             'div',
-            { 'class': 'grid d-flex justify-content-center' },
+            { 'class': 'grid d-flex justify-content-center mb-5' },
             rows
           )
         ) : React.createElement(
@@ -304,8 +291,6 @@ var EditPost = function (_React$Component3) {
     _this5.editPost = _this5.editPost.bind(_this5);
     _this5.editCancel = _this5.editCancel.bind(_this5);
     _this5.checkTxtArea = _this5.checkTxtArea.bind(_this5);
-    console.log("this.props.fillname", _this5.props.fullname);
-    console.log("rengoku", _this5.props.profilepic);
 
     _this5.state = {
       fullname: _this5.props.fullname,
@@ -331,9 +316,7 @@ var EditPost = function (_React$Component3) {
   }, {
     key: 'checkTxtArea',
     value: function checkTxtArea(e) {
-      console.log("check the e target id", e.target.id);
       if (e.target.id == "idfullname") {
-        console.log("hi");
         if (e.target.value.length > 0) {
           this.setState({ fullname: e.target.value });
         } else {
@@ -342,7 +325,6 @@ var EditPost = function (_React$Component3) {
       }
       if (e.target.id == "iddescription") {
         if (e.target.value.length > 0) {
-          console.log(e.target.value);
           this.setState({ description: e.target.value });
         } else {
           this.setState({ description: "" });
@@ -440,8 +422,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
     document.querySelector('#maininfluencer').hidden = false;
     document.querySelector('#reviewsmainfluencer').hidden = true;
 
-    console.log("waearth", _this6.props.data);
-
     var fullname = "";
     var description = "";
     var profilepic = "";
@@ -499,27 +479,17 @@ var InfluencerFeedTitle = function (_React$Component4) {
 
       document.querySelector('#thefullnameidprofile').hidden = true;
       document.querySelector('#thefullnameidedit').hidden = false;
-      console.log("iphone15", e.target.id);
-      console.log("iphone15 value", e.target.value);
-      console.log("iphone15", e.target.value.length);
-
-      console.log("iphone15", this.state.fullname);
 
       if (e.target.id == "idfullname") {
-        console.log("iphone success");
-
         if (e.target.value.length > 0) {
-          console.log("iphone16", e.target.value);
           this.setState({ fullname: e.target.value });
         } else {
           this.setState({ fullname: "" });
         }
       }
 
-      console.log("iphone after", this.state.fullname);
       if (e.target.id == "iddescription") {
         if (e.target.value.length > 0) {
-          console.log(e.target.value);
           this.setState({ description: e.target.value });
         } else {
           this.setState({ description: "" });
@@ -557,13 +527,9 @@ var InfluencerFeedTitle = function (_React$Component4) {
         });
       } else {
 
-        console.log("this is fileinput", fileInput);
-        console.log("this is in choose file");
-
         var formData = new FormData();
         formData.append("media", fileInput);
         var type = "imageinprofile";
-        console.log("formdata", formData);
         fetch('/forupload/' + type, {
           method: 'POST',
           headers: { 'X-CSRFToken': getcooked
@@ -576,8 +542,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
             icon: 'success',
             text: 'เปลี่ยนรูปสําเร็จ'
           });
-          console.log("result", result);
-          console.log(result['url']);
           _this7.setState({
             profilepic: result['url']
           });
@@ -597,17 +561,12 @@ var InfluencerFeedTitle = function (_React$Component4) {
         });
       } else {
 
-        console.log("CHOOSEFILEVIDEOOOOOO");
         var getcooked = getCookie('csrftoken');
-        console.log("this is fileinput", fileInput);
-
-        console.log("this is in choose file");
 
         var formData = new FormData();
         formData.append("media", fileInput);
         var type = "videoinprofile";
-        console.log("what the fuck is thye type", type);
-        console.log("formdata", formData);
+
         Swal.fire({
           icon: 'info',
           title: 'กําลังเซฟวีดีโอ',
@@ -621,9 +580,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
         }).then(function (response) {
           return response.json();
         }).then(function (result) {
-          console.log("in result immediately?");
-          console.log("result", result);
-          console.log("waan weesakul", result['url']);
+
           document.querySelector('#introvideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + result['url'] + ".mp4";
           Swal.fire({
             icon: 'success',
@@ -666,12 +623,10 @@ var InfluencerFeedTitle = function (_React$Component4) {
     value: function sendEditPost() {
       var _this9 = this;
 
-      console.log("ok this is in send edit post");
       var idfullname = document.getElementById("idfullname").value;
 
       var csrftoken = getCookie('csrftoken');
       var type = "normal";
-      console.log("what is going on");
       fetch('/editprofile', {
         method: 'POST',
         headers: { 'X-CSRFToken': csrftoken
@@ -684,7 +639,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
       }).then(function (response) {
         return response.json();
       }).then(function (result) {
-        console.log("this is result", idfullname);
 
         _this9.setState({
           fullname: idfullname,
@@ -747,15 +701,12 @@ var InfluencerFeedTitle = function (_React$Component4) {
 
       document.querySelector('#thefullnameidprofile').hidden = true;
       document.querySelector('#thefullnameidedit').hidden = false;
-
-      console.log("iphone pls dont be in here");
     }
   }, {
     key: 'changeFeedPortal',
     value: function changeFeedPortal(e) {
       var getcooked = getCookie('csrftoken');
       if (e.target.id == "publicfeedbutid") {
-        console.log("this", this.props.data);
         document.querySelector('#maininfluencer').hidden = false;
         document.querySelector('#reviewsmainfluencer').hidden = true;
         var feedtype = "main";
@@ -763,18 +714,15 @@ var InfluencerFeedTitle = function (_React$Component4) {
           return response.json();
         }).then(function (data) {
 
-          console.log("gimme data", data);
           ReactDOM.render(React.createElement(InfluencerFeedTable, { data: data }), document.querySelector('#maininfluencer'));
         });
       } else if (e.target.id == "reviewfeedbutid") {
         document.querySelector('#maininfluencer').hidden = true;
         document.querySelector('#reviewsmainfluencer').hidden = false;
         var feedtype = "review";
-        console.log("this.props", this.props.data);
         fetch('/gotoinfluencer/' + this.props.data["username"] + '/' + feedtype).then(function (response) {
           return response.json();
         }).then(function (data) {
-          console.log("gimme data", data);
 
           ReactDOM.render(React.createElement(InfluencerFeedTable, { data: data }), document.querySelector('#reviewsmainfluencer'));
         });
@@ -785,42 +733,41 @@ var InfluencerFeedTitle = function (_React$Component4) {
     value: function render() {
       var link = "";
       var videolink = "";
-      console.log("pricelulu", this.props.data["userinfodata"][0]["price"]);
       //THIS IS A NEW PROBLEM TO FIX
       //the user info data is fucked or essentially its blank and query anything
       var bookhtmllink = "/book/" + this.props.data["username"];
 
       if (this.state.profilepic != "") {
         link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.state.profilepic + ".jpg";
-        console.log("this is the new type of if in image");
       } else {
         link = "https://cdn.discordapp.com/attachments/971813409052041219/978974514404810802/screenshot.png";
       }
       if (this.state.profilevideo != "") {
         videolink = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + this.state.profilevideo + ".mp4";
-        console.log("this is the new type of if in video");
       }
 
-      if (this.props.data["userinfodata"] != "") {
-
-        if (this.props.data["userinfodata"] == "") {
-          console.log("userinfodata is blank fak u");
-        } else {
-          console.log("userinfodat is not blank fak u bak");
-        }
-        console.log("sameperson", this.props.data["sameperson"]);
-
-        if (this.props.data["sameperson"] == 1) {
-          console.log("ok we start doing the edit from here");
-        }
+      /*
+      if (this.props.data["userinfodata"] != "")
+      {
+       
+          if (this.props.data["userinfodata"] == "")
+          {
+            console.log("userinfodata is blank fak u")
+          }
+          else
+          {
+            console.log("userinfodat is not blank fak u bak")
+          }
+          
+          if (this.props.data["sameperson"] == 1)
+          {
+            console.log("ok we start doing the edit from here")
+          }
       }
+      */
       var averagestars = Math.round(10 * this.props.data["averagestars"]) / 10;
 
       var categoryname = "";
-
-      console.log("first");
-      console.log(this.props.data);
-      console.log(this.props.data["userinfodata"].length);
 
       if (this.props.data["userinfodata"].length == 0) {
 
@@ -841,10 +788,6 @@ var InfluencerFeedTitle = function (_React$Component4) {
         }
       }
 
-      console.log("earthwa", this.props.data["userinfodata"][0]["price"]);
-
-      console.log("daijoubu dayou", this.props.data);
-
       return React.createElement(
         'div',
         null,
@@ -859,7 +802,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
               { 'class': 'divcolumn' },
               React.createElement(
                 'div',
-                { 'class': 'd-flex justify-content-center' },
+                { 'class': 'wud1' },
                 React.createElement(
                   'div',
                   { 'class': 'beforehihi' },
@@ -982,7 +925,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
               ),
               React.createElement(
                 'div',
-                { 'class': 'd-flex justify-content-center' },
+                { 'class': 'wud2' },
                 React.createElement(
                   'div',
                   { 'class': 'beforehihi mt-3' },
@@ -1129,10 +1072,10 @@ var InfluencerFeedTitle = function (_React$Component4) {
                 )
               ) : React.createElement(
                 'div',
-                { 'class': 'coversvdointro d-flex justify-content-center' },
+                { 'class': 'd-flex justify-content-center' },
                 React.createElement(
                   'div',
-                  { 'class': 'd-flex flex-column ' },
+                  { 'class': 'd-flex flex-column' },
                   React.createElement(
                     'div',
                     { 'class': 'd-flex justify-content-center ' },
@@ -1151,7 +1094,7 @@ var InfluencerFeedTitle = function (_React$Component4) {
                       null,
                       React.createElement(
                         'div',
-                        { 'class': 'custom-file mt-2' },
+                        { 'class': 'custom-file mt-4' },
                         React.createElement(
                           'div',
                           { 'class': 'videouploadininfluencer' },
@@ -1201,15 +1144,12 @@ var InfluencerFeedTitle = function (_React$Component4) {
 }(React.Component);
 
 document.addEventListener('DOMContentLoaded', function () {
-  console.log("walachat");
   var influencerusername = document.getElementById('getinfluencerusername').dataset.username;
   var feedtype = "main";
-  console.log("influencer username", influencerusername);
 
   fetch('/gotoinfluencer/' + influencerusername + '/' + feedtype).then(function (response) {
     return response.json();
   }).then(function (data) {
-    console.log("gimme data", data);
 
     ReactDOM.render(React.createElement(InfluencerFeedTitle, { data: data }), document.querySelector('#toppart'));
     ReactDOM.render(React.createElement(InfluencerFeedTable, { data: data }), document.querySelector('#maininfluencer'));

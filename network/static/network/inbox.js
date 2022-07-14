@@ -38,7 +38,6 @@ function getCookie(name) {
     return cookieValue;
 }
 function checkforoccasiontype(occasion) {
-    console.log("occasion", occasion);
     var checkoccasion = "";
     if (occasion == "birthday_html_id") {
         checkoccasion = "วันเกิด";
@@ -46,7 +45,6 @@ function checkforoccasiontype(occasion) {
         checkoccasion = "กําลังใจ";
     } else if (occasion == "roastbutton_html_id") {
         checkoccasion = "เผา";
-        console.log("is the mofo in here");
     } else {
         checkoccasion = "อื่นๆ";
     }
@@ -101,14 +99,9 @@ var EachReserve = function (_React$Component) {
                 confirmButtonText: 'มั่นใจ',
                 cancelButtonText: 'ยกเลิก'
             }).then(function (result) {
-                console.log(result);
                 var getcooked = getCookie('csrftoken');
                 var type = "";
                 if (result["isConfirmed"] == true) {
-
-                    console.log("beam", _this2.props.data["data"][0].id);
-                    console.log("beam", _this2.props.data["data"][0].username_influencer);
-                    console.log("beam", _this2.props.data["data"][0].username);
 
                     fetch('/gotoeachreserve', {
                         method: 'PUT',
@@ -120,14 +113,11 @@ var EachReserve = function (_React$Component) {
                             influencer: _this2.props.data["data"][0].username_influencer
                         })
                     }).then(function (result) {
-                        console.log("deletes result", result);
                         document.querySelector('#myinboxhtml').hidden = true;
                         document.querySelector('#myrequesthtml').hidden = false;
                         document.querySelector('#mycompletehtml').hidden = true;
                         document.querySelector('#eachreserve').hidden = true;
                         document.querySelector('#inboxmainid').hidden = false;
-
-                        console.log("wawawawa1", document.getElementById('requesttableid'));
 
                         for (var i = 0; i < document.getElementById('inboxtableid').children.length; i++) {
                             if (document.getElementById('inboxtableid').children[i].id == id) {
@@ -137,28 +127,22 @@ var EachReserve = function (_React$Component) {
                     });
                 }
             });
-            console.log("this is to delete request");
         }
     }, {
         key: 'checkStar',
         value: function checkStar(e) {
             var rest = 0;
-            console.log("kik", e.target.id);
             var myarray = e.target.id.split("", 5);
 
             var stars = parseInt(myarray[4]);
-            console.log(document.querySelector('#star' + 1).className);
 
             for (var i = 1; i < stars + 1; i++) {
-                console.log("hehehoho", i);
                 document.querySelector('#star' + i).className = "fa fa-star checked";
                 rest = i;
             }
 
             rest = rest + 1;
-            console.log("this is rest", rest);
             for (var j = rest; j < 6; j++) {
-                console.log("rest each j", j);
                 document.querySelector('#star' + j).className = "fa fa-star unchecked";
             }
         }
@@ -178,13 +162,8 @@ var EachReserve = function (_React$Component) {
                 confirmButtonText: 'มั่นใจ',
                 cancelButtonText: 'ยกเลิก'
             }).then(function (result) {
-                console.log(result);
                 var type = "";
                 if (result["isConfirmed"] == true) {
-
-                    console.log("beam", _this3.props.data["data"][0].id);
-                    console.log("beam", _this3.props.data["data"][0].username_influencer);
-                    console.log("beam", _this3.props.data["data"][0].username);
 
                     var getcooked = getCookie('csrftoken');
 
@@ -199,7 +178,6 @@ var EachReserve = function (_React$Component) {
                             influencer: _this3.props.data["data"][0].username_influencer
                         })
                     }).then(function (result) {
-                        console.log("this is the result", result);
                         document.querySelector('#reportinputid').value = "";
 
                         document.querySelector('#overlayreportid').hidden = true;
@@ -208,9 +186,6 @@ var EachReserve = function (_React$Component) {
                         document.querySelector('#mycompletehtml').hidden = true;
                         document.querySelector('#eachreserve').hidden = true;
                         document.querySelector('#inboxmainid').hidden = false;
-
-                        console.log("mario", document.getElementById('requesttableid'));
-                        console.log("mario", document.getElementById('inboxtableid'));
 
                         for (var i = 0; i < document.getElementById('inboxtableid').children.length; i++) {
                             if (document.getElementById('inboxtableid').children[i].id == id) {
@@ -231,7 +206,6 @@ var EachReserve = function (_React$Component) {
         key: 'reportButton',
         value: function reportButton(e) {
             document.querySelector('#overlayreportid').hidden = false;
-            console.log("reported!");
         }
     }, {
         key: 'saveUrl',
@@ -292,7 +266,6 @@ var EachReserve = function (_React$Component) {
                     return response.json();
                 }).then(function (data) {
                     //right now its either you create a new video or unhide the one that you already have
-                    console.log("yayyyyyyyyyyyyyyy");
                     document.querySelector('#testervideo').hidden = false;
                     document.querySelector('#sendingvideoidback').name = data['url'];
                     document.querySelector('#testervideo').src = "https://res.cloudinary.com/ablaze-project/video/upload/f_mp4/" + data['url'] + ".mp4";
@@ -307,7 +280,6 @@ var EachReserve = function (_React$Component) {
     }, {
         key: 'goBack',
         value: function goBack(e) {
-            console.log("this one is important", document.querySelector('#typeofpage').value);
 
             document.querySelector('#eachreserve').hidden = true;
             document.querySelector('#inboxmainid').hidden = false;
@@ -381,23 +353,17 @@ var EachReserve = function (_React$Component) {
 
                 var reserveid = this.props.data["data"][0].id;
 
-                console.log("before error", this.props.data["data"][0].username_influencer);
-
                 var influencername = this.props.data["data"][0].username_influencer;
 
                 var selectreview = 5;
                 var count = 0;
                 for (var i = 0; i < document.querySelector('#starboss').children.length; i++) {
-                    console.log("hashira", document.querySelector('#starboss').children[i]);
                     var checker = document.querySelector('#starboss').children[i].className.split(" ")[2];
                     if (checker == "checked") {
                         count += 1;
                     }
                 }
                 selectreview = count;
-                console.log("this is selectreview", selectreview);
-
-                console.log("value of review", value);
 
                 fetch('/gotoeachreserve', {
                     method: 'POST',
@@ -423,7 +389,6 @@ var EachReserve = function (_React$Component) {
         value: function render() {
             var _this4 = this;
 
-            console.log("hahahahahahheheheheheh", document.querySelector('#typeofpage').value);
             var videoandstuff = "";
             link = "https://res.cloudinary.com/ablaze-project/video/upload/l_9687f7ee-e194-11ec-a149-3af9d3ce8c1e1.png,w_160,h_60,g_south_west/f_mp4/" + this.props.data["forpostdata"][1] + ".mp4";
             // https://res.cloudinary.com/demo/video/upload/l_cloudinary_icon,w_70,h_70,g_north_west/abbey_road.mp4
@@ -459,7 +424,6 @@ var EachReserve = function (_React$Component) {
                 )
             );
 
-            console.log("kaido is ded3", document.querySelector('#typeofpage'));
             //FOUND IT THIS IF IS MEGA WRONG
             var postoption = "";
             if (document.querySelector('#typeofpage').value == "request" || document.querySelector('#typeofpage').value == "completed") {
@@ -479,7 +443,7 @@ var EachReserve = function (_React$Component) {
                                     { 'class': 'custom-file' },
                                     React.createElement(
                                         'div',
-                                        { 'class': 'd-flex justify-content-center' },
+                                        { 'class': 'd-flex justify-content-center mt-3' },
                                         React.createElement(
                                             'label',
                                             { 'class': 'chooseprofile4label', 'for': 'inputGroupFile01' },
@@ -750,7 +714,7 @@ var EachReserve = function (_React$Component) {
                                 React.createElement(
                                     'button',
                                     { onClick: this.submitReview, 'class': 'btn btn-primary' },
-                                    'Submit'
+                                    '\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01'
                                 )
                             )
                         ) : React.createElement(
@@ -784,7 +748,6 @@ var EachReserve = function (_React$Component) {
                 }
             }
             var occasion = checkforoccasiontype(this.props.data["data"][0].typeoccasion);
-            console.log("check for the occasion", occasion);
             if (occasion == "วันเกิด") {
                 occasion = React.createElement(
                     'div',
@@ -1151,14 +1114,9 @@ var EachReserve = function (_React$Component) {
                     )
                 );
             }
-            console.log("this is the type of intro", this.props.data["data"][0].typeintro);
-            console.log("SIDEMEN", this.props.data["propicandusername"]);
-            console.log("gu tong check for data eek laew", this.props.data);
-            console.log("gu tong check for data eek laew", this.props.data["data"][0].influencer_pic);
 
             var link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
 
-            console.log("mamamememomo", this.props.data["data"][0].normal_pic);
             if (document.querySelector('#typeofpage').value == "inbox") {
                 if (this.props.data["data"][0].influencer_pic != null) {
                     link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.data["data"][0].influencer_pic + ".jpg";
@@ -1172,9 +1130,6 @@ var EachReserve = function (_React$Component) {
                     link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
                 }
             }
-
-            console.log("kaido wins", this.props.data);
-            console.log("kaido wins", this.props.data["type"]);
 
             return React.createElement(
                 'div',
@@ -1410,18 +1365,13 @@ var InboxFeedRows = function (_React$Component2) {
         key: 'clickHref',
         value: function clickHref(id) {
 
-            console.log("wilachat", id);
             document.querySelector('#eachreserve').hidden = false;
             document.querySelector('#inboxmainid').hidden = true;
             document.querySelector('#myinboxhtml').hidden = true;
             document.querySelector('#mycompletehtml').hidden = true;
 
-            console.log("this.props.iddddddd", this.props.id);
-
-            console.log("KINGDOM IS ONE OF THE BEST MANGA OF ALL TIME BUT STILL ONE PIECE IS BETTER", document.querySelector('#divtogetid').value);
             document.querySelector('#myrequesthtml').hidden = true;
 
-            console.log("WAEARTH", this.props.type);
             var getcooked = getCookie('csrftoken');
             var paginationid = 1;
             fetch('/gotozjguen484s9gj302g/' + paginationid, {
@@ -1435,7 +1385,6 @@ var InboxFeedRows = function (_React$Component2) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("unicornbillions", data);
                 ReactDOM.render(React.createElement(EachReserve, { data: data, id: id }), document.querySelector('#eachreserve'));
             });
         }
@@ -1444,12 +1393,8 @@ var InboxFeedRows = function (_React$Component2) {
         value: function render() {
             var _this6 = this;
 
-            console.log("check for", this.props.completed);
-
             var eachcontent = "";
-            console.log("this.propsasdfasdfasdf", this.props);
-            console.log(this.props.influencer_pic);
-            console.log(this.props.normal_pic);
+
             var today = new Date().toISOString().slice(0, 10);
 
             var checktime = 0;
@@ -1458,7 +1403,6 @@ var InboxFeedRows = function (_React$Component2) {
                     checktime = 1;
                 }
             }
-            console.log("WTF", this.props.duedate - today);
 
             var link = "";
 
@@ -1467,7 +1411,6 @@ var InboxFeedRows = function (_React$Component2) {
                 if (this.props.normal_pic == null) {
                     link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/a42c13e2-bc2f-11ec-866f-acde480011221.jpg";
                 } else {
-                    console.log("i dont know what to do now hep");
                     link = "https://res.cloudinary.com/ablaze-project/image/upload/f_jpg/" + this.props.normal_pic + ".jpg";
                 }
             } else {
@@ -1626,13 +1569,11 @@ var InboxFeedInbox = function (_React$Component3) {
 
             var type = "mysorttime";
             var csrftoken = getCookie('csrftoken');
-            console.log("e.target.value", e.target.value);
 
             if (e.target.value == "เรียงตามวันครบกําหนด") {
                 type = "mysorttime";
             } else {
                 type = "myrequesthtml";
-                console.log("e.target.value", type);
             }
 
             fetch('/gotozjguen484s9gj302g/' + this.state.newdata["paginationid"], {
@@ -1646,7 +1587,6 @@ var InboxFeedInbox = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("sortting time", data);
                 var sort = "";
 
                 if (data["sort"] == 0) {
@@ -1655,7 +1595,6 @@ var InboxFeedInbox = function (_React$Component3) {
                     sort = "เลิกเรียงลัาดับ";
                 }
 
-                console.log("e.target.value", sort);
                 _this8.setState({
                     newdata: data,
                     sort: sort
@@ -1669,22 +1608,13 @@ var InboxFeedInbox = function (_React$Component3) {
 
             var type = "";
 
-            console.log("ngong");
-            console.log("ngong sus", this.state.hide);
-
             var csrftoken = getCookie('csrftoken');
 
             if (e.target.value == "เลิกซ่อน") {
                 type = "myinboxhtml";
             } else {
-                console.log("is it in hidecompleted yohohoho");
                 type = "hidecompleted";
             }
-            console.log("type before in ", type);
-            console.log("pagi", this.state.newdata);
-
-            console.log("pagi", this.state.newdata["paginationid"]);
-            console.log("pagi", this.state.newdata["num_pages"]);
 
             //might have to be an if here
             fetch('/gotozjguen484s9gj302g/' + 1, {
@@ -1698,7 +1628,6 @@ var InboxFeedInbox = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("mg pen kuay arai", _this9.props.data);
 
                 var hide = "";
                 if (data["hide"] == 0) {
@@ -1706,8 +1635,6 @@ var InboxFeedInbox = function (_React$Component3) {
                 } else {
                     hide = "เลิกซ่อน";
                 }
-                console.log("sentback", data);
-                console.log("sentback", data["paginationid"]);
 
                 _this9.setState({
                     newdata: data,
@@ -1739,8 +1666,6 @@ var InboxFeedInbox = function (_React$Component3) {
             if (checkfornull == null) {
                 clicked = 0;
             }
-            console.log("detective conan", this.props.data);
-            console.log("detective conan2", this.state.hide);
 
             var type = "";
             if (this.props.data["type"] == "request") {
@@ -1761,7 +1686,6 @@ var InboxFeedInbox = function (_React$Component3) {
 
             var getcooked = getCookie('csrftoken');
 
-            console.log("the not so strongest", pagination);
             fetch('/gotozjguen484s9gj302g/' + pagination, {
                 method: 'PUT',
                 headers: { 'X-CSRFToken': getcooked },
@@ -1772,13 +1696,11 @@ var InboxFeedInbox = function (_React$Component3) {
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                console.log("gojo", _this10.props.data);
                 _this10.setState({
                     newdata: data
 
                 });
 
-                console.log("gojo", _this10.state.newdata);
                 _this10.setState({
                     pagination: _this10.state.newdata["paginationid"]
                 });
@@ -1789,18 +1711,11 @@ var InboxFeedInbox = function (_React$Component3) {
     }, {
         key: 'render',
         value: function render() {
-            console.log("barb");
-            console.log("CUCKOOOOOOOOOO", this.props.data);
-            console.log("CUCKOOOOOOOOOO SECONDO", this.state.pagination);
 
             var button = [];
             var rows = [];
 
             var paginationid = this.props.data["paginationid"];
-            // {this.state.pagination == thej ? "page-item active":"page-item"}
-            //style:{color:"red"}
-            console.log("one piece", this.state.newdata);
-            console.log("one piece", this.state.newdata["num_pages"]);
 
             for (var j = 0; j < this.state.newdata["num_pages"]; j++) {
                 var thej = j + 1;
@@ -1815,7 +1730,6 @@ var InboxFeedInbox = function (_React$Component3) {
             } else {
 
                 for (var i = 0; i < this.state.newdata["data"].length; i++) {
-                    console.log("we wil lcccc", this.props.data["data"][i]);
                     rows.push(React.createElement(InboxFeedRows, {
                         id: this.state.newdata["data"][i].id,
                         name: this.props.data["type"] == "inbox" ? this.state.newdata["data"][i].username_influencer : this.state.newdata["data"][i].username,
@@ -1827,9 +1741,6 @@ var InboxFeedInbox = function (_React$Component3) {
                         influencer_pic: this.state.newdata["data"][i].influencer_pic,
                         normal_pic: this.state.newdata["data"][i].normal_pic }));
                 }
-                console.log("this is rows inboxtableid", document.getElementById('inboxtableid'));
-                console.log("this is rows", rows);
-                console.log("this is rows myrequesthtml", document.querySelector('#myrequesthtml'));
             }
 
             if (this.state.pagination == null) {
@@ -1837,17 +1748,6 @@ var InboxFeedInbox = function (_React$Component3) {
                     pagination: 1
                 });
             }
-
-            console.log("WAKU WAKU", this.state.newdata["data"]);
-            console.log("WAKU FAKU", this.state.newdata["type"]);
-            console.log("waka paku", this.state.pagination);
-            console.log("waka naku", this.state.newdata);
-            console.log("waka naku", this.state.newdata["paginationid"]);
-
-            console.log("this");
-
-            console.log(this.state.newdata["num_pages"]);
-            console.log(this.state.pagination);
 
             var gotoindex = "/";
             var gotoaboutus = "/aboutus";
@@ -2081,7 +1981,6 @@ var InboxFeedTitle = function (_React$Component4) {
                 try {
                     document.getElementById('requesttableid').id = "inboxtableid";
                 } catch (err) {}
-                console.log("kaido is dedd");
                 document.querySelector('#typeofpage').value = "completed";
                 document.querySelector('#mycompletehtml').hidden = false;
                 document.querySelector('#myinboxhtml').hidden = true;
@@ -2124,9 +2023,7 @@ var InboxFeedTitle = function (_React$Component4) {
             // <option value="1">Newest</option>
             // <option value="2">Oldest</option>      
             //</select>
-            console.log("shanks", this.state.currentpage);
 
-            console.log("currentpage state", this.state.currentpage);
             //you already create and if for the thing so no need yea just decide what kind of 
             //button you want to have
             return React.createElement(
@@ -2176,7 +2073,6 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('/gotozjguen484s9gj302g/' + paginationid).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log("gimme data", data);
         ReactDOM.render(React.createElement(InboxFeedTitle, { data: data }), document.querySelector('#inboxmainid'));
         ReactDOM.render(React.createElement(InboxFeedInbox, { data: data }), document.querySelector('#myinboxhtml'));
     });

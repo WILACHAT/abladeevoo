@@ -18,7 +18,6 @@ var InboxFeedRows = function (_React$Component) {
     _createClass(InboxFeedRows, [{
         key: "render",
         value: function render() {
-            console.log("check for", this.props.completed);
 
             var occasion = "";
             if (this.props.whatoccasion == "birthday_html_id") {
@@ -62,7 +61,6 @@ var InboxFeedRows = function (_React$Component) {
 }(React.Component);
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log("afdfadfa", window.location.href);
     splittedwindow = window.location.href.split(" ");
     reservationid = splittedwindow[2];
     fetch("/gotoeachreserve/" + reservationid).then(function (response) {
