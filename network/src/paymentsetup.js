@@ -175,44 +175,67 @@ class PaymentSetup extends React.Component {
       let price = document.querySelector('#setpriceid').value
       let type = "paymentchange"
       price = document.querySelector('#setpriceid').value
-      const getcooked = getCookie('csrftoken')
+      let checkforprice = parseInt(price)
+      if (checkforprice < 50)
+      {
+        Swal.fire({
+            icon: 'error',
+            title: 'มีปัญหา',
+            text: 'ราคาต่อวีดีโอต้องเท่ากับหรือมากกว่า 50 บาท!',
 
-      fetch(`/paymentsetupapi`, {
-          method: 'POST',
-          headers:{'X-CSRFToken': getcooked},
-          body: JSON.stringify({
-              price: price,
-              type: type
-              })
           })
-          .then(response => response.json())
-          .then(data => {
-            Swal.fire({
-                icon: 'success',
-                title: 'สําเร็จ!',
-              })
-            this.setState({
-                price:data["price"],
-                innerpricediv: 
-                <div class="d-flex justify-content-center">
-                <div class="coversprice">
-                    <div class="d-flex justify-content-center">
-                        <label>ราคาต่อวีดีโอ (THB)</label>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <h5 class="registertitleprice">{data["price"]} ฿</h5>
-                    </div>
-                    <hr></hr>
+      }
+      else if (checkforprice > 10000)
+      {
+        Swal.fire({
+            icon: 'error',
+            title: 'มีปัญหา',
+            text: 'ราคาต่อวีดีโอต้องน้อยกว่าหรือเท่ากับ 10000 บาท!',
 
-                    <div class="d-flex justify-content-center">
-                        <button class="btn registerbtn" onClick={this.changePrice}>เปลี่ยนราคา</button>
-                    </div>
-                </div>
-            </div>})
-              
-              //if data returns successful show beautiful success stuff
-              //if not show failed html
-          });      
+          })
+      }
+      else
+      {
+        const getcooked = getCookie('csrftoken')
+
+        fetch(`/paymentsetupapi`, {
+            method: 'POST',
+            headers:{'X-CSRFToken': getcooked},
+            body: JSON.stringify({
+                price: price,
+                type: type
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+              Swal.fire({
+                  icon: 'success',
+                  title: 'สําเร็จ!',
+                })
+              this.setState({
+                  price:data["price"],
+                  innerpricediv: 
+                  <div class="d-flex justify-content-center">
+                  <div class="coversprice">
+                      <div class="d-flex justify-content-center">
+                          <label>ราคาต่อวีดีโอ (THB)</label>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                          <h5 class="registertitleprice">{data["price"]} ฿</h5>
+                      </div>
+                      <hr></hr>
+  
+                      <div class="d-flex justify-content-center">
+                          <button class="btn registerbtn" onClick={this.changePrice}>เปลี่ยนราคา</button>
+                      </div>
+                  </div>
+              </div>})
+                
+                //if data returns successful show beautiful success stuff
+                //if not show failed html
+            });   
+      }
+      
 
   }
   onSubmit(status)

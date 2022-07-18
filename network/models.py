@@ -91,6 +91,9 @@ class Reservation(models.Model):
     completiondate = models.DateTimeField(null=True)
     show = models.BooleanField(default=False)
     omisecharge = models.CharField(max_length=256, null=True)
+    paymentmethod = models.CharField(max_length=256, null=True)
+    chargedprice = models.IntegerField(null=True)
+
     chargestatus = models.BooleanField(default=False)
     orderid = models.CharField(max_length=256, null=True)
 
@@ -126,7 +129,9 @@ class Reservation(models.Model):
             "normal_pic":normalpic,
             "show":self.show,
             "omisecharge":self.omisecharge,
-            "orderid":self.orderid
+            "orderid":self.orderid,
+            "chargedprice":self.chargedprice,
+            "paymentmethod":self.paymentmethod
 
         } 
 

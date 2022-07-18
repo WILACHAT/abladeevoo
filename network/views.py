@@ -91,7 +91,7 @@ from django.core.mail import send_mail
 
 
 
-omise.api_secret = 'skey_test_5rsxnq9a82ys6gtgf92'
+omise.api_secret = 'skey_5shjbrowd3pn15m4wsq'
 
 
 ##CELERYBEAT_SCHEDULE = {
@@ -581,7 +581,7 @@ def book(request, username):
         bookrequest.save()
     '''
   
-    return render(request, "network/book.html", {'username': username, "price": price * 100, "accountstatus":accountstatus})
+    return render(request, "network/book.html", {'username': username, "price": price, "accountstatus":accountstatus})
 
 def gotobook(request, username):
     return_request = {"username":username}
@@ -754,8 +754,12 @@ def gotoeachreserve(request):
 
             heho = Userinfo.objects.filter(influencer_id = request.user.id)
             for i in heho:
-                price = int(i.price)
                 omiserecipent = i.omiserecipent
+
+            heho = Reservation.objects.filter(id = data["reserveid"])
+            for w in heho:
+                price = int(w.chargedprice)
+
             
 
             price = (price * 0.85)  * 100
@@ -1266,8 +1270,6 @@ def payment(request):
             type = "exist"
 
 
-
-
     return render(request, "network/payment.html", {"type": type})
 
 def paymentsetupapi(request):
@@ -1289,15 +1291,19 @@ def paymentsetupapi(request):
                 price = i.price
                 omiserecipent = i.omiserecipent
 
-        print(omiserecipent)
         if data["type"] == "exist":
-            recipient = omise.Recipient.retrieve(omiserecipent)
+            try:
+                recipient = omise.Recipient.retrieve(omiserecipent)
+                bankinfo = recipient.bank_account
+                return_response = {"name" : bankinfo.name, "brand" : bankinfo.brand, "number":bankinfo.last_digits, "price": price, "email": recipient.email}
+
+
+            except:
+                print("An exception occurred")
+                return_response = {"name" : "awkward"}
+
            
-            bankinfo = recipient.bank_account
        
-
-            return_response = {"name" : bankinfo.name, "brand" : bankinfo.brand, "number":bankinfo.last_digits, "price": price, "email": recipient.email}
-
         elif data["type"] == "notexistpost":
             print("is the shit came in here")
             recipient = omise.Recipient.create(
@@ -1459,48 +1465,71 @@ def paymentresponse(request):
 
     print(chargestuff.id)
     print(chargestuff.omisecharge)
+    print(chargestuff.paymentmethod)
 
-   
+
     chargo = chargestuff.omisecharge
 
     
     charge = omise.Charge.retrieve(chargo)
     print("what is charge", charge)
     print("what is charge id", charge.id)
+    print("this is to check the status eh", charge.status)
 
     print(charge.status)
 
-    if charge.status == "successful":
-        status = "successful"
-        Reservation.objects.filter(user_id_reserver_id=request.user.id).update(chargestatus = True)
+
+
+    if chargestuff.paymentmethod == "tm":
+        if charge.status == "successful" or charge.status == "pending":
+            status = "successful"
+            Reservation.objects.filter(user_id_reserver_id=request.user.id).update(chargestatus = True)
+        else:
+            status = "fail"
 
     else:
-        status = "fail"
+        if charge.status == "successful":
+            status = "successful"
+            Reservation.objects.filter(user_id_reserver_id=request.user.id).update(chargestatus = True)
+
+        else:
+            status = "fail"
 
     return render(request, "network/paymentresponse.html", {"status":status})
 
 def paymentapi(request, username):
     return_response = "hi"
+    hehe = ""
     print("ypyp")
     if request.method == "POST":
+        print("this is allrequest.post", request.POST)
         
         influencerid = User.objects.values('id').get(username=username)
         influencerid = influencerid["id"]
         chek = Userinfo.objects.filter(influencer_id = influencerid)
+        chargedprice = 0
         for i in chek:
-            price = int(i.price)
-
-            price = price * 100
+            chargedprice = int(i.price)
+            price = chargedprice * 100
             
-  
-        data = json.loads(request.POST["storevalue"])
+        data = json.loads(request.body)
+        print("wilachat jong jaroen")
 
-        print("wawa", request.POST["storevalue"])
+        print(data["data"])
+        print("token", data["token"])
+        dictnow = json.loads(data["data"])
+        print(dictnow["typeintro"])
+        print("this is the payment method", data["paymentmethod"])
 
-        if request.POST['omiseToken'] == "":
-            token = request.POST['omiseSource']
-            print("this is token", token)
-
+        token = data["token"]
+        if token.startswith('tokn_'):
+            charge = omise.Charge.create(
+            amount=price,
+            return_uri="http://127.0.0.1:8000/paymentresponse",
+            currency="thb",
+            card=token)
+            
+        else:
             omise.api_version = "2019-05-29"
             charge = omise.Charge.create(
             amount=price,
@@ -1509,48 +1538,34 @@ def paymentapi(request, username):
             return_uri = "http://127.0.0.1:8000/paymentresponse",
             source=token
             )
-         
-        else:
-            token = request.POST['omiseToken']
-            print("this is token", token)
-            
-            charge = omise.Charge.create(
-            amount=price,
-            currency="thb",
-            capture=True,
-            card=token)
+            print("fuck you", charge.authorize_uri)
+            if data["paymentmethod"] == "pp":
+                ye = charge.source
+                lol = ye.scannable_code 
+                print("this is image", lol.image)
+                hehe = lol.image
+                print(hehe.download_uri)
 
+       
         id = uuid.uuid1()
         uniqueid = str(id) + str(request.user.id)
 
-        bookrequest =  Reservation(typeintro=data['typeintro'],
-        tointro=data['tointro'], fromintro=data['fromintro'], typeoccasion=data['typeoccasion'],
-        firstinputoccasion=data['firstinputocca'],secondinputoccasion=data['secondinputocca'],
-        thirdinputoccasion=data['thirdinputocca'],fourthinputoccasion=data['fourthinputocca'],orderid = uniqueid,
-        user_id_reserver_id=request.user.id,user_id_influencerreserve_id=influencerid, duedate=data["datetime"], 
-        show=data["inputcheck"], omisecharge = charge.id)
+        bookrequest =  Reservation(typeintro=dictnow['typeintro'],
+        tointro=dictnow['tointro'], fromintro=dictnow['fromintro'], typeoccasion=dictnow['typeoccasion'],
+        firstinputoccasion=dictnow['firstinputocca'],secondinputoccasion=dictnow['secondinputocca'],
+        thirdinputoccasion=dictnow['thirdinputocca'],fourthinputoccasion=dictnow['fourthinputocca'],orderid = uniqueid,
+        user_id_reserver_id=request.user.id,user_id_influencerreserve_id=influencerid, duedate=dictnow["datetime"], 
+        show=dictnow["inputcheck"], omisecharge = charge.id, paymentmethod = data["paymentmethod"], chargedprice = chargedprice)
         
         bookrequest.save()
-        '''
-        return_response = {"url":charge.authorize_uri}
-        print("this is source of charge", charge.source)
-        ye = charge.source
-        lol = ye.scannable_code 
-        print("this is image", lol.image)
-        hehe = lol.image
-        print(hehe.download_uri)
-
-        return_response = {"url":hehe.download_uri}
-        '''
+        if data["paymentmethod"] == "pp":
+            print("this is scannable coe", hehe.download_uri)
+            return JsonResponse(hehe.download_uri, safe=False)
 
 
-
-        if request.POST['omiseToken'] == "":
-
-            return redirect(charge.authorize_uri)
         else:
+            return JsonResponse(charge.authorize_uri, safe=False)
 
-            return redirect("paymentresponse")
 
 
     return redirect("paymentresponse")

@@ -3,18 +3,27 @@
 
 {% block body %}
 {% if accountstatus == 1 %}
-        <script>
-                function backFunction()
-                {
-                        document.querySelector('#wholereservepage').hidden = true
-                        document.querySelector('#paymentpage').hidden = true
-                        document.querySelector('#realpayment').hidden = true
-
-                        document.querySelector('#wholereservepage').hidden = false
-                }   
-        </script>
+        
         <input id="getinfluencerusername"type="hidden" data-username="{{ username }}">
         <input id="getinfluencerprice"type="hidden" data-price="{{ price }}">
+        <input id="paymentmethodid"type="hidden" value="">
+
+     
+
+        <div hidden id="divpromptpayid" class="overlayreport">
+                <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-center mt-5">
+                                <image width="275" height="400" id="imagepromptpayid" src=""></image>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                                <form id="checkoutForm" method="POST" action="/paymentresponse" >
+                                        {% csrf_token %}
+                                        <button class="btn btn-primary mt-2">ชําระเงินเสร็จสิ้น</button>
+                                </form>
+                        </div>
+                </div>
+        </div>
+
 
 
 
@@ -29,28 +38,210 @@
 
 
         <div id="paymentpage">
-                <div class="d-flex justify-content-center">
-                        <button onclick="backFunction()"class="btn registerback">กลับ</button>
-                </div>
-        </div>
-        <div class="d-flex justify-content-center mt-5">
-                <div id="realpayment">
-                        <form id="checkoutForm" method="POST" action="/paymentapi/{{ username }}" >
-                                {% csrf_token %}
-                                <script type="text/javascript" src="https://cdn.omise.co/omise.js"
-                                        data-key="pkey_test_5rsv5lm4gxeb5fc9i2k"
-                                        data-amount= "{{ price }}"
-                                        data-currency="THB"
-                                        data-default-payment-method="credit_card"
-                                        data-other-payment-methods="truemoney, internet_banking, promptpay"
-                                        data-button-label="ชําระ">
-                                        
-                                </script>
-                                <input id="storevalueid" name="storevalue" id="dicttest"type="hidden" value="waandictionary"></input>
+                        <div class="d-flex flex-column">
+                                <div class="d-flex justify-content-center">
+                                        <button onclick="backFunction()"class="btn registerback">กลับไปแก้ไข</button>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                        <h4 class="whatprice mt-2">ราคา: {{ price }} บาท</h4>
+                                </div>
+                        </div>
 
-                        </form> 
-                </div>
+             
+
         </div>
+
+       
+        <div id="realpayment">
+      
+
+                <div class="d-flex justify-content-center">
+                        <div class="paymentbabnhai mb-5">
+                            <div class="d-flex justify-content-center">
+                                <h2 class="garuanluekwitee">เลือกวิธีการชำระเงิน</h2>
+                            </div>
+                            
+                            <div class="d-flex justify-content-center">
+                                <div class="insidepayment">
+                                    <img  src="https://cdn.discordapp.com/attachments/988423611004092429/998199740879605800/B9BE29E7-CB94-4095-B38F-D14EBC22EBDD.jpg" width="100%">
+                                        <div class="d-flex justify-content-center">
+                                                <button class="smallbutton" id="checkoutButtonCD">Credit/Debit</button>
+                                        </div>  
+
+                                        
+                                </div>
+                                
+                                   
+                                <div class="insidepayment">
+                                    <img  src="https://cdn.discordapp.com/attachments/988423611004092429/998194483470540810/IMG_9373.png" width="100%">
+                                    <div class="d-flex justify-content-center">
+                                        <button class="smallbutton" id="checkoutButtonTM">TrueMoney</button>
+                                        </div>  
+
+                                
+                                       
+                                </div>
+                                
+                                <div class="insidepayment">
+                                    <img  src="https://cdn.discordapp.com/attachments/988423611004092429/998194483684458506/IMG_9375.png" width="100%">
+                                    <div class="d-flex justify-content-center">
+                                        <button class="smallbutton" id="checkoutButtonPP">PromtPay</button>
+                                </div>  
+                                    
+
+                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                <input id="storevalueid" name="storevalue" id="dicttest"type="hidden" value="waandictionary"></input>
+
+
+        </div>
+
+              <script type="text/javascript" src="https://cdn.omise.co/omise.js">
+        </script>
+
+        <script>
+                function getCookie(name) {
+                        let cookieValue = null;
+                        if (document.cookie && document.cookie !== '') {
+                                const cookies = document.cookie.split(';');
+                                for (let i = 0; i < cookies.length; i++) {
+                                const cookie = cookies[i].trim();
+                                // Does this cookie string begin with the name we want?
+                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                        break;
+                                }
+                                }
+                        }
+                        return cookieValue;
+                        }
+                function backFunction()
+                {
+                        document.querySelector('#wholereservepage').hidden = true
+                        document.querySelector('#paymentpage').hidden = true
+                        document.querySelector('#realpayment').hidden = true
+                        document.querySelector('#wholereservepage').hidden = false
+                }   
+
+                function createTokenSuccessHandler(token) 
+                {
+                        let paymentmethod = document.querySelector("#paymentmethodid").value 
+                        console.log("payment method", paymentmethod)
+
+                        console.log("this is token", token)
+                        console.log('[Omise.js Testing page]: Payment success ! TOKEN' + token)
+                        if (token.startsWith("tokn_"))
+                        {
+                                console.log("ok?")
+                        } 
+                        else 
+                        {
+                                console.log("ok again or nah?")
+                        };
+                        let getcooked = getCookie('csrftoken');
+                        let waan = document.getElementById('storevalueid').value
+                        let username = document.getElementById('getinfluencerusername').dataset.username
+
+
+                        document.querySelector("#checkoutButtonPP").disabled = true
+                        document.querySelector("#checkoutButtonCD").disabled = true
+                        document.querySelector("#checkoutButtonTM").disabled = true
+
+
+                        fetch(`/paymentapi/${username}`, {
+                                method: 'POST',
+                                headers: {'X-CSRFToken': getcooked
+                                },
+                                body: JSON.stringify({
+                                data: waan,
+                                token: token,
+                                paymentmethod:paymentmethod
+                                })
+                                })
+                        
+                                .then(response => response.json())
+                                .then(result =>{
+                                        console.log("this is the result", result)
+                                        if (paymentmethod == "pp")
+                                        {
+                                                document.querySelector('#divpromptpayid').hidden = false
+                                                document.querySelector('#imagepromptpayid').src = result
+                                        }
+                                        else
+                                        {
+                                         window.open(result, '_blank');
+                                        }
+                               
+                                })
+                                
+                }
+                let defaultpayment = ""
+
+         OmiseCard.configure({
+                publicKey: "pkey_5sh3nnmhtqt8ltfx081"
+                });
+
+                var form = document.querySelector("#checkoutForm");
+                var buttonCD = document.querySelector("#checkoutButtonCD");
+                var buttonTM = document.querySelector("#checkoutButtonTM");
+                var buttonPP = document.querySelector("#checkoutButtonPP");
+
+
+                //console.log("this is defaultpayment", defaultpayment)
+                
+                buttonCD.addEventListener("click", (event) => {
+                document.querySelector("#paymentmethodid").value = "cd"
+                let price = document.getElementById('getinfluencerprice').dataset.price
+
+                document.getElementById('')
+    event.preventDefault();
+    OmiseCard.open({
+      amount: price,
+      currency: "THB",
+      defaultPaymentMethod: "credit_card",
+      onCreateTokenSuccess: createTokenSuccessHandler,
+
+    });
+  });
+
+ 
+  buttonTM.addEventListener("click", (event) => {
+        document.querySelector("#paymentmethodid").value = "tm"
+
+        let price = document.getElementById('getinfluencerprice').dataset.price
+          
+    event.preventDefault();
+    OmiseCard.open({
+      amount: price,
+      currency: "THB",
+      defaultPaymentMethod: "truemoney",
+      onCreateTokenSuccess: createTokenSuccessHandler,
+
+    });
+  });
+
+  buttonPP.addEventListener("click", (event) => {
+        document.querySelector("#paymentmethodid").value = "pp"
+
+        let price = document.getElementById('getinfluencerprice').dataset.price
+
+    event.preventDefault();
+    OmiseCard.open({
+      amount: price,
+      currency: "THB",
+      defaultPaymentMethod: "promptpay",
+      onCreateTokenSuccess: createTokenSuccessHandler,
+
+    });
+  });
+        </script>
+              
+   
 {% else %}
 
         <h6 class="godown">Account is paused</h6>

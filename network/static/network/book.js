@@ -342,6 +342,8 @@ var BookPage = function (_React$Component) {
                     datetime: datetime,
                     inputcheck: inputcheck
                 });
+                window.scrollTo(0, 0);
+
                 // ReactDOM.render(<PaymentPage data={data}/>, document.querySelector('#paymentpage'));
             }
         }
@@ -962,7 +964,7 @@ var BookPage = function (_React$Component) {
                     React.createElement(
                         'label',
                         { 'class': 'wa mr-2' },
-                        '\u0E0B\u0E48\u0E2D\u0E19\u0E08\u0E32\u0E01\u0E42\u0E1E\u0E23\u0E44\u0E1F\u0E25\u0E4C\u0E02\u0E2D\u0E07\u0E2A\u0E15\u0E32\u0E23\u0E4C'
+                        '\u0E2D\u0E19\u0E38\u0E0D\u0E32\u0E15\u0E34\u0E43\u0E2B\u0E49\u0E2A\u0E15\u0E32\u0E23\u0E4C\u0E42\u0E0A\u0E27\u0E4C\u0E27\u0E34\u0E14\u0E35\u0E42\u0E2D\u0E04\u0E38\u0E13\u0E1A\u0E19\u0E42\u0E1B\u0E23\u0E44\u0E1F\u0E25\u0E4C'
                     ),
                     React.createElement('input', { id: 'inputcheckid', 'class': 'inputcheckbox', type: 'checkbox' })
                 ),

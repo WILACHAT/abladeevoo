@@ -337,65 +337,82 @@ var PaymentSetup = function (_React$Component) {
             var price = document.querySelector('#setpriceid').value;
             var type = "paymentchange";
             price = document.querySelector('#setpriceid').value;
-            var getcooked = getCookie('csrftoken');
-
-            fetch('/paymentsetupapi', {
-                method: 'POST',
-                headers: { 'X-CSRFToken': getcooked },
-                body: JSON.stringify({
-                    price: price,
-                    type: type
-                })
-            }).then(function (response) {
-                return response.json();
-            }).then(function (data) {
+            var checkforprice = parseInt(price);
+            if (checkforprice < 50) {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'สําเร็จ!'
+                    icon: 'error',
+                    title: 'มีปัญหา',
+                    text: 'ราคาต่อวีดีโอต้องเท่ากับหรือมากกว่า 50 บาท!'
+
                 });
-                _this2.setState({
-                    price: data["price"],
-                    innerpricediv: React.createElement(
-                        'div',
-                        { 'class': 'd-flex justify-content-center' },
-                        React.createElement(
+            } else if (checkforprice > 10000) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'มีปัญหา',
+                    text: 'ราคาต่อวีดีโอต้องน้อยกว่าหรือเท่ากับ 10000 บาท!'
+
+                });
+            } else {
+                var getcooked = getCookie('csrftoken');
+
+                fetch('/paymentsetupapi', {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': getcooked },
+                    body: JSON.stringify({
+                        price: price,
+                        type: type
+                    })
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'สําเร็จ!'
+                    });
+                    _this2.setState({
+                        price: data["price"],
+                        innerpricediv: React.createElement(
                             'div',
-                            { 'class': 'coversprice' },
+                            { 'class': 'd-flex justify-content-center' },
                             React.createElement(
                                 'div',
-                                { 'class': 'd-flex justify-content-center' },
+                                { 'class': 'coversprice' },
                                 React.createElement(
-                                    'label',
-                                    null,
-                                    '\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D (THB)'
-                                )
-                            ),
-                            React.createElement(
-                                'div',
-                                { 'class': 'd-flex justify-content-center' },
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'label',
+                                        null,
+                                        '\u0E23\u0E32\u0E04\u0E32\u0E15\u0E48\u0E2D\u0E27\u0E35\u0E14\u0E35\u0E42\u0E2D (THB)'
+                                    )
+                                ),
                                 React.createElement(
-                                    'h5',
-                                    { 'class': 'registertitleprice' },
-                                    data["price"],
-                                    ' \u0E3F'
-                                )
-                            ),
-                            React.createElement('hr', null),
-                            React.createElement(
-                                'div',
-                                { 'class': 'd-flex justify-content-center' },
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'h5',
+                                        { 'class': 'registertitleprice' },
+                                        data["price"],
+                                        ' \u0E3F'
+                                    )
+                                ),
+                                React.createElement('hr', null),
                                 React.createElement(
-                                    'button',
-                                    { 'class': 'btn registerbtn', onClick: _this2.changePrice },
-                                    '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E32\u0E04\u0E32'
+                                    'div',
+                                    { 'class': 'd-flex justify-content-center' },
+                                    React.createElement(
+                                        'button',
+                                        { 'class': 'btn registerbtn', onClick: _this2.changePrice },
+                                        '\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E23\u0E32\u0E04\u0E32'
+                                    )
                                 )
                             )
-                        )
-                    ) });
+                        ) });
 
-                //if data returns successful show beautiful success stuff
-                //if not show failed html
-            });
+                    //if data returns successful show beautiful success stuff
+                    //if not show failed html
+                });
+            }
         }
     }, {
         key: 'onSubmit',

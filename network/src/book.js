@@ -333,6 +333,8 @@ class BookPage extends React.Component {
                 datetime: datetime,
                 inputcheck: inputcheck
             })
+            window.scrollTo(0,0);
+
            // ReactDOM.render(<PaymentPage data={data}/>, document.querySelector('#paymentpage'));
     }
     
@@ -683,7 +685,7 @@ class BookPage extends React.Component {
             </div>
 
             <div class="d-flex justify-content-center">
-                <label class="wa mr-2">ซ่อนจากโพรไฟล์ของสตาร์</label>
+                <label class="wa mr-2">อนุญาติให้สตาร์โชว์วิดีโอคุณบนโปรไฟล์</label>
                 <input id="inputcheckid" class="inputcheckbox" type="checkbox"></input>
             </div>
 
