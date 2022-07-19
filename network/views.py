@@ -1525,7 +1525,7 @@ def paymentapi(request, username):
         if token.startswith('tokn_'):
             charge = omise.Charge.create(
             amount=price,
-            return_uri="http://127.0.0.1:8000/paymentresponse",
+            return_uri="https://plankton-app-d8rml.ondigitalocean.app/paymentresponse",
             currency="thb",
             card=token)
             
@@ -1535,7 +1535,7 @@ def paymentapi(request, username):
             amount=price,
             currency="thb",
             capture=True,
-            return_uri = "http://127.0.0.1:8000/paymentresponse",
+            return_uri = "https://plankton-app-d8rml.ondigitalocean.app/paymentresponse",
             source=token
             )
             print("fuck you", charge.authorize_uri)
