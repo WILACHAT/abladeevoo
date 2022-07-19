@@ -581,7 +581,7 @@ def book(request, username):
         bookrequest.save()
     '''
   
-    return render(request, "network/book.html", {'username': username, "price": price, "accountstatus":accountstatus})
+    return render(request, "network/book.html", {'username': username, "price": price * 100, "shittyprice": price "accountstatus":accountstatus})
 
 def gotobook(request, username):
     return_request = {"username":username}
